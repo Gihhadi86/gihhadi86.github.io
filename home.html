@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumpulan Aqidah</title>
+</head>
+<body>
+    <style>
+        body {
+          margin: 0;
+          padding: 20px;
+          font-family: sans-serif;
+          background-color: #f5f5f5;
+        }
+      
+        .container-satu {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
+        }
+      
+        /* Konten Utama */
+        .content.utama {
+          flex: 1 1 100%;
+          background-color: #fff;
+          padding: 20px;
+          box-sizing: border-box;
+          position: relative;
+        }
+      
+        /* Semua konten lainnya */
+        .conten {
+          flex: 1 1 calc(50% - 10px);
+          background-color: #fff;
+          padding: 20px;
+          position: relative;
+          box-sizing: border-box;
+        }
+      
+        /* Gaya umum untuk semua konten */
+        .conten a,
+        .content.utama a {
+          display: block;
+          position: relative;
+          text-decoration: none;
+          color: inherit;
+        }
+      
+        .conten img,
+        .content.utama img {
+          width: 100%;
+          height: auto;
+          display: block;
+          border-radius: 8px;
+        }
+      
+        button {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          padding: 5px 10px;
+          font-size: 12px;
+          border-radius: 4px;
+        }
+      
+        p {
+          margin-top: 40px;
+        }
+      
+        /* Responsive untuk layar kecil */
+        @media (max-width: 768px) {
+          .container-satu {
+            flex-direction: column;
+          }
+      
+          .content.utama {
+            order: -1;
+          }
+      
+          .conten {
+            flex: 1 1 48%;
+          }
+        }
+      </style>
+      
+
+    <div class="container-satu">
+        <div class="content utama">
+            <div class="gambar-utama"></div>
+           <a href="Apakah Wahabi Mengingkari Syafa’at Nabi ﷺ.html">
+            <img src="Gambar/Syafa'at.png" alt="">
+            <button>Aqidah</button>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, rem?</p>
+           </a>
+        </div>
+
+        <div class="conten"> <a href="Apakah Wahabi Mengingkari Syafa’at Nabi ﷺ.html">
+            <img src="Gambar/Syafa'at.png" alt="">
+            <button>Aqidah</button>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, rem?</p>
+           </a></div>
+
+        <div class="conten">
+            <a href="Apakah Wahabi Mengingkari Syafa’at Nabi ﷺ.html">
+                <img src="Gambar/Syafa'at.png" alt="">
+                <button>Aqidah</button>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, rem?</p>
+               </a>
+        </div>
+
+        <div class="conten"> <a href="Apakah Wahabi Mengingkari Syafa’at Nabi ﷺ.html">
+            <img src="Gambar/Syafa'at.png" alt="">
+            <button>Aqidah</button>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, rem?</p>
+           </a>
+        </div>
+      
+        <div class="conten">
+            <a href="Apakah Wahabi Mengingkari Syafa’at Nabi ﷺ.html">
+                <img src="Gambar/Syafa'at.png" alt="">
+                <button>Aqidah</button>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, rem?</p>
+               </a>
+        </div>
+        
+
+    </div>
+    
+</body>
+</html>

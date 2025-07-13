@@ -1,0 +1,1005 @@
+/* Reset Styles */
+body {
+    background-color: #f9f9f9;
+    line-height: 1.6;
+    margin: 0;
+}
+
+
+
+/* Navigation Bar */
+nav {
+    background: linear-gradient(145deg, #000000, #8B0000); /* Gradient hitam ke merah gelap */
+    color: #f7f7f7; /* Warna teks terang agar kontras dengan latar belakang */
+    padding: 8px 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+    font-family: 'Poppins', sans-serif;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeIn 2s ease-out; /* Menambahkan animasi fade-in */
+ transition: top 0.3s; /* Transisi halus untuk perubahan posisi */
+
+}
+
+
+/* Navbar ketika disembunyikan (scroll ke bawah) */
+.navbar-hidden {
+    top: -80px; /* Menyembunyikan navbar saat scroll ke bawah */
+}
+
+/* Navbar ketika berada di posisi normal (scroll ke atas) */
+.navbar-visible {
+    top: 0; /* Menampilkan navbar saat scroll ke atas */
+}
+
+
+
+/* Menu Items */
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Link Styles */
+nav ul li a {
+    color: #f7f7f7;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1), inset 0 0 8px rgba(255, 255, 255, 0.05);
+    position: relative;
+    transition: all 0.4s ease-in-out;
+    overflow: hidden;
+}
+
+/* Link Hover Animation */
+nav ul li a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #00FFFF; /* Warna Aqua */
+    z-index: -1;
+    transition: width 0.4s ease-in-out;
+    border-radius: 25px;
+}
+
+nav ul li a:hover::before {
+    width: 100%;
+}
+
+/* Hover Effect */
+nav ul li a:hover {
+    color: #1a1a1a;
+    transform: translateY(-2px);
+}
+
+/* Tombol Home */
+nav ul .home-btn a {
+    display: flex;
+    align-items: center;
+    color: #333; /* Warna teks lebih gelap */
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    background-color: #f0f0f0; /* Warna latar belakang abu-abu terang */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan halus */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Tombol Home dengan ikon dan teks */
+nav ul .home-btn a i {
+    margin-right: 8px;
+    font-size: 1.2rem; /* Ukuran ikon */
+}
+
+/* Efek Hover untuk tombol Home */
+nav ul .home-btn a:hover {
+    color: #fff; /* Warna teks berubah menjadi putih */
+    background-color: #007bff; /* Latar belakang biru saat hover */
+    transform: translateY(-3px); /* Efek angkat */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat hover */
+}
+
+/* Animasi efek hover pada tombol Home */
+nav ul .home-btn a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #fff;
+    transition: width 0.4s ease-in-out;
+    z-index: -1;
+    border-radius: 30px;
+}
+
+nav ul .home-btn a:hover::before {
+    width: 100%;
+}
+
+
+/* Submenu yang tersembunyi */
+.submenu {
+    display: none; /* Menyembunyikan submenu */
+    list-style: none;
+    margin: 0;
+    padding: 10px 0 10px 20px;
+    background-color: #2d2d2d; /* Latar belakang submenu */
+    border-radius: 5px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Bayangan halus */
+}
+
+/* Menampilkan submenu ketika Fatwa diklik */
+.fatwa.active .submenu {
+    display: block; /* Menampilkan submenu */
+}
+
+/* Gaya untuk item submenu */
+.submenu li a {
+    color: #f7f7f7;
+    font-size: 0.9rem;
+    padding: 8px 20px;
+    text-decoration: none;
+    display: block;
+    border-radius: 25px;
+    transition: background 0.3s ease;
+}
+
+/* Efek hover untuk submenu */
+.submenu li a:hover {
+    background: #8B0000;
+    color: #f7f7f7;
+}
+
+
+/* Toggle Button */
+.toggle-button {
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Animasi fade-in */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animasi bounce-in */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+nav {
+    animation: bounceIn 1s ease-out;
+}
+
+/* Animasi geser dan perubahan bentuk tombol */
+.toggle-button .moon-sun-container {
+    position: absolute; /* Posisi absolut agar elemen bisa digeser */
+    width: 40px; /* Lebar ikon bulan/matahari */
+    height: 40px; /* Tinggi ikon bulan/matahari */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Transisi untuk pergeseran dan perubahan opacity */
+    display: flex; /* Menggunakan Flexbox untuk menata ikon */
+    justify-content: center; /* Mengatur ikon di tengah secara horizontal */
+    align-items: center; /* Mengatur ikon di tengah secara vertikal */
+    transition-timing-function: ease-in-out; /* Efek transisi yang lebih halus */
+}
+
+/* Bulan */
+.toggle-button .moon {
+    background-color: #f7f7f7; /* Warna latar belakang bulan */
+    border-radius: 50%; /* Membuat bulan berbentuk lingkaran */
+    width: 30px; /* Ukuran bulan */
+    height: 30px; /* Ukuran bulan */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Memberikan bayangan pada bulan */
+    opacity: 1; /* Bulan terlihat pada mode terang */
+    transition: opacity 0.3s ease; /* Efek transisi untuk perubahan opasitas */
+}
+
+/* Matahari */
+.toggle-button .sun {
+    background: radial-gradient(circle, #f7f7f7 0%, #f1c40f 70%, #e67e22 100%); /* Warna latar belakang matahari */
+    border-radius: 50%; /* Membuat matahari berbentuk lingkaran */
+    width: 30px; /* Ukuran matahari */
+    height: 30px; /* Ukuran matahari */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Memberikan bayangan pada matahari */
+    opacity: 0; /* Matahari tidak terlihat pada mode terang */
+    transition: opacity 0.3s ease; /* Efek transisi untuk perubahan opasitas */
+}
+
+/* Mode Gelap */
+body.dark-mode .toggle-button .moon {
+    opacity: 0; /* Bulan disembunyikan saat mode gelap */
+    transform: translateX(30px); /* Bulan digeser ke kanan */
+}
+
+body.dark-mode .toggle-button .sun {
+    opacity: 1; /* Matahari terlihat pada mode gelap */
+    transform: translateX(0); /* Matahari muncul dari posisi semula */
+}
+
+/* Mode Terang */
+body:not(.dark-mode) .toggle-button .moon {
+    opacity: 1; /* Bulan terlihat pada mode terang */
+    transform: translateX(0); /* Bulan berada di posisi semula */
+}
+
+body:not(.dark-mode) .toggle-button .sun {
+    opacity: 0; /* Matahari disembunyikan pada mode terang */
+    transform: translateX(-30px); /* Matahari digeser keluar */
+}
+
+/* Efek Hover pada Toggle Button */
+.toggle-button:hover {
+    background-color: #676767; /* Warna latar belakang berubah saat hover */
+
+}
+
+/* Header Images */
+.header-images {
+    display: flex; /* Menggunakan flexbox untuk mengatur layout secara fleksibel */
+    justify-content: space-between; /* Menyebarkan elemen dengan jarak yang merata antara mereka */
+    align-items: center; /* Menyelaraskan elemen secara vertikal ke tengah */
+    padding: 10px 15px; /* Menambahkan padding sekitar gambar header */
+}
+
+.logo-header {
+    height: 100px; /* Mengatur tinggi logo */
+    max-width: 300px; /* Lebar maksimum logo */
+    width: auto; /* Menjaga proporsi lebar dan tinggi logo */
+    object-fit: contain; /* Memastikan logo tetap proporsional tanpa terdistorsi */
+    margin-left: 10px; /* Memberikan margin kiri pada logo */
+}
+
+.iklan {
+    height: 60px; /* Mengatur tinggi elemen iklan */
+    object-fit: contain; /* Memastikan gambar iklan tetap proporsional */
+}
+
+/* Media Query untuk layar kecil */
+@media (max-width: 768px) {
+    .header-images {
+        display: none; /* Menyembunyikan header-images pada layar kecil */
+    }
+}
+
+
+
+/* Efek Transisi pada Toggle Button */
+.toggle-button:hover {
+    transform: scale(1.1); /* Efek pembesaran tombol saat di-hover */
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none; /* Secara default, hamburger menu disembunyikan */
+    flex-direction: column; /* Mengatur menu dalam bentuk kolom */
+    gap: 5px; /* Jarak antar garis hamburger */
+    cursor: pointer; /* Menampilkan kursor pointer ketika berada di atas hamburger */
+    z-index: 9999; /* Menempatkan hamburger di atas elemen lainnya */
+}
+
+.hamburger div {
+    width: 30px; /* Lebar garis hamburger */
+    height: 4px; /* Ketebalan garis hamburger */
+    background-color: #f7f7f7; /* Warna garis hamburger */
+    border-radius: 10px; /* Membuat sudut garis menjadi melengkung */
+    transition: 0.3s; /* Durasi transisi efek perubahan */
+}
+
+/* Active Hamburger (Ketika Diklik) */
+.hamburger.active div:nth-child(1) {
+    transform: rotate(45deg); /* Memutar garis pertama 45 derajat */
+    position: relative;
+    top: 8px; /* Menggeser garis pertama ke atas */
+}
+
+.hamburger.active div:nth-child(2) {
+    opacity: 0; /* Menghilangkan garis kedua */
+}
+
+.hamburger.active div:nth-child(3) {
+    transform: rotate(-45deg); /* Memutar garis ketiga -45 derajat */
+    position: relative;
+    bottom: 8px; /* Menggeser garis ketiga ke bawah */
+}
+
+/* Responsif Menu pada Layar Kecil */
+@media (max-width: 768px) {
+    .header-images {
+        flex-direction: column; /* Menata header secara vertikal pada layar kecil */
+        align-items: center; /* Menyelaraskan elemen ke tengah secara vertikal */
+    }
+
+    .logo-header {
+        height: 70px; /* Mengurangi ukuran logo pada layar kecil */
+        margin: 0 auto; /* Menyelaraskan logo ke tengah */
+    }
+
+    .iklan {
+        height: 62px; /* Menyesuaikan tinggi iklan */
+    }
+
+/* Mobile Navigation Menu */
+nav ul {
+    display: none; /* Menu disembunyikan secara default */
+    flex-direction: column; /* Menyusun menu secara vertikal */
+    align-items: flex-start; /* Menyelaraskan teks ke kiri */
+    width: 93%; /* Lebar menu penuh */
+    padding: 20px; /* Memberikan ruang di dalam menu */
+    position: absolute; /* Menempatkan menu di atas elemen lainnya */
+    top: 60px; /* Jarak dari navbar (disesuaikan) */
+    left: 0; /* Menempel pada sisi kiri layar */
+    z-index: 999; /* Membawa menu ke lapisan terdepan */
+    background: linear-gradient(135deg, #002f6c, #b31217); /* Gradasi warna biru ke merah */
+}
+
+nav ul.active {
+    display: flex; /* Menampilkan menu ketika aktif */
+}
+
+/* Menu Item Style */
+nav ul li {
+    width: 100%; /* Setiap item menu memenuhi lebar */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Garis pemisah antar item */
+    padding: 10px 0; /* Jarak antar item */
+}
+
+nav ul li:last-child {
+    border-bottom: none; /* Menghapus garis pada item terakhir */
+}
+
+nav ul li a {
+    color: #ffffff; /* Warna teks putih */
+    font-size: 1rem; /* Ukuran teks */
+    font-weight: 500; /* Ketebalan teks */
+    text-decoration: none; /* Menghapus garis bawah pada teks */
+    display: block; /* Menjadikan teks sebagai blok penuh */
+    padding: 10px 15px; /* Jarak dalam tiap item */
+}
+
+/* Hover and Active Style */
+nav ul li a:hover,
+nav ul li a.active {
+    background-color: rgba(255, 255, 255, 0.1); /* Warna latar transparan saat hover atau aktif */
+    color: #ffffff; /* Warna teks tetap putih */
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: flex; /* Menampilkan hamburger ketika layar kecil */
+    position: relative; /* Tidak diubah, tetap seperti semula */
+}
+
+
+    /* Iklan di bawah navbar */
+    .iklan {
+        margin-top: 10px; /* Memberikan jarak antara navbar dan iklan */
+    }
+}
+
+
+
+/* Responsive Typography for Mobile */
+@media (max-width: 768px) {
+    article p {
+        font-size: 0.9rem; /* Adjust font size for smaller screens */
+    }
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Mengubah arah menjadi vertikal */
+    }
+
+    .left-column {
+        order: 1; /* Kolom kiri muncul terlebih dahulu */
+        width: 100%; /* Memenuhi lebar layar */
+    }
+
+    .right-column {
+        order: 2; /* Kolom kanan muncul setelah kolom kiri */
+        width: 100%; /* Memenuhi lebar layar */
+    }
+}
+
+
+
+/* Layout untuk Kolom Fatwa dan Iklan */
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    margin: 0 auto;
+    max-width: 1300px;
+}
+
+.fatwa-column {
+    flex: 2; /* Kolom fatwa lebih besar */
+    margin-right: 20px;
+}
+
+.iklan-column {
+    flex: 1; /* Kolom iklan lebih kecil */
+    background-color: #f4f4f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.iklan-column img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Gallery Container dalam Fatwa Column */
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+/* Individual Card */
+.image-fatwa-2 {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.image-fatwa-2:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Image */
+.image-gaya-fatwa-2 {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 5px solid #f1f1f1;
+}
+
+/* Overlay Description */
+.description-overlay-fatwa-2 {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top: 3px solid #f44336; /* Ganti garis hijau menjadi merah */
+}
+
+.description-overlay-fatwa-2 h2 {
+    font-size: 1.4rem;
+    color: #f44336; /* Teks judul tetap hitam */
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.description-overlay-fatwa-2 p {
+    font-size: 1rem;
+    color: #000; /* Teks deskripsi tetap hitam */
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.description-overlay-fatwa-2 a {
+    font-size: 1.1rem;
+    color: #000; /* Link default tetap hitam */
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: auto;
+    transition: color 0.3s;
+}
+
+.description-overlay-fatwa-2 a:hover {
+    color: #f44336; /* Link berubah menjadi merah saat di-hover */
+}
+
+
+/* Kolom Kanan (Iklan) */
+.iklan-column {
+    flex: 1;
+    background-color: #f4f4f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    /* Hapus tinggi tetap agar mengikuti konten */
+    height: auto; /* Agar tinggi kolom iklan mengikuti konten */
+}
+
+.iklan-column h3 {
+    font-size: 1.4rem;
+    margin-top: 20px;
+    color: #00796b;
+    font-weight: 600;
+}
+
+.iklan-column p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+/* Pastikan gambar dalam iklan juga menyesuaikan tinggi */
+.iklan-column img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Mode Malam */
+body.dark-mode {
+    background-color: #121212; /* Latar belakang gelap */
+    color: #e0e0e0; /* Teks terang */
+    transition: background-color 0.3s, color 0.3s; /* Transisi halus */
+}
+
+/* Kolom Fatwa */
+body.dark-mode .fatwa-column {
+    background-color: #1e1e1e; /* Latar belakang kolom fatwa */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7); /* Bayangan lebih gelap */
+}
+
+/* Kolom Iklan */
+body.dark-mode .iklan-column {
+    background-color: #252525; /* Latar belakang kolom iklan */
+    color: #cccccc; /* Warna teks */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7); /* Bayangan lebih gelap */
+}
+
+/* Card */
+body.dark-mode .image-fatwa-2 {
+    background: #1e1e1e; /* Latar belakang card */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Bayangan gelap */
+}
+
+body.dark-mode .image-fatwa-2:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.7); /* Efek hover lebih gelap */
+}
+
+/* Deskripsi Card */
+body.dark-mode .description-overlay-fatwa-2 {
+    background: #2b2b2b; /* Latar belakang deskripsi */
+    border-top: 3px solid #d32f2f; /* Garis merah gelap */
+}
+
+body.dark-mode .description-overlay-fatwa-2 h2 {
+    color: #ff6659; /* Warna teks judul merah terang */
+}
+
+body.dark-mode .description-overlay-fatwa-2 p {
+    color: #cccccc; /* Warna teks deskripsi */
+}
+
+body.dark-mode .description-overlay-fatwa-2 a {
+    color: #ff8a80; /* Link warna merah muda */
+}
+
+body.dark-mode .description-overlay-fatwa-2 a:hover {
+    color: #ff5252; /* Link berubah menjadi merah terang saat hover */
+}
+
+/* Header dan Footer */
+body.dark-mode header, 
+body.dark-mode footer {
+    background-color: #1a1a1a; /* Latar belakang header/footer */
+    color: #e0e0e0; /* Teks terang */
+    border-top: 2px solid #d32f2f; /* Garis merah di header/footer */
+}
+
+/* Teks di Kolom Iklan */
+body.dark-mode .iklan-column h3 {
+    color: #ff6659; /* Judul merah terang */
+}
+
+body.dark-mode .iklan-column p {
+    color: #cccccc; /* Teks terang */
+}
+
+
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .fatwa-column {
+        margin-right: 0;
+    }
+
+    .gallery-container {
+        padding: 15px;
+    }
+
+    .iklan-column {
+        margin-top: 30px;
+    }
+
+    .image-gaya-fatwa-2 {
+        height: 200px;
+    }
+}
+
+
+
+
+
+/* Container untuk gambar */
+.image-fatwa {
+    width: 100%; /* Lebar penuh */
+    padding: 0;
+    position: relative;
+    display: flex;
+    justify-content: center; /* Menjaga gambar agar terpusat secara horizontal */
+}
+
+/* Container gambar */
+.gallery-item2 {
+    width: 100%;
+    max-width: 100%; /* Lebar maksimal sesuai container */
+    overflow: hidden; /* Gambar tidak keluar dari batas */
+    position: relative;
+    border-radius: 10px; /* Membuat sudut gambar melengkung */
+}
+
+/* Gambar berbentuk persegi panjang dengan ukuran lebih besar */
+.image-gaya-fatwa {
+    width: 97%; /* Lebar gambar penuh */
+    max-width: 100%; /* Memastikan gambar tetap sesuai dengan kontainer */
+    height: 350px; /* Menambah tinggi gambar */
+    object-fit: cover; /* Agar gambar tetap memenuhi area tanpa merusak proporsi */
+    border-radius: 10px; /* Agar sudut gambar melengkung */
+    margin: 20px; /* Menambah jarak 20px di semua sisi (atas, kanan, bawah, kiri) */
+}
+
+/* Deskripsi yang berada di dalam gambar di sisi kiri */
+.description-overlay-fatwa {
+    position: absolute;
+    top: 40%; /* Deskripsi dimulai dari bagian atas gambar */
+    left: 15%;/* Deskripsi dimulai dari sisi kiri gambar */
+    width: 30%; /* Lebar deskripsi sama dengan lebar gambar */
+    height: 45%; /* Tinggi deskripsi sama dengan tinggi gambar */
+    background: rgba(255, 255, 255, 0.7); /* Latar belakang putih transparan */
+    color: #333; /* Warna teks abu-abu gelap */
+    font-size: 20px; /* Menyesuaikan ukuran font deskripsi lebih kecil */
+    font-weight: bold; /* Membuat teks lebih tebal */
+    line-height: 1.6; /* Jarak antar baris teks */
+    text-align: left; /* Teks rata kiri */
+    padding: 20px; /* Padding di sekitar teks */
+    box-sizing: border-box;
+    overflow-y: auto; /* Agar teks dapat digulung jika terlalu panjang */
+    transition: background 0.3s ease; /* Efek transisi pada background */
+    font-style: italic;
+}
+
+/* Efek saat hover pada gambar */
+.gallery-item2:hover .description-overlay-fatwa {
+    background: rgba(255, 255, 255, 1); /* Gelapkan latar belakang saat hover */
+}
+
+/* Responsif untuk perangkat dengan ukuran lebih kecil */
+@media screen and (max-width: 768px) {
+    .image-gaya-fatwa {
+        height: 300px; /* Menyesuaikan tinggi gambar untuk layar kecil */
+    }
+
+    .description-overlay-fatwa {
+        font-size: 15px; /* Ukuran font deskripsi lebih kecil pada layar kecil */
+        padding: 15px; /* Mengurangi padding agar sesuai */
+        width: 48%; /* Menyesuaikan lebar deskripsi pada layar kecil */
+    }
+}
+
+
+
+
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, #2c2c2c, #8b0000); /* Gradasi merah dan hitam */
+    color: #fff;
+    padding: 30px 0;
+    position: relative;
+    animation: fadeInFooter 1.5s ease-out;
+}
+
+/* Footer Container */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 0 50px;
+}
+
+/* Footer Section */
+.footer-section {
+    flex: 1;
+    margin: 20px;
+    min-width: 250px;
+    transform: translateY(40px);
+    opacity: 0;
+    animation: slideUpFooter 0.8s ease-out forwards;
+}
+
+/* Logo Footer */
+.footer-logo {
+    width: 200px;
+    margin-bottom: 20px;
+    transform: scale(0.8);
+    opacity: 0;
+    animation: zoomInFooter 1s ease-out forwards;
+}
+
+/* Hover animasi logo */
+.footer-logo:hover {
+    animation: spinLogo 1.2s infinite linear;
+}
+
+/* Judul Footer */
+.footer-section h3 {
+    border-bottom: 3px solid #f0a500;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #f0a500; /* Warna emas untuk kesan mewah */
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideUpFooter 0.8s ease-out forwards 0.2s;
+}
+
+/* Mengatur List dan Paragraf */
+.footer-section ul, .footer-section p {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+/* Link di Footer */
+.footer-section ul li a {
+    color: #f4f4f4;
+    text-decoration: none;
+    font-size: 1em;
+    padding: 8px 12px;
+    border-radius: 30px;
+    background: #333;
+    transition: background 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+/* Hover pada Link */
+.footer-section ul li a:hover {
+    background: #f0a500;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(240, 165, 0, 0.5);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #555;
+    font-size: 0.9em;
+}
+
+/* List di Footer Bottom */
+.footer-bottom ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer-bottom ul li a {
+    color: #f4f4f4;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-bottom ul li a:hover {
+    color: #f0a500;
+    text-shadow: 0 0 8px #f0a500;
+}
+
+/* Animasi Keyframes */
+@keyframes fadeInFooter {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUpFooter {
+    0% {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes zoomInFooter {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes spinLogo {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Social Links */
+.social-links.dua {
+    display: flex;
+    flex-direction: row; /* Sosial media horizontal */
+    justify-content: center;
+    gap: 20px; /* Jarak antar ikon */
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.social-links.dua li a {
+    text-decoration: none;
+    font-size: 0,8em; /* Ukuran ikon lebih besar */
+    padding: 10px 14px;
+    border-radius: 10px; /* Sudut lebih bulat */
+    background: #333; /* Background lebih gelap */
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.social-links.dua li a:hover {
+    background: #f0a500; /* Hover warna emas */
+    transform: scale(1.1); /* Ikon lebih besar saat hover */
+    box-shadow: 0 4px 15px rgba(240, 165, 0, 0.5);
+}
+
+/* Styling untuk ikon sosial media */
+.social-links.dua li a i {
+    color: #fff; /* Warna ikon putih */
+}
+
+/* Social Links */
+.social-links {
+    list-style: none; /* Menghapus tanda bullet pada list */
+    padding: 0; /* Menghapus padding */
+    display: flex; /* Menggunakan flexbox untuk tata letak */
+    justify-content: center; /* Memusatkan tautan */
+    gap: 15px; /* Memberikan jarak antar tombol */
+    margin-top: 20px; /* Jarak atas untuk estetika */
+    flex-wrap: wrap; /* Menambahkan kemampuan untuk membungkus tombol */
+}
+
+.social-links li {
+    display: inline-block; /* Menyusun list secara horizontal */
+}
+
+.social-links a {
+    text-decoration: none; /* Menghapus garis bawah pada link */
+    color: white; /* Warna teks default */
+    font-size: 0.75em; /* Ukuran font lebih kecil agar sesuai dengan ukuran kolom */
+    font-weight: bold; /* Menonjolkan teks */
+    padding: 8px 15px; /* Ruang dalam tombol */
+    border-radius: 50%; /* Membuat tombol berbentuk bulat */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Animasi lebih halus */
+}
+
+/* Efek Hover */
+.social-links a:hover {
+    transform: scale(1.05); /* Perbesaran tombol saat hover */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Bayangan lebih kuat saat hover */
+}
+
+/* Gaya Khusus untuk Masing-Masing Aplikasi */
+.social-links .facebook {
+    background-color: #4267B2; /* Warna khas Facebook */
+}
+
+.social-links .facebook:hover {
+    background-color: #365899; /* Warna saat hover */
+}
+
+.social-links .telegram {
+    background-color: #0088cc; /* Warna khas Telegram */
+}
+
+.social-links .telegram:hover {
+    background-color: #0078b8; /* Warna saat hover */
+}
+
+.social-links .instagram {
+    background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5); /* Gradasi khas Instagram */
+}
+
+.social-links .instagram:hover {
+    background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #7c2fbf, #3b3bd5); /* Warna saat hover */
+}
+
+.social-links .whatsapp {
+    background-color: #25D366; /* Warna khas WhatsApp */
+}
+
+.social-links .whatsapp:hover {
+    background-color: #1EBE57; /* Warna saat hover */
+}
