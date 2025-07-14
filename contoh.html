@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumpulan Artikel Islam Terbaru (Satu File)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* General Reset & Body Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5; /* Latar belakang abu-abu muda */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- Main Layout Wrapper --- */
+        .main-wrapper {
+            max-width: 1300px; /* Lebar maksimal keseluruhan konten */
+            margin: 30px auto; /* Margin atas/bawah untuk keseluruhan wrapper, centering */
+            padding: 0 25px; /* Padding samping untuk keseluruhan website agar tidak dempet dengan tepi browser */
+            display: flex; /* Untuk menata main content dan sidebars berdampingan */
+            gap: 30px; /* Jarak antara main content dan sidebars */
+            align-items: flex-start; /* Pastikan konten utama dan sidebar sejajar di bagian atas */
+        }
+
+        .main-content-area {
+            flex: 3; /* Ambil 3 bagian dari 4 (lebih lebar) */
+            min-width: 0; /* Penting untuk flex item dengan overflow */
+        }
+
+        .sidebars-area {
+            flex: 1; /* Ambil 1 bagian dari 4 (lebih sempit) */
+            min-width: 250px; /* Minimum width untuk area sidebar di desktop */
+            position: sticky;
+            top: 30px; /* Jarak dari atas viewport */
+            align-self: flex-start; /* Agar tidak meregang ke bawah */
+            z-index: 100;
+            max-height: calc(100vh - 60px); /* Batasi tinggi sticky area, beri sedikit ruang di atas/bawah */
+            overflow-y: auto; /* Aktifkan scroll di area sidebar jika kontennya panjang */
+            padding-bottom: 20px; /* Padding di bawah area sticky untuk jarak dari bottom of viewport */
+            /* Sembunyikan scrollbar bawaan browser untuk sidebars-area */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            &::-webkit-scrollbar { /* Chrome, Safari, Opera */
+                display: none;
+            }
+        }
+
+
+        /* --- Base Container Styles (Shared styles for all main content blocks) --- */
+        .container-base {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin-bottom: 30px; /* Jarak antar komponen artikel */
+            padding: 25px; /* Padding default untuk semua container utama */
+            overflow: hidden; /* Penting untuk menjaga layout */
+        }
+        .container-base:last-child {
+            margin-bottom: 0; /* Hapus margin bawah untuk container terakhir */
+        }
+
+
+        /* Header & Title Styles (Shared styles for all component headers) */
+        .header-base {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid; /* Warna border bottom akan ditentukan per komponen */
+        }
+
+        .title-base {
+            font-size: 1.8em; /* Ukuran judul container default */
+            font-weight: bold;
+            flex-shrink: 0;
+            padding-right: 10px;
+        }
+
+        /* Card Base Styles - Re-evaluate this for each component */
+        .card-base {
+            transition: none; /* Hapus transisi hover pada card base secara default */
+        }
+        .card-base:hover {
+            transform: none; /* Hapus transform hover secara default */
+            box-shadow: none; /* Hapus shadow hover secara default */
+        }
+
+        .image-wrapper-base {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-base {
+            display: block; /* Menghilangkan ruang bawah gambar */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .meta-base {
+            font-size: 0.85em;
+            color: #888;
+            display: flex;
+            gap: 15px; /* Jarak antar item meta */
+            flex-wrap: wrap; /* Izinkan meta info melipat jika terlalu panjang */
+        }
+        .meta-base i {
+            color: #888;
+            margin-right: 3px;
+        }
+        .meta-base .fa-calendar {
+            color: #555;
+        }
+        .meta-base .fa-comment { /* Icon komentar di Tiga Landasan Utama */
+            color: #888;
+        }
+        .meta-base .fa-fire-alt {
+            color: #e74c3c; /* Warna api merah */
+        }
+
+        /* Base Styles for Sidebar Items */
+        .sidebar-base {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px; /* Jarak antar sidebar jika ada lebih dari satu */
+        }
+        .sidebar-base:last-child {
+            margin-bottom: 0;
+        }
+
+        .sidebar-header {
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .sidebar-header h3 {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333; /* Warna judul sidebar default */
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .sidebar-item:last-child {
+            margin-bottom: 0;
+        }
+        .sidebar-image-wrapper {
+            flex-shrink: 0;
+            width: 100px;
+            height: 70px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .sidebar-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .sidebar-text h4 {
+            font-size: 0.95em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+        .sidebar-date {
+            font-size: 0.8em;
+            color: #888;
+        }
+        .load-more-base {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn-base {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+        .btn-base:hover {
+            background-color: #0056b3;
+        }
+
+
+        /* --- ARTIKEL KE-11: NASIHAT LUKMAN --- */
+        .artikel-sebelas-title {
+            color: #DAA520; /* Warna kuning kecoklatan untuk Nasihat Lukman */
+        }
+        .artikel-sebelas-header {
+            border-bottom-color: #DAA520;
+        }
+
+        .artikel-sebelas-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Default desktop menjadi 2 kolom */
+            gap: 30px 40px; /* Jarak vertikal 30px, horizontal 40px */
+        }
+
+        .artikel-sebelas-card {
+            background-color: transparent; /* Tidak ada background card */
+            border: none; /* Tidak ada border card */
+            box-shadow: none; /* Tidak ada shadow card */
+            padding: 0; /* Tidak ada padding di card itu sendiri */
+            border-bottom: 1px solid #eee; /* Garis pemisah antar artikel */
+            padding-bottom: 25px; /* Padding bawah untuk garis pemisah */
+        }
+        /* Hapus garis bawah untuk artikel di baris terakhir (misal: 3 & 4 jika 4 artikel total) */
+        .artikel-sebelas-grid > :nth-last-child(-n+2) { /* Pilih 2 artikel terakhir jika 2 kolom */
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        /* Khusus jika hanya 1 kolom (misal: mobile) */
+        @media (max-width: 768px) { /* Breakpoint di mana Nasihat Lukman menjadi 1 kolom */
+            .artikel-sebelas-grid > :nth-last-child(1) { /* Pilih artikel terakhir di 1 kolom */
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            .artikel-sebelas-grid > :not(:last-child) { /* Tambahkan kembali border untuk semua kecuali yang terakhir di 1 kolom */
+                border-bottom: 1px solid #eee;
+                padding-bottom: 25px;
+            }
+        }
+
+        .artikel-sebelas-card:hover {
+            transform: none; /* Hapus efek hover card */
+            box-shadow: none; /* Hapus efek hover card */
+        }
+
+        .artikel-sebelas-meta {
+            font-size: 0.85em;
+            color: #888;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 15px;
+        }
+        .artikel-sebelas-card-title {
+            font-size: 1.4em; /* Ukuran judul lebih besar */
+            font-weight: bold;
+            margin-bottom: 15px; /* Jarak ke konten gambar/deskripsi */
+            line-height: 1.3;
+        }
+
+        .artikel-sebelas-content {
+            display: block; /* Mengatur gambar dan deskripsi agar stack secara vertikal */
+        }
+        .artikel-sebelas-image-wrapper {
+            flex-shrink: 0;
+            width: 100px;
+            height: 80px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px; /* Jarak bawah gambar ke deskripsi */
+        }
+        .artikel-sebelas-description {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+
+        /* --- ARTIKEL KE-12: TIGA LANDASAN UTAMA --- */
+        .artikel-duabelas-title {
+            color: #E74C3C; /* Warna merah untuk Tiga Landasan Utama */
+        }
+        .artikel-duabelas-header {
+            border-bottom-color: #E74C3C;
+        }
+
+        .artikel-duabelas-navigation-buttons {
+            display: flex; /* Default shown */
+            gap: 10px;
+        }
+        .artikel-duabelas-nav-button {
+            background-color: white; /* Latar belakang putih */
+            color: #888; /* Warna panah abu-abu */
+            border: 1px solid #ddd; /* Border abu-abu tipis */
+            padding: 3px 7px; /* Ukuran padding tombol lebih kecil */
+            margin-left: 5px; /* Jarak antar tombol sedikit dikurangi */
+            border-radius: 4px;
+            font-size: 1em; /* Ukuran font tombol lebih kecil */
+            cursor: pointer;
+            transition: background-color 0.1s ease, border-color 0.1s ease; /* Transisi halus */
+        }
+        .artikel-duabelas-nav-button:hover:not(:disabled) {
+            background-color: #f5f5f5; /* Sedikit perubahan background saat hover */
+            border-color: #ccc; /* Border sedikit lebih gelap saat hover */
+            color: #555; /* Warna panah sedikit lebih gelap saat hover */
+        }
+        .artikel-duabelas-nav-button:disabled {
+            background-color: white; /* Disabled juga putih */
+            color: #ccc; /* Warna panah abu-abu lebih terang saat disabled */
+            border-color: #eee; /* Border lebih terang saat disabled */
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .artikel-duabelas-grid {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px; /* REVISI: Ubah gap menjadi 20px agar ada jarak antar card */
+            overflow-x: auto; /* Memungkinkan geser/scroll horizontal */
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            /* Sembunyikan scrollbar horizontal untuk artikel-duabelas-grid */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            &::-webkit-scrollbar { /* Chrome, Safari, Opera */
+                display: none;
+            }
+        }
+
+        .artikel-duabelas-card {
+            /* REVISI: Sesuaikan flex-basis untuk gap 20px */
+            flex: 0 0 calc(33.333% - 13.333px); /* REVISI: Untuk 3 kolom pas dengan gap 20px -> (20px * 2 / 3) = 13.333px */
+            min-width: 0; /* Penting! Set min-width ke 0 agar flex-basis dominan */
+            /* REVISI: Menambahkan kembali styling card */
+            background-color: #fff; /* Latar belakang putih */
+            border: 1px solid #eee; /* Border tipis */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Bayangan halus */
+            border-radius: 8px; /* Sudut membulat */
+            padding: 15px; /* REVISI: Padding di dalam card */
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Menjaga elemen-elemen di card terdistribusi secara vertikal */
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* REVISI: Tambah efek hover */
+        }
+        .artikel-duabelas-card:hover {
+            transform: translateY(-3px); /* REVISI: Efek naik saat hover */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* REVISI: Bayangan lebih kuat saat hover */
+        }
+
+        .artikel-duabelas-image-wrapper {
+            width: 100%;
+            padding-top: 66.66%; /* Rasio aspek 3:2 */
+            margin-bottom: 15px; /* REVISI: Jarak bawah gambar ke meta info (sesuai gambar) */
+            border-radius: 8px; /* Tambahkan border-radius 8px */
+            overflow: hidden;
+        }
+        .artikel-duabelas-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.2s ease;
+        }
+        .artikel-duabelas-card:hover .artikel-duabelas-image {
+            transform: scale(1.03); /* Efek zoom gambar saat hover */
+        }
+
+        .artikel-duabelas-content {
+            padding: 0; /* Pastikan tidak ada padding di sini */
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Konten di dalam content-nya dimulai dari atas */
+        }
+        .artikel-duabelas-meta {
+            font-size: 0.85em;
+            color: #888;
+            margin-bottom: 10px; /* REVISI: Jarak bawah meta ke judul (sesuai gambar) */
+            gap: 10px;
+            justify-content: flex-start; /* Align meta ke kiri */
+            flex-wrap: wrap; /* Agar bisa melipat jika perlu */
+        }
+        .artikel-duabelas-card-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            line-height: 1.3;
+            /* Batasi judul menjadi 2 baris untuk tinggi konsisten */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .artikel-duabelas-slider-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px; /* Jarak dot lebih jauh dari artikel (sesuai gambar) */
+        }
+        .artikel-duabelas-dot {
+            height: 8px;
+            width: 8px;
+            margin: 0 4px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+        .artikel-duabelas-dot.artikel-duabelas-dot-active {
+            background-color: #E74C3C; /* Warna dot aktif sesuai judul */
+            transform: scale(1.2);
+        }
+        .artikel-duabelas-dot:hover {
+            transform: scale(1.1);
+        }
+
+
+        /* REVISI: Main layout, kurangi min-width sidebar untuk memberikan lebih banyak ruang pada konten utama */
+        .sidebars-area {
+            /* ... properti sticky lainnya ... */
+            min-width: 250px; /* REVISI: Kurangi min-width untuk sidebar dari 300px menjadi 250px */
+        }
+
+        /* REVISI: Media query untuk tablet & smaller desktop (max-width 1200px) */
+        @media (max-width: 1200px) {
+            .main-wrapper {
+                flex-direction: column; /* Konten utama dan sidebar menumpuk */
+                gap: 0; /* Hapus gap antar main-content-area dan sidebars-area */
+            }
+            .main-content-area,
+            .sidebars-area {
+                flex: auto; /* Ambil lebar penuh */
+                width: 100%;
+                min-width: auto; /* Reset min-width */
+                position: static; /* Nonaktifkan sticky */
+                max-height: none; /* Hapus batasan tinggi sticky */
+                overflow-y: visible; /* Hapus overflow sticky */
+                padding-bottom: 0; /* Hapus padding bawah sidebar area */
+            }
+
+            /* Sidebars area akan muncul setelah main content */
+            .sidebars-area {
+                margin-top: 30px; /* Jarak antara main content area dan sidebars area */
+                order: 2; /* Pastikan sidebars di bawah main-content-area */
+            }
+            .sidebar-base {
+                margin-bottom: 30px; /* Jarak antar sidebar jika ada 2 di bawah */
+            }
+            .sidebar-base:last-child {
+                margin-bottom: 0;
+            }
+
+            /* Artikel ke-11 (Nasihat Lukman) */
+            .artikel-sebelas-grid {
+                grid-template-columns: repeat(2, 1fr); /* Tetap 2 kolom di tablet besar */
+                gap: 25px 30px; /* Jarak vertikal 25px, horizontal 30px */
+            }
+            /* Hapus garis bawah untuk artikel di baris terakhir (jika 2 kolom) */
+            .artikel-sebelas-grid > :nth-last-child(-n+2) {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            .artikel-sebelas-card-title {
+                font-size: 1.2em; /* Ukuran judul lebih besar di tablet */
+            }
+            .artikel-sebelas-description {
+                -webkit-line-clamp: 3; /* Tambah baris deskripsi */
+            }
+
+            /* Artikel ke-12 (Tiga Landasan Utama) */
+            .artikel-duabelas-title {
+                font-size: 1.6em; /* Lebih kecil dari desktop */
+            }
+            /* REVISI: Sesuaikan flex-basis dan min-width untuk 2 kolom pas di tablet */
+            .artikel-duabelas-card {
+                flex: 0 0 calc(50% - 10px); /* REVISI: Untuk 2 kolom dengan gap 20px -> (20px * 1 / 2) = 10px */
+                min-width: 0; /* Pastikan 2 kolom pas */
+                padding: 15px; /* REVISI: Padding card di tablet */
+            }
+            .artikel-duabelas-nav-button {
+                padding: 4px 8px; /* Lebih kecil */
+                font-size: 1em;
+            }
+            .artikel-duabelas-dot {
+                height: 9px;
+                width: 9px;
+            }
+
+            /* Artikel ke-13 (Syarhus Sunnah) */
+            .artikel-tigabelas-grid {
+                grid-template-columns: repeat(2, 1fr); /* Tetap 2 kolom */
+                gap: 20px 25px; /* Sesuaikan gap */
+            }
+        }
+
+        /* Small Tablet (max-width 768px) */
+        @media (max-width: 768px) {
+            .main-wrapper {
+                padding: 0 20px; /* Padding samping keseluruhan 20px */
+            }
+            .container-base {
+                padding: 20px; /* Padding container 20px di sini */
+            }
+            .title-base {
+                font-size: 1.6em; /* Ukuran judul di tablet kecil */
+            }
+
+            /* Artikel ke-11 */
+            .artikel-sebelas-grid {
+                grid-template-columns: 1fr; /* 1 kolom untuk Nasihat Lukman */
+                gap: 20px; /* Jarak antar artikel di 1 kolom */
+            }
+            .artikel-sebelas-card-title {
+                font-size: 1.1em; /* Kembali ke ukuran lebih besar */
+            }
+            .artikel-sebelas-description {
+                -webkit-line-clamp: 2; /* Batasi lagi */
+            }
+            /* Pastikan garis bawah kembali ke semua kecuali yang terakhir di 1 kolom */
+            .artikel-sebelas-grid > :not(:last-child) {
+                border-bottom: 1px solid #eee;
+                padding-bottom: 25px;
+            }
+            .artikel-sebelas-grid > :last-child { /* Hapus garis untuk artikel terakhir di 1 kolom */
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+
+
+            /* Artikel ke-12 */
+            .artikel-duabelas-title {
+                font-size: 1.4em; /* Ukuran judul Tiga Landasan Utama lebih kecil */
+            }
+            .artikel-duabelas-card {
+                flex: 0 0 calc(100% - 0px); /* 1 kolom untuk Tiga Landasan Utama (geser) */
+                min-width: auto; /* Auto atau 0 agar tidak mengganggu flex-basis */
+                padding: 15px; /* Padding card di mobile */
+            }
+            .artikel-duabelas-nav-button {
+                padding: 4px 8px;
+                font-size: 1em;
+            }
+
+            /* Artikel ke-13 */
+            .artikel-tigabelas-grid {
+                grid-template-columns: 1fr; /* 1 kolom untuk Syarhus Sunnah */
+            }
+            .artikel-tigabelas-card-title {
+                font-size: 1.1em;
+            }
+            .artikel-tigabelas-description {
+                -webkit-line-clamp: 3;
+            }
+        }
+
+        /* Mobile (max-width 576px) */
+        @media (max-width: 576px) {
+            .main-wrapper {
+                padding: 0 15px; /* Padding samping keseluruhan 15px */
+            }
+            .container-base {
+                padding: 15px; /* Padding container 15px di mobile */
+                margin-bottom: 20px; /* Jarak antar komponen di mobile */
+            }
+
+            .title-base {
+                font-size: 1.2em; /* Ukuran judul lebih kecil di mobile */
+            }
+
+            /* Artikel ke-11 */
+            .artikel-sebelas-card-title {
+                font-size: 1em;
+            }
+            .artikel-sebelas-description {
+                font-size: 0.85em;
+            }
+
+            /* Artikel ke-12 */
+            .artikel-duabelas-nav-button {
+                padding: 3px 6px;
+                font-size: 0.9em;
+            }
+            .artikel-duabelas-dot {
+                height: 8px;
+                width: 8px;
+            }
+            .artikel-duabelas-card-title {
+                font-size: 1em;
+            }
+            .artikel-duabelas-meta {
+                font-size: 0.8em;
+            }
+
+            /* Artikel ke-13 */
+            .artikel-tigabelas-meta {
+                font-size: 0.75em;
+            }
+            .artikel-tigabelas-card-title {
+                font-size: 0.95em;
+            }
+            .artikel-tigabelas-description {
+                font-size: 0.85em;
+            }
+
+            /* Sidebar di Mobile (posisi akhir) */
+            .sidebars-area {
+                order: 10; /* Pindahkan sidebars ke akhir konten */
+                margin-top: 20px; /* Jarak dari komponen Syarhus Sunnah */
+            }
+            .sidebar-base {
+                padding: 15px; /* Padding sidebar di mobile */
+            }
+            .sidebar-header h3 {
+                font-size: 1.1em;
+            }
+            .sidebar-item h4 {
+                font-size: 0.9em;
+            }
+            .sidebar-date {
+                font-size: 0.75em;
+            }
+        }
+
+        /* --- Scroll-to-Top Button --- */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #E74C3C;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            z-index: 1000;
+        }
+        .scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .scroll-to-top:hover {
+            transform: translateY(-3px);
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <div class="main-content-area" id="mainContentArea">
+            <div class="artikel-sebelas-container container-base">
+                <header class="artikel-sebelas-header header-base">
+                    <h2 class="artikel-sebelas-title title-base">Nasihat Lukman</h2>
+                </header>
+                <div class="artikel-sebelas-grid" id="artikelSebelasGrid">
+                    <a href="#" class="artikel-sebelas-card">
+                        <div class="artikel-sebelas-meta meta-base">
+                            <span class="artikel-sebelas-date date-base"><i class="far fa-calendar"></i> December 8, 2020</span>
+                            <span class="artikel-sebelas-views views-base"><i class="fas fa-fire-alt"></i> 43,536</span>
+                        </div>
+                        <h3 class="artikel-sebelas-card-title card-title-base">Manfaat Bersyukur Kembali kepada yang Bersyukur</h3>
+                        <div class="artikel-sebelas-content">
+                            <div class="artikel-sebelas-image-wrapper image-wrapper-base">
+                                <img src="Gambar/View 1.png" alt="Gambar Artikel Lukman 1" class="artikel-sebelas-image image-base">
+                            </div>
+                            <p class="artikel-sebelas-description description-base">Manfaat bersyukur kembali kepada yang bersyukur.</p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="artikel-sebelas-card">
+                        <div class="artikel-sebelas-meta meta-base">
+                            <span class="artikel-sebelas-date date-base"><i class="far fa-calendar"></i> December 7, 2020</span>
+                            <span class="artikel-sebelas-views views-base"><i class="fas fa-fire-alt"></i> 39,124</span>
+                        </div>
+                        <h3 class="artikel-sebelas-card-title card-title-base">Arti "Diberi Hikmah" dalam Al-Qur'an</h3>
+                        <div class="artikel-sebelas-content">
+                            <div class="artikel-sebelas-image-wrapper image-wrapper-base">
+                                <img src="Gambar/View 2.png" alt="Gambar Artikel Lukman 2" class="artikel-sebelas-image image-base">
+                            </div>
+                            <p class="artikel-sebelas-description description-base">Apa arti kata hikmah dalam Al-Qur'an?</p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="artikel-sebelas-card">
+                        <div class="artikel-sebelas-meta meta-base">
+                            <span class="artikel-sebelas-date date-base"><i class="far fa-calendar"></i> December 4, 2020</span>
+                            <span class="artikel-sebelas-views views-base"><i class="fas fa-fire-alt"></i> 150,804</span>
+                        </div>
+                        <h3 class="artikel-sebelas-card-title card-title-base">Pengertian Syukur, Hakikat Syukur, dan Rukun Syukur</h3>
+                        <div class="artikel-sebelas-content">
+                            <div class="artikel-sebelas-image-wrapper image-wrapper-base">
+                                <img src="Gambar/View 3.png" alt="Gambar Artikel Lukman 3" class="artikel-sebelas-image image-base">
+                            </div>
+                            <p class="artikel-sebelas-description description-base">Kita diperintahkan oleh Allah untuk bersyukur. Bagaimana cara bersyukur? ...</p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="artikel-sebelas-card">
+                        <div class="artikel-sebelas-meta meta-base">
+                            <span class="artikel-sebelas-date date-base"><i class="far fa-calendar"></i> May 23, 2012</span>
+                            <span class="artikel-sebelas-views views-base"><i class="fas fa-fire-alt"></i> 41,635</span>
+                        </div>
+                        <h3 class="artikel-sebelas-card-title card-title-base">Nasehat Lukman pada Anaknya (8), Jangan Berbicara Keras Seperti Keledai</h3>
+                        <div class="artikel-sebelas-content">
+                            <div class="artikel-sebelas-image-wrapper image-wrapper-base">
+                                <img src="Gambar/View 4.png" alt="Gambar Artikel Lukman 4" class="artikel-sebelas-image image-base">
+                            </div>
+                            <p class="artikel-sebelas-description description-base">Satu akhlak mulia lagi diajarkan oleh Luqman kepada anaknya ketika ia memberi...</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="artikel-duabelas-container container-base">
+                <header class="artikel-duabelas-header header-base">
+                    <h2 class="artikel-duabelas-title title-base">Tiga Landasan Utama</h2>
+                    <div class="artikel-duabelas-navigation-buttons" id="artikelDuaBelasNavigationButtons">
+                        <button class="artikel-duabelas-nav-button" id="artikelDuaBelasPrevArticle">&#9664;</button>
+                        <button class="artikel-duabelas-nav-button" id="artikelDuaBelasNextArticle">&#9654;</button>
+                    </div>
+                </header>
+                <div class="artikel-duabelas-grid" id="artikelDuaBelasGrid">
+                    <a href="#" class="artikel-duabelas-card">
+                        <div class="artikel-duabelas-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 5.png" alt="Gambar Tiga Landasan 1" class="artikel-duabelas-image image-base">
+                        </div>
+                        <div class="artikel-duabelas-content">
+                            <div class="artikel-duabelas-meta meta-base">
+                                <span class="artikel-duabelas-date date-base"><i class="far fa-calendar"></i> June 12, 2025</span>
+                                <span class="artikel-duabelas-comments comments-base"><i class="far fa-comment"></i> 0</span>
+                                <span class="artikel-duabelas-views views-base"><i class="fas fa-fire-alt"></i> 739</span>
+                            </div>
+                            <h3 class="artikel-duabelas-card-title card-title-base">Benarkah Sudah Bersyahadat? Ini Makna Syahadat Muhammad Rasulullah yang Sebenarnya</h3>
+                        </div>
+                    </a>
+                    <a href="#" class="artikel-duabelas-card">
+                        <div class="artikel-duabelas-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 6.png" alt="Gambar Tiga Landasan 2" class="artikel-duabelas-image image-base">
+                        </div>
+                        <div class="artikel-duabelas-content">
+                            <div class="artikel-duabelas-meta meta-base">
+                                <span class="artikel-duabelas-date date-base"><i class="far fa-calendar"></i> June 12, 2025</span>
+                                <span class="artikel-duabelas-comments comments-base"><i class="far fa-comment"></i> 0</span>
+                                <span class="artikel-duabelas-views views-base"><i class="fas fa-fire-alt"></i> 720</span>
+                            </div>
+                            <h3 class="artikel-duabelas-card-title card-title-base">Cara Dakwah Nabi Muhammad dalam Al-Qur'an: Dekat, Peduli, dan Penyayang</h3>
+                        </div>
+                    </a>
+                    <a href="#" class="artikel-duabelas-card">
+                        <div class="artikel-duabelas-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 7.png" alt="Gambar Tiga Landasan 3" class="artikel-duabelas-image image-base">
+                        </div>
+                        <div class="artikel-duabelas-content">
+                            <div class="artikel-duabelas-meta meta-base">
+                                <span class="artikel-duabelas-date date-base"><i class="far fa-calendar"></i> January 17, 2022</span>
+                                <span class="artikel-duabelas-comments comments-base"><i class="far fa-comment"></i> 0</span>
+                                <span class="artikel-duabelas-views views-base"><i class="fas fa-fire-alt"></i> 33,367</span>
+                            </div>
+                            <h3 class="artikel-duabelas-card-title card-title-base">Tsalaatsatul Ushul: Mengenal Nabi Kita Muhammad, Hari Berbangkit, Pengertian Thaghut, Hingga Jihad</h3>
+                        </div>
+                    </a>
+                    <a href="#" class="artikel-duabelas-card">
+                        <div class="artikel-duabelas-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 8.png" alt="Gambar Tiga Landasan 4" class="artikel-duabelas-image image-base">
+                        </div>
+                        <div class="artikel-duabelas-content">
+                            <div class="artikel-duabelas-meta meta-base">
+                                <span class="artikel-duabelas-date date-base"><i class="far fa-calendar"></i> February 2, 2021</span>
+                                <span class="artikel-duabelas-comments comments-base"><i class="far fa-comment"></i> 0</span>
+                                <span class="artikel-duabelas-views views-base"><i class="fas fa-fire-alt"></i> 1,234</span>
+                            </div>
+                            <h3 class="artikel-duabelas-card-title card-title-base">Keutamaan Tauhid: Tiga Landasan Pokok dalam Islam</h3>
+                        </div>
+                    </a>
+                    <a href="#" class="artikel-duabelas-card">
+                        <div class="artikel-duabelas-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 9.png" alt="Gambar Tiga Landasan 5" class="artikel-duabelas-image image-base">
+                        </div>
+                        <div class="artikel-duabelas-content">
+                            <div class="artikel-duabelas-meta meta-base">
+                                <span class="artikel-duabelas-date date-base"><i class="far fa-calendar"></i> March 1, 2021</span>
+                                <span class="artikel-duabelas-comments comments-base"><i class="far fa-comment"></i> 0</span>
+                                <span class="artikel-duabelas-views views-base"><i class="fas fa-fire-alt"></i> 567</span>
+                            </div>
+                            <h3 class="artikel-duabelas-card-title card-title-base">Dalil-Dalil dari Al-Qur'an dan Sunnah Mengenai Tiga Landasan Utama</h3>
+                        </div>
+                    </a>
+                    <a href="#" class="artikel-duabelas-card">
+                        <div class="artikel-duabelas-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 10.png" alt="Gambar Tiga Landasan 6" class="artikel-duabelas-image image-base">
+                        </div>
+                        <div class="artikel-duabelas-content">
+                            <div class="artikel-duabelas-meta meta-base">
+                                <span class="artikel-duabelas-date date-base"><i class="far fa-calendar"></i> April 10, 2021</span>
+                                <span class="artikel-duabelas-comments comments-base"><i class="far fa-comment"></i> 0</span>
+                                <span class="artikel-duabelas-views views-base"><i class="fas fa-fire-alt"></i> 890</span>
+                            </div>
+                            <h3 class="artikel-duabelas-card-title card-title-base">Implikasi Tiga Landasan Utama dalam Kehidupan Sehari-hari</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="artikel-duabelas-slider-dots">
+                    <span class="artikel-duabelas-dot artikel-duabelas-dot-active"></span>
+                    <span class="artikel-duabelas-dot"></span>
+                </div>
+            </div>
+
+            <div class="artikel-tigabelas-container container-base" id="artikelTigaBelasContainer">
+                <header class="artikel-tigabelas-header header-base">
+                    <h2 class="artikel-tigabelas-title title-base">Syarhus Sunnah</h2>
+                </header>
+                <div class="artikel-tigabelas-grid">
+                    <a href="#" class="artikel-tigabelas-card">
+                        <div class="artikel-tigabelas-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 11.png" alt="Gambar Syarhus Sunnah 1" class="artikel-tigabelas-image image-base">
+                            <span class="artikel-tigabelas-category">Aqidah</span>
+                        </div>
+                        <div class="artikel-tigabelas-content content-base">
+                            <div class="artikel-tigabelas-meta meta-base">
+                                <span class="artikel-tigabelas-author">Muhammad Abduh Tuasikal, M.Sc</span>
+                                <span class="artikel-tigabelas-date date-base"><i class="far fa-calendar"></i> February 27, 2021</span>
+                                <span class="artikel-tigabelas-comments comments-base"><i class="far fa-comment"></i> 0</span>
+                                <span class="artikel-tigabelas-views views-base"><i class="fas fa-fire-alt"></i> 19,614</span>
+                            </div>
+                            <h3 class="artikel-tigabelas-card-title card-title-base">Syarhus Sunnah: Inilah Akidah yang Disepakati oleh Para Salaf</h3>
+                            <p class="artikel-tigabelas-description description-base">Akidah yang disebutkan oleh Imam Al-Muzani dalam Syarhus Sunnahnya itulah yang disepakati para ulama salaf (sahabat dan tabi’in) yang merupakan...</p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="artikel-tigabelas-card">
+                        <div class="artikel-tigabelas-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 12.png" alt="Gambar Syarhus Sunnah 2" class="artikel-tigabelas-image image-base">
+                            <span class="artikel-tigabelas-category">Aqidah</span>
+                        </div>
+                        <div class="artikel-tigabelas-content content-base">
+                            <div class="artikel-tigabelas-meta meta-base">
+                                <span class="artikel-tigabelas-author">Muhammad Abduh Tuasikal, M.Sc</span>
+                                <span class="artikel-tigabelas-date date-base"><i class="far fa-calendar"></i> February 20, 2021</span>
+                                <span class="artikel-tigabelas-comments comments-base"><i class="far fa-comment"></i> 0</span>
+                                <span class="artikel-tigabelas-views views-base"><i class="fas fa-fire-alt"></i> 14,129</span>
+                            </div>
+                            <h3 class="artikel-tigabelas-card-title card-title-base">Syarhus Sunnah: Qashar Shalat dan Pilihan Puasa Saat Safar</h3>
+                            <p class="artikel-tigabelas-description description-base">Di antara perkara penting yang dijelaskan dalam kitab Akidah Syarhus Sunnah Imam Al-Muzani adalah perihal qashar shalat saat safar dan...</p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="artikel-tigabelas-card">
+                        <div class="artikel-tigabelas-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 13.png" alt="Gambar Syarhus Sunnah 3" class="artikel-tigabelas-image image-base">
+                            <span class="artikel-tigabelas-category">Amalan</span>
+                        </div>
+                        <div class="artikel-tigabelas-content content-base">
+                            <div class="artikel-tigabelas-meta meta-base">
+                                <span class="artikel-tigabelas-author">Muhammad Abduh Tuasikal, M.Sc</span>
+                                <span class="artikel-tigabelas-date date-base"><i class="far fa-calendar"></i> February 13, 2021</span>
+                                <span class="artikel-tigabelas-comments comments-base"><i class="far fa-comment"></i> 0</span>
+                                <span class="artikel-tigabelas-views views-base"><i class="fas fa-fire-alt"></i> 11,223</span>
+                            </div>
+                            <h3 class="artikel-tigabelas-card-title card-title-base">Syarhus Sunnah: Amalan Sunnah Setelah Wudhu</h3>
+                            <p class="artikel-tigabelas-description description-base">Amalan sunnah setelah wudhu yang disebutkan dalam kitab Syarhus Sunnah Imam Al-Muzani adalah...</p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="artikel-tigabelas-card">
+                        <div class="artikel-tigabelas-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 14.png" alt="Gambar Syarhus Sunnah 4" class="artikel-tigabelas-image image-base">
+                            <span class="artikel-tigabelas-category">Fikih</span>
+                        </div>
+                        <div class="artikel-tigabelas-content content-base">
+                            <div class="artikel-tigabelas-meta meta-base">
+                                <span class="artikel-tigabelas-author">Muhammad Abduh Tuasikal, M.Sc</span>
+                                <span class="artikel-tigabelas-date date-base"><i class="far fa-calendar"></i> February 6, 2021</span>
+                                <span class="artikel-tigabelas-comments comments-base"><i class="far fa-comment"></i> 0</span>
+                                <span class="artikel-tigabelas-views views-base"><i class="fas fa-fire-alt"></i> 9,876</span>
+                            </div>
+                            <h3 class="artikel-tigabelas-card-title card-title-base">Syarhus Sunnah: Adab Berdoa dalam Islam</h3>
+                            <p class="artikel-tigabelas-description description-base">Adab-adab berdoa yang dijelaskan dalam kitab Syarhus Sunnah Imam Al-Muzani...</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="artikel-tigabelas-load-more">
+                    <a href="#" class="artikel-tigabelas-load-more-btn">Load More</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebars-area" id="sidebarsArea">
+            <aside class="sidebar-most-viewed sidebar-base" id="mostViewedSidebar">
+                <div class="sidebar-header header-base">
+                    <h3>Most Viewed</h3>
+                </div>
+                <div class="sidebar-content">
+                    <a href="#" class="sidebar-item item-base">
+                        <div class="sidebar-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 15.png" alt="Most Viewed 1" class="sidebar-image image-base">
+                        </div>
+                        <div class="sidebar-text text-base">
+                            <h4>Bacaan Dzikir Pagi</h4>
+                            <span class="sidebar-date date-base">March 31, 2015</span>
+                        </div>
+                    </a>
+                    <a href="#" class="sidebar-item item-base">
+                        <div class="sidebar-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 16.png" alt="Most Viewed 2" class="sidebar-image image-base">
+                        </div>
+                        <div class="sidebar-text text-base">
+                            <h4>Bacaan Dzikir Petang</h4>
+                            <span class="sidebar-date date-base">March 31, 2015</span>
+                        </div>
+                    </a>
+                    <a href="#" class="sidebar-item item-base">
+                        <div class="sidebar-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 17.png" alt="Most Viewed 3" class="sidebar-image image-base">
+                        </div>
+                        <div class="sidebar-text text-base">
+                            <h4>Dzikir Setelah Shalat</h4>
+                            <span class="sidebar-date date-base">October 14, 2011</span>
+                        </div>
+                    </a>
+                    <a href="#" class="sidebar-item item-base">
+                        <div class="sidebar-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 18.png" alt="Most Viewed 4" class="sidebar-image image-base">
+                        </div>
+                        <div class="sidebar-text text-base">
+                            <h4>Malam Nisfu Syaban dan Amalan Nisfu Syaban</h4>
+                            <span class="sidebar-date date-base">May 29, 2015</span>
+                        </div>
+                    </a>
+                     <a href="#" class="sidebar-item item-base">
+                        <div class="sidebar-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 19.png" alt="Most Viewed 5" class="sidebar-image image-base">
+                        </div>
+                        <div class="sidebar-text text-base">
+                            <h4>Dzikir Sebelum Tidur</h4>
+                            <span class="sidebar-date date-base">April 2, 2015</span>
+                        </div>
+                    </a>
+                </div>
+                 <div class="sidebar-load-more load-more-base">
+                    <a href="#" class="sidebar-load-more-btn btn-base">Load More</a>
+                </div>
+            </aside>
+
+            <aside class="sidebar-last-articles sidebar-base" id="lastArticlesSidebar">
+                <div class="sidebar-header header-base">
+                    <h3>Artikel Terakhir</h3>
+                </div>
+                <div class="sidebar-content">
+                    <a href="#" class="sidebar-item item-base">
+                        <div class="sidebar-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 20.png" alt="Artikel Terakhir 1" class="sidebar-image image-base">
+                        </div>
+                        <div class="sidebar-text text-base">
+                            <h4>Peran Ayah yang Hilang: Bahaya Fatherless bagi Generasi dalam Perspektif Islam</h4>
+                            <span class="sidebar-date date-base">1 day ago</span>
+                        </div>
+                    </a>
+                    <a href="#" class="sidebar-item item-base">
+                        <div class="sidebar-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 21.png" alt="Artikel Terakhir 2" class="sidebar-image image-base">
+                        </div>
+                        <div class="sidebar-text text-base">
+                            <h4>Dampak Buruk Maksiat: Pelajaran dari Ibnul Qayyim</h4>
+                            <span class="sidebar-date date-base">4 days ago</span>
+                        </div>
+                    </a>
+                    <a href="#" class="sidebar-item item-base">
+                        <div class="sidebar-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 22.png" alt="Artikel Terakhir 3" class="sidebar-image image-base">
+                        </div>
+                        <div class="sidebar-text text-base">
+                            <h4>Apakah Orang Junub Boleh Mengurus Pemakaman Jenazah?</h4>
+                            <span class="sidebar-date date-base">1 week ago</span>
+                        </div>
+                    </a>
+                    <a href="#" class="sidebar-item item-base">
+                        <div class="sidebar-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 23.png" alt="Artikel Terakhir 4" class="sidebar-image image-base">
+                        </div>
+                        <div class="sidebar-text text-base">
+                            <h4>Khutbah Jumat: Jangan Tasyabbuh! Larangan Menyerupai Non-Muslim dalam Islam</h4>
+                            <span class="sidebar-date date-base">1 week ago</span>
+                        </div>
+                    </a>
+                    <a href="#" class="sidebar-item item-base">
+                        <div class="sidebar-image-wrapper image-wrapper-base">
+                            <img src="Gambar/View 24.png" alt="Artikel Terakhir 5" class="sidebar-image image-base">
+                        </div>
+                        <div class="sidebar-text text-base">
+                            <h4>Sejarah Perang Mu'tah: Sebab Terjadi, Jalannya Pertempuran, dan Kemenangan Kaum Muslimin</h4>
+                            <span class="sidebar-date date-base">1 week ago</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="sidebar-load-more load-more-base">
+                    <a href="#" class="sidebar-load-more-btn btn-base">Load More</a>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <button class="scroll-to-top" id="scrollToTopBtn">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Komponen Artikel ke-12 (Tiga Landasan Utama) - Slider/Carousel ---
+            const artikelDuaBelasGrid = document.getElementById('artikelDuaBelasGrid');
+            const artikelDuaBelasArticles = Array.from(artikelDuaBelasGrid.getElementsByClassName('artikel-duabelas-card'));
+            const artikelDuaBelasPrevButton = document.getElementById('artikelDuaBelasPrevArticle');
+            const artikelDuaBelasNextButton = document.getElementById('artikelDuaBelasNextArticle');
+            const artikelDuaBelasNavigationButtonsContainer = document.getElementById('artikelDuaBelasNavigationButtons');
+            const artikelDuaBelasSliderDotsContainer = document.querySelector('.artikel-duabelas-slider-dots');
+
+            let artikelDuaBelasArticlesPerPage = 0;
+            let artikelDuaBelasTotalPages = 0;
+
+            function createDuaBelasDots() {
+                artikelDuaBelasSliderDotsContainer.innerHTML = '';
+                if (artikelDuaBelasArticlesPerPage === 0) return;
+
+                const calculatedTotalPages = Math.ceil(artikelDuaBelasArticles.length / artikelDuaBelasArticlesPerPage);
+                for (let i = 0; i < calculatedTotalPages; i++) {
+                    const dot = document.createElement('span');
+                    dot.classList.add('artikel-duabelas-dot');
+                    dot.addEventListener('click', () => goToDuaBelasPage(i));
+                    artikelDuaBelasSliderDotsContainer.appendChild(dot);
+                }
+                artikelDuaBelasTotalPages = calculatedTotalPages;
+                updateDuaBelasDotActiveState();
+            }
+
+            function updateDuaBelasDotActiveState() {
+                const dots = Array.from(artikelDuaBelasSliderDotsContainer.getElementsByClassName('artikel-duabelas-dot'));
+                if (dots.length === 0 || artikelDuaBelasArticles.length === 0) return;
+
+                const scrollLeft = artikelDuaBelasGrid.scrollLeft;
+                const firstArticle = artikelDuaBelasArticles[0];
+                const articleWidth = firstArticle && firstArticle.offsetWidth ? firstArticle.offsetWidth : 0;
+
+                if (articleWidth === 0) return;
+
+                let activePageIndex = 0;
+                if (artikelDuaBelasArticlesPerPage > 0) {
+                    let visibleArticleIndex = 0;
+                    for (let i = 0; i < artikelDuaBelasArticles.length; i++) {
+                        const articleRect = artikelDuaBelasArticles[i].getBoundingClientRect();
+                        const gridRect = artikelDuaBelasGrid.getBoundingClientRect();
+                        if (articleRect.left >= gridRect.left && articleRect.left < gridRect.right) {
+                            visibleArticleIndex = i;
+                            break;
+                        }
+                    }
+                    activePageIndex = Math.floor(visibleArticleIndex / artikelDuaBelasArticlesPerPage);
+                }
+
+                dots.forEach((dot, index) => {
+                    if (index === activePageIndex) {
+                        dot.classList.add('artikel-duabelas-dot-active');
+                    } else {
+                        dot.classList.remove('artikel-duabelas-dot-active');
+                    }
+                });
+
+                updateDuaBelasButtonStates(activePageIndex * artikelDuaBelasArticlesPerPage);
+            }
+
+            function setArtikelDuaBelasLayout() {
+                const screenWidth = window.innerWidth;
+
+                if (screenWidth <= 768) { // Mobile (1 artikel)
+                    artikelDuaBelasArticlesPerPage = 1;
+                } else if (screenWidth <= 1200) { // Tablet (2 artikel)
+                    artikelDuaBelasArticlesPerPage = 2;
+                } else { // Desktop (3 artikel)
+                    artikelDuaBelasArticlesPerPage = 3;
+                }
+
+                if (artikelDuaBelasArticles.length > artikelDuaBelasArticlesPerPage) {
+                    artikelDuaBelasNavigationButtonsContainer.style.display = 'flex';
+                    artikelDuaBelasSliderDotsContainer.style.display = 'flex';
+                    artikelDuaBelasGrid.style.overflowX = 'auto';
+                } else {
+                    artikelDuaBelasNavigationButtonsContainer.style.display = 'none';
+                    artikelDuaBelasSliderDotsContainer.style.display = 'none';
+                    artikelDuaBelasGrid.style.overflowX = 'hidden';
+                    artikelDuaBelasGrid.scrollLeft = 0;
+                }
+
+                artikelDuaBelasArticles.forEach(article => article.style.display = 'block');
+
+                createDuaBelasDots();
+                updateDuaBelasDotActiveState();
+            }
+
+            function updateDuaBelasButtonStates(currentIndex) {
+                if (artikelDuaBelasArticles.length > artikelDuaBelasArticlesPerPage) {
+                    artikelDuaBelasPrevButton.disabled = artikelDuaBelasGrid.scrollLeft <= 1;
+                    artikelDuaBelasNextButton.disabled = artikelDuaBelasGrid.scrollLeft >= (artikelDuaBelasGrid.scrollWidth - artikelDuaBelasGrid.clientWidth - 1);
+                } else {
+                    artikelDuaBelasPrevButton.disabled = true;
+                    artikelDuaBelasNextButton.disabled = true;
+                }
+            }
+
+            function showNextDuaBelasArticles() {
+                const articleWidth = artikelDuaBelasArticles[0].offsetWidth;
+                let targetScrollLeft = artikelDuaBelasGrid.scrollLeft + (articleWidth * artikelDuaBelasArticlesPerPage);
+
+                if (targetScrollLeft >= artikelDuaBelasGrid.scrollWidth - artikelDuaBelasGrid.clientWidth - 1) {
+                    targetScrollLeft = 0;
+                }
+                artikelDuaBelasGrid.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+            }
+
+            function showPrevDuaBelasArticles() {
+                const articleWidth = artikelDuaBelasArticles[0].offsetWidth;
+                let targetScrollLeft = artikelDuaBelasGrid.scrollLeft - (articleWidth * artikelDuaBelasArticlesPerPage);
+
+                if (targetScrollLeft <= 1) {
+                    targetScrollLeft = artikelDuaBelasGrid.scrollWidth - artikelDuaBelasGrid.clientWidth;
+                }
+                artikelDuaBelasGrid.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+            }
+
+            function goToDuaBelasPage(pageIndex) {
+                const articleWidth = artikelDuaBelasArticles[0].offsetWidth;
+                const targetScrollLeft = pageIndex * artikelDuaBelasArticlesPerPage * articleWidth;
+                artikelDuaBelasGrid.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+            }
+
+            artikelDuaBelasPrevButton.addEventListener('click', showPrevDuaBelasArticles);
+            artikelDuaBelasNextButton.addEventListener('click', showNextDuaBelasArticles);
+            artikelDuaBelasGrid.addEventListener('scroll', () => {
+                clearTimeout(window.artikelDuaBelasScrollTimer);
+                window.artikelDuaBelasScrollTimer = setTimeout(updateDuaBelasDotActiveState, 100);
+            });
+            window.addEventListener('resize', () => {
+                clearTimeout(window.artikelDuaBelasResizeTimer);
+                window.artikelDuaBelasResizeTimer = setTimeout(setArtikelDuaBelasLayout, 200);
+            });
+
+            setArtikelDuaBelasLayout();
+
+
+            // --- Scroll-to-Top Button ---
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
+            });
+
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>

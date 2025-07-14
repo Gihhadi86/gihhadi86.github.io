@@ -866,4 +866,169 @@ document.addEventListener('DOMContentLoaded', function() {
     // Pemuatan awal
     setArticlesPerPageAndVisibility();
 });
-    
+
+//punya artikel 11 sampai 13 
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Komponen Artikel ke-12 (Tiga Landasan Utama) - Slider/Carousel ---
+    const artikelDuaBelasGrid = document.getElementById('artikelDuaBelasGrid');
+    const artikelDuaBelasArticles = Array.from(artikelDuaBelasGrid.getElementsByClassName('artikel-duabelas-card'));
+    const artikelDuaBelasPrevButton = document.getElementById('artikelDuaBelasPrevArticle');
+    const artikelDuaBelasNextButton = document.getElementById('artikelDuaBelasNextArticle');
+    const artikelDuaBelasNavigationButtonsContainer = document.getElementById('artikelDuaBelasNavigationButtons');
+    const artikelDuaBelasSliderDotsContainer = document.querySelector('.artikel-duabelas-slider-dots');
+
+    let artikelDuaBelasArticlesPerPage = 0;
+    let artikelDuaBelasTotalPages = 0;
+
+    function createDuaBelasDots() {
+        artikelDuaBelasSliderDotsContainer.innerHTML = '';
+        if (artikelDuaBelasArticlesPerPage === 0) return;
+
+        const calculatedTotalPages = Math.ceil(artikelDuaBelasArticles.length / artikelDuaBelasArticlesPerPage);
+        for (let i = 0; i < calculatedTotalPages; i++) {
+            const dot = document.createElement('span');
+            dot.classList.add('artikel-duabelas-dot');
+            dot.addEventListener('click', () => goToDuaBelasPage(i));
+            artikelDuaBelasSliderDotsContainer.appendChild(dot);
+        }
+        artikelDuaBelasTotalPages = calculatedTotalPages;
+        updateDuaBelasDotActiveState();
+    }
+
+    function updateDuaBelasDotActiveState() {
+        const dots = Array.from(artikelDuaBelasSliderDotsContainer.getElementsByClassName('artikel-duabelas-dot'));
+        if (dots.length === 0 || artikelDuaBelasArticles.length === 0) return;
+
+        const scrollLeft = artikelDuaBelasGrid.scrollLeft;
+        const firstArticle = artikelDuaBelasArticles[0];
+        // REVISI: Gunakan offsetWidth SAJA karena gap sudah 0px di CSS
+        const articleWidth = firstArticle && firstArticle.offsetWidth ? firstArticle.offsetWidth : 0;
+
+        if (articleWidth === 0) return;
+
+        let activePageIndex = 0;
+        if (artikelDuaBelasArticlesPerPage > 0) {
+            let visibleArticleIndex = 0;
+            for (let i = 0; i < artikelDuaBelasArticles.length; i++) {
+                const articleRect = artikelDuaBelasArticles[i].getBoundingClientRect();
+                const gridRect = artikelDuaBelasGrid.getBoundingClientRect();
+                if (articleRect.left >= gridRect.left && articleRect.left < gridRect.right) {
+                    visibleArticleIndex = i;
+                    break;
+                }
+            }
+            activePageIndex = Math.floor(visibleArticleIndex / artikelDuaBelasArticlesPerPage);
+        }
+
+        dots.forEach((dot, index) => {
+            if (index === activePageIndex) {
+                dot.classList.add('artikel-duabelas-dot-active');
+            } else {
+                dot.classList.remove('artikel-duabelas-dot-active');
+            }
+        });
+
+        updateDuaBelasButtonStates(activePageIndex * artikelDuaBelasArticlesPerPage);
+    }
+
+    function setArtikelDuaBelasLayout() {
+        const screenWidth = window.innerWidth;
+
+        if (screenWidth <= 768) { // Mobile (1 artikel)
+            artikelDuaBelasArticlesPerPage = 1;
+        } else if (screenWidth <= 1200) { // Tablet (2 artikel)
+            artikelDuaBelasArticlesPerPage = 2;
+        } else { // Desktop (3 artikel)
+            artikelDuaBelasArticlesPerPage = 3;
+        }
+
+        if (artikelDuaBelasArticles.length > artikelDuaBelasArticlesPerPage) {
+            artikelDuaBelasNavigationButtonsContainer.style.display = 'flex';
+            artikelDuaBelasSliderDotsContainer.style.display = 'flex';
+            artikelDuaBelasGrid.style.overflowX = 'auto';
+        } else {
+            artikelDuaBelasNavigationButtonsContainer.style.display = 'none';
+            artikelDuaBelasSliderDotsContainer.style.display = 'none';
+            artikelDuaBelasGrid.style.overflowX = 'hidden';
+            artikelDuaBelasGrid.scrollLeft = 0;
+        }
+
+        artikelDuaBelasArticles.forEach(article => article.style.display = 'block');
+
+        createDuaBelasDots();
+        updateDuaBelasDotActiveState();
+    }
+
+    function updateDuaBelasButtonStates(currentIndex) {
+        if (artikelDuaBelasArticles.length > artikelDuaBelasArticlesPerPage) {
+            artikelDuaBelasPrevButton.disabled = artikelDuaBelasGrid.scrollLeft <= 1;
+            artikelDuaBelasNextButton.disabled = artikelDuaBelasGrid.scrollLeft >= (artikelDuaBelasGrid.scrollWidth - artikelDuaBelasGrid.clientWidth - 1);
+        } else {
+            artikelDuaBelasPrevButton.disabled = true;
+            artikelDuaBelasNextButton.disabled = true;
+        }
+    }
+
+    function showNextDuaBelasArticles() {
+        // REVISI: Gunakan offsetWidth SAJA karena gap sudah 0px di CSS
+        const articleWidth = artikelDuaBelasArticles[0].offsetWidth;
+        let targetScrollLeft = artikelDuaBelasGrid.scrollLeft + (articleWidth * artikelDuaBelasArticlesPerPage);
+
+        if (targetScrollLeft >= artikelDuaBelasGrid.scrollWidth - artikelDuaBelasGrid.clientWidth - 1) {
+            targetScrollLeft = 0;
+        }
+        artikelDuaBelasGrid.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+    }
+
+    function showPrevDuaBelasArticles() {
+        // REVISI: Gunakan offsetWidth SAJA karena gap sudah 0px di CSS
+        const articleWidth = artikelDuaBelasArticles[0].offsetWidth;
+        let targetScrollLeft = artikelDuaBelasGrid.scrollLeft - (articleWidth * artikelDuaBelasArticlesPerPage);
+
+        if (targetScrollLeft <= 1) {
+            targetScrollLeft = artikelDuaBelasGrid.scrollWidth - artikelDuaBelasGrid.clientWidth;
+        }
+        artikelDuaBelasGrid.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+    }
+
+    function goToDuaBelasPage(pageIndex) {
+        // REVISI: Gunakan offsetWidth SAJA karena gap sudah 0px di CSS
+        const articleWidth = artikelDuaBelasArticles[0].offsetWidth;
+        const targetScrollLeft = pageIndex * artikelDuaBelasArticlesPerPage * articleWidth;
+        artikelDuaBelasGrid.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+    }
+
+    artikelDuaBelasPrevButton.addEventListener('click', showPrevDuaBelasArticles);
+    artikelDuaBelasNextButton.addEventListener('click', showNextDuaBelasArticles);
+    artikelDuaBelasGrid.addEventListener('scroll', () => {
+        clearTimeout(window.artikelDuaBelasScrollTimer);
+        window.artikelDuaBelasScrollTimer = setTimeout(updateDuaBelasDotActiveState, 100);
+    });
+    window.addEventListener('resize', () => {
+        clearTimeout(window.artikelDuaBelasResizeTimer);
+        window.artikelDuaBelasResizeTimer = setTimeout(setArtikelDuaBelasLayout, 200);
+    });
+
+    setArtikelDuaBelasLayout();
+
+
+    // --- Scroll-to-Top Button ---
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollToTopBtn.classList.add('show');
+        } else {
+            scrollToTopBtn.classList.remove('show');
+        }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+});

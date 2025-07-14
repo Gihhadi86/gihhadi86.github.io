@@ -3238,6 +3238,778 @@ body.dark .toggle-button .sun::before {
 
 
 
+/* --- Main Layout Wrapper --- */
+.main-wrapper {
+    max-width: 1300px; /* Lebar maksimal keseluruhan konten */
+    margin: 30px auto; /* Margin atas/bawah untuk keseluruhan wrapper, centering */
+    padding: 0 25px; /* Padding samping untuk keseluruhan website agar tidak dempet dengan tepi browser */
+    display: flex; /* Untuk menata main content dan sidebars berdampingan */
+    gap: 30px; /* Jarak antara main content dan sidebars */
+    align-items: flex-start; /* Pastikan konten utama dan sidebar sejajar di bagian atas */
+}
+
+.main-content-area {
+    flex: 3; /* Ambil 3 bagian dari 4 (lebih lebar) */
+    min-width: 0; /* Penting untuk flex item dengan overflow */
+}
+
+.sidebars-area {
+    flex: 1; /* Ambil 1 bagian dari 4 (lebih sempit) */
+    min-width: 300px; /* Minimum width untuk area sidebar di desktop */
+    position: sticky;
+    top: 30px; /* Jarak dari atas viewport */
+    align-self: flex-start; /* Agar tidak meregang ke bawah */
+    z-index: 100;
+    max-height: calc(100vh - 60px); /* Batasi tinggi sticky area, beri sedikit ruang di atas/bawah */
+    overflow-y: auto; /* Aktifkan scroll di area sidebar jika kontennya panjang */
+    padding-bottom: 20px; /* Padding di bawah area sticky untuk jarak dari bottom of viewport */
+    /* Sembunyikan scrollbar bawaan browser untuk sidebars-area */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    &::-webkit-scrollbar { /* Chrome, Safari, Opera */
+        display: none;
+    }
+}
+
+
+/* --- Base Container Styles (Shared styles for all main content blocks) --- */
+.container-base {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    margin-bottom: 30px; /* Jarak antar komponen artikel */
+    padding: 25px; /* Padding default untuk semua container utama */
+    overflow: hidden; /* Penting untuk menjaga layout */
+}
+.container-base:last-child {
+    margin-bottom: 0; /* Hapus margin bawah untuk container terakhir */
+}
+
+
+/* Header & Title Styles (Shared styles for all component headers) */
+.header-base {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid; /* Warna border bottom akan ditentukan per komponen */
+}
+
+.title-base {
+    font-size: 1.8em; /* Ukuran judul container default */
+    font-weight: bold;
+    flex-shrink: 0;
+    padding-right: 10px;
+}
+
+/* Card Base Styles - Re-evaluate this for each component */
+.card-base {
+    transition: none; /* Hapus transisi hover pada card base secara default */
+}
+.card-base:hover {
+    transform: none; /* Hapus transform hover secara default */
+    box-shadow: none; /* Hapus shadow hover secara default */
+}
+
+.image-wrapper-base {
+    position: relative;
+    overflow: hidden;
+}
+
+.image-base {
+    display: block; /* Menghilangkan ruang bawah gambar */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.meta-base {
+    font-size: 0.85em;
+    color: #888;
+    display: flex;
+    gap: 15px; /* Jarak antar item meta */
+    flex-wrap: wrap; /* Izinkan meta info melipat jika terlalu panjang */
+}
+.meta-base i {
+    color: #888;
+    margin-right: 3px;
+}
+.meta-base .fa-calendar {
+    color: #555;
+}
+.meta-base .fa-comment { /* Icon komentar di Tiga Landasan Utama */
+    color: #888;
+}
+.meta-base .fa-fire-alt {
+    color: #e74c3c; /* Warna api merah */
+}
+
+/* Base Styles for Sidebar Items */
+.sidebar-base {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px; /* Jarak antar sidebar jika ada lebih dari satu */
+}
+.sidebar-base:last-child {
+    margin-bottom: 0;
+}
+
+.sidebar-header {
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+.sidebar-header h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333; /* Warna judul sidebar default */
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+.sidebar-item:last-child {
+    margin-bottom: 0;
+}
+.sidebar-image-wrapper {
+    flex-shrink: 0;
+    width: 100px;
+    height: 70px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.sidebar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.sidebar-text h4 {
+    font-size: 0.95em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    line-height: 1.3;
+}
+.sidebar-date {
+    font-size: 0.8em;
+    color: #888;
+}
+.load-more-base {
+    text-align: center;
+    margin-top: 20px;
+}
+.btn-base {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+.btn-base:hover {
+    background-color: #0056b3;
+}
+
+
+/* --- ARTIKEL KE-11: NASIHAT LUKMAN --- */
+.artikel-sebelas-title {
+    color: #DAA520; /* Warna kuning kecoklatan untuk Nasihat Lukman */
+}
+.artikel-sebelas-header {
+    border-bottom-color: #DAA520;
+}
+
+.artikel-sebelas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Default desktop menjadi 2 kolom */
+    gap: 30px 40px; /* Jarak vertikal 30px, horizontal 40px */
+}
+
+.artikel-sebelas-card {
+    background-color: transparent; /* Tidak ada background card */
+    border: none; /* Tidak ada border card */
+    box-shadow: none; /* Tidak ada shadow card */
+    padding: 0; /* Tidak ada padding di card itu sendiri */
+    border-bottom: 1px solid #eee; /* Garis pemisah antar artikel */
+    padding-bottom: 25px; /* Padding bawah untuk garis pemisah */
+}
+/* Hapus garis bawah untuk artikel di baris terakhir (misal: 3 & 4 jika 4 artikel total) */
+.artikel-sebelas-grid > :nth-last-child(-n+2) { /* Pilih 2 artikel terakhir jika 2 kolom */
+    border-bottom: none;
+    padding-bottom: 0;
+}
+/* Khusus jika hanya 1 kolom (misal: mobile) */
+@media (max-width: 768px) { /* Breakpoint di mana Nasihat Lukman menjadi 1 kolom */
+    .artikel-sebelas-grid > :nth-last-child(1) { /* Pilih artikel terakhir di 1 kolom */
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    .artikel-sebelas-grid > :not(:last-child) { /* Tambahkan kembali border untuk semua kecuali yang terakhir di 1 kolom */
+        border-bottom: 1px solid #eee;
+        padding-bottom: 25px;
+    }
+}
+
+.artikel-sebelas-card:hover {
+    transform: none; /* Hapus efek hover card */
+    box-shadow: none; /* Hapus efek hover card */
+}
+
+.artikel-sebelas-meta {
+    font-size: 0.85em;
+    color: #888;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 15px;
+}
+.artikel-sebelas-card-title {
+    font-size: 1.4em; /* Ukuran judul lebih besar */
+    font-weight: bold;
+    margin-bottom: 15px; /* Jarak ke konten gambar/deskripsi */
+    line-height: 1.3;
+}
+
+.artikel-sebelas-content {
+    display: block; /* Mengatur gambar dan deskripsi agar stack secara vertikal */
+}
+.artikel-sebelas-image-wrapper {
+    flex-shrink: 0;
+    width: 100px;
+    height: 80px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px; /* Jarak bawah gambar ke deskripsi */
+}
+.artikel-sebelas-description {
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* --- ARTIKEL KE-12: TIGA LANDASAN UTAMA --- */
+.artikel-duabelas-title {
+    color: #E74C3C; /* Warna merah untuk Tiga Landasan Utama */
+}
+.artikel-duabelas-header {
+    border-bottom-color: #E74C3C;
+}
+
+.artikel-duabelas-navigation-buttons {
+    display: flex; /* Default shown */
+    gap: 10px;
+}
+.artikel-duabelas-nav-button {
+    background-color: white; /* Latar belakang putih */
+    color: #888; /* Warna panah abu-abu */
+    border: 1px solid #ddd; /* Border abu-abu tipis */
+    padding: 3px 7px; /* Ukuran padding tombol lebih kecil */
+    margin-left: 5px; /* Jarak antar tombol sedikit dikurangi */
+    border-radius: 4px;
+    font-size: 1em; /* Ukuran font tombol lebih kecil */
+    cursor: pointer;
+    transition: background-color 0.1s ease, border-color 0.1s ease; /* Transisi halus */
+}
+.artikel-duabelas-nav-button:hover:not(:disabled) {
+    background-color: #f5f5f5; /* Sedikit perubahan background saat hover */
+    border-color: #ccc; /* Border sedikit lebih gelap saat hover */
+    color: #555; /* Warna panah sedikit lebih gelap saat hover */
+}
+.artikel-duabelas-nav-button:disabled {
+    background-color: white; /* Disabled juga putih */
+    color: #ccc; /* Warna panah abu-abu lebih terang saat disabled */
+    border-color: #eee; /* Border lebih terang saat disabled */
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.artikel-duabelas-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    /* REVISI: Mengembalikan gap agar ada jarak antar card */
+    gap: 20px; /* REVISI: Ubah gap menjadi 20px agar ada jarak antar card */
+    overflow-x: auto; /* Memungkinkan geser/scroll horizontal */
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    /* Sembunyikan scrollbar horizontal untuk artikel-duabelas-grid */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    &::-webkit-scrollbar { /* Chrome, Safari, Opera */
+        display: none;
+    }
+}
+
+.artikel-duabelas-card {
+    /* REVISI: Sesuaikan flex-basis untuk gap 20px */
+    flex: 0 0 calc(33.333% - 13.333px); /* REVISI: Untuk 3 kolom pas dengan gap 20px -> (20px * 2 / 3) = 13.333px */
+    min-width: 0; /* Penting! Set min-width ke 0 agar flex-basis dominan */
+    /* REVISI: Menambahkan kembali styling card */
+    background-color: #fff; /* Latar belakang putih */
+    border: 1px solid #eee; /* Border tipis */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Bayangan halus */
+    border-radius: 8px; /* Sudut membulat */
+    padding: 15px; /* REVISI: Padding di dalam card */
+    overflow: hidden;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Menjaga elemen-elemen di card terdistribusi secara vertikal */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* REVISI: Tambah efek hover */
+}
+
+
+.artikel-duabelas-image-wrapper {
+    width: 100%;
+    overflow: hidden;
+    aspect-ratio: 3/2; /* biar proporsional */
+    margin-bottom: 12px; /* jarak gambar ke bawah */
+}
+.artikel-duabelas-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+}
+
+.artikel-duabelas-content {
+    padding: 0; /* Pastikan tidak ada padding di sini */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Konten di dalam content-nya dimulai dari atas */
+}
+.artikel-duabelas-meta {
+    font-size: 0.85em;
+    color: #888;
+    margin-bottom: 10px; /* REVISI: Jarak bawah meta ke judul (sesuai gambar) */
+    gap: 10px;
+    justify-content: flex-start; /* Align meta ke kiri */
+    flex-wrap: wrap; /* Agar bisa melipat jika perlu */
+}
+.artikel-duabelas-card-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    line-height: 1.3;
+    /* Batasi judul menjadi 2 baris untuk tinggi konsisten */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.artikel-duabelas-slider-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px; /* Jarak dot lebih jauh dari artikel (sesuai gambar) */
+}
+.artikel-duabelas-dot {
+    height: 8px;
+    width: 8px;
+    margin: 0 4px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+.artikel-duabelas-dot.artikel-duabelas-dot-active {
+    background-color: #E74C3C; /* Warna dot aktif sesuai judul */
+    transform: scale(1.2);
+}
+.artikel-duabelas-dot:hover {
+    transform: scale(1.1);
+}
+
+
+/* REVISI: Main layout, kurangi min-width sidebar untuk memberikan lebih banyak ruang pada konten utama */
+.sidebars-area {
+    /* ... properti sticky lainnya ... */
+    min-width: 250px; /* Kurangi min-width untuk sidebar dari 300px menjadi 250px */
+}
+
+/* REVISI: Media query untuk tablet & smaller desktop (max-width 1200px) */
+@media (max-width: 1200px) {
+    /* ... kode media query lainnya ... */
+
+    /* Artikel ke-12 (Tiga Landasan Utama) */
+    .artikel-duabelas-card {
+        /* REVISI: Sesuaikan flex-basis untuk 2 kolom pas di tablet */
+        flex: 0 0 calc(50% - 10px); /* REVISI: Untuk 2 kolom dengan gap 20px -> (20px * 1 / 2) = 10px */
+        min-width: 0; /* Pastikan 2 kolom pas */
+        padding: 15px; /* REVISI: Padding card di tablet */
+    }
+}
+
+/* REVISI: Media query untuk small tablet (max-width 768px) */
+@media (max-width: 768px) {
+    /* ... kode media query lainnya ... */
+
+    /* Artikel ke-12 */
+    .artikel-duabelas-card {
+        flex: 0 0 calc(100% - 0px); /* 1 kolom untuk Tiga Landasan Utama (geser) */
+        min-width: auto; /* Auto atau 0 agar tidak mengganggu flex-basis */
+        padding: 15px; /* REVISI: Padding card di mobile */
+    }
+}
+
+/* REVISI: Mobile (max-width 576px) */
+@media (max-width: 576px) {
+    /* ... kode media query lainnya ... */
+
+    /* Artikel ke-12 */
+    .artikel-duabelas-card {
+        padding: 10px; /* REVISI: Padding card di mobile paling kecil */
+    }
+}
+
+
+
+/* --- ARTIKEL KE-13: SYARHUS SUNNAH --- */
+.artikel-tigabelas-container {
+    padding-bottom: 30px; /* Lebih banyak padding di bawah untuk load more */
+}
+.artikel-tigabelas-title {
+    color: #CC2936; /* Warna merah gelap untuk Syarhus Sunnah */
+}
+.artikel-tigabelas-header {
+    border-bottom-color: #CC2936;
+}
+
+.artikel-tigabelas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 kolom di desktop */
+    gap: 25px 30px; /* Jarak vertikal dan horizontal */
+}
+
+.artikel-tigabelas-card {
+    background-color: transparent; /* Tidak ada background card */
+    border: none; /* Tidak ada border card */
+    box-shadow: none; /* Tidak ada shadow card */
+    overflow: hidden;
+    transition: none; /* Hapus transisi hover */
+}
+.artikel-tigabelas-card:hover {
+    transform: none; /* Hapus efek hover */
+    box-shadow: none; /* Hapus efek hover */
+}
+
+.artikel-tigabelas-image-wrapper {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 15px; /* Jarak bawah gambar ke konten */
+    border-radius: 8px; /* Tambah border radius pada gambar */
+}
+.artikel-tigabelas-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+}
+.artikel-tigabelas-card:hover .artikel-tigabelas-image {
+    transform: scale(1.03); /* Efek zoom gambar saat hover */
+}
+
+.artikel-tigabelas-category {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #007bff; /* Warna kategori biru */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+.artikel-tigabelas-content {
+    padding: 0; /* Hapus padding di sini */
+}
+.artikel-tigabelas-meta {
+    font-size: 0.8em;
+    color: #888;
+    margin-bottom: 10px;
+    gap: 5px 10px;
+}
+.artikel-tigabelas-card-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+.artikel-tigabelas-description {
+    font-size: 0.9em;
+    color: #555;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Batasi 3 baris */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.artikel-tigabelas-load-more {
+    text-align: center;
+    margin-top: 30px;
+}
+.artikel-tigabelas-load-more-btn {
+    display: inline-block;
+    background-color: #f8f8f8; /* Warna abu-abu muda */
+    color: #888;
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 0.95em;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+.artikel-tigabelas-load-more-btn:hover {
+    background-color: #e0e0e0;
+    color: #555;
+}
+
+
+/* --- RESPONSIVE DESIGN --- */
+
+/* Desktop (Default: > 1200px) - Handled by base styles */
+/* .main-wrapper padding: 0 25px; gap: 30px; sidebars-area min-width: 300px; */
+
+/* Tablet & Smaller Desktop (max-width 1200px) */
+@media (max-width: 1200px) {
+    .main-wrapper {
+        flex-direction: column; /* Konten utama dan sidebar menumpuk */
+        gap: 0; /* Hapus gap antar main-content-area dan sidebars-area */
+    }
+    .main-content-area,
+    .sidebars-area {
+        flex: auto; /* Ambil lebar penuh */
+        width: 100%;
+        min-width: auto; /* Reset min-width */
+        position: static; /* Nonaktifkan sticky */
+        max-height: none; /* Hapus batasan tinggi sticky */
+        overflow-y: visible; /* Hapus overflow sticky */
+        padding-bottom: 0; /* Hapus padding bawah sidebar area */
+    }
+
+    /* Sidebars area akan muncul setelah main content */
+    .sidebars-area {
+        margin-top: 30px; /* Jarak antara main content area dan sidebars area */
+        order: 2; /* Pastikan sidebars di bawah main-content-area */
+    }
+    .sidebar-base {
+        margin-bottom: 30px; /* Jarak antar sidebar jika ada 2 di bawah */
+    }
+    .sidebar-base:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Artikel ke-11 (Nasihat Lukman) */
+    .artikel-sebelas-grid {
+        grid-template-columns: repeat(2, 1fr); /* Tetap 2 kolom di tablet besar */
+        gap: 25px 30px; /* Jarak vertikal 25px, horizontal 30px */
+    }
+    /* Hapus garis bawah untuk artikel di baris terakhir (jika 2 kolom) */
+    .artikel-sebelas-grid > :nth-last-child(-n+2) {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    .artikel-sebelas-card-title {
+        font-size: 1.2em; /* Ukuran judul lebih besar di tablet */
+    }
+    .artikel-sebelas-description {
+        -webkit-line-clamp: 3; /* Tambah baris deskripsi */
+    }
+
+    /* Artikel ke-12 (Tiga Landasan Utama) */
+    .artikel-duabelas-title {
+        font-size: 1.6em; /* Lebih kecil dari desktop */
+    }
+    /* REVISI: Sesuaikan flex-basis dan min-width untuk 2 kolom pas di tablet */
+    .artikel-duabelas-card {
+        flex: 0 0 calc(50% - 7.5px); /* Sesuaikan dengan gap 15px -> (15px * 1 / 2) = 7.5px */
+        min-width: 0; /* Pastikan 2 kolom pas */
+    }
+    .artikel-duabelas-nav-button {
+        padding: 4px 8px; /* Lebih kecil */
+        font-size: 1em;
+    }
+    .artikel-duabelas-dot {
+        height: 9px;
+        width: 9px;
+    }
+
+    /* Artikel ke-13 (Syarhus Sunnah) */
+    .artikel-tigabelas-grid {
+        grid-template-columns: repeat(2, 1fr); /* Tetap 2 kolom */
+        gap: 20px 25px; /* Sesuaikan gap */
+    }
+}
+
+/* Small Tablet (max-width 768px) */
+@media (max-width: 768px) {
+    .main-wrapper {
+        padding: 0 20px; /* Padding samping keseluruhan 20px */
+    }
+    .container-base {
+        padding: 20px; /* Padding container 20px di sini */
+    }
+    .title-base {
+        font-size: 1.6em; /* Ukuran judul di tablet kecil */
+    }
+
+    /* Artikel ke-11 */
+    .artikel-sebelas-grid {
+        grid-template-columns: 1fr; /* 1 kolom untuk Nasihat Lukman */
+        gap: 20px; /* Jarak antar artikel di 1 kolom */
+    }
+    .artikel-sebelas-card-title {
+        font-size: 1.1em; /* Kembali ke ukuran lebih besar */
+    }
+    .artikel-sebelas-description {
+        -webkit-line-clamp: 2; /* Batasi lagi */
+    }
+    /* Pastikan garis bawah kembali ke semua kecuali yang terakhir di 1 kolom */
+    .artikel-sebelas-grid > :not(:last-child) {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 25px;
+    }
+    .artikel-sebelas-grid > :last-child { /* Hapus garis untuk artikel terakhir di 1 kolom */
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+
+    /* Artikel ke-12 */
+    .artikel-duabelas-title {
+        font-size: 1.4em; /* Ukuran judul Tiga Landasan Utama lebih kecil */
+    }
+    .artikel-duabelas-card {
+        flex: 0 0 calc(100% - 0px); /* 1 kolom untuk Tiga Landasan Utama (geser) */
+        min-width: auto; /* Auto atau 0 agar tidak mengganggu flex-basis */
+    }
+    .artikel-duabelas-nav-button {
+        padding: 4px 8px;
+        font-size: 1em;
+    }
+
+    /* Artikel ke-13 */
+    .artikel-tigabelas-grid {
+        grid-template-columns: 1fr; /* 1 kolom untuk Syarhus Sunnah */
+    }
+    .artikel-tigabelas-card-title {
+        font-size: 1.1em;
+    }
+    .artikel-tigabelas-description {
+        -webkit-line-clamp: 3;
+    }
+}
+
+/* Mobile (max-width 576px) */
+@media (max-width: 576px) {
+    .main-wrapper {
+        padding: 0 15px; /* Padding samping keseluruhan 15px */
+    }
+    .container-base {
+        padding: 15px; /* Padding container 15px di mobile */
+        margin-bottom: 20px; /* Jarak antar komponen di mobile */
+    }
+
+    .title-base {
+        font-size: 1.2em; /* Ukuran judul lebih kecil di mobile */
+    }
+
+    /* Artikel ke-11 */
+    .artikel-sebelas-card-title {
+        font-size: 1em;
+    }
+    .artikel-sebelas-description {
+        font-size: 0.85em;
+    }
+
+    /* Artikel ke-12 */
+    .artikel-duabelas-nav-button {
+        padding: 3px 6px;
+        font-size: 0.9em;
+    }
+    .artikel-duabelas-dot {
+        height: 8px;
+        width: 8px;
+    }
+    .artikel-duabelas-card-title {
+        font-size: 1em;
+    }
+    .artikel-duabelas-meta {
+        font-size: 0.8em;
+    }
+
+    /* Artikel ke-13 */
+    .artikel-tigabelas-meta {
+        font-size: 0.75em;
+    }
+    .artikel-tigabelas-card-title {
+        font-size: 0.95em;
+    }
+    .artikel-tigabelas-description {
+        font-size: 0.85em;
+    }
+
+    /* Sidebar di Mobile (posisi akhir) */
+    .sidebars-area {
+        order: 10; /* Pindahkan sidebars ke akhir konten */
+        margin-top: 20px; /* Jarak dari komponen Syarhus Sunnah */
+    }
+    .sidebar-base {
+        padding: 15px; /* Padding sidebar di mobile */
+    }
+    .sidebar-header h3 {
+        font-size: 1.1em;
+    }
+    .sidebar-item h4 {
+        font-size: 0.9em;
+    }
+    .sidebar-date {
+        font-size: 0.75em;
+    }
+}
+
+/* --- Scroll-to-Top Button --- */
+.scroll-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #E74C3C;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+}
+.scroll-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+.scroll-to-top:hover {
+    transform: translateY(-3px);
+    background-color: #c0392b;
+}
+
+
+
 
 
 
