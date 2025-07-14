@@ -2966,6 +2966,300 @@ body.dark .toggle-button .sun::before {
 
 
 
+
+/* General Styling & Reset (specific to this component) */
+.artikel-sepuluh-container *,
+.artikel-sepuluh-container *::before,
+.artikel-sepuluh-container *::after {
+    box-sizing: border-box; /* Ensures padding and border are included in element's total width and height for this component */
+}
+
+/* Base Styles (Desktop First, then adjust down) */
+.artikel-sepuluh-container {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Background for the container area itself */
+    color: #333;
+    line-height: 1.6;
+    max-width: 1280px; /* REVISI: Max width diperpanjang lagi untuk desktop */
+    margin: 20px auto; /* Centering and top/bottom margin */
+    margin-left: 20px;
+    padding: 20px; /* REVISI: Padding container dikembalikan ke 20px untuk desktop */
+    border: 1px solid #ddd; /* Border around the entire section */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    background-color: #fff; /* White background inside the container */
+    border-radius: 8px; /* Slightly rounded corners */
+}
+
+/* Header Section */
+.artikel-sepuluh-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px; /* Dikembalikan ke nilai awal */
+    padding-bottom: 10px; /* Dikembalikan ke nilai awal */
+    border-bottom: 2px solid #007bff; /* Underline for the title */
+}
+
+.artikel-sepuluh-title {
+    color: #007bff; /* Blue color for the main title */
+    font-size: 1.8em;
+    font-weight: bold;
+    flex-shrink: 0;
+    padding-right: 10px;
+}
+
+/* Navigation Buttons (for Tablet & Mobile) */
+.artikel-sepuluh-navigation-buttons {
+    display: none;
+    flex-shrink: 0;
+}
+
+.artikel-sepuluh-nav-button {
+    background-color: transparent;
+    color: #007bff;
+    border: 1px solid #007bff;
+    padding: 4px 8px;
+    margin-left: 6px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.9em;
+    transition: none;
+    box-shadow: none;
+    outline: none;
+}
+
+.artikel-sepuluh-nav-button:hover:not(:disabled) {
+    background-color: transparent;
+    color: #0056b3;
+    border-color: #0056b3;
+}
+
+.artikel-sepuluh-nav-button:disabled {
+    background-color: transparent;
+    color: #cccccc;
+    border-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Articles Grid Layout */
+.artikel-sepuluh-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Tetap 15px untuk kerapatan yang baik */
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+
+/* Individual Article Card */
+.artikel-sepuluh-card {
+    flex: 1 1 calc(25% - 11.25px); /* Disesuaikan dengan gap 15px */
+    min-width: 200px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.artikel-sepuluh-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.12);
+}
+
+.artikel-sepuluh-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 66.66%; /* 3:2 aspect ratio */
+    overflow: hidden;
+}
+
+.artikel-sepuluh-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.artikel-sepuluh-card:hover .artikel-sepuluh-image {
+    transform: scale(1.02);
+}
+
+.artikel-sepuluh-title-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 100%);
+    color: white;
+    padding: 10px 10px;
+    font-size: 0.95em;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+/* Slider Dots for Mobile/Tablet */
+.artikel-sepuluh-slider-dots {
+    display: none;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.artikel-sepuluh-dot {
+    height: 9px;
+    width: 9px;
+    margin: 0 4px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.artikel-sepuluh-dot.artikel-sepuluh-dot-active {
+    background-color: #007bff;
+}
+
+/* --- Responsive Design (Media Queries) --- */
+
+/* Tablet View (e.g., max-width 1024px, 3 articles) */
+@media (max-width: 1024px) {
+    .artikel-sepuluh-container {
+        margin: 25px auto;
+        margin-left: 20px;
+        padding: 15px; /* Padding sedikit dikurangi di tablet */
+    }
+
+    .artikel-sepuluh-title {
+        font-size: 1.6em;
+    }
+
+    .artikel-sepuluh-navigation-buttons {
+        display: flex;
+    }
+
+    .artikel-sepuluh-grid {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .artikel-sepuluh-card {
+        flex: 0 0 calc(33.333% - 10px); /* Disesuaikan dengan gap 15px */
+        min-width: 260px;
+    }
+
+    .artikel-sepuluh-grid .artikel-sepuluh-card {
+        display: none;
+    }
+
+    .artikel-sepuluh-slider-dots {
+        display: flex;
+    }
+}
+
+/* Mid-Tablet View (e.g., max-width 768px, 2 articles) */
+@media (max-width: 768px) {
+    .artikel-sepuluh-container {
+        margin: 20px auto;
+        padding: 15px; /* Padding tetap 15px di mid-tablet */
+    }
+
+    .artikel-sepuluh-title {
+        font-size: 1.4em;
+    }
+
+    .artikel-sepuluh-card {
+        flex: 0 0 calc(50% - 7.5px); /* Disesuaikan dengan gap 15px */
+        min-width: 280px;
+    }
+}
+
+
+/* Mobile View (e.g., max-width 576px, 1 article) */
+@media (max-width: 576px) {
+    .artikel-sepuluh-container {
+        margin: 20px auto;
+        margin-left: 8px;
+        padding: 20px; /* REVISI: Padding container diperbanyak di mobile dari 10px menjadi 20px */
+    }
+
+    .artikel-sepuluh-header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: none;
+        margin-bottom: 15px;
+    }
+
+    .artikel-sepuluh-title {
+        font-size: 1.2em;
+        margin-bottom: 0;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 5px;
+        line-height: 1.2;
+        flex-grow: 1;
+        margin-right: auto;
+    }
+
+    .artikel-sepuluh-navigation-buttons {
+        width: auto;
+        justify-content: flex-end;
+        margin-top: 0;
+        flex-shrink: 0;
+    }
+
+    .artikel-sepuluh-nav-button {
+        padding: 3px 6px;
+        font-size: 0.8em;
+        margin-left: 4px;
+        border-radius: 3px;
+    }
+
+    .artikel-sepuluh-grid {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .artikel-sepuluh-card {
+        flex: 0 0 100%;
+        min-width: auto;
+        width: 100%;
+    }
+
+    .artikel-sepuluh-grid .artikel-sepuluh-card {
+        display: none;
+    }
+    .artikel-sepuluh-grid .artikel-sepuluh-card.artikel-sepuluh-active-mobile {
+        display: block;
+    }
+
+    .artikel-sepuluh-title-overlay {
+        font-size: 0.85em;
+        padding: 6px 8px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Footer Umum */
 footer {
   background-color: #1c1c1c;

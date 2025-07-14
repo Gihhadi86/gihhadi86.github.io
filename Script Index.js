@@ -659,5 +659,226 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-    // Punya bulugul 
+    // Punya artikel 10 
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const articlesGrid = document.getElementById('artikelSepuluhGrid');
+    const articles = Array.from(articlesGrid.getElementsByClassName('artikel-sepuluh-card'));
+    const prevButton = document.getElementById('artikelSepuluhPrevArticle');
+    const nextButton = document.getElementById('artikelSepuluhNextArticle');
+    const navigationButtonsContainer = document.getElementById('artikelSepuluhNavigationButtons');
+    const sliderDotsContainer = document.querySelector('.artikel-sepuluh-slider-dots');
+
+    let currentArticleIndex = 0;
+    let articlesPerPage = 0;
+    let totalPages = 0;
+
+    // Create dots based on total articles and articlesPerPage
+    function createDots() {
+        sliderDotsContainer.innerHTML = ''; // Clear existing dots
+        const calculatedTotalPages = Math.ceil(articles.length / articlesPerPage);
+        for (let i = 0; i < calculatedTotalPages; i++) {
+            const dot = document.createElement('span');
+            dot.classList.add('artikel-sepuluh-dot');
+            if (i === 0) {
+                dot.classList.add('artikel-sepuluh-dot-active');
+            }
+            dot.addEventListener('click', () => goToPage(i));
+            sliderDotsContainer.appendChild(dot);
+        }
+        totalPages = calculatedTotalPages;
+        updateDotActiveState();
+    }
+
+    // Update active dot
+    function updateDotActiveState() {
+        const dots = Array.from(sliderDotsContainer.getElementsByClassName('artikel-sepuluh-dot'));
+        dots.forEach((dot, index) => {
+            if (index === Math.floor(currentArticleIndex / articlesPerPage)) {
+                dot.classList.add('artikel-sepuluh-dot-active');
+            } else {
+                dot.classList.remove('artikel-sepuluh-dot-active');
+            }
+        });
+    }
+
+    // Function to show/hide articles based on current index and screen size
+    function updateArticlesVisibility() {
+        const screenWidth = window.innerWidth;
+
+        // Reset display properties and classes for all articles
+        articles.forEach(article => {
+            article.style.display = ''; // Clear any inline display style set by JS
+            article.classList.remove('artikel-sepuluh-active-mobile'); // Remove mobile-specific class
+        });
+
+        // Ensure flex-wrap and overflow-x are reset for desktop logic
+        articlesGrid.style.flexWrap = 'wrap';
+        articlesGrid.style.overflowX = 'hidden';
+
+        if (screenWidth <= 576) { // REVISI: Mobile View (1 article)
+            articlesPerPage = 1;
+            navigationButtonsContainer.style.display = 'flex';
+            sliderDotsContainer.style.display = 'flex';
+            articlesGrid.style.flexWrap = 'nowrap'; // Disable wrapping for horizontal scrolling
+            articlesGrid.style.overflowX = 'auto'; // Enable controlled horizontal scrolling
+
+            // Adjust currentArticleIndex if it goes out of bounds when switching views
+            if (currentArticleIndex >= articles.length) {
+                currentArticleIndex = 0; // Reset to first if out of bounds
+            }
+            if (currentArticleIndex < 0) {
+                currentArticleIndex = articles.length - 1; // Wrap around to last
+            }
+
+            // Show only the current article using a CSS class for block display
+            articles.forEach((article, index) => {
+                if (index === currentArticleIndex) {
+                    article.classList.add('artikel-sepuluh-active-mobile');
+                } else {
+                    article.style.display = 'none'; // Explicitly hide others
+                }
+            });
+            createDots();
+            updateDotActiveState();
+
+        } else if (screenWidth <= 768) { // REVISI: Mid-Tablet View (2 articles)
+            articlesPerPage = 2; // REVISI: Set to 2 articles per page
+            navigationButtonsContainer.style.display = 'flex';
+            sliderDotsContainer.style.display = 'flex';
+            articlesGrid.style.flexWrap = 'nowrap';
+            articlesGrid.style.overflowX = 'auto';
+
+            currentArticleIndex = Math.floor(currentArticleIndex / articlesPerPage) * articlesPerPage;
+            if (currentArticleIndex < 0) {
+                currentArticleIndex = 0;
+            }
+            if (currentArticleIndex + articlesPerPage > articles.length && articles.length > 0) {
+                 currentArticleIndex = Math.max(0, articles.length - articlesPerPage);
+            }
+
+            articles.forEach(article => article.style.display = 'none');
+            for (let i = 0; i < articlesPerPage; i++) {
+                const articleToShow = articles[currentArticleIndex + i];
+                if (articleToShow) {
+                    articleToShow.style.display = 'block';
+                }
+            }
+            createDots();
+            updateDotActiveState();
+
+        } else if (screenWidth <= 1024) { // REVISI: Tablet View (3 articles)
+            articlesPerPage = 3; // REVISI: Set to 3 articles per page
+            navigationButtonsContainer.style.display = 'flex';
+            sliderDotsContainer.style.display = 'flex';
+            articlesGrid.style.flexWrap = 'nowrap';
+            articlesGrid.style.overflowX = 'auto';
+
+            currentArticleIndex = Math.floor(currentArticleIndex / articlesPerPage) * articlesPerPage;
+            if (currentArticleIndex < 0) {
+                currentArticleIndex = 0;
+            }
+            if (currentArticleIndex + articlesPerPage > articles.length && articles.length > 0) {
+                 currentArticleIndex = Math.max(0, articles.length - articlesPerPage);
+            }
+
+            articles.forEach(article => article.style.display = 'none');
+            for (let i = 0; i < articlesPerPage; i++) {
+                const articleToShow = articles[currentArticleIndex + i];
+                if (articleToShow) {
+                    articleToShow.style.display = 'block';
+                }
+            }
+            createDots();
+            updateDotActiveState();
+
+        } else { // Desktop View (4 articles, no buttons/dots)
+            articlesPerPage = 4;
+            navigationButtonsContainer.style.display = 'none';
+            sliderDotsContainer.style.display = 'none';
+
+            articles.forEach((article, index) => {
+                if (index < 4) { // Show the first 4 articles
+                    article.style.display = 'block';
+                } else { // Hide any articles beyond the 4th for desktop
+                    article.style.display = 'none';
+                }
+            });
+            articlesGrid.style.flexWrap = 'wrap';
+            articlesGrid.style.overflowX = 'hidden';
+            currentArticleIndex = 0; // Reset index for desktop view
+        }
+        updateButtonStates();
+        scrollToCurrent(); // Ensure scroll position is reset on desktop or adjusted on others
+    }
+
+    // Function to update button enabled/disabled state
+    function updateButtonStates() {
+        const screenWidth = window.innerWidth;
+        if (screenWidth <= 1024) { // Only enable/disable for tablet/mobile breakpoints
+            prevButton.disabled = currentArticleIndex === 0;
+            // Disable next if the last visible article is the very last article in the array
+            nextButton.disabled = currentArticleIndex + articlesPerPage >= articles.length;
+        } else { // Buttons hidden on desktop, so they are effectively "disabled"
+            prevButton.disabled = true;
+            nextButton.disabled = true;
+        }
+    }
+
+    // Navigate to the next set of articles
+    function showNextArticles() {
+        let nextIndex = currentArticleIndex + articlesPerPage;
+        if (nextIndex >= articles.length) { // Wrap around if at the end
+            nextIndex = 0;
+        }
+        currentArticleIndex = nextIndex;
+        updateArticlesVisibility();
+    }
+
+    // Navigate to the previous set of articles
+    function showPrevArticles() {
+        let prevIndex = currentArticleIndex - articlesPerPage;
+        if (prevIndex < 0) { // Wrap around if at the beginning
+            // Calculate the starting index for the last full page
+            prevIndex = Math.max(0, Math.floor((articles.length - 1) / articlesPerPage) * articlesPerPage);
+            if (prevIndex === currentArticleIndex && prevIndex !== 0) { // Edge case: if already at the last "page" but not fully filled
+                 prevIndex = 0; // Go to first if there's no previous full page
+            }
+        }
+        currentArticleIndex = prevIndex;
+        updateArticlesVisibility();
+    }
+
+    // Scroll to the first visible article in the grid
+    function scrollToCurrent() {
+        const screenWidth = window.innerWidth;
+        if (screenWidth <= 1024) { // Only scroll if there's a need (e.g., if overflow-x is auto)
+            const firstVisibleArticle = articles[currentArticleIndex];
+            if (firstVisibleArticle) {
+                // Adjust scrollLeft to align the visible article to the start of the grid
+                articlesGrid.scrollLeft = firstVisibleArticle.offsetLeft - articlesGrid.offsetLeft;
+            }
+        } else {
+            articlesGrid.scrollLeft = 0; // Reset scroll for desktop
+        }
+    }
+
+    // Go to a specific page based on dot click
+    function goToPage(pageIndex) {
+        currentArticleIndex = pageIndex * articlesPerPage;
+        updateArticlesVisibility();
+    }
+
+    // Event Listeners
+    prevButton.addEventListener('click', showPrevArticles);
+    nextButton.addEventListener('click', showNextArticles);
+
+    window.addEventListener('resize', () => {
+        clearTimeout(window.artikelSepuluhResizeTimer);
+        window.artikelSepuluhResizeTimer = setTimeout(updateArticlesVisibility, 200);
+    });
+
+    // Initial load
+    updateArticlesVisibility();
+});
     
