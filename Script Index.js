@@ -111,10 +111,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Data artikel untuk slider Tadabur Ayat
     const artikelData = [
         {
-            img: "Gambar/cukur.png",
+            img: "Gambar/View 30.png",
             date: "June 15, 2025",
             comments: "1",
-            views: "1,000",
+            views: "1,700",
             title: "Tafsir Surat Ath-Thariq: Yang Datang pada Waktu Malam",
             desc: "Mendalami makna dan hikmah dari surat Ath-Thariq yang turun pada waktu malam..."
         },
