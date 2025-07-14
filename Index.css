@@ -364,7 +364,7 @@ body.dark .toggle-button .sun::before {
 }
 
 .featured-large .overlay .category {
-  background: #2563eb;
+  background: g#2563eb;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 13px;
