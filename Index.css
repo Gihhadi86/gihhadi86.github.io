@@ -432,7 +432,7 @@ body.dark .toggle-button .sun::before {
 }
 
 .featured-grid .overlay .category {
-  background: #e7a712;
+  background: #00d5ff;
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 11px;
@@ -2980,14 +2980,13 @@ body.dark .toggle-button .sun::before {
     background-color: #f4f4f4; /* Background for the container area itself */
     color: #333;
     line-height: 1.6;
-    max-width: 1280px; /* REVISI: Max width diperpanjang lagi untuk desktop */
-    margin: 20px auto; /* Centering and top/bottom margin */
-    margin-left: 20px;
-    padding: 20px; /* REVISI: Padding container dikembalikan ke 20px untuk desktop */
-    border: 1px solid #ddd; /* Border around the entire section */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-    background-color: #fff; /* White background inside the container */
-    border-radius: 8px; /* Slightly rounded corners */
+    max-width: 1280px; /* Lebar maksimal container untuk desktop */
+    margin: 15px ; /* REVISI: Jarak atas/bawah (margin-top 15px, margin-bottom 15px) dan centering horizontal. Mengurangi jarak atas. */
+    padding: 25px; /* REVISI: Padding dalam container ditingkatkan ke 25px untuk semua sisi di desktop */
+    border: 1px solid #ddd; /* Border di sekeliling container */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Bayangan halus */
+    background-color: #fff; /* Latar belakang putih di dalam container */
+    border-radius: 8px; /* Sudut membulat */
 }
 
 /* Header Section */
@@ -2995,81 +2994,84 @@ body.dark .toggle-button .sun::before {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px; /* Dikembalikan ke nilai awal */
-    padding-bottom: 10px; /* Dikembalikan ke nilai awal */
-    border-bottom: 2px solid #007bff; /* Underline for the title */
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #007bff; /* Garis bawah biru */
 }
 
 .artikel-sepuluh-title {
-    color: #007bff; /* Blue color for the main title */
-    font-size: 1.8em;
+    color: #4dc2f7; /* Warna biru kristal */
+    font-size: 1.6em; /* Ukuran judul container di desktop */
     font-weight: bold;
-    flex-shrink: 0;
-    padding-right: 10px;
+    flex-shrink: 0; /* Mencegah judul menyusut */
+    padding-right: 10px; /* Ruang antara judul dan tombol */
 }
 
 /* Navigation Buttons (for Tablet & Mobile) */
 .artikel-sepuluh-navigation-buttons {
-    display: none;
+    display: none; /* Tersembunyi di desktop secara default */
     flex-shrink: 0;
 }
 
 .artikel-sepuluh-nav-button {
-    background-color: transparent;
-    color: #007bff;
-    border: 1px solid #007bff;
-    padding: 4px 8px;
-    margin-left: 6px;
+    background-color: transparent; /* Tidak ada warna latar belakang */
+    color: #007bff; /* Warna teks biru */
+    border: 1px solid #007bff; /* Border biru tipis */
+    padding: 4px 8px; /* Ukuran padding tombol */
+    margin-left: 6px; /* Jarak antar tombol */
     cursor: pointer;
     border-radius: 4px;
     font-size: 0.9em;
-    transition: none;
+    transition: none; /* Menghilangkan efek transisi */
     box-shadow: none;
-    outline: none;
+    outline: none; /* Menghilangkan outline fokus default browser */
 }
 
 .artikel-sepuluh-nav-button:hover:not(:disabled) {
-    background-color: transparent;
-    color: #0056b3;
-    border-color: #0056b3;
+    background-color: transparent; /* Pastikan tetap transparan saat hover */
+    color: #0056b3; /* Warna teks sedikit lebih gelap saat hover */
+    border-color: #0056b3; /* Warna border sedikit lebih gelap saat hover */
 }
 
 .artikel-sepuluh-nav-button:disabled {
-    background-color: transparent;
-    color: #cccccc;
-    border-color: #cccccc;
+    background-color: transparent; /* Disabled juga transparan */
+    color: #cccccc; /* Warna teks abu-abu saat disabled */
+    border-color: #cccccc; /* Warna border abu-abu saat disabled */
     cursor: not-allowed;
 }
 
 /* Articles Grid Layout */
 .artikel-sepuluh-grid {
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px; /* Tetap 15px untuk kerapatan yang baik */
-    overflow: hidden;
-    scroll-behavior: smooth;
+    flex-wrap: wrap; /* Memungkinkan item melipat ke baris berikutnya di desktop */
+    gap: 15px; /* Jarak antar artikel */
+    overflow: hidden; /* Sembunyikan overflow di desktop */
+    scroll-behavior: smooth; /* Gulir halus saat navigasi JS */
+    scroll-snap-type: x mandatory; /* Memastikan artikel snap ke posisi */
+    -webkit-overflow-scrolling: touch; /* Gulir halus di iOS */
 }
 
 /* Individual Article Card */
 .artikel-sepuluh-card {
-    flex: 1 1 calc(25% - 11.25px); /* Disesuaikan dengan gap 15px */
-    min-width: 200px;
+    flex: 1 1 calc(25% - 11.25px); /* 4 kolom untuk desktop (25% - gap yang disesuaikan) */
+    min-width: 200px; /* Lebar minimum sebelum melipat */
     background-color: #fff;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    scroll-snap-align: start; /* Mengatur setiap artikel untuk snap ke awal */
 }
 
 .artikel-sepuluh-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 10px rgba(0,0,0,0.12);
+    transform: translateY(-3px); /* Sedikit naik saat hover */
+    box-shadow: 0 5px 10px rgba(0,0,0,0.12); /* Bayangan saat hover */
 }
 
 .artikel-sepuluh-image-wrapper {
     position: relative;
     width: 100%;
-    padding-top: 66.66%; /* 3:2 aspect ratio */
+    padding-top: 66.66%; /* Rasio aspek 3:2 */
     overflow: hidden;
 }
 
@@ -3079,12 +3081,12 @@ body.dark .toggle-button .sun::before {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Memastikan gambar menutupi area tanpa distorsi */
     transition: transform 0.3s ease;
 }
 
 .artikel-sepuluh-card:hover .artikel-sepuluh-image {
-    transform: scale(1.02);
+    transform: scale(1.02); /* Sedikit zoom saat hover */
 }
 
 .artikel-sepuluh-title-overlay {
@@ -3092,17 +3094,17 @@ body.dark .toggle-button .sun::before {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 100%); /* Overlay gradien */
     color: white;
     padding: 10px 10px;
     font-size: 0.95em;
     font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Bayangan teks untuk keterbacaan */
 }
 
 /* Slider Dots for Mobile/Tablet */
 .artikel-sepuluh-slider-dots {
-    display: none;
+    display: none; /* Tersembunyi di desktop secara default */
     justify-content: center;
     margin-top: 20px;
 }
@@ -3126,57 +3128,53 @@ body.dark .toggle-button .sun::before {
 /* Tablet View (e.g., max-width 1024px, 3 articles) */
 @media (max-width: 1024px) {
     .artikel-sepuluh-container {
-        margin: 25px auto;
-        margin-left: 20px;
-        padding: 15px; /* Padding sedikit dikurangi di tablet */
+        margin: 15px; /* REVISI: Margin atas/bawah 20px di tablet */
+        padding: 25px; /* REVISI: Padding container di tablet ditingkatkan ke 25px */
     }
 
     .artikel-sepuluh-title {
-        font-size: 1.6em;
+        font-size: 1.5em; /* Ukuran judul di tablet */
     }
 
     .artikel-sepuluh-navigation-buttons {
-        display: flex;
+        display: flex; /* Tombol ditampilkan di tablet */
     }
 
     .artikel-sepuluh-grid {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        &::-webkit-scrollbar {
+        flex-wrap: nowrap; /* Nonaktifkan wrapping untuk geser */
+        overflow-x: auto; /* Memungkinkan geser/scroll horizontal */
+        scrollbar-width: none; /* Sembunyikan scrollbar Firefox */
+        &::-webkit-scrollbar { /* Sembunyikan scrollbar Chrome/Safari/Opera */
             display: none;
         }
     }
 
     .artikel-sepuluh-card {
-        flex: 0 0 calc(33.333% - 10px); /* Disesuaikan dengan gap 15px */
+        flex: 0 0 calc(33.333% - 10px); /* 3 kolom untuk tablet (disesuaikan dengan gap) */
         min-width: 260px;
-    }
-
-    .artikel-sepuluh-grid .artikel-sepuluh-card {
-        display: none;
+        display: block; /* Pastikan kartu artikel ditampilkan untuk geser */
     }
 
     .artikel-sepuluh-slider-dots {
-        display: flex;
+        display: flex; /* Dot ditampilkan di tablet */
     }
 }
 
 /* Mid-Tablet View (e.g., max-width 768px, 2 articles) */
 @media (max-width: 768px) {
     .artikel-sepuluh-container {
-        margin: 20px auto;
-        padding: 15px; /* Padding tetap 15px di mid-tablet */
+        margin: 15px; /* REVISI: Margin atas/bawah 15px di mid-tablet */
+        padding: 25px; /* REVISI: Padding container di mid-tablet ditingkatkan ke 25px */
     }
 
     .artikel-sepuluh-title {
-        font-size: 1.4em;
+        font-size: 1.3em; /* Ukuran judul di mid-tablet */
     }
 
     .artikel-sepuluh-card {
-        flex: 0 0 calc(50% - 7.5px); /* Disesuaikan dengan gap 15px */
+        flex: 0 0 calc(50% - 7.5px); /* 2 kolom untuk mid-tablet (disesuaikan dengan gap) */
         min-width: 280px;
+        display: block; /* Pastikan kartu artikel ditampilkan untuk geser */
     }
 }
 
@@ -3184,9 +3182,8 @@ body.dark .toggle-button .sun::before {
 /* Mobile View (e.g., max-width 576px, 1 article) */
 @media (max-width: 576px) {
     .artikel-sepuluh-container {
-        margin: 20px auto;
-        margin-left: 8px;
-        padding: 20px; /* REVISI: Padding container diperbanyak di mobile dari 10px menjadi 20px */
+        margin: 10px; /* REVISI: Margin atas/bawah 10px di mobile (paling rapat) */
+        padding: 25px; /* REVISI: Padding container di mobile ditingkatkan ke 25px agar tidak dempet */
     }
 
     .artikel-sepuluh-header {
@@ -3198,7 +3195,7 @@ body.dark .toggle-button .sun::before {
     }
 
     .artikel-sepuluh-title {
-        font-size: 1.2em;
+        font-size: 1.2em; /* REVISI: Ukuran judul di mobile sedikit lebih besar */
         margin-bottom: 0;
         border-bottom: 2px solid #007bff;
         padding-bottom: 5px;
@@ -3230,12 +3227,6 @@ body.dark .toggle-button .sun::before {
         flex: 0 0 100%;
         min-width: auto;
         width: 100%;
-    }
-
-    .artikel-sepuluh-grid .artikel-sepuluh-card {
-        display: none;
-    }
-    .artikel-sepuluh-grid .artikel-sepuluh-card.artikel-sepuluh-active-mobile {
         display: block;
     }
 
@@ -3244,11 +3235,6 @@ body.dark .toggle-button .sun::before {
         padding: 6px 8px;
     }
 }
-
-
-
-
-
 
 
 

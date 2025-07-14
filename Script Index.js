@@ -669,13 +669,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const navigationButtonsContainer = document.getElementById('artikelSepuluhNavigationButtons');
     const sliderDotsContainer = document.querySelector('.artikel-sepuluh-slider-dots');
 
-    let currentArticleIndex = 0;
     let articlesPerPage = 0;
     let totalPages = 0;
 
-    // Create dots based on total articles and articlesPerPage
+    // Function to create dots
     function createDots() {
         sliderDotsContainer.innerHTML = ''; // Clear existing dots
+        // Pastikan articlesPerPage lebih dari 0 untuk menghindari pembagian dengan nol
+        if (articlesPerPage === 0) return;
+
         const calculatedTotalPages = Math.ceil(articles.length / articlesPerPage);
         for (let i = 0; i < calculatedTotalPages; i++) {
             const dot = document.createElement('span');
@@ -687,198 +689,181 @@ document.addEventListener('DOMContentLoaded', function() {
             sliderDotsContainer.appendChild(dot);
         }
         totalPages = calculatedTotalPages;
-        updateDotActiveState();
+        updateDotActiveState(); // Update initial active dot
     }
 
-    // Update active dot
+    // Function to update active dot based on scroll position
     function updateDotActiveState() {
         const dots = Array.from(sliderDotsContainer.getElementsByClassName('artikel-sepuluh-dot'));
+        if (dots.length === 0 || articles.length === 0) return; // Guard clause
+
+        const scrollLeft = articlesGrid.scrollLeft;
+        // Gunakan getBoundingClientRect untuk lebar yang lebih akurat, termasuk border/padding
+        // OffsetWidth juga cukup baik jika box-sizing border-box sudah diterapkan
+        const firstArticle = articles[0];
+        // Cek jika articleWidth bisa dihitung, jika tidak default ke 0 atau nilai aman
+        const articleWidthWithGap = firstArticle ? (firstArticle.offsetWidth + 15) : 0; // Article width + gap (15px)
+
+        if (articleWidthWithGap === 0) return; // Mencegah pembagian dengan nol
+
+        let activePageIndex = Math.round(scrollLeft / articleWidthWithGap);
+
+        // Sesuaikan index untuk halaman (e.g., 3 artikel per halaman)
+        // Kita perlu mencari index artikel pertama yang terlihat di viewport
+        let visibleArticleIndex = 0;
+        for (let i = 0; i < articles.length; i++) {
+            const articleRect = articles[i].getBoundingClientRect();
+            const gridRect = articlesGrid.getBoundingClientRect();
+            // Jika artikel ini masuk atau sebagian masuk ke viewport grid
+            if (articleRect.left >= gridRect.left && articleRect.left < gridRect.right) {
+                visibleArticleIndex = i;
+                break;
+            }
+        }
+        activePageIndex = Math.floor(visibleArticleIndex / articlesPerPage);
+
+
         dots.forEach((dot, index) => {
-            if (index === Math.floor(currentArticleIndex / articlesPerPage)) {
+            if (index === activePageIndex) {
                 dot.classList.add('artikel-sepuluh-dot-active');
             } else {
                 dot.classList.remove('artikel-sepuluh-dot-active');
             }
         });
+
+        // Update button states setelah dot active state
+        updateButtonStates(activePageIndex * articlesPerPage);
     }
 
-    // Function to show/hide articles based on current index and screen size
-    function updateArticlesVisibility() {
+    // Function to set articles per page and visibility based on screen width
+    function setArticlesPerPageAndVisibility() {
         const screenWidth = window.innerWidth;
+        let oldArticlesPerPage = articlesPerPage;
 
-        // Reset display properties and classes for all articles
-        articles.forEach(article => {
-            article.style.display = ''; // Clear any inline display style set by JS
-            article.classList.remove('artikel-sepuluh-active-mobile'); // Remove mobile-specific class
-        });
-
-        // Ensure flex-wrap and overflow-x are reset for desktop logic
-        articlesGrid.style.flexWrap = 'wrap';
-        articlesGrid.style.overflowX = 'hidden';
-
-        if (screenWidth <= 576) { // REVISI: Mobile View (1 article)
+        if (screenWidth <= 576) { // Mobile View (1 article)
             articlesPerPage = 1;
             navigationButtonsContainer.style.display = 'flex';
             sliderDotsContainer.style.display = 'flex';
-            articlesGrid.style.flexWrap = 'nowrap'; // Disable wrapping for horizontal scrolling
-            articlesGrid.style.overflowX = 'auto'; // Enable controlled horizontal scrolling
-
-            // Adjust currentArticleIndex if it goes out of bounds when switching views
-            if (currentArticleIndex >= articles.length) {
-                currentArticleIndex = 0; // Reset to first if out of bounds
-            }
-            if (currentArticleIndex < 0) {
-                currentArticleIndex = articles.length - 1; // Wrap around to last
-            }
-
-            // Show only the current article using a CSS class for block display
-            articles.forEach((article, index) => {
-                if (index === currentArticleIndex) {
-                    article.classList.add('artikel-sepuluh-active-mobile');
-                } else {
-                    article.style.display = 'none'; // Explicitly hide others
-                }
-            });
-            createDots();
-            updateDotActiveState();
-
-        } else if (screenWidth <= 768) { // REVISI: Mid-Tablet View (2 articles)
-            articlesPerPage = 2; // REVISI: Set to 2 articles per page
+            articlesGrid.style.flexWrap = 'nowrap';
+            articlesGrid.style.overflowX = 'auto'; // Enable swipe
+        } else if (screenWidth <= 768) { // Mid-Tablet View (2 articles)
+            articlesPerPage = 2;
             navigationButtonsContainer.style.display = 'flex';
             sliderDotsContainer.style.display = 'flex';
             articlesGrid.style.flexWrap = 'nowrap';
-            articlesGrid.style.overflowX = 'auto';
-
-            currentArticleIndex = Math.floor(currentArticleIndex / articlesPerPage) * articlesPerPage;
-            if (currentArticleIndex < 0) {
-                currentArticleIndex = 0;
-            }
-            if (currentArticleIndex + articlesPerPage > articles.length && articles.length > 0) {
-                 currentArticleIndex = Math.max(0, articles.length - articlesPerPage);
-            }
-
-            articles.forEach(article => article.style.display = 'none');
-            for (let i = 0; i < articlesPerPage; i++) {
-                const articleToShow = articles[currentArticleIndex + i];
-                if (articleToShow) {
-                    articleToShow.style.display = 'block';
-                }
-            }
-            createDots();
-            updateDotActiveState();
-
-        } else if (screenWidth <= 1024) { // REVISI: Tablet View (3 articles)
-            articlesPerPage = 3; // REVISI: Set to 3 articles per page
+            articlesGrid.style.overflowX = 'auto'; // Enable swipe
+        } else if (screenWidth <= 1024) { // Tablet View (3 articles)
+            articlesPerPage = 3;
             navigationButtonsContainer.style.display = 'flex';
             sliderDotsContainer.style.display = 'flex';
             articlesGrid.style.flexWrap = 'nowrap';
-            articlesGrid.style.overflowX = 'auto';
-
-            currentArticleIndex = Math.floor(currentArticleIndex / articlesPerPage) * articlesPerPage;
-            if (currentArticleIndex < 0) {
-                currentArticleIndex = 0;
-            }
-            if (currentArticleIndex + articlesPerPage > articles.length && articles.length > 0) {
-                 currentArticleIndex = Math.max(0, articles.length - articlesPerPage);
-            }
-
-            articles.forEach(article => article.style.display = 'none');
-            for (let i = 0; i < articlesPerPage; i++) {
-                const articleToShow = articles[currentArticleIndex + i];
-                if (articleToShow) {
-                    articleToShow.style.display = 'block';
-                }
-            }
-            createDots();
-            updateDotActiveState();
-
+            articlesGrid.style.overflowX = 'auto'; // Enable swipe
         } else { // Desktop View (4 articles, no buttons/dots)
-            articlesPerPage = 4;
+            articlesPerPage = 4; // Desktop shows 4, no swipe, no buttons/dots
             navigationButtonsContainer.style.display = 'none';
             sliderDotsContainer.style.display = 'none';
+            articlesGrid.style.flexWrap = 'wrap'; // Allow wrapping
+            articlesGrid.style.overflowX = 'hidden'; // Disable swipe
 
+            // Pastikan artikel ke-5 dan ke-6 disembunyikan di desktop
             articles.forEach((article, index) => {
-                if (index < 4) { // Show the first 4 articles
-                    article.style.display = 'block';
-                } else { // Hide any articles beyond the 4th for desktop
+                if (index >= 4) {
                     article.style.display = 'none';
+                } else {
+                    article.style.display = 'block'; // Pastikan 4 artikel pertama tampil
                 }
             });
-            articlesGrid.style.flexWrap = 'wrap';
-            articlesGrid.style.overflowX = 'hidden';
-            currentArticleIndex = 0; // Reset index for desktop view
+            // Reset scroll position for desktop
+            articlesGrid.scrollLeft = 0;
+            updateButtonStates(0); // Update button states for desktop
+            return; // Keluar dari fungsi karena desktop tidak perlu dot/swipe logic lebih lanjut
         }
-        updateButtonStates();
-        scrollToCurrent(); // Ensure scroll position is reset on desktop or adjusted on others
+
+        // Logic for tablet/mobile (where swipe is enabled)
+        articles.forEach(article => article.style.display = 'block'); // Pastikan semua artikel tampil untuk swipe
+
+        if (articlesPerPage !== oldArticlesPerPage) {
+            // Jika jumlah artikel per halaman berubah, reset scroll ke awal
+            articlesGrid.scrollLeft = 0;
+        }
+
+        createDots(); // Re-create dots whenever articlesPerPage changes
+        updateDotActiveState(); // Update dot state
     }
 
     // Function to update button enabled/disabled state
-    function updateButtonStates() {
+    function updateButtonStates(currentIndex) {
         const screenWidth = window.innerWidth;
-        if (screenWidth <= 1024) { // Only enable/disable for tablet/mobile breakpoints
-            prevButton.disabled = currentArticleIndex === 0;
-            // Disable next if the last visible article is the very last article in the array
-            nextButton.disabled = currentArticleIndex + articlesPerPage >= articles.length;
-        } else { // Buttons hidden on desktop, so they are effectively "disabled"
-            prevButton.disabled = true;
-            nextButton.disabled = true;
-        }
-    }
-
-    // Navigate to the next set of articles
-    function showNextArticles() {
-        let nextIndex = currentArticleIndex + articlesPerPage;
-        if (nextIndex >= articles.length) { // Wrap around if at the end
-            nextIndex = 0;
-        }
-        currentArticleIndex = nextIndex;
-        updateArticlesVisibility();
-    }
-
-    // Navigate to the previous set of articles
-    function showPrevArticles() {
-        let prevIndex = currentArticleIndex - articlesPerPage;
-        if (prevIndex < 0) { // Wrap around if at the beginning
-            // Calculate the starting index for the last full page
-            prevIndex = Math.max(0, Math.floor((articles.length - 1) / articlesPerPage) * articlesPerPage);
-            if (prevIndex === currentArticleIndex && prevIndex !== 0) { // Edge case: if already at the last "page" but not fully filled
-                 prevIndex = 0; // Go to first if there's no previous full page
-            }
-        }
-        currentArticleIndex = prevIndex;
-        updateArticlesVisibility();
-    }
-
-    // Scroll to the first visible article in the grid
-    function scrollToCurrent() {
-        const screenWidth = window.innerWidth;
-        if (screenWidth <= 1024) { // Only scroll if there's a need (e.g., if overflow-x is auto)
-            const firstVisibleArticle = articles[currentArticleIndex];
-            if (firstVisibleArticle) {
-                // Adjust scrollLeft to align the visible article to the start of the grid
-                articlesGrid.scrollLeft = firstVisibleArticle.offsetLeft - articlesGrid.offsetLeft;
-            }
+        if (screenWidth <= 1024) { // Hanya aktifkan/nonaktifkan untuk breakpoint tablet/mobile
+            prevButton.disabled = currentIndex === 0;
+            nextButton.disabled = currentIndex + articlesPerPage >= articles.length;
         } else {
-            articlesGrid.scrollLeft = 0; // Reset scroll for desktop
+            prevButton.disabled = true; // Tombol disembunyikan di desktop
+            nextButton.disabled = true; // Tombol disembunyikan di desktop
         }
+    }
+
+    // Navigate to the next set of articles (via button click)
+    function showNextArticles() {
+        const articleWidth = articles[0].offsetWidth + 15; // Lebar artikel + gap
+        let targetScrollLeft = articlesGrid.scrollLeft + (articleWidth * articlesPerPage);
+
+        // Jika akan melewati batas akhir, gulir ke awal
+        if (targetScrollLeft >= articlesGrid.scrollWidth - articlesGrid.clientWidth - 1) { // -1 untuk buffer kecil
+            targetScrollLeft = 0;
+        }
+        articlesGrid.scrollTo({
+            left: targetScrollLeft,
+            behavior: 'smooth'
+        });
+        // updateDotActiveState akan dipicu oleh event scroll
+    }
+
+    // Navigate to the previous set of articles (via button click)
+    function showPrevArticles() {
+        const articleWidth = articles[0].offsetWidth + 15; // Lebar artikel + gap
+        let targetScrollLeft = articlesGrid.scrollLeft - (articleWidth * articlesPerPage);
+
+        // Jika akan melewati batas awal, gulir ke akhir
+        if (targetScrollLeft <= 1) { // +1 untuk buffer kecil
+            targetScrollLeft = articlesGrid.scrollWidth - articlesGrid.clientWidth;
+        }
+        articlesGrid.scrollTo({
+            left: targetScrollLeft,
+            behavior: 'smooth'
+        });
+        // updateDotActiveState akan dipicu oleh event scroll
     }
 
     // Go to a specific page based on dot click
     function goToPage(pageIndex) {
-        currentArticleIndex = pageIndex * articlesPerPage;
-        updateArticlesVisibility();
+        const articleWidth = articles[0].offsetWidth + 15; // Lebar artikel + gap
+        const targetScrollLeft = pageIndex * articlesPerPage * articleWidth;
+        articlesGrid.scrollTo({
+            left: targetScrollLeft,
+            behavior: 'smooth'
+        });
+        // updateDotActiveState akan dipicu oleh event scroll
     }
 
     // Event Listeners
     prevButton.addEventListener('click', showPrevArticles);
     nextButton.addEventListener('click', showNextArticles);
 
-    window.addEventListener('resize', () => {
-        clearTimeout(window.artikelSepuluhResizeTimer);
-        window.artikelSepuluhResizeTimer = setTimeout(updateArticlesVisibility, 200);
+    // Dengar event scroll untuk memperbarui dot dan tombol
+    articlesGrid.addEventListener('scroll', () => {
+        // Debounce event scroll untuk performa
+        clearTimeout(window.artikelSepuluhScrollTimer);
+        window.artikelSepuluhScrollTimer = setTimeout(updateDotActiveState, 100);
     });
 
-    // Initial load
-    updateArticlesVisibility();
+    window.addEventListener('resize', () => {
+        // Debounce event resize untuk performa
+        clearTimeout(window.artikelSepuluhResizeTimer);
+        window.artikelSepuluhResizeTimer = setTimeout(setArticlesPerPageAndVisibility, 200);
+    });
+
+    // Pemuatan awal
+    setArticlesPerPageAndVisibility();
 });
     
