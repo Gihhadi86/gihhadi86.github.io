@@ -974,355 +974,512 @@ body.dark .toggle-button .sun::before {
 
 
 
-
 .section-bulughul {
-  margin: -20px auto; /* Kembali ke -20px sesuai permintaan */
-  max-width: 1300px;
-  padding: 24px;
-  display: flex;
-  gap: 24px; /* Tetap pertahankan gap horizontal untuk desktop */
+    margin: -20px auto; /* Kembali ke -20px sesuai permintaan */
+    max-width: 1300px;
+    padding: 24px;
+    display: flex;
+    gap: 24px; /* Tetap pertahankan gap horizontal untuk desktop */
+    /* Transisi untuk mode gelap */
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+/* --- Dark Mode untuk section-bulughul (kontainer luar) --- */
+/* Jika ada background/border/shadow langsung pada section-bulughul, atur di sini. */
+/* Saat ini, styling visual ada pada konten-kiri. */
+
 
 .konten-kiri {
-  flex: 3;
-  padding: 30px; /* Tetap padding 30px untuk desktop */
-  border: 1px solid #e0e0e0; /* Tetap border untuk desktop */
+    flex: 3;
+    background-color: #fff; /* Background terang */
+    padding: 30px;
+    border: 1px solid #e0e0e0; /* Border terang */
+    box-shadow: 0 0 5px rgba(0,0,0,0.05); /* Bayangan terang */
+    border-radius: 8px; /* Tambahkan border-radius yang konsisten */
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Transisi */
 }
+
+/* --- Dark Mode untuk konten-kiri --- */
+body.dark .konten-kiri {
+    background-color: #2a2a2a; /* Background gelap */
+    border-color: #333; /* Border gelap */
+    box-shadow: 0 0 5px rgba(0,0,0,0.2); /* Bayangan gelap */
+}
+
 
 .konten-kanan {
-  flex: 1;
+    flex: 1;
 }
 
+/* sticky-ad, static-ad, bottom-ad tidak memiliki warna spesifik yang perlu dark mode */
 .sticky-ad {
-  position: fixed;
-  top: 100px;
-  width: 250px;
-  z-index: 999;
+    position: fixed;
+    top: 100px;
+    width: 250px;
+    z-index: 999;
 }
 
 .static-ad {
-  position: relative;
+    position: relative;
 }
 
 .bottom-ad {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
+
 
 .facebook-box {
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  padding: 15px;
-  border-radius: 5px;
-  margin-bottom: 20px;
+    background: #fff; /* Background terang */
+    border: 1px solid #e0e0e0; /* Border terang */
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.05); /* Bayangan terang */
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Transisi */
 }
 
+/* --- Dark Mode untuk facebook-box --- */
+body.dark .facebook-box {
+    background: #333; /* Background gelap */
+    border-color: #444; /* Border gelap */
+    box-shadow: 0 0 5px rgba(0,0,0,0.2); /* Bayangan gelap */
+}
+
+
 .facebook-header {
-  font-weight: bold;
-  font-size: 16px;
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #000;
-  padding-bottom: 5px;
-  align-items: center;
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #000; /* Border terang */
+    padding-bottom: 5px;
+    align-items: center;
+    color: #333; /* Warna teks terang */
+    transition: color 0.3s ease, border-bottom-color 0.3s ease; /* Transisi */
+}
+
+/* --- Dark Mode untuk facebook-header --- */
+body.dark .facebook-header {
+    color: #eee; /* Warna teks gelap */
+    border-bottom-color: #555; /* Border gelap */
 }
 
 .facebook-header i {
-  color: #2958be;
+    color: #2958be; /* Warna ikon terang */
+    transition: color 0.3s ease; /* Transisi */
 }
 
+/* --- Dark Mode untuk ikon facebook-header --- */
+body.dark .facebook-header i {
+    color: #6a9ce6; /* Warna ikon lebih terang di dark mode */
+}
+
+
 .iklan-box img {
-  width: 100%;
-  border-radius: 6px;
-  display: block;
+    width: 100%;
+    border-radius: 6px;
+    display: block;
+    /* Image itself won't change color, but if it has any border/background/shadow from its parent, it needs dark mode */
 }
 
 /* Warna Crystal Purple untuk judul Bulughul Maram */
 .judul-box {
-  font-size: 22px;
-  font-weight: bold;
-  color: #a4508b; /* Ungu Crystal */
-  margin-bottom: 20px;
-  border-bottom: 2px solid #a4508b; /* Sesuaikan warna border bawah */
-  padding-bottom: 5px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #a4508b; /* Ungu Crystal (terang) */
+    margin-bottom: 20px;
+    border-bottom: 2px solid #a4508b; /* Border bawah (terang) */
+    padding-bottom: 5px;
+    transition: color 0.3s ease, border-bottom-color 0.3s ease; /* Transisi */
+}
+
+/* --- Dark Mode untuk judul-box --- */
+body.dark .judul-box {
+    color: #e6b3e6; /* Ungu Crystal lebih terang di dark mode */
+    border-bottom-color: #e6b3e6; /* Border lebih terang di dark mode */
 }
 
 .artikel-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 25px; /* Tetap pertahankan gap horizontal untuk desktop */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px; /* Tetap pertahankan gap horizontal untuk desktop */
 }
 
 .artikel-item {
-  border-radius: 6px; /* Tetap border-radius untuk desktop */
-  overflow: hidden;
-  flex: 1 1 calc(33.333% - 16.66px); /* Tetap 3 kolom untuk desktop */
-  transition: none; /* Hapus transisi untuk menghilangkan efek maju */
-  display: flex;
-  flex-direction: column;
-  /* Tidak ada margin-bottom atau border di sini untuk desktop/default */
-  border: none; /* Pastikan tidak ada border dari sini */
-  box-shadow: none; /* Pastikan tidak ada shadow dari sini */
+    border-radius: 6px;
+    overflow: hidden;
+    flex: 1 1 calc(33.333% - 16.66px);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Transisi untuk dark mode */
+    display: flex;
+    flex-direction: column;
+    background-color: #fff; /* Background terang (default) */
+    border: 1px solid #eee; /* Border terang (default) */
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05); /* Bayangan terang (default) */
 }
 
+/* --- Dark Mode untuk artikel-item (saat di desktop 3 kolom) --- */
+body.dark .artikel-item {
+    background-color: #3a3a3a; /* Background gelap */
+    border-color: #444; /* Border gelap */
+    box-shadow: 0 1px 6px rgba(0,0,0,0.2); /* Bayangan gelap */
+}
+body.dark .artikel-item:hover {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3); /* Bayangan hover lebih gelap */
+}
+
+
 .artikel-item a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  height: 100%;
+    text-decoration: none;
+    color: inherit; /* Akan mewarisi warna teks body */
+    display: block;
+    height: 100%;
 }
 
 .artikel-item img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 5px; /* Tetap radius 5px untuk desktop */
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 5px;
+    display: block;
 }
 
 .meta {
-  font-size: 12px;
-  color: #777;
-  margin: 10px 0;
-  display: flex;
-  gap: 10px;
-  padding: 0 10px; /* Tetap padding 0 10px untuk desktop */
+    font-size: 12px;
+    color: #777; /* Warna teks meta terang */
+    margin: 10px 0;
+    display: flex;
+    gap: 10px;
+    padding: 0 10px;
+    transition: color 0.3s ease; /* Transisi */
 }
+
+/* --- Dark Mode untuk meta info artikel-item --- */
+body.dark .meta {
+    color: #bbb; /* Warna teks meta gelap */
+}
+body.dark .meta i {
+    color: #ccc; /* Warna ikon meta gelap */
+}
+
 
 .artikel-item h3 {
-  font-size: 15px;
-  font-weight: bold;
-  margin: 5px 10px 8px; /* Tetap margin 5 10 8 untuk desktop */
-  color: #222;
-  transition: color 0.2s ease-in-out; /* Transisi untuk hover judul */
+    font-size: 15px;
+    font-weight: bold;
+    margin: 5px 10px 8px;
+    color: #222; /* Warna judul terang */
+    transition: color 0.2s ease-in-out; /* Transisi */
 }
 
-.artikel-item h3:hover {
-  color: #a4508b; /* Ungu crystal pekat saat hover */
+/* --- Dark Mode untuk judul artikel-item --- */
+body.dark .artikel-item h3 {
+    color: #eee; /* Warna judul gelap */
 }
+body.dark .artikel-item h3:hover {
+    color: #e6b3e6; /* Warna hover lebih terang di dark mode */
+}
+
 
 .artikel-item p {
-  font-size: 13px;
-  color: #555;
-  line-height: 1.5;
-  margin: 0 10px 10px; /* Tetap margin 0 10 10 untuk desktop */
+    font-size: 13px;
+    color: #555; /* Warna paragraf terang */
+    line-height: 1.5;
+    margin: 0 10px 10px;
+    transition: color 0.3s ease; /* Transisi */
+}
+
+/* --- Dark Mode untuk paragraf artikel-item --- */
+body.dark .artikel-item p {
+    color: #ccc; /* Warna paragraf gelap */
 }
 
 /* Warna Crystal Purple untuk Baca Selengkapnya - tampilan box (selalu ungu pekat) */
 .read-more {
-  font-size: 13px;
-  color: #fff; /* Teks putih secara default */
-  display: inline-block;
-  margin: 0 10px 12px; /* Tetap margin 0 10 12 untuk desktop */
-
-  background-color: #a4508b; /* Latar belakang ungu crystal pekat */
-  padding: 8px 15px; /* Padding di dalam box */
-  border: 1px solid #a4508b; /* Garis ungu crystal */
-  border-radius: 4px; /* Sudut sedikit membulat */
-  text-decoration: none; /* Hilangkan underline bawaan link */
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; /* Transisi halus untuk hover (jika ingin ada efek lain di hover) */
+    font-size: 13px;
+    color: #fff; /* Teks putih (tidak berubah) */
+    display: inline-block;
+    margin: 0 10px 12px;
+    background-color: #a4508b; /* Ungu Crystal (terang) */
+    padding: 8px 15px;
+    border: 1px solid #a4508b; /* Border ungu Crystal (terang) */
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out; /* Transisi */
 }
 
+/* --- Dark Mode untuk tombol read-more --- */
+body.dark .read-more {
+    background-color: #8c4270; /* Ungu Crystal lebih gelap di dark mode */
+    border-color: #8c4270; /* Border lebih gelap di dark mode */
+}
 .read-more:hover {
-  /* Opsional: jika ingin ada efek sedikit berbeda saat hover, contohnya sedikit menggelap */
-  background-color: #8c4270; /* Sedikit lebih gelap dari ungu crystal */
+    background-color: #8c4270; /* Hover terang */
 }
+body.dark .read-more:hover {
+    background-color: #6a2a50; /* Hover lebih gelap di dark mode */
+}
+
 
 /* === Media Query untuk Tablet (Ketika Iklan Hilang & Tetap 3 Horizontal) === */
 @media (max-width: 1024px) {
-  .section-bulughul {
-    flex-direction: column;
-    max-width: 94vw; /* Pertahankan lebar responsif */
-    padding: 16px 12px;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-    position: relative;
-    margin: 20px auto;
-  }
+    .section-bulughul {
+        flex-direction: column;
+        max-width: 94vw;
+        padding: 16px 12px;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05); /* Bayangan terang */
+        position: relative;
+        margin: 20px auto;
+        transition: box-shadow 0.3s ease; /* Transisi */
+    }
 
-  .konten-kiri {
-    border: 1px solid #e0e0e0; /* Border untuk konten-kiri di tablet */
-    position: relative;
-    padding: 20px; /* Sesuaikan padding agar terlihat bagus dengan border */
-  }
+    /* --- Dark Mode untuk section-bulughul di tablet --- */
+    body.dark .section-bulughul {
+        box-shadow: 0 1px 6px rgba(0,0,0,0.2); /* Bayangan gelap */
+    }
 
-  /* Artikel tetap 3 kolom horizontal */
-  .artikel-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px; /* Tetap pertahankan gap horizontal */
-    padding: 0;
-    overflow-x: hidden;
-  }
+    .konten-kiri {
+        border: 1px solid #e0e0e0; /* Border terang */
+        position: relative;
+        padding: 20px;
+        transition: border-color 0.3s ease; /* Transisi */
+    }
 
-  .artikel-item {
-    flex: 1 1 calc(
-      33.333% - 16px
-    ); /* Tetap 3 kolom, sesuaikan margin/gap */
-    max-width: calc(33.333% - 16px); /* Pastikan lebar tetap 3 kolom */
-    margin-bottom: 24px; /* Jarak antar baris */
-    background-color: #fff;
-    border-radius: 6px; /* Kembalikan border-radius untuk tampilan horizontal */
-    overflow: hidden;
-    border: none; /* Hapus border yang tidak perlu di sini */
-    box-shadow: none;
-    padding: 0;
-  }
+    /* --- Dark Mode untuk konten-kiri di tablet --- */
+    body.dark .konten-kiri {
+        border-color: #333; /* Border gelap */
+    }
 
-  .artikel-item img {
-    width: 100%;
-    height: 180px; /* Tetap tinggi gambar */
-    object-fit: cover;
-    border-radius: 5px; /* Radius gambar */
-  }
+    /* Artikel tetap 3 kolom horizontal */
+    .artikel-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        padding: 0;
+        overflow-x: hidden;
+    }
 
-  .artikel-item h3 {
-    font-size: 15px;
-    margin: 5px 10px 8px;
-  }
+    .artikel-item {
+        flex: 1 1 calc(33.333% - 16px);
+        max-width: calc(33.333% - 16px);
+        margin-bottom: 24px;
+        background-color: #fff; /* Background terang */
+        border-radius: 6px;
+        overflow: hidden;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Transisi */
+    }
 
-  .artikel-item p {
-    font-size: 13px;
-    margin: 0 10px 10px;
-  }
+    /* --- Dark Mode untuk artikel-item di tablet --- */
+    body.dark .artikel-item {
+        background-color: #3a3a3a; /* Background gelap */
+        box-shadow: 0 1px 6px rgba(0,0,0,0.15); /* Bayangan gelap */
+        /* Border tidak ada secara default di sini, jadi tidak perlu border-color */
+    }
 
-  .read-more {
-    margin: 0 10px 12px;
-    display: inline-block;
-  }
 
-  .meta {
-    padding: 0 10px;
-  }
+    .artikel-item img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
 
-  .konten-kanan {
-    display: none; /* Iklan hilang di sini */
-  }
+    .artikel-item h3 {
+        font-size: 15px;
+        margin: 5px 10px 8px;
+    }
 
-  /* Aturan untuk mobile-ad-section di tablet/mobile */
-  .mobile-ad-section {
-    display: block;
-    margin: 20px auto;
-    max-width: 94vw;
-    padding: 16px 12px;
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-    border-radius: 6px;
-  }
+    .artikel-item p {
+        font-size: 13px;
+        margin: 0 10px 10px;
+    }
 
-  .mobile-ad-section .facebook-box,
-  .mobile-ad-section .iklan-box {
-    margin-bottom: 20px;
-  }
+    .read-more {
+        margin: 0 10px 12px;
+        display: inline-block;
+    }
 
-  .mobile-ad-section .facebook-header {
-    margin-bottom: 15px;
-  }
-  .mobile-ad-section .iklan-box img {
-    width: 100%;
-  }
+    .meta {
+        padding: 0 10px;
+    }
+
+    .konten-kanan {
+        display: none; /* Iklan hilang di sini */
+    }
+
+    /* Aturan untuk mobile-ad-section di tablet/mobile */
+    .mobile-ad-section {
+        display: block;
+        margin: 20px auto;
+        max-width: 94vw;
+        padding: 16px 12px;
+        background-color: #fff; /* Background terang */
+        border: 1px solid #e0e0e0; /* Border terang */
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05); /* Bayangan terang */
+        border-radius: 6px;
+        transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Transisi */
+    }
+
+    /* --- Dark Mode untuk mobile-ad-section --- */
+    body.dark .mobile-ad-section {
+        background-color: #2a2a2a; /* Background gelap */
+        border-color: #333; /* Border gelap */
+        box-shadow: 0 1px 6px rgba(0,0,0,0.2); /* Bayangan gelap */
+    }
+
+    .mobile-ad-section .facebook-box,
+    .mobile-ad-section .iklan-box {
+        margin-bottom: 20px;
+    }
+
+    .mobile-ad-section .facebook-header {
+        margin-bottom: 15px;
+    }
+    .mobile-ad-section .iklan-box img {
+        width: 100%;
+    }
 }
 
 /* === Media Query untuk ukuran mendekati HP (Tetap 3 Horizontal, tapi lebih rapat) === */
 @media (max-width: 768px) {
-  .artikel-list {
-    gap: 16px; /* Kurangi gap agar lebih rapat */
-  }
+    .artikel-list {
+        gap: 16px;
+    }
 
-  .artikel-item {
-    flex: 1 1 calc(
-      33.333% - 10.66px
-    ); /* Sesuaikan flex-basis dengan gap baru */
-    max-width: calc(33.333% - 10.66px);
-    margin-bottom: 16px; /* Kurangi margin-bottom */
-  }
-  .artikel-item img {
-    height: 150px; /* Sedikit kecilkan gambar */
-  }
+    .artikel-item {
+        flex: 1 1 calc(33.333% - 10.66px);
+        max-width: calc(33.333% - 10.66px);
+        margin-bottom: 16px;
+        /* Background/border/shadow akan mengikuti aturan di atasnya */
+    }
+    .artikel-item img {
+        height: 150px;
+    }
 }
 
 /* === Media Query untuk Tampilan HP (3 Artikel Vertikal dengan Garis dan Jarak) === */
 @media (max-width: 600px) {
-  /* Perjelas garis pembungkus seluruh container artikel di HP */
-  .section-bulughul {
-    padding: 15px; /* Mengurangi padding dari tepi website (atas/bawah/kiri/kanan) */
-    max-width: calc(100% - 30px); /* Menyesuaikan lebar agar ada padding 15px kiri kanan */
-    border: 2px solid #a4508b; /* Garis ungu crystal pekat */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow yang lebih jelas */
-    border-radius: 8px; /* Sudut sedikit membulat */
-  }
+    .section-bulughul {
+        padding: 15px;
+        max-width: calc(100% - 30px);
+        border: 2px solid #a4508b; /* Border terang */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Bayangan terang */
+        border-radius: 8px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transisi */
+    }
 
-  .artikel-list {
-    flex-direction: column; /* Ubah menjadi kolom */
-    gap: 0; /* Hapus gap di sini, jarak diatur oleh margin artikel */
-  }
+    /* --- Dark Mode untuk section-bulughul di mobile --- */
+    body.dark .section-bulughul {
+        border-color: #e6b3e6; /* Border gelap */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4); /* Bayangan gelap */
+    }
 
-  .artikel-item {
-    flex: 0 0 100%; /* Setiap artikel mengambil 100% lebar */
-    max-width: 100%;
-    margin-bottom: 20px; /* Jarak bawah antar artikel */
-    background-color: #fff; /* Tambah ini agar latar belakang putih */
-    border-radius: 6px; /* Pertahankan border-radius untuk artikel */
-    overflow: hidden;
-    border: 1px solid #e0e0e0; /* Border untuk setiap artikel */
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05); /* Sedikit shadow untuk setiap artikel */
-  }
+    .artikel-list {
+        flex-direction: column;
+        gap: 0;
+    }
 
-  .artikel-item:last-child {
-    margin-bottom: 0; /* Hapus margin bawah untuk artikel terakhir */
-  }
+    .artikel-item {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+        background-color: #fff; /* Background terang */
+        border-radius: 6px;
+        overflow: hidden;
+        border: 1px solid #e0e0e0; /* Border terang */
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05); /* Bayangan terang */
+        /* Transisi akan diwarisi dari aturan di atas */
+    }
 
-  .artikel-item img {
-    width: 100%;
-    height: auto; /* Biarkan tinggi gambar menyesuaikan rasio */
-    aspect-ratio: 16 / 9; /* Pertahankan rasio 16:9 */
-    border-radius: 6px 6px 0 0; /* Radius hanya di bagian atas gambar */
-    margin-bottom: 15px; /* Jarak antara gambar dan konten */
-  }
+    /* --- Dark Mode untuk artikel-item di mobile (1 kolom) --- */
+    body.dark .artikel-item {
+        background-color: #3a3a3a; /* Background gelap */
+        border-color: #444; /* Border gelap */
+        box-shadow: 0 1px 6px rgba(0,0,0,0.15); /* Bayangan gelap */
+    }
 
-  /* Pembungkus (wrapper) untuk padding horizontal konten dalam artikel */
-  /* Pastikan Anda sudah menambahkan <div class="read-more-wrapper"> di HTML Anda */
-  .artikel-item .meta,
-  .artikel-item h3,
-  .artikel-item p,
-  .artikel-item .read-more-wrapper {
-    padding-left: 15px; /* Jarak dari kiri */
-    padding-right: 15px; /* Jarak dari kanan */
-  }
+    .artikel-item:last-child {
+        margin-bottom: 0;
+    }
 
-  .artikel-item h3 {
-    font-size: 16px; /* Sedikit besarkan ukuran font judul artikel */
-    margin-top: 0; /* Reset margin-top karena sudah ada margin-bottom di img */
-    margin-bottom: 8px; /* Jarak ke paragraf */
-    color: #222; /* Pastikan warna default tetap hitam di mobile */
-  }
+    .artikel-item img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        border-radius: 6px 6px 0 0;
+        margin-bottom: 15px;
+    }
 
-  .artikel-item p {
-    font-size: 14px; /* Sedikit besarkan ukuran font paragraf */
-    margin-bottom: 15px; /* Tambah jarak ke tombol baca selengkapnya */
-  }
+    .artikel-item .meta,
+    .artikel-item h3,
+    .artikel-item p,
+    .artikel-item .read-more-wrapper {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 
-  .read-more {
-    font-size: 14px;
-    display: inline-block; /* Kembali ke inline-block untuk box */
-    padding: 10px 20px; /* Perbesar padding untuk box */
-    background-color: #a4508b; /* Latar belakang ungu crystal pekat */
-    color: #fff; /* Teks putih */
-    border: 1px solid #a4508b; /* Garis ungu crystal */
-    border-radius: 4px;
-    text-align: center;
-    /* Remove margin-left/right: 0 to let wrapper padding handle it */
-    /* width: fit-content; */ /* Hapus ini agar tombol bisa di-center atau mengambil lebar penuh jika perlu */
-    max-width: 100%; /* Batasi lebar agar tidak overflow jika teks panjang */
-    display: block; /* Agar bisa di-center */
-    margin: 0 auto 15px; /* Centerkan tombol dan beri jarak bawah */
-  }
+    .artikel-item h3 {
+        font-size: 16px;
+        margin-top: 0;
+        margin-bottom: 8px;
+        color: #222; /* Warna teks terang */
+        /* Transisi akan diwarisi */
+    }
+    /* --- Dark Mode untuk judul artikel-item di mobile --- */
+    body.dark .artikel-item h3 {
+        color: #eee; /* Warna teks gelap */
+    }
 
-  .meta {
-    font-size: 13px;
-    margin-top: 0; /* Reset margin-top jika sudah ada dari atas */
-    margin-bottom: 10px; /* Jarak ke judul */
-  }
+
+    .artikel-item p {
+        font-size: 14px;
+        margin-bottom: 15px;
+        color: #555; /* Warna teks terang */
+        /* Transisi akan diwarisi */
+    }
+    /* --- Dark Mode untuk paragraf artikel-item di mobile --- */
+    body.dark .artikel-item p {
+        color: #ccc; /* Warna teks gelap */
+    }
+
+    .read-more {
+        font-size: 14px;
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #a4508b; /* Background terang */
+        color: #fff;
+        border: 1px solid #a4508b; /* Border terang */
+        border-radius: 4px;
+        text-align: center;
+        max-width: 100%;
+        display: block;
+        margin: 0 auto 15px;
+        /* Transisi akan diwarisi */
+    }
+    /* --- Dark Mode untuk tombol read-more di mobile --- */
+    body.dark .read-more {
+        background-color: #8c4270; /* Background gelap */
+        border-color: #8c4270; /* Border gelap */
+    }
+    body.dark .read-more:hover {
+        background-color: #6a2a50; /* Hover background gelap */
+    }
+
+
+    .meta {
+        font-size: 13px;
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: #777; /* Warna teks terang */
+        /* Transisi akan diwarisi */
+    }
+    /* --- Dark Mode untuk meta artikel-item di mobile --- */
+    body.dark .meta {
+        color: #bbb; /* Warna teks gelap */
+    }
 }
 
 /* === Media Query untuk Desktop (1025px ke atas) === */
@@ -1337,8 +1494,6 @@ body.dark .toggle-button .sun::before {
     display: none;
   }
 }
-
-
 
 /* Wrapper khusus untuk konten artikel 4 */
 .artikel-empat-wrapper {
@@ -1492,6 +1647,13 @@ body.dark .toggle-button .sun::before {
 }
 
 
+
+
+
+
+
+
+
 .section-artikel5 {
     margin: 0 auto;
     max-width: 1300px;
@@ -1504,62 +1666,96 @@ body.dark .toggle-button .sun::before {
     max-width: 870px;
     min-width: 750px;
     width: 100%;
+    background-color: #fff; /* Background terang */
     padding: 24px 30px;
-    border: 1px solid #e0e0e0; /* MEMPERTAHANKAN GARIS PINGGIR CONTAINER */
-    background-color: #fff;
-    box-shadow: 0 0 5px rgba(0,0,0,0.05);
-    border-radius: 0;
+    border: 1px solid #e0e0e0; /* Border terang */
+    box-shadow: 0 0 5px rgba(0,0,0,0.05); /* Bayangan terang */
+    border-radius: 8px; /* Tambahkan border-radius yang konsisten */
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Transisi */
+}
+
+/* --- Dark Mode untuk .artikel5-wrapper --- */
+body.dark .artikel5-wrapper {
+    background-color: #2a2a2a; /* Background gelap */
+    border-color: #333; /* Border gelap */
+    box-shadow: 0 0 5px rgba(0,0,0,0.2); /* Bayangan gelap */
 }
 
 .artikel5-header {
     position: relative;
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Tetap center untuk judul dan nav sejajar */
+    align-items: center;
     margin-bottom: 20px;
-    border-bottom: none;
-    padding-bottom: 0;
+    border-bottom: 2px solid #0066ff; /* Warna biru (terang) */
+    padding-bottom: 8px;
+    transition: border-bottom-color 0.3s ease; /* Transisi */
+}
+
+/* --- Dark Mode untuk Header Artikel 5 --- */
+body.dark .artikel5-header {
+    border-bottom-color: #88bbff; /* Warna border lebih terang di dark mode */
 }
 
 .artikel5-judul {
     font-size: 22px;
     font-weight: bold;
-    color: #0066ff;
-    border-bottom: 2px solid #0066ff;
+    color: #0066ff; /* Warna biru (terang) */
+    border-bottom: 2px solid #0066ff; /* Border bawah judul (terang) */
     padding-bottom: 5px;
     max-width: calc(100% - 100px);
     margin: 0;
+    transition: color 0.3s ease; /* Transisi */
 }
+
+/* --- Dark Mode untuk Judul Artikel 5 --- */
+body.dark .artikel5-judul {
+    color: #88bbff; /* Warna judul lebih terang di dark mode */
+    border-bottom-color: #88bbff; /* Border bawah judul lebih terang */
+}
+
 
 .artikel5-nav {
     display: flex;
     gap: 8px;
-    position: static; /* Kembali ke static untuk desktop */
+    position: static;
     align-items: center;
     height: auto;
 }
 
 .arrow-btn {
-    background-color: #eee;
+    background-color: #eee; /* Background tombol (terang) */
     border: none;
     padding: 2px 5px;
     font-size: 15px;
     cursor: pointer;
-    transition: background 0.3s;
-    border-radius: 0;
-    color: inherit;
+    border-radius: 4px;
+    color: #333; /* Warna ikon/teks (terang) */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transisi */
 }
 
+/* --- Dark Mode untuk Tombol Navigasi Artikel 5 --- */
+body.dark .arrow-btn {
+    background-color: #3a3a3a; /* Background gelap */
+    color: #eee; /* Warna ikon/teks terang */
+}
 .arrow-btn:hover {
-    background-color: #ccc;
+    background-color: #ccc; /* Hover background (terang) */
 }
-
+body.dark .arrow-btn:hover {
+    background-color: #4a4a4a; /* Hover background (gelap) */
+}
 .arrow-btn:disabled {
-    background-color: #f5f5f5;
-    color: #ccc;
+    background-color: #f5f5f5; /* Disabled background (terang) */
+    color: #ccc; /* Disabled warna teks (terang) */
     cursor: not-allowed;
     border-color: none;
 }
+body.dark .arrow-btn:disabled {
+    background-color: #2a2a2a; /* Disabled background (gelap) */
+    color: #777; /* Disabled warna teks (gelap) */
+}
+
 
 .artikel5-slider {
     position: relative;
@@ -1580,89 +1776,129 @@ body.dark .toggle-button .sun::before {
 }
 
 .artikel5-item {
-    background-color: #fff;
+    background-color: #fff; /* Background item (terang) */
     overflow: hidden;
-    transition: 0.3s ease;
-    box-shadow: 0 0 5px rgba(0,0,0,0.05);
+    box-shadow: 0 0 5px rgba(0,0,0,0.05); /* Bayangan (terang) */
     border: none;
-    border-radius: 0;
+    border-radius: 8px; /* Tambahkan border-radius yang konsisten */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transisi */
 
     flex: 0 0 calc(33.333% - 13.33px);
     max-width: calc(33.333% - 13.33px);
     display: flex;
-    flex-direction: column; /* PENTING: Untuk stacking vertikal konten */
+    flex-direction: column;
 }
 
-.artikel5-item:hover {
-    box-shadow: 0 0 5px rgba(0,0,0,0.05);
-    transform: none;
+/* --- Dark Mode untuk Artikel Item 5 --- */
+body.dark .artikel5-item {
+    background-color: #3a3a3a; /* Background gelap */
+    box-shadow: 0 0 5px rgba(0,0,0,0.2); /* Bayangan gelap */
 }
+.artikel5-item:hover {
+    box-shadow: 0 0 8px rgba(0,0,0,0.1); /* Hover background (terang) */
+    transform: none; /* Pertahankan tanpa transform hover */
+}
+body.dark .artikel5-item:hover {
+    box-shadow: 0 0 10px rgba(0,0,0,0.3); /* Hover background (gelap) */
+}
+
 
 .artikel5-item a {
     text-decoration: none;
     color: inherit;
-    display: flex; /* PENTING: Untuk stacking vertikal konten di dalam link */
-    flex-direction: column; /* PENTING: Untuk stacking vertikal konten di dalam link */
-    height: 100%; /* Memastikan link mencakup seluruh tinggi item */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .artikel5-item img {
     width: 100%;
     height: 180px;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0; /* Radius hanya di bagian atas gambar */
     display: block;
 }
 
 .artikel5-meta {
     font-size: 12px;
-    color: #777;
-    margin: 10px 0 5px; /* Margin bawah sedikit lebih kecil */
+    color: #777; /* Warna teks meta (terang) */
+    margin: 10px 0 5px;
     display: flex;
     gap: 10px;
-    padding: 0 10px; /* Padding kiri-kanan konsisten */
+    padding: 0 10px;
+    transition: color 0.3s ease; /* Transisi */
 }
 .artikel5-meta span i {
-    margin-right: 3px; /* Jarak antara ikon dan teks */
-    color: #999; /* Warna ikon default */
+    margin-right: 3px;
+    color: #999; /* Warna ikon meta (terang) */
+    transition: color 0.3s ease; /* Transisi */
 }
 .artikel5-meta .views i {
     color: #f75d0f; /* Warna ikon api (views) */
+}
+
+/* --- Dark Mode untuk Meta Artikel 5 --- */
+body.dark .artikel5-meta {
+    color: #bbb; /* Warna teks meta (gelap) */
+}
+body.dark .artikel5-meta span i {
+    color: #ccc; /* Warna ikon meta (gelap) */
 }
 
 
 .artikel5-item h3 {
     font-size: 15px;
     font-weight: bold;
-    margin: 0 10px 8px; /* Margin atas 0, padding kiri-kanan konsisten */
-    color: #222;
-    line-height: 1.3; /* Sedikit lebih rapat dari 1.5, sesuai gambar */
-    display: -webkit-box; /* Untuk line-clamp */
-    -webkit-line-clamp: 2; /* Batasi hingga 2 baris */
+    margin: 0 10px 8px;
+    color: #222; /* Warna judul (terang) */
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: color 0.3s ease; /* Transisi */
+}
+
+/* --- Dark Mode untuk Judul Artikel 5 --- */
+body.dark .artikel5-item h3 {
+    color: #eee; /* Warna judul (gelap) */
 }
 
 .artikel5-item p {
     font-size: 13px;
-    color: #555;
+    color: #555; /* Warna deskripsi (terang) */
     line-height: 1.5;
-    margin: 0 10px 10px; /* Margin atas 0, padding kiri-kanan konsisten */
-    flex-grow: 1; /* Agar deskripsi mengisi ruang yang tersisa */
-    display: -webkit-box; /* Untuk line-clamp */
-    -webkit-line-clamp: 3; /* Batasi hingga 3 baris */
+    margin: 0 10px 10px;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: color 0.3s ease; /* Transisi */
 }
+
+/* --- Dark Mode untuk Deskripsi Artikel 5 --- */
+body.dark .artikel5-item p {
+    color: #ccc; /* Warna deskripsi (gelap) */
+}
+
 
 .artikel5-more {
     font-size: 13px;
-    color: #007bff;
-    display: inline-block; /* Pastikan ini ditampilkan */
-    margin: 0 10px 12px; /* Margin atas 0, padding kiri-kanan konsisten */
-    /* text-align: left; /* Defaultnya inline-block akan mengikuti teks, ini opsional */
+    color: #007bff; /* Warna link (terang) */
+    display: inline-block;
+    margin: 0 10px 12px;
+    transition: color 0.3s ease; /* Transisi */
+}
+
+/* --- Dark Mode untuk Link "More" Artikel 5 --- */
+body.dark .artikel5-more {
+    color: #88bbff; /* Warna link (gelap) */
+}
+body.dark .artikel5-more:hover {
+    color: #00aaff; /* Hover link (gelap) */
 }
 
 
@@ -1675,16 +1911,24 @@ body.dark .toggle-button .sun::before {
     height: 10px;
     width: 10px;
     margin: 0 5px;
-    background-color: #bbb;
+    background-color: #bbb; /* Warna dot (terang) */
     border-radius: 50%;
     display: inline-block;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease; /* Transisi */
 }
 
-.artikel5-dots .dot.active {
-    background-color: #0066ff;
+/* --- Dark Mode untuk Dot Slider Artikel 5 --- */
+body.dark .artikel5-dots .dot {
+    background-color: #555; /* Warna dot (gelap) */
 }
+.artikel5-dots .dot.active {
+    background-color: #0066ff; /* Warna dot aktif (terang) */
+}
+body.dark .artikel5-dots .dot.active {
+    background-color: #88bbff; /* Warna dot aktif (gelap) */
+}
+
 
 /* Tablet (768px–1024px): 2 artikel sejajar per slide */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
@@ -1692,7 +1936,6 @@ body.dark .toggle-button .sun::before {
         min-width: auto;
         max-width: 100%;
         padding: 20px;
-        
     }
     
     .artikel5-item {
@@ -1723,14 +1966,14 @@ body.dark .toggle-button .sun::before {
     .artikel5-item h3,
     .artikel5-item p,
     .artikel5-more {
-        padding: 0 10px; /* Padding kiri-kanan konsisten */
+        padding: 0 10px;
     }
     .artikel5-item h3 {
         font-size: 15px;
     }
     .artikel5-item p {
         font-size: 13px;
-        -webkit-line-clamp: 4; /* Bisa lebih banyak baris di tablet */
+        -webkit-line-clamp: 4;
     }
     .artikel5-more {
         font-size: 13px;
@@ -1752,10 +1995,14 @@ body.dark .toggle-button .sun::before {
     
     .artikel5-judul {
         font-size: 18px;
-        max-width: 100%;
+        max-width: calc(100% - 0px); /* Disesuaikan untuk mobile */
         border-bottom: 2px solid #0066ff;
         padding-bottom: 5px;
         text-align: left;
+    }
+    /* --- Dark Mode untuk Judul Artikel 5 di Mobile --- */
+    body.dark .artikel5-judul {
+        border-bottom-color: #88bbff; /* Border bawah judul mobile lebih terang */
     }
     
     .artikel5-header {
@@ -1794,15 +2041,15 @@ body.dark .toggle-button .sun::before {
     .artikel5-item h3,
     .artikel5-item p,
     .artikel5-more {
-        padding: 0 10px; /* Padding kiri-kanan konsisten */
+        padding: 0 10px;
     }
     .artikel5-item h3 {
         font-size: 15px;
-        -webkit-line-clamp: 3; /* Batasi baris judul di mobile */
+        -webkit-line-clamp: 3;
     }
     .artikel5-item p {
         font-size: 13px;
-        -webkit-line-clamp: 4; /* Batasi baris deskripsi di mobile */
+        -webkit-line-clamp: 4;
     }
     .artikel5-more {
         font-size: 13px;
@@ -1812,6 +2059,11 @@ body.dark .toggle-button .sun::before {
         margin-top: 20px;
     }
 }
+
+
+
+
+
 
 
 
@@ -2179,10 +2431,6 @@ body.dark .toggle-button .sun::before {
     }
 }
 
-
-
-
-
 .section-box {
   border: 1px solid #e0e0e0;
   border-radius: 5px;
@@ -2272,6 +2520,13 @@ body.dark .toggle-button .sun::before {
 
 
 
+
+
+
+
+
+
+
 /* --- Wrapper untuk Artikel 7 dan 8 (sejajar) --- */
 .artikel7-8-container-wrapper {
     margin: 20px auto; /* Margin atas bawah */
@@ -2296,89 +2551,138 @@ body.dark .toggle-button .sun::before {
 /* Base styling untuk wrapper di dalam section */
 .artikel7-wrapper,
 .artikel8-wrapper {
+    background-color: #fff; /* Latar belakang terang */
+    border: 1px solid #ddd; /* Border terang */
+    box-shadow: 0 0 5px rgba(0,0,0,0.05); /* Bayangan terang */
+    border-radius: 8px; /* Sudut membulat */
     padding: 24px 30px;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    box-shadow: 0 0 5px rgba(0,0,0,0.05);
     box-sizing: border-box;
-    height: 100%; /* Pastikan wrapper mengisi tinggi section */
+    height: 100%;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Transisi */
 }
+
+/* --- Dark Mode untuk wrapper artikel 7 & 8 --- */
+body.dark .artikel7-wrapper,
+body.dark .artikel8-wrapper {
+    background-color: #2a2a2a; /* Latar belakang gelap */
+    border-color: #333; /* Border gelap */
+    box-shadow: 0 0 5px rgba(0,0,0,0.2); /* Bayangan gelap */
+}
+
 
 /* --- Header untuk Artikel 7 dan 8 --- */
 .artikel7-header,
 .artikel8-header {
-    position: relative; /* Sebagai acuan untuk tombol nav absolut */
+    position: relative;
     display: flex;
-    justify-content: space-between; /* Untuk desktop: judul kiri, nav kanan */
-    align-items: center; /* Sejajar vertikal untuk desktop */
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
-    border-bottom: 2px solid #0066ff; /* Warna biru untuk border judul */
+    border-bottom: 2px solid #0066ff; /* Warna biru untuk border judul (terang) */
     padding-bottom: 8px;
+    transition: border-bottom-color 0.3s ease; /* Transisi */
 }
 
 .artikel7-judul,
 .artikel8-judul {
     font-size: 22px;
     font-weight: bold;
-    color: #0066ff; /* Warna biru untuk judul */
+    color: #0066ff; /* Warna biru untuk judul (terang) */
     margin: 0;
-    max-width: calc(100% - 100px); /* Beri ruang untuk tombol nav */
+    max-width: calc(100% - 100px);
+    transition: color 0.3s ease; /* Transisi */
 }
+
+/* --- Dark Mode untuk Header dan Judul 7 & 8 --- */
+body.dark .artikel7-header,
+body.dark .artikel8-header {
+    border-bottom-color: #88bbff; /* Warna border lebih terang di dark mode */
+}
+body.dark .artikel7-judul,
+body.dark .artikel8-judul {
+    color: #88bbff; /* Warna judul lebih terang di dark mode */
+}
+
 
 .artikel7-nav,
 .artikel8-nav {
     display: flex;
     gap: 4px;
-    position: static; /* For desktop, this stays in normal flow */
+    position: static;
 }
 
 .artikel7-arrow-btn,
 .artikel8-arrow-btn {
-    background-color: #eee;
+    background-color: #eee; /* Background tombol terang */
     border: none;
-    padding: 2px 2px; /* Ukuran tombol kecil */
+    padding: 2px 2px;
     font-size: 14px;
     cursor: pointer;
-    transition: background 0.3s;
-    color: #333;
+    color: #333; /* Warna ikon terang */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Transisi */
 }
 
+/* --- Dark Mode untuk Tombol Navigasi 7 & 8 --- */
+body.dark .artikel7-arrow-btn,
+body.dark .artikel8-arrow-btn {
+    background-color: #3a3a3a; /* Background gelap */
+    color: #eee; /* Warna ikon terang */
+}
 .artikel7-arrow-btn:hover,
 .artikel8-arrow-btn:hover {
-    background-color: #ccc;
+    background-color: #ccc; /* Hover background terang */
+    color: #000; /* Hover ikon terang */
 }
+body.dark .artikel7-arrow-btn:hover,
+body.dark .artikel8-arrow-btn:hover {
+    background-color: #4a4a4a; /* Hover background gelap */
+    color: #fff; /* Hover ikon terang */
+}
+
 
 /* --- Layout Konten Utama (Artikel Besar + Artikel Kecil) --- */
 .artikel7-main-content,
 .artikel8-main-content {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Jarak antara artikel besar dan daftar artikel kecil */
+    gap: 20px;
 }
 
 /* --- Artikel Besar Pertama --- */
 .artikel7-item-large,
 .artikel8-item-large {
-    /* Hapus position: relative di sini, kita pindahkan ke <a> di dalamnya */
-    /* overflow: hidden tetap penting */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background-color: #fff; /* Background terang */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Bayangan terang */
     border-radius: 6px;
     overflow: hidden; 
-    padding-bottom: 15px; /* Padding bawah untuk konten teks */
+    padding-bottom: 15px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transisi */
 }
+
+/* --- Dark Mode untuk Artikel Besar --- */
+body.dark .artikel7-item-large,
+body.dark .artikel8-item-large {
+    background-color: #3a3a3a; /* Background gelap */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3); /* Bayangan gelap */
+}
+body.dark .artikel7-item-large:hover,
+body.dark .artikel8-item-large:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4); /* Bayangan hover lebih gelap */
+}
+
 
 /* PENTING: Set position: relative pada <a> yang membungkus gambar dan label */
 .artikel7-item-large > a,
 .artikel8-item-large > a {
-    display: block; /* Agar link membungkus gambar dan label */
-    position: relative; /* INI YANG AKAN MENJADI ACUAN UNTUK LABEL ABSOLUT */
-    overflow: hidden; /* Pastikan label tidak keluar dari <a> */
+    display: block;
+    position: relative;
+    overflow: hidden;
 }
 
 .artikel7-item-large img,
 .artikel8-item-large img {
     width: 100%;
-    height: 180px; /* Tinggi gambar besar, sesuaikan jika ingin lebih tinggi */
+    height: 180px;
     object-fit: cover;
     display: block;
 }
@@ -2386,54 +2690,91 @@ body.dark .toggle-button .sun::before {
 /* KOREKSI DI SINI: Tempatkan label kategori di pojok kanan bawah gambar */
 .artikel7-label-on-image,
 .artikel8-label-on-image {
-    position: absolute; /* Posisikan absolut relatif terhadap <a> induk */
-    bottom: 10px; /* Jarak dari bawah gambar */
-    right: 10px; /* Jarak dari kanan gambar */
-    background-color: #007bff; /* Warna biru, sesuaikan */
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #007bff; /* Warna biru (terang) */
     color: white;
     padding: 5px 10px;
     border-radius: 4px;
     font-size: 12px;
     font-weight: bold;
-    z-index: 10; /* Pastikan di atas gambar */
+    z-index: 10;
+    transition: background-color 0.3s ease; /* Transisi */
 }
+
+/* --- Dark Mode untuk Label Kategori Besar --- */
+body.dark .artikel7-label-on-image,
+body.dark .artikel8-label-on-image {
+    background-color: #0056b3; /* Warna biru lebih gelap di dark mode */
+}
+
 
 .artikel7-meta-author-date,
 .artikel8-meta-author-date {
     font-size: 13px;
-    color: #666;
-    margin: 15px 15px 10px; /* Padding kiri-kanan seperti gambar */
+    color: #666; /* Warna teks meta terang */
+    margin: 15px 15px 10px;
     display: flex;
     align-items: center;
-    flex-wrap: wrap; /* Izinkan wrap jika ruang sempit */
-    gap: 8px; /* Jarak antar ikon/teks */
+    flex-wrap: wrap;
+    gap: 8px;
+    transition: color 0.3s ease; /* Transisi */
 }
 .artikel7-meta-author-date i,
 .artikel8-meta-author-date i {
-    color: #999;
+    color: #999; /* Warna ikon meta terang */
+    transition: color 0.3s ease; /* Transisi */
 }
+
+/* --- Dark Mode untuk Meta Info Artikel Besar --- */
+body.dark .artikel7-meta-author-date,
+body.dark .artikel8-meta-author-date {
+    color: #bbb; /* Warna teks meta gelap */
+}
+body.dark .artikel7-meta-author-date i,
+body.dark .artikel8-meta-author-date i {
+    color: #ccc; /* Warna ikon meta gelap */
+}
+
 
 .artikel7-title-large,
 .artikel8-title-large {
-    font-size: 18px; /* Judul artikel besar */
+    font-size: 18px;
     font-weight: bold;
-    color: #333;
+    color: #333; /* Warna judul terang */
     line-height: 1.4;
-    margin: 0 15px 10px; /* Padding kiri-kanan seperti gambar */
+    margin: 0 15px 10px;
+    transition: color 0.3s ease; /* Transisi */
 }
+
+/* --- Dark Mode untuk Judul Artikel Besar --- */
+body.dark .artikel7-title-large,
+body.dark .artikel8-title-large {
+    color: #eee; /* Warna judul gelap */
+}
+
 
 .artikel7-description,
 .artikel8-description {
     font-size: 14px;
-    color: #555;
+    color: #555; /* Warna deskripsi terang */
     line-height: 1.5;
-    margin: 0 15px 15px; /* Padding kiri-kanan seperti gambar */
+    margin: 0 15px 15px;
+    transition: color 0.3s ease; /* Transisi */
 }
+
+/* --- Dark Mode untuk Deskripsi Artikel Besar --- */
+body.dark .artikel7-description,
+body.dark .artikel8-description {
+    color: #ccc; /* Warna deskripsi gelap */
+}
+
 
 .artikel7-readmore-btn,
 .artikel8-readmore-btn {
     display: inline-block;
-    background-color: #007bff; /* Warna biru */
+    background-color: #007bff; /* Warna biru (terang) */
     color: white;
     padding: 10px 15px;
     border-radius: 5px;
@@ -2441,13 +2782,21 @@ body.dark .toggle-button .sun::before {
     font-weight: bold;
     text-align: center;
     text-decoration: none;
-    transition: background-color 0.3s ease;
-    margin-left: 15px; /* Posisikan sejajar dengan konten */
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease; /* Transisi */
+    margin-left: 15px;
 }
 .artikel7-readmore-btn:hover,
 .artikel8-readmore-btn:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Hover background terang */
+}
+/* --- Dark Mode untuk Tombol Baca Selengkapnya --- */
+body.dark .artikel7-readmore-btn,
+body.dark .artikel8-readmore-btn {
+    background-color: #0056b3; /* Background gelap */
+}
+body.dark .artikel7-readmore-btn:hover,
+body.dark .artikel8-readmore-btn:hover {
+    background-color: #003e80; /* Hover background lebih gelap */
 }
 
 
@@ -2456,40 +2805,45 @@ body.dark .toggle-button .sun::before {
 .artikel8-vertical-list-small {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Jarak antar artikel kecil */
+    gap: 15px;
 }
 
 .artikel7-item-small,
 .artikel8-item-small {
-    display: block; /* Agar <a> di dalamnya bisa mengambil seluruh ruang */
-    text-decoration: none; /* Hapus underline default dari link */
-    color: inherit; /* Warisi warna teks dari parent */
-    transition: background-color 0.3s ease;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.3s ease; /* Transisi */
 }
 /* Efek hover untuk seluruh area item kecil (latar belakang berubah) */
 .artikel7-item-small:hover,
 .artikel8-item-small:hover {
-    background-color: #f0f0f0;
+    background-color: #f0f0f0; /* Hover background terang */
+}
+/* --- Dark Mode untuk Hover Artikel Kecil --- */
+body.dark .artikel7-item-small:hover,
+body.dark .artikel8-item-small:hover {
+    background-color: #3a3a3a; /* Hover background gelap */
 }
 
 /* TARGET PENTING: Terapkan flexbox ke <a> di dalam artikelX-item-small */
 .artikel7-item-small > a,
 .artikel8-item-small > a {
-    display: flex !important; /* Paksa display flex */
-    flex-direction: row !important; /* Paksa arah baris */
-    align-items: flex-start !important; /* Paksa rata atas */
-    flex-wrap: nowrap !important; /* Paksa tidak membungkus */
-    width: 100%; /* Agar link mengisi seluruh lebar */
-    gap: 10px; /* Jarak antara gambar dan info */
-    padding: 5px 0; /* Padding vertikal untuk item kecil */
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    flex-wrap: nowrap !important;
+    width: 100%;
+    gap: 10px;
+    padding: 5px 0;
 }
 
 
 .artikel7-item-img-small,
 .artikel8-item-img-small {
     flex-shrink: 0 !important;
-    width: 90px !important; /* Ukuran gambar kecil */
-    height: 90px !important; /* Ukuran gambar kecil */
+    width: 90px !important;
+    height: 90px !important;
     overflow: hidden;
     border-radius: 4px;
 }
@@ -2513,29 +2867,44 @@ body.dark .toggle-button .sun::before {
 .artikel7-item-time-small,
 .artikel8-item-time-small {
     font-size: 14px !important;
-    color: #999;
+    color: #999; /* Warna terang */
     margin-bottom: 2px !important;
+    transition: color 0.3s ease; /* Transisi */
+}
+/* --- Dark Mode untuk Waktu Artikel Kecil --- */
+body.dark .artikel7-item-time-small,
+body.dark .artikel8-item-time-small {
+    color: #bbb !important; /* Warna gelap */
 }
 
 .artikel7-title-small,
 .artikel8-title-small {
-    font-size: 17px !important; /* Ukuran font judul */
+    font-size: 17px !important;
     font-weight: 600;
-    color: #333;
+    color: #333; /* Warna terang */
     line-height: 1.3;
     display: -webkit-box !important;
-    -webkit-line-clamp: 2 !important; /* Batasi hingga 2 baris */
+    -webkit-line-clamp: 2 !important;
     -webkit-box-orient: vertical !important;
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-word;
-    transition: color 0.3s ease; /* Transisi untuk efek hover */
+    transition: color 0.3s ease; /* Transisi */
 }
 
+/* --- Dark Mode untuk Judul Artikel Kecil --- */
+body.dark .artikel7-title-small,
+body.dark .artikel8-title-small {
+    color: #eee !important; /* Warna gelap */
+}
 /* Efek hover pada judul (h4) di dalam artikel kecil */
 .artikel7-item-small:hover .artikel7-title-small,
 .artikel8-item-small:hover .artikel8-title-small {
-    color: #007bff; /* Hijau kebiruan */
+    color: #007bff; /* Warna hover terang */
+}
+body.dark .artikel7-item-small:hover .artikel7-title-small,
+body.dark .artikel8-item-small:hover .artikel8-title-small {
+    color: #0099ff; /* Warna hover gelap */
 }
 
 
@@ -2685,8 +3054,6 @@ body.dark .toggle-button .sun::before {
         -webkit-line-clamp: 3 !important;
     }
 }
-
-
 
 
 
@@ -2966,7 +3333,6 @@ body.dark .toggle-button .sun::before {
 
 
 
-
 /* General Styling & Reset (specific to this component) */
 .artikel-sepuluh-container *,
 .artikel-sepuluh-container *::before,
@@ -2977,17 +3343,25 @@ body.dark .toggle-button .sun::before {
 /* Base Styles (Desktop First, then adjust down) */
 .artikel-sepuluh-container {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4; /* Background for the container area itself */
-    color: #333;
+    color: #333; /* Default text color (light mode) */
     line-height: 1.6;
     max-width: 1280px; /* Lebar maksimal container untuk desktop */
-    margin: 15px ; /* REVISI: Jarak atas/bawah (margin-top 15px, margin-bottom 15px) dan centering horizontal. Mengurangi jarak atas. */
-    padding: 25px; /* REVISI: Padding dalam container ditingkatkan ke 25px untuk semua sisi di desktop */
+    margin: 15px ; /* Jarak atas/bawah dan samping */
+    padding: 25px; /* Padding dalam container */
     border: 1px solid #ddd; /* Border di sekeliling container */
     box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Bayangan halus */
-    background-color: #fff; /* Latar belakang putih di dalam container */
     border-radius: 8px; /* Sudut membulat */
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Transisi untuk dark mode */
 }
+
+/* --- Dark Mode untuk .artikel-sepuluh-container --- */
+body.dark .artikel-sepuluh-container {
+    background-color: #2a2a2a; /* Latar belakang gelap */
+    border-color: #333; /* Border gelap */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Bayangan disesuaikan untuk gelap */
+    color: #eee; /* Warna teks default untuk konten di dalamnya */
+}
+
 
 /* Header Section */
 .artikel-sepuluh-header {
@@ -2997,15 +3371,26 @@ body.dark .toggle-button .sun::before {
     margin-bottom: 25px;
     padding-bottom: 10px;
     border-bottom: 2px solid #007bff; /* Garis bawah biru */
+    transition: border-bottom-color 0.3s ease; /* Transisi untuk dark mode */
 }
 
 .artikel-sepuluh-title {
-    color: #4dc2f7; /* Warna biru kristal */
-    font-size: 1.6em; /* Ukuran judul container di desktop */
+    color: #4dc2f7; /* Warna biru kristal (light mode) */
+    font-size: 1.6em;
     font-weight: bold;
-    flex-shrink: 0; /* Mencegah judul menyusut */
-    padding-right: 10px; /* Ruang antara judul dan tombol */
+    flex-shrink: 0;
+    padding-right: 10px;
+    transition: color 0.3s ease; /* Transisi untuk dark mode */
 }
+
+/* --- Dark Mode untuk Header dan Judul --- */
+body.dark .artikel-sepuluh-header {
+    border-bottom-color: #88bbff; /* Warna garis bawah lebih terang di dark mode */
+}
+body.dark .artikel-sepuluh-title {
+    color: #88bbff; /* Warna judul lebih terang di dark mode */
+}
+
 
 /* Navigation Buttons (for Tablet & Mobile) */
 .artikel-sepuluh-navigation-buttons {
@@ -3015,30 +3400,35 @@ body.dark .toggle-button .sun::before {
 
 .artikel-sepuluh-nav-button {
     background-color: transparent; /* Tidak ada warna latar belakang */
-    color: #007bff; /* Warna teks biru */
-    border: 1px solid #007bff; /* Border biru tipis */
-    padding: 4px 8px; /* Ukuran padding tombol */
-    margin-left: 6px; /* Jarak antar tombol */
+    color: #007bff; /* Warna teks biru (light mode) */
+    border: 1px solid #007bff; /* Border biru tipis (light mode) */
+    padding: 4px 8px;
+    margin-left: 6px;
     cursor: pointer;
     border-radius: 4px;
     font-size: 0.9em;
-    transition: none; /* Menghilangkan efek transisi */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Transisi untuk dark mode */
     box-shadow: none;
-    outline: none; /* Menghilangkan outline fokus default browser */
+    outline: none;
 }
 
-.artikel-sepuluh-nav-button:hover:not(:disabled) {
-    background-color: transparent; /* Pastikan tetap transparan saat hover */
-    color: #0056b3; /* Warna teks sedikit lebih gelap saat hover */
-    border-color: #0056b3; /* Warna border sedikit lebih gelap saat hover */
+/* --- Dark Mode untuk Tombol Navigasi --- */
+body.dark .artikel-sepuluh-nav-button {
+    background-color: #3a3a3a; /* Background gelap di dark mode */
+    color: #88bbff; /* Warna teks lebih terang di dark mode */
+    border-color: #555; /* Border lebih gelap di dark mode */
+}
+body.dark .artikel-sepuluh-nav-button:hover:not(:disabled) {
+    background-color: #4a4a4a; /* Hover background lebih gelap */
+    color: #aaccff; /* Hover teks lebih terang */
+    border-color: #777; /* Hover border lebih gelap */
+}
+body.dark .artikel-sepuluh-nav-button:disabled {
+    background-color: #2a2a2a; /* Disabled background lebih gelap */
+    color: #777; /* Disabled teks lebih redup */
+    border-color: #3a3a3a; /* Disabled border lebih redup */
 }
 
-.artikel-sepuluh-nav-button:disabled {
-    background-color: transparent; /* Disabled juga transparan */
-    color: #cccccc; /* Warna teks abu-abu saat disabled */
-    border-color: #cccccc; /* Warna border abu-abu saat disabled */
-    cursor: not-allowed;
-}
 
 /* Articles Grid Layout */
 .artikel-sepuluh-grid {
@@ -3055,18 +3445,25 @@ body.dark .toggle-button .sun::before {
 .artikel-sepuluh-card {
     flex: 1 1 calc(25% - 11.25px); /* 4 kolom untuk desktop (25% - gap yang disesuaikan) */
     min-width: 200px; /* Lebar minimum sebelum melipat */
-    background-color: #fff;
+    background-color: #fff; /* Latar belakang card (light mode) */
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Bayangan card (light mode) */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease; /* Transisi untuk dark mode */
     scroll-snap-align: start; /* Mengatur setiap artikel untuk snap ke awal */
 }
 
-.artikel-sepuluh-card:hover {
-    transform: translateY(-3px); /* Sedikit naik saat hover */
-    box-shadow: 0 5px 10px rgba(0,0,0,0.12); /* Bayangan saat hover */
+/* --- Dark Mode untuk Card Artikel --- */
+body.dark .artikel-sepuluh-card {
+    background-color: #3a3a3a; /* Latar belakang card lebih gelap */
+    border: 1px solid #444; /* Border card lebih gelap */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Bayangan disesuaikan untuk gelap */
 }
+body.dark .artikel-sepuluh-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.4); /* Bayangan hover disesuaikan */
+}
+
 
 .artikel-sepuluh-image-wrapper {
     position: relative;
@@ -3100,6 +3497,7 @@ body.dark .toggle-button .sun::before {
     font-size: 0.95em;
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Bayangan teks untuk keterbacaan */
+    /* Overlay tidak perlu dark mode karena warnanya sudah kontras */
 }
 
 /* Slider Dots for Mobile/Tablet */
@@ -3113,68 +3511,74 @@ body.dark .toggle-button .sun::before {
     height: 9px;
     width: 9px;
     margin: 0 4px;
-    background-color: #bbb;
+    background-color: #bbb; /* Warna dot tidak aktif (light mode) */
     border-radius: 50%;
     display: inline-block;
+    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.artikel-sepuluh-dot.artikel-sepuluh-dot-active {
-    background-color: #007bff;
+/* --- Dark Mode untuk Dot Slider --- */
+body.dark .artikel-sepuluh-dot {
+    background-color: #555; /* Warna dot tidak aktif (dark mode) */
 }
+body.dark .artikel-sepuluh-dot.artikel-sepuluh-dot-active {
+    background-color: #007bff; /* Warna dot aktif (tetap biru, atau disesuaikan) */
+}
+
 
 /* --- Responsive Design (Media Queries) --- */
 
 /* Tablet View (e.g., max-width 1024px, 3 articles) */
 @media (max-width: 1024px) {
     .artikel-sepuluh-container {
-        margin: 15px; /* REVISI: Margin atas/bawah 20px di tablet */
-        padding: 25px; /* REVISI: Padding container di tablet ditingkatkan ke 25px */
+        margin: 15px; /* Margin atas/bawah dan samping */
+        padding: 25px; /* Padding container */
     }
 
     .artikel-sepuluh-title {
-        font-size: 1.5em; /* Ukuran judul di tablet */
+        font-size: 1.5em;
     }
 
     .artikel-sepuluh-navigation-buttons {
-        display: flex; /* Tombol ditampilkan di tablet */
+        display: flex;
     }
 
     .artikel-sepuluh-grid {
-        flex-wrap: nowrap; /* Nonaktifkan wrapping untuk geser */
-        overflow-x: auto; /* Memungkinkan geser/scroll horizontal */
-        scrollbar-width: none; /* Sembunyikan scrollbar Firefox */
-        &::-webkit-scrollbar { /* Sembunyikan scrollbar Chrome/Safari/Opera */
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
             display: none;
         }
     }
 
     .artikel-sepuluh-card {
-        flex: 0 0 calc(33.333% - 10px); /* 3 kolom untuk tablet (disesuaikan dengan gap) */
+        flex: 0 0 calc(33.333% - 10px);
         min-width: 260px;
-        display: block; /* Pastikan kartu artikel ditampilkan untuk geser */
+        display: block;
     }
 
     .artikel-sepuluh-slider-dots {
-        display: flex; /* Dot ditampilkan di tablet */
+        display: flex;
     }
 }
 
 /* Mid-Tablet View (e.g., max-width 768px, 2 articles) */
 @media (max-width: 768px) {
     .artikel-sepuluh-container {
-        margin: 15px; /* REVISI: Margin atas/bawah 15px di mid-tablet */
-        padding: 25px; /* REVISI: Padding container di mid-tablet ditingkatkan ke 25px */
+        margin: 15px; /* Margin atas/bawah dan samping */
+        padding: 25px; /* Padding container */
     }
 
     .artikel-sepuluh-title {
-        font-size: 1.3em; /* Ukuran judul di mid-tablet */
+        font-size: 1.3em;
     }
 
     .artikel-sepuluh-card {
-        flex: 0 0 calc(50% - 7.5px); /* 2 kolom untuk mid-tablet (disesuaikan dengan gap) */
+        flex: 0 0 calc(50% - 7.5px);
         min-width: 280px;
-        display: block; /* Pastikan kartu artikel ditampilkan untuk geser */
+        display: block;
     }
 }
 
@@ -3182,8 +3586,8 @@ body.dark .toggle-button .sun::before {
 /* Mobile View (e.g., max-width 576px, 1 article) */
 @media (max-width: 576px) {
     .artikel-sepuluh-container {
-        margin: 10px; /* REVISI: Margin atas/bawah 10px di mobile (paling rapat) */
-        padding: 25px; /* REVISI: Padding container di mobile ditingkatkan ke 25px agar tidak dempet */
+        margin: 10px; /* Margin atas/bawah dan samping */
+        padding: 25px; /* Padding container */
     }
 
     .artikel-sepuluh-header {
@@ -3195,7 +3599,7 @@ body.dark .toggle-button .sun::before {
     }
 
     .artikel-sepuluh-title {
-        font-size: 1.2em; /* REVISI: Ukuran judul di mobile sedikit lebih besar */
+        font-size: 1.2em;
         margin-bottom: 0;
         border-bottom: 2px solid #007bff;
         padding-bottom: 5px;
@@ -3203,6 +3607,11 @@ body.dark .toggle-button .sun::before {
         flex-grow: 1;
         margin-right: auto;
     }
+    /* REVISI: Pastikan border judul di mobile juga menyesuaikan dark mode */
+    body.dark .artikel-sepuluh-title {
+        border-bottom-color: #88bbff;
+    }
+
 
     .artikel-sepuluh-navigation-buttons {
         width: auto;
@@ -3235,7 +3644,6 @@ body.dark .toggle-button .sun::before {
         padding: 6px 8px;
     }
 }
-
 
 
 /* --- Main Layout Wrapper --- */
@@ -3715,7 +4123,7 @@ body.dark .toggle-button .sun::before {
     transition: transform 0.2s ease;
 }
 .artikel-tigabelas-card:hover .artikel-tigabelas-image {
-    transform: scale(1.03); /* Efek zoom gambar saat hover */
+    transform: scale(1.03); /* Efek zoom gambar saat hover */ 
 }
 
 .artikel-tigabelas-category {
@@ -4131,4 +4539,1501 @@ footer {
   .social-links {
     justify-content: center;
   }
+}
+
+
+
+/* Untuk mencegah scroll body saat mobile nav aktif */
+body.no-scroll {
+  overflow: hidden;
+}
+
+/* --- Dark Mode Styles (GLOBAL) --- */
+body.dark {
+  background: #1a1a1a; /* Latar belakang utama gelap */
+  color: #ffffff; /* Warna teks umum putih di mode gelap */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Header gambar - Pertahankan jika Anda memilikinya di HTML Anda */
+.header-images {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+body.dark .header-images {
+    /* Atur jika ada background atau border spesifik di header-images */
+}
+
+
+.logo-header {
+  height: 60px;
+}
+
+.iklan {
+  height: 60px;
+  max-width: 80%;
+  object-fit: cover;
+}
+
+/* Navbar Anda yang sudah ada (untuk desktop) */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 10px 20px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+body.dark .navbar {
+  background: #222; /* Latar belakang navbar gelap */
+  border-color: #333; /* Border navbar gelap */
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 15px;
+}
+
+.nav-links li a {
+  font-weight: 500;
+  padding: 8px 12px;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+/* Efek hover untuk link navbar desktop */
+.nav-links li a:hover {
+  color: #007bff; /* Contoh warna hover */
+}
+body.dark .nav-links li a:hover {
+  color: #6ab04c; /* Contoh warna hover di dark mode */
+}
+
+
+.nav-links .home-btn a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Hamburger Icon (untuk mobile) */
+.hamburger {
+  display: none; /* Default hidden on desktop */
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 5px;
+  z-index: 1001;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background: #333; /* Warna bar hamburger default */
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+body.dark .hamburger div {
+  background: #eee; /* Warna bar hamburger di dark mode */
+}
+
+/* Dark Mode Toggle Button */
+.toggle-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #333; /* Warna default */
+  transition: color 0.3s ease;
+  padding: 5px;
+}
+
+body.dark .toggle-button {
+  color: #eee; /* Warna ikon toggle di dark mode */
+}
+
+.toggle-button .moon::before {
+  content: '\f186'; /* Font Awesome Moon icon */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+}
+
+.toggle-button .sun::before {
+  content: '\f185'; /* Font Awesome Sun icon */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  display: none; /* Sembunyikan secara default */
+}
+
+body.dark .toggle-button .moon::before {
+  display: none; /* Sembunyikan bulan di dark mode */
+}
+
+body.dark .toggle-button .sun::before {
+  display: inline; /* Tampilkan matahari di dark mode */
+}
+
+
+/* ---------------------------------------------------- */
+/* Gaya untuk Mobile Navigation Menu */
+/* ---------------------------------------------------- */
+
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    #3c51b9 0%,
+    #2196f3 50%,
+    #f44336 100%
+  );
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  color: #fff;
+  transform: translateX(100%);
+  transition: transform 0.4s ease-out;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* mobile-nav tidak perlu dark mode karena warnanya sudah spesifik dan kontras */
+
+
+.mobile-nav.is-active {
+  transform: translateX(0);
+}
+
+.mobile-nav-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 2010;
+}
+
+/* Search Bar di dalam menu mobile */
+.mobile-search-bar {
+  width: 90%;
+  max-width: 400px;
+  margin-top: 60px;
+  position: relative;
+  border-radius: 50px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+}
+
+.mobile-search-bar input {
+  flex-grow: 1;
+  padding: 15px 20px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+}
+
+.mobile-search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.mobile-search-bar .search-icon {
+  padding: 0 20px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Daftar Link Navigasi Mobile */
+.mobile-nav-links {
+  list-style: none;
+  width: 90%;
+  max-width: 400px;
+  margin-top: 30px;
+  text-align: left;
+}
+
+.mobile-nav-links li {
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mobile-nav-links li:last-child {
+  border-bottom: none;
+}
+
+.mobile-nav-links li a {
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  padding-left: 10px;
+  width: 100%;
+}
+
+.mobile-nav-links li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.mobile-nav-links li a .dropdown-arrow {
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+/* Ikon Media Sosial di bagian bawah menu mobile */
+.mobile-social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: auto;
+  padding-bottom: 30px;
+  width: 100%;
+}
+
+.mobile-social-icons a {
+  color: #fff;
+  font-size: 28px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.mobile-social-icons a:hover {
+  transform: scale(1.1);
+}
+
+/* ---------------------------------------------------- */
+/* Akhir: Gaya untuk Mobile Navigation Menu */
+/* ---------------------------------------------------- */
+
+
+/* Media Queries untuk Responsivitas */
+@media (max-width: 768px) {
+  /* Sembunyikan link navigasi desktop */
+  .nav-links {
+    display: none;
+  }
+
+  /* Tampilkan ikon hamburger di layar kecil */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Sesuaikan posisi mode toggle jika perlu di mobile */
+  /* Misal: .navbar .toggle-button { order: 3; } */
+}
+
+/* Media Query untuk memastikan mobile nav tidak tampil di desktop */
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none !important;
+  }
+}
+
+
+
+
+    
+
+
+/* === Layout Utama === */
+.slider.layout-utama {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 14px;
+  padding: 36px 28px;
+  max-width: 1280px;
+  margin: auto;
+}
+
+body.dark .slider.layout-utama {
+  /* Tidak ada background atau border spesifik di sini, karena children akan mengurusnya */
+}
+
+/* === Gambar Besar Kiri === */
+.featured-large {
+  position: relative;
+  border-radius: 0px;
+  overflow: hidden;
+  height: 380px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+body.dark .featured-large {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* Bayangan lebih gelap di dark mode */
+}
+
+.featured-large img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* === Overlay untuk gambar besar === */
+.featured-large .overlay {
+  position: absolute;
+  bottom: 0;
+  padding: 24px;
+  background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0));
+  color: white;
+  width: 100%;
+  border-radius: 0 0 10px 10px;
+}
+
+.featured-large .overlay .category {
+  background: #2563eb;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+body.dark .featured-large .overlay .category {
+  background: #0056b3; /* Darker blue for category in dark mode */
+}
+
+.featured-large .overlay .time {
+  font-size: 13px;
+  opacity: 0.9;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.featured-large .overlay .title {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+.featured-large .overlay .desc {
+  font-size: 15px;
+  opacity: 0.9;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* === Gambar Grid 4 (Kanan) === */
+.featured-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.featured-grid .item {
+  position: relative;
+  border-radius: 0px;
+  overflow: hidden;
+  height: 180px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+body.dark .featured-grid .item {
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2); /* Bayangan lebih gelap di dark mode */
+}
+
+.featured-grid .item:hover {
+  transform: translateY(-2px);
+
+}
+
+.featured-grid .item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.featured-grid .overlay {
+  position: absolute;
+  bottom: 0;
+  padding: 12px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+  color: white;
+  width: 100%;
+  border-radius: 0 0 10px 10px;
+}
+
+.featured-grid .overlay .category {
+  background: #00d5ff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+body.dark .featured-grid .overlay .category {
+  background: #0088cc; /* Darker cyan for dark mode */
+}
+
+.featured-grid .overlay .time {
+  font-size: 12px;
+  opacity: 0.85;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.featured-grid .overlay .title {
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+/* === Responsif untuk HP/tablet === */
+@media (max-width: 768px) {
+  .slider.layout-utama {
+    grid-template-columns: 1fr;
+    padding: 20px 16px;
+  }
+
+  .featured-large {
+    height: 300px;
+  }
+
+  .featured-large .overlay .title {
+    font-size: 20px;
+  }
+
+  .featured-large .overlay .desc {
+    font-size: 14px;
+  }
+
+  .featured-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .featured-grid .item {
+    height: 160px;
+  }
+
+  .featured-grid .overlay .title {
+    font-size: 14px;
+  }
+}
+
+
+
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background-color: white;
+  color: black;
+  border: none;
+  font-size: 24px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out;
+}
+
+body.dark .slider-arrow {
+  background-color: #333;
+  color: #eee;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.slider-arrow:hover {
+  background-color: #2563eb;
+  color: white;
+}
+
+body.dark .slider-arrow:hover {
+  background-color: #0056b3; /* Darker blue for hover in dark mode */
+}
+
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+
+#slider-wrapper {
+  position: relative;
+}
+
+
+/* ---------- START HAJI UMRAH SLIDER (slider-horizontal) ---------- */
+.slider-horizontal {
+  margin: 20px auto;
+  width: calc(100% - 40px);
+  max-width: 960px;
+  
+  padding: 20px 20px;
+  
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
+}
+
+body.dark .slider-horizontal {
+  background-color: #2a2a2a; /* Darker background */
+  border-color: #333;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.slider-header {
+  border-bottom: 2px solid #e60000;
+  padding: 10px 0 12px;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  flex-wrap: nowrap;
+}
+
+.slider-header h2 {
+  color: #e60000;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 100px;
+  padding-right: 10px;
+}
+
+body.dark .slider-header h2 {
+  color: #ff6666; /* Lighter red for dark mode */
+}
+body.dark .slider-header {
+  border-bottom-color: #ff6666; /* Lighter red for dark mode */
+}
+
+
+/* Navigasi Panah di Header */
+.slider-nav {
+  display: flex;
+  gap: 5px;
+  position: static;
+  height: auto;
+  align-items: center;
+  margin-left: 10px;
+  flex-shrink: 0;
+}
+
+.slider-nav button {
+  background-color: transparent;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  padding: 4px 7px;
+  color: #666;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.dark .slider-nav button {
+  border-color: #555;
+  color: #bbb;
+}
+
+.slider-nav button:hover {
+  background-color: #f0f0f0;
+  border-color: #bbb;
+  color: #333;
+}
+
+body.dark .slider-nav button:hover {
+  background-color: #444;
+  border-color: #777;
+  color: #eee;
+}
+
+.slider-nav button:disabled {
+  background-color: #f8f8f8;
+  border-color: #eee;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+body.dark .slider-nav button:disabled {
+  background-color: #3a3a3a;
+  border-color: #4a4a4a;
+  color: #888;
+}
+
+/* Slider Kontainer dan Track */
+.slider-container {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+}
+
+.slider-container::-webkit-scrollbar {
+  display: none;
+}
+.slider-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
+.slider-track {
+  display: flex;
+  flex-wrap: nowrap;
+  transition: transform 0.5s ease-in-out;
+  gap: 20px;
+  padding-bottom: 20px;
+}
+
+/* Style untuk Setiap Artikel */
+.article {
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  transition: all 0.3s ease;
+  scroll-snap-align: start;
+}
+
+body.dark .article {
+  background: #2a2a2a; /* Darker background for article cards */
+  border-color: #333;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.article:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+}
+body.dark .article:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+
+.article a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+}
+
+.article img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+  display: block;
+}
+
+.article-content {
+  padding: 12px 10px 10px 10px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Meta Informasi (Tanggal, Komentar, Views) */
+.meta-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 8px;
+  flex-wrap: nowrap;
+  padding-top: 0;
+}
+
+body.dark .meta-info {
+  color: #aaa;
+}
+body.dark .meta-info i {
+  color: #ccc;
+}
+
+
+.meta-info .meta-left,
+.meta-info .meta-right {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.meta-info i {
+  font-size: 11px;
+  margin-right: 2px;
+  color: #999;
+}
+
+.meta-info .views i.fa-fire {
+  color: #f75d0f;
+}
+
+.article h3 {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0 0 8px;
+  color: #222;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body.dark .article h3 {
+  color: #eee; /* Judul gelap mode */
+}
+
+.article p {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0 0 10px;
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body.dark .article p {
+  color: #bbb; /* Paragraf gelap mode */
+}
+
+.article .read-more {
+  display: none;
+}
+
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 20px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+body.dark .dot {
+  background: #555; /* Warna dot tidak aktif di dark mode */
+}
+
+.dot.active {
+  background: #e60000;
+}
+body.dark .dot.active {
+  background: #ff6666; /* Warna dot aktif di dark mode */
+}
+
+/* --- Media Queries untuk Responsif Adaptif --- */
+
+/* Desktop Sangat Besar (min-width: 1400px): 4 Kolom */
+@media (min-width: 1400px) {
+    .slider-horizontal {
+        width: calc(100% - 40px);
+        max-width: 960px;
+        padding: 20px 20px;
+    }
+    .slider-track {
+        gap: 20px;
+    }
+    .article {
+        flex-basis: calc(25% - (3 * 20px / 4));
+        max-width: calc(25% - (3 * 20px / 4));
+        min-width: 250px;
+    }
+}
+
+
+/* Desktop Besar (min-width: 1100px dan max-width: 1399px): 4 Kolom menyusut, atau horizontal scroll */
+@media (min-width: 1100px) and (max-width: 1399px) {
+    .slider-horizontal {
+        padding: 20px 20px;
+        width: calc(100% - 40px);
+        max-width: 100%;
+    }
+    .slider-track {
+        gap: 18px;
+    }
+    .article {
+        flex-basis: calc(25% - (3 * 18px / 4));
+        max-width: calc(25% - (3 * 18px / 4));
+        min-width: 240px;
+    }
+}
+
+/* Desktop Menengah (min-width: 900px dan max-width: 1099px): 3 Kolom */
+@media (min-width: 900px) and (max-width: 1099px) {
+    .slider-horizontal {
+        padding: 20px 20px;
+        width: calc(100% - 40px);
+        max-width: 100%;
+    }
+    .slider-track {
+        gap: 20px;
+    }
+    .article {
+        flex-basis: calc(33.333% - (2 * 20px / 3));
+        max-width: calc(33.333% - (2 * 20px / 3));
+        min-width: 280px;
+    }
+    .article img {
+        height: 150px;
+    }
+    .article h3 {
+        font-size: 14px;
+    }
+    .article p {
+        font-size: 12px;
+    }
+}
+
+/* Desktop Kecil / Tablet Besar (min-width: 680px dan max-width: 899px): 2 Kolom */
+@media (min-width: 680px) and (max-width: 899px) {
+  .slider-horizontal {
+    padding: 18px 15px;
+    width: calc(100% - 30px);
+    max-width: 100%;
+  }
+  .slider-track {
+    gap: 15px;
+  }
+  .article {
+    flex-basis: calc(50% - (1 * 15px / 2));
+    max-width: calc(50% - (1 * 15px / 2));
+    min-width: 300px;
+  }
+  .article img {
+    height: 140px;
+  }
+  .article-content {
+    padding: 12px 10px;
+  }
+  .meta-info {
+    font-size: 12px;
+  }
+  .article h3 {
+    font-size: 14px;
+    -webkit-line-clamp: 3;
+  }
+  .article p {
+    font-size: 12px;
+    -webkit-line-clamp: 4;
+  }
+  .slider-dots {
+    margin-top: 20px;
+  }
+}
+/* Layar Mobile (max-width: 679px): 1 Kolom (Horizontal Scroll) */
+@media (max-width: 679px) {
+  .slider-horizontal {
+    padding: 15px;
+    width: calc(100% - 30px);
+    max-width: 100vw;
+    margin: 20px auto;
+    
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  }
+
+  .slider-header {
+    margin-bottom: 20px;
+    padding: 0 0 10px;
+  }
+  .slider-header h2 {
+    font-size: 18px;
+    padding-right: 15px;
+  }
+  .slider-nav {
+    gap: 5px;
+    right: 0;
+    top: 5px;
+  }
+  .slider-nav button {
+    font-size: 14px;
+    padding: 4px 7px;
+  }
+
+  .slider-container {
+    padding-bottom: 0;
+  }
+  
+  .slider-track {
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+    gap: 0;
+    padding: 0 15px;
+  }
+
+  .article {
+    flex: 0 0 calc(100vw - 60px);
+    max-width: calc(100vw - 60px);
+    min-width: calc(100vw - 60px);
+    
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+  }
+  
+  .article img {
+    height: 150px;
+    border-radius: 0;
+  }
+
+  .article-content {
+    padding: 12px 10px;
+  }
+
+  .meta-info {
+    font-size: 12px;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+  .meta-info i {
+    font-size: 11px;
+  }
+
+  .article h3 {
+    font-size: 14px;
+    line-height: 1.3;
+    margin: 0 0 8px;
+  }
+  .article p {
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 0 0 10px;
+  }
+
+  .slider-dots {
+    margin-top: 20px;
+    gap: 6px;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+
+
+/* Bagian Artikel ke-11 (Nasihat Lukman) - Dark Mode */
+body.dark .artikel-sebelas-container {
+    background-color: #2a2a2a;
+    border-color: #333;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+body.dark .artikel-sebelas-title {
+    color: #ffd700; /* Lighter yellow for dark mode */
+}
+body.dark .artikel-sebelas-header {
+    border-bottom-color: #ffd700;
+}
+body.dark .artikel-sebelas-card {
+    border-bottom-color: #444;
+}
+body.dark .artikel-sebelas-meta {
+    color: #bbb;
+}
+body.dark .artikel-sebelas-card-title {
+    color: #eee;
+}
+body.dark .artikel-sebelas-description {
+    color: #ccc;
+}
+
+
+/* Bagian Artikel ke-12 (Tiga Landasan Utama) - Dark Mode */
+body.dark .artikel-duabelas-container {
+    background-color: #2a2a2a;
+    border-color: #333;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+body.dark .artikel-duabelas-title {
+    color: #ff6666; /* Lighter red for dark mode */
+}
+body.dark .artikel-duabelas-header {
+    border-bottom-color: #ff6666;
+}
+body.dark .artikel-duabelas-nav-button {
+    background-color: #3a3a3a;
+    border-color: #555;
+    color: #ccc;
+}
+body.dark .artikel-duabelas-nav-button:hover:not(:disabled) {
+    background-color: #4a4a4a;
+    border-color: #777;
+    color: #eee;
+}
+body.dark .artikel-duabelas-nav-button:disabled {
+    background-color: #2a2a2a;
+    border-color: #3a3a3a;
+    color: #888;
+}
+body.dark .artikel-duabelas-card {
+    background-color: #3a3a3a;
+    border-color: #444;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+body.dark .artikel-duabelas-card:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+body.dark .artikel-duabelas-meta {
+    color: #bbb;
+}
+body.dark .artikel-duabelas-card-title {
+    color: #eee;
+}
+body.dark .artikel-duabelas-dot {
+    background-color: #555;
+}
+body.dark .artikel-duabelas-dot.artikel-duabelas-dot-active {
+    background-color: #ff6666;
+}
+
+/* Bagian Artikel ke-13 (Syarhus Sunnah) - Dark Mode */
+body.dark .artikel-tigabelas-container {
+    background-color: #2a2a2a;
+    border-color: #333;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+body.dark .artikel-tigabelas-title {
+    color: #ff9999; /* Lighter red-brown for dark mode */
+}
+body.dark .artikel-tigabelas-header {
+    border-bottom-color: #ff9999;
+}
+body.dark .artikel-tigabelas-card {
+    /* No specific background, border, shadow as it's transparent */
+}
+body.dark .artikel-tigabelas-image-wrapper {
+    /* No specific dark mode for image wrapper unless overlay is different */
+}
+body.dark .artikel-tigabelas-category {
+    background-color: #0099ff; /* Darker blue for category in dark mode */
+}
+body.dark .artikel-tigabelas-meta {
+    color: #bbb;
+}
+body.dark .artikel-tigabelas-card-title {
+    color: #eee;
+}
+body.dark .artikel-tigabelas-description {
+    color: #ccc;
+}
+body.dark .artikel-tigabelas-load-more-btn {
+    background-color: #3a3a3a;
+    border-color: #4a4a4a;
+    color: #bbb;
+}
+body.dark .artikel-tigabelas-load-more-btn:hover {
+    background-color: #4a4a4a;
+    color: #eee;
+}
+
+
+/* Styling untuk sidebars */
+body.dark .sidebar-base {
+    background-color: #2a2a2a;
+    border-color: #333;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+body.dark .sidebar-header h3 {
+    color: #eee;
+}
+body.dark .sidebar-item h4 {
+    color: #eee;
+}
+body.dark .sidebar-date {
+    color: #bbb;
+}
+body.dark .sidebar-header {
+    border-bottom-color: #444;
+}
+
+
+/* Styling untuk Bulughul Maram (section-bulughul) */
+body.dark .konten-kiri {
+  border-color: #333;
+  background-color: #2a2a2a;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+body.dark .judul-box {
+  color: #e6b3e6; /* Lighter purple for dark mode */
+  border-bottom-color: #e6b3e6;
+}
+body.dark .artikel-item h3 {
+  color: #eee; /* Judul artikel gelap */
+}
+body.dark .artikel-item p {
+  color: #bbb; /* Paragraf artikel gelap */
+}
+body.dark .meta {
+  color: #bbb;
+}
+body.dark .read-more {
+  background-color: #8c4270; /* Darker purple for dark mode button */
+  border-color: #8c4270;
+  color: #fff;
+}
+body.dark .read-more:hover {
+  background-color: #6a2a50; /* Even darker on hover */
+}
+body.dark .artikel-item img {
+  /* No specific dark mode filter for images unless explicitly requested */
+}
+body.dark .artikel-list {
+  /* No specific dark mode for grid */
+}
+
+/* Dark mode for .mobile-ad-section */
+body.dark .mobile-ad-section {
+    background-color: #2a2a2a;
+    border-color: #333;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+}
+body.dark .mobile-ad-section .facebook-box {
+    background-color: #333;
+    border-color: #444;
+}
+body.dark .mobile-ad-section .facebook-header {
+    color: #eee;
+    border-bottom-color: #555;
+}
+body.dark .mobile-ad-section .facebook-header i {
+    color: #6ab04c; /* Contoh warna ikon sosial FB di dark mode */
+}
+body.dark .mobile-ad-section .iklan-box img {
+    /* No specific dark mode for ad images */
+}
+
+
+/* Dark mode for section-artikel9 */
+body.dark .artikel9-wrapper {
+  background-color: #2a2a2a;
+  border-color: #333;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+body.dark .artikel9-page-title {
+  color: #ff99ff; /* Lighter purple for dark mode */
+  border-bottom-color: #ff99ff;
+}
+body.dark .artikel9-description {
+  color: #ccc;
+}
+body.dark .artikel9-readmore-btn {
+  background-color: #cc0099; /* Darker purple for button */
+  border-color: #cc0099;
+}
+body.dark .artikel9-readmore-btn:hover {
+  background-color: #a3007a;
+}
+body.dark .artikel9-pagination {
+  border-top-color: #444;
+}
+body.dark .artikel9-pagination-btn {
+  background-color: #3a3a3a;
+  border-color: #555;
+  color: #bbb;
+}
+body.dark .artikel9-pagination-btn:hover {
+  background-color: #4a4a4a;
+  color: #eee;
+}
+body.dark .artikel9-pagination-btn:disabled {
+  background-color: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #777;
+}
+
+
+/* Dark mode for section-artikel5 */
+body.dark .artikel5-wrapper {
+  background-color: #2a2a2a;
+  border-color: #333;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+body.dark .artikel5-judul {
+  color: #88bbff; /* Lighter blue for dark mode */
+  border-bottom-color: #88bbff;
+}
+body.dark .artikel5-nav .arrow-btn {
+  background-color: #3a3a3a;
+  border-color: #555;
+  color: #bbb;
+}
+body.dark .artikel5-nav .arrow-btn:hover {
+  background-color: #4a4a4a;
+  color: #eee;
+}
+body.dark .artikel5-nav .arrow-btn:disabled {
+  background-color: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #777;
+}
+body.dark .artikel5-item {
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+body.dark .artikel5-item:hover {
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+body.dark .artikel5-meta {
+  color: #bbb;
+}
+body.dark .artikel5-meta span i {
+  color: #ccc;
+}
+body.dark .artikel5-item h3 {
+  color: #eee;
+}
+body.dark .artikel5-item p {
+  color: #ccc;
+}
+body.dark .artikel5-more {
+  color: #88bbff;
+}
+body.dark .artikel5-more:hover {
+  color: #007bff;
+}
+body.dark .artikel5-dots .dot {
+  background-color: #555;
+}
+body.dark .artikel5-dots .dot.active {
+  background-color: #88bbff;
+}
+
+
+/* Dark mode for section-artikel6 (Harta Haram Muamalat Kontemporer) */
+body.dark .artikel6-wrapper {
+  background-color: #2a2a2a;
+  border-color: #333;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+body.dark .artikel6-header {
+  border-bottom-color: #66ff66; /* Lighter green for dark mode */
+}
+body.dark .artikel6-judul {
+  color: #66ff66; /* Lighter green for dark mode */
+}
+body.dark .artikel6-arrow-btn {
+  background-color: #3a3a3a;
+  border-color: #555;
+  color: #bbb;
+}
+body.dark .artikel6-arrow-btn:hover {
+  background-color: #4a4a4a;
+  color: #eee;
+}
+body.dark .artikel6-arrow-btn:disabled {
+  background-color: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #777;
+}
+body.dark .artikel6-featured-large {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+body.dark .artikel6-category {
+  background-color: #009900; /* Darker green for dark mode category */
+}
+body.dark .artikel6-time,
+body.dark .artikel6-meta {
+  color: #bbb;
+}
+body.dark .artikel6-title {
+  color: #eee;
+}
+body.dark .artikel6-author {
+  color: #bbb;
+}
+body.dark .artikel6-views {
+  color: #bbb;
+}
+body.dark .artikel6-item-small:hover {
+  background-color: #3a3a3a; /* Darker hover background for small items */
+}
+body.dark .artikel6-vertical-list > .artikel6-item-small {
+  border-bottom-color: #444; /* Darker border for list items */
+}
+body.dark .artikel6-item-time {
+  color: #bbb !important;
+}
+body.dark .artikel6-item-title {
+  color: #eee !important;
+}
+body.dark .artikel6-item-small a:hover .artikel6-item-title {
+  color: #0099ff; /* Lighter blue for hover in dark mode */
+}
+
+
+/* Dark mode for section-artikel4 */
+body.dark .artikel-empat-konten {
+  background-color: #2a2a2a;
+  border-color: #333;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+body.dark .artikel-empat-judul {
+  color: #00e6d3; /* Lighter green-blue for dark mode */
+  border-bottom-color: #00e6d3;
+}
+body.dark .artikel-empat-card {
+  /* No background/border/shadow by default */
+}
+body.dark .artikel-empat-card:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* Darker shadow on hover */
+}
+body.dark .artikel-empat-info h3 {
+  color: #eee;
+}
+body.dark .artikel-empat-meta {
+  color: #bbb;
+}
+body.dark .artikel-empat-deskripsi {
+  color: #ccc;
+}
+body.dark .artikel-empat-readmore {
+  color: #00aaff; /* Lighter blue for readmore link */
+}
+body.dark .artikel-empat-readmore:hover {
+  color: #0088cc;
+}
+body.dark .artikel-empat-label {
+  background-color: #009988; /* Darker label background */
+}
+body.dark .artikel-empat-icon {
+  color: #ccc;
+}
+body.dark .artikel-empat-view {
+  color: #ff9966; /* Lighter orange for views icon */
+}
+body.dark .artikel-empat-readmore-button {
+  background-color: #009988;
+}
+body.dark .artikel-empat-readmore-button:hover {
+  background-color: #007a6a;
+}
+
+/* Dark mode for general .section-box (used by Bulughul Maram) */
+body.dark .section-box {
+    background-color: #2a2a2a;
+    border-color: #333;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+body.dark .section-box .section-title {
+    color: #b0e0e6; /* Light cyan for title */
+    border-bottom-color: #555;
+}
+body.dark .section-box .section-title::after {
+    background-color: #b0e0e6;
+}
+body.dark .section-box .article-card {
+    background-color: #3a3a3a;
+    border-color: #444;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+body.dark .section-box .article-card:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+body.dark .section-box .article-content h3 {
+    color: #eee;
+}
+body.dark .section-box .article-content p.meta {
+    color: #bbb;
+}
+body.dark .section-box .article-content p.description {
+    color: #ccc;
+}
+body.dark .section-box .article-content a.read-more {
+    background-color: #0099cc; /* Darker blue */
+    color: #fff;
+}
+body.dark .section-box .article-content a.read-more:hover {
+    background-color: #0077a3;
+}
+
+
+/* Dark mode for Footer */
+body.dark footer {
+  background-color: #111;
+  color: #bbb;
+}
+body.dark .footer-section h3 {
+  color: #eee;
+}
+body.dark .social-links a {
+  background-color: #222;
+  color: #ddd;
+}
+body.dark .social-links a:hover {
+  background-color: #444;
+  color: #00aaff;
+}
+body.dark .footer-bottom {
+  border-top-color: #333;
+}
+body.dark .footer-links a {
+  color: #aaa;
+}
+body.dark .footer-links a:hover {
+  color: #fff;
 }
