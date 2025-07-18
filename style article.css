@@ -128,448 +128,289 @@
     background-color: #25D366; /* Warna khas WhatsApp */
 }
 
-/* Navigation Bar */
-nav {
-    background: linear-gradient(145deg, #000000, #8B0000); /* Gradient hitam ke merah gelap */
-    color: #f7f7f7; /* Warna teks terang agar kontras dengan latar belakang */
-    padding: 8px 20px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
-    font-family: 'Poppins', sans-serif;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    animation: fadeIn 2s ease-out; /* Menambahkan animasi fade-in */
- transition: top 0.3s; /* Transisi halus untuk perubahan posisi */
-
-}
-
-
-/* Navbar ketika disembunyikan (scroll ke bawah) */
-.navbar-hidden {
-    top: -80px; /* Menyembunyikan navbar saat scroll ke bawah */
-}
-
-/* Navbar ketika berada di posisi normal (scroll ke atas) */
-.navbar-visible {
-    top: 0; /* Menampilkan navbar saat scroll ke atas */
-}
-
-
-
-/* Menu Items */
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 15px;
-}
-
-/* Link Styles */
-nav ul li a {
-    color: #f7f7f7;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 8px 20px;
-    border-radius: 25px;
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1), inset 0 0 8px rgba(255, 255, 255, 0.05);
-    position: relative;
-    transition: all 0.4s ease-in-out;
-    overflow: hidden;
-}
-
-/* Link Hover Animation */
-nav ul li a::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background: #00FFFF; /* Warna Aqua */
-    z-index: -1;
-    transition: width 0.4s ease-in-out;
-    border-radius: 25px;
-}
-
-nav ul li a:hover::before {
-    width: 100%;
-}
-
-/* Hover Effect */
-nav ul li a:hover {
-    color: #1a1a1a;
-    transform: translateY(-2px);
-}
-
-/* Tombol Home */
-nav ul .home-btn a {
-    display: flex;
-    align-items: center;
-    color: #333; /* Warna teks lebih gelap */
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    padding: 12px 20px;
-    border-radius: 30px;
-    background-color: #f0f0f0; /* Warna latar belakang abu-abu terang */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan halus */
-    transition: all 0.3s ease-in-out;
-}
-
-/* Tombol Home dengan ikon dan teks */
-nav ul .home-btn a i {
-    margin-right: 8px;
-    font-size: 1.2rem; /* Ukuran ikon */
-}
-
-/* Efek Hover untuk tombol Home */
-nav ul .home-btn a:hover {
-    color: #fff; /* Warna teks berubah menjadi putih */
-    background-color: #007bff; /* Latar belakang biru saat hover */
-    transform: translateY(-3px); /* Efek angkat */
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat hover */
-}
-
-/* Animasi efek hover pada tombol Home */
-nav ul .home-btn a::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background: #fff;
-    transition: width 0.4s ease-in-out;
-    z-index: -1;
-    border-radius: 30px;
-}
-
-nav ul .home-btn a:hover::before {
-    width: 100%;
-}
-
-
-/* Submenu yang tersembunyi */
-.submenu {
-    display: none; /* Menyembunyikan submenu */
-    list-style: none;
-    margin: 0;
-    padding: 10px 0 10px 20px;
-    background-color: #2d2d2d; /* Latar belakang submenu */
-    border-radius: 5px;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 200px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Bayangan halus */
-}
-
-
-/* Gaya untuk item submenu */
-.submenu li a {
-    color: #f7f7f7;
-    font-size: 0.9rem;
-    padding: 8px 20px;
-    text-decoration: none;
-    display: block;
-    border-radius: 25px;
-    transition: background 0.3s ease;
-}
-
-/* Efek hover untuk submenu */
-.submenu li a:hover {
-    background: #8B0000;
-    color: #f7f7f7;
-}
-
-
-/* Toggle Button */
-.toggle-button {
-    background-color: #f0f0f0;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    width: 50px;
-    height: 50px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
-
-/* Animasi fade-in */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Animasi bounce-in */
-@keyframes bounceIn {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
-    60% {
-        transform: scale(1.1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-nav {
-    animation: bounceIn 1s ease-out;
-}
-
-/* Animasi geser dan perubahan bentuk tombol */
-.toggle-button .moon-sun-container {
-    position: absolute; /* Posisi absolut agar elemen bisa digeser */
-    width: 40px; /* Lebar ikon bulan/matahari */
-    height: 40px; /* Tinggi ikon bulan/matahari */
-    transition: transform 0.3s ease, opacity 0.3s ease; /* Transisi untuk pergeseran dan perubahan opacity */
-    display: flex; /* Menggunakan Flexbox untuk menata ikon */
-    justify-content: center; /* Mengatur ikon di tengah secara horizontal */
-    align-items: center; /* Mengatur ikon di tengah secara vertikal */
-    transition-timing-function: ease-in-out; /* Efek transisi yang lebih halus */
-}
-
-/* Bulan */
-.toggle-button .moon {
-    background-color: #f7f7f7; /* Warna latar belakang bulan */
-    border-radius: 50%; /* Membuat bulan berbentuk lingkaran */
-    width: 30px; /* Ukuran bulan */
-    height: 30px; /* Ukuran bulan */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Memberikan bayangan pada bulan */
-    opacity: 1; /* Bulan terlihat pada mode terang */
-    transition: opacity 0.3s ease; /* Efek transisi untuk perubahan opasitas */
-}
-
-/* Matahari */
-.toggle-button .sun {
-    background: radial-gradient(circle, #f7f7f7 0%, #f1c40f 70%, #e67e22 100%); /* Warna latar belakang matahari */
-    border-radius: 50%; /* Membuat matahari berbentuk lingkaran */
-    width: 30px; /* Ukuran matahari */
-    height: 30px; /* Ukuran matahari */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Memberikan bayangan pada matahari */
-    opacity: 0; /* Matahari tidak terlihat pada mode terang */
-    transition: opacity 0.3s ease; /* Efek transisi untuk perubahan opasitas */
-}
-
-/* Mode Gelap */
-body.dark-mode .toggle-button .moon {
-    opacity: 0; /* Bulan disembunyikan saat mode gelap */
-    transform: translateX(30px); /* Bulan digeser ke kanan */
-}
-
-body.dark-mode .toggle-button .sun {
-    opacity: 1; /* Matahari terlihat pada mode gelap */
-    transform: translateX(0); /* Matahari muncul dari posisi semula */
-}
-
-/* Mode Terang */
-body:not(.dark-mode) .toggle-button .moon {
-    opacity: 1; /* Bulan terlihat pada mode terang */
-    transform: translateX(0); /* Bulan berada di posisi semula */
-}
-
-body:not(.dark-mode) .toggle-button .sun {
-    opacity: 0; /* Matahari disembunyikan pada mode terang */
-    transform: translateX(-30px); /* Matahari digeser keluar */
-}
-
-/* Efek Hover pada Toggle Button */
-.toggle-button:hover {
-    background-color: #676767; /* Warna latar belakang berubah saat hover */
-
-}
-
-/* Header Images */
-.header-images {
-    display: flex; /* Menggunakan flexbox untuk mengatur layout secara fleksibel */
-    justify-content: space-between; /* Menyebarkan elemen dengan jarak yang merata antara mereka */
-    align-items: center; /* Menyelaraskan elemen secara vertikal ke tengah */
-    padding: 10px 15px; /* Menambahkan padding sekitar gambar header */
-}
-
 .logo-header {
-    height: 100px; /* Mengatur tinggi logo */
-    max-width: 300px; /* Lebar maksimum logo */
-    width: auto; /* Menjaga proporsi lebar dan tinggi logo */
-    object-fit: contain; /* Memastikan logo tetap proporsional tanpa terdistorsi */
-    margin-left: 10px; /* Memberikan margin kiri pada logo */
+  height: 60px;
 }
 
 .iklan {
-    height: 60px; /* Mengatur tinggi elemen iklan */
-    object-fit: contain; /* Memastikan gambar iklan tetap proporsional */
+  height: 60px;
+  max-width: 80%;
+  object-fit: cover;
 }
 
-/* Media Query untuk layar kecil */
-@media (max-width: 768px) {
-    .header-images {
-        display: none; /* Menyembunyikan header-images pada layar kecil */
-    }
+/* Navbar Anda yang sudah ada (untuk desktop) */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 10px 20px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+body.dark .navbar {
+  background: #222;
+  border-color: #333;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 15px;
+}
+
+.nav-links li a {
+  font-weight: 500;
+  padding: 8px 12px;
+  display: block;
+  transition: color 0.3s ease; /* Transisi untuk hover */
+}
+
+/* Efek hover untuk link navbar desktop */
+.nav-links li a:hover {
+  color: #007bff; /* Contoh warna hover */
+}
+body.dark .nav-links li a:hover {
+  color: #6ab04c; /* Contoh warna hover di dark mode */
 }
 
 
-
-/* Efek Transisi pada Toggle Button */
-.toggle-button:hover {
-    transform: scale(1.1); /* Efek pembesaran tombol saat di-hover */
+.nav-links .home-btn a {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Jarak antara ikon dan teks Home */
 }
 
-/* Hamburger Menu */
+/* Hamburger Icon (untuk mobile) */
 .hamburger {
-    display: none; /* Secara default, hamburger menu disembunyikan */
-    flex-direction: column; /* Mengatur menu dalam bentuk kolom */
-    gap: 5px; /* Jarak antar garis hamburger */
-    cursor: pointer; /* Menampilkan kursor pointer ketika berada di atas hamburger */
-    z-index: 9999; /* Menempatkan hamburger di atas elemen lainnya */
+  display: none; /* Default hidden on desktop */
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 5px; /* Tambahkan padding agar mudah diklik */
+  z-index: 1001; /* Pastikan di atas elemen lain di navbar utama */
 }
 
 .hamburger div {
-    width: 30px; /* Lebar garis hamburger */
-    height: 4px; /* Ketebalan garis hamburger */
-    background-color: #f7f7f7; /* Warna garis hamburger */
-    border-radius: 10px; /* Membuat sudut garis menjadi melengkung */
-    transition: 0.3s; /* Durasi transisi efek perubahan */
+  width: 25px;
+  height: 3px;
+  background: #333;
+  transition: all 0.3s ease; /* Transisi untuk animasi X */
+  border-radius: 2px; /* Sedikit melengkung */
 }
 
-/* Active Hamburger (Ketika Diklik) */
-.hamburger.active div:nth-child(1) {
-    transform: rotate(45deg); /* Memutar garis pertama 45 derajat */
-    position: relative;
-    top: 8px; /* Menggeser garis pertama ke atas */
+body.dark .hamburger div {
+  background: #eee;
 }
 
-.hamburger.active div:nth-child(2) {
-    opacity: 0; /* Menghilangkan garis kedua */
+/* Dark Mode Toggle Button */
+.toggle-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 20px; /* Ukuran ikon toggle */
+  color: #333; /* Warna default */
+  transition: color 0.3s ease;
+  padding: 5px; /* Tambahkan padding agar mudah diklik */
 }
 
-.hamburger.active div:nth-child(3) {
-    transform: rotate(-45deg); /* Memutar garis ketiga -45 derajat */
-    position: relative;
-    bottom: 8px; /* Menggeser garis ketiga ke bawah */
+body.dark .toggle-button {
+  color: #eee;
 }
 
-/* Responsif Menu pada Layar Kecil */
+.toggle-button .moon::before {
+  content: '\f186'; /* Font Awesome Moon icon */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900; /* Untuk ikon solid */
+}
+
+.toggle-button .sun::before {
+  content: '\f185'; /* Font Awesome Sun icon */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900; /* Untuk ikon solid */
+  display: none; /* Sembunyikan secara default */
+}
+
+body.dark .toggle-button .moon::before {
+  display: none; /* Sembunyikan bulan di dark mode */
+}
+
+body.dark .toggle-button .sun::before {
+  display: inline; /* Tampilkan matahari di dark mode */
+}
+
+
+/* ---------------------------------------------------- */
+/* Mulai: Gaya untuk Mobile Navigation Menu (Baru/Modifikasi) */
+/* ---------------------------------------------------- */
+
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: 0; /* Mulai dari kanan layar */
+  bottom: 0;
+  width: 100%; /* Lebar penuh layar */
+  height: 100%; /* Tinggi penuh layar */
+  /* Gradien warna persis seperti gambar Anda */
+  background: linear-gradient(
+    to bottom,
+    #3c51b9 0%, /* Biru gelap */
+    #2196f3 50%, /* Biru sedang */
+    #f44336 100% /* Merah */
+  );
+  z-index: 2000; /* Pastikan di atas semua konten lain */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Pusatkan elemen secara horizontal */
+  justify-content: flex-start; /* Posisikan konten dari atas */
+  color: #fff; /* Warna teks putih untuk semua elemen di dalam menu */
+  transform: translateX(100%); /* Sembunyikan menu di luar layar ke kanan */
+  transition: transform 0.4s ease-out; /* Animasi geser yang mulus */
+  overflow-y: auto; /* Aktifkan scroll vertikal jika konten melebihi tinggi layar */
+  padding: 20px; /* Padding umum untuk konten di dalam menu */
+}
+
+.mobile-nav.is-active {
+  transform: translateX(0); /* Tampilkan menu dengan menggesernya ke posisi awal */
+}
+
+/* Tombol Tutup (X) di pojok kanan atas menu mobile */
+.mobile-nav-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 2010; /* Pastikan di atas search bar */
+}
+
+/* Search Bar di dalam menu mobile */
+.mobile-search-bar {
+  width: 90%; /* Lebar search bar relatif terhadap mobile-nav */
+  max-width: 400px; /* Batasi lebar maksimum */
+  margin-top: 60px; /* Jarak dari atas (di bawah tombol close) */
+  position: relative;
+  border-radius: 50px; /* Membuat sudut melengkung */
+  overflow: hidden; /* Penting untuk menjaga input di dalam border-radius */
+  background-color: rgba(255, 255, 255, 0.2); /* Latar belakang transparan putih */
+  display: flex; /* Untuk menata ikon dan input */
+  align-items: center; /* Pusatkan vertikal ikon dan input */
+}
+
+.mobile-search-bar input {
+  flex-grow: 1; /* Input mengambil sisa ruang yang tersedia */
+  padding: 15px 20px;
+  border: none;
+  background: transparent; /* Latar belakang input transparan */
+  color: #fff; /* Warna teks input putih */
+  font-size: 1rem;
+  outline: none; /* Hilangkan outline saat input fokus */
+}
+
+.mobile-search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* Warna placeholder sedikit transparan */
+}
+
+.mobile-search-bar .search-icon {
+  padding: 0 20px; /* Padding di sekitar ikon search */
+  color: #fff; /* Warna ikon search putih */
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Daftar Link Navigasi Mobile */
+.mobile-nav-links {
+  list-style: none;
+  width: 90%; /* Lebar daftar link relatif terhadap mobile-nav */
+  max-width: 400px; /* Batasi lebar maksimum */
+  margin-top: 30px; /* Jarak dari search bar */
+  text-align: left; /* Teks rata kiri */
+}
+
+.mobile-nav-links li {
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Garis pemisah putih transparan */
+}
+
+.mobile-nav-links li:last-child {
+  border-bottom: none; /* Hapus garis di item terakhir */
+}
+
+.mobile-nav-links li a {
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between; /* Untuk menempatkan panah dropdown di kanan */
+  align-items: center;
+  color: #fff; /* Warna teks putih */
+  padding-left: 10px; /* Sedikit indentasi untuk link */
+  width: 100%; /* Agar area klik mencakup seluruh lebar */
+}
+
+.mobile-nav-links li a:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Efek hover ringan */
+    border-radius: 5px;
+}
+
+.mobile-nav-links li a .dropdown-arrow {
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+/* Ikon Media Sosial di bagian bawah menu mobile */
+.mobile-social-icons {
+  display: flex;
+  justify-content: center; /* Pusatkan ikon secara horizontal */
+  gap: 30px; /* Jarak antar ikon */
+  margin-top: auto; /* Dorong elemen ini ke bagian paling bawah dari mobile-nav */
+  padding-bottom: 30px; /* Jarak dari bawah layar */
+  width: 100%; /* Agar justify-content: center berfungsi dengan baik */
+}
+
+.mobile-social-icons a {
+  color: #fff; /* Warna ikon putih */
+  font-size: 28px;
+  transition: transform 0.2s ease-in-out; /* Animasi saat hover */
+}
+
+.mobile-social-icons a:hover {
+  transform: scale(1.1); /* Sedikit membesar saat hover */
+}
+
+/* ---------------------------------------------------- */
+/* Akhir: Gaya untuk Mobile Navigation Menu */
+/* ---------------------------------------------------- */
+
+
+/* Media Queries untuk Responsivitas */
 @media (max-width: 768px) {
-    .header-images {
-        flex-direction: column; /* Menata header secara vertikal pada layar kecil */
-        align-items: center; /* Menyelaraskan elemen ke tengah secara vertikal */
-    }
+  /* Sembunyikan link navigasi desktop */
+  .nav-links {
+    display: none;
+  }
 
-    .logo-header {
-        height: 70px; /* Mengurangi ukuran logo pada layar kecil */
-        margin: 0 auto; /* Menyelaraskan logo ke tengah */
-    }
+  /* Tampilkan ikon hamburger di layar kecil */
+  .hamburger {
+    display: flex;
+  }
 
-    .iklan {
-        height: 62px; /* Menyesuaikan tinggi iklan */
-    }
-
-/* Mobile Navigation Menu */
-nav ul {
-    display: none; /* Menu disembunyikan secara default */
-    flex-direction: column; /* Menyusun menu secara vertikal */
-    align-items: flex-start; /* Menyelaraskan teks ke kiri */
-    width: 93%; /* Lebar menu penuh */
-    padding: 20px; /* Memberikan ruang di dalam menu */
-    position: absolute; /* Menempatkan menu di atas elemen lainnya */
-    top: 60px; /* Jarak dari navbar (disesuaikan) */
-    left: 0; /* Menempel pada sisi kiri layar */
-    z-index: 999; /* Membawa menu ke lapisan terdepan */
-    background: linear-gradient(135deg, #002f6c, #b31217); /* Gradasi warna biru ke merah */
+  /* Sesuaikan posisi mode toggle jika perlu di mobile */
+  /* Misal: .navbar .toggle-button { order: 3; } */
 }
 
-nav ul.active {
-    display: flex; /* Menampilkan menu ketika aktif */
+/* Media Query untuk memastikan mobile nav tidak tampil di desktop */
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none !important; /* Penting! Selalu sembunyikan di desktop */
+  }
 }
 
-/* Menu Item Style */
-nav ul li {
-    width: 100%; /* Setiap item menu memenuhi lebar */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Garis pemisah antar item */
-    padding: 10px 0; /* Jarak antar item */
-}
-
-nav ul li:last-child {
-    border-bottom: none; /* Menghapus garis pada item terakhir */
-}
-
-nav ul li a {
-    color: #ffffff; /* Warna teks putih */
-    font-size: 1rem; /* Ukuran teks */
-    font-weight: 500; /* Ketebalan teks */
-    text-decoration: none; /* Menghapus garis bawah pada teks */
-    display: block; /* Menjadikan teks sebagai blok penuh */
-    padding: 10px 15px; /* Jarak dalam tiap item */
-}
-
-/* Hover and Active Style */
-nav ul li a:hover,
-nav ul li a.active {
-    background-color: rgba(255, 255, 255, 0.1); /* Warna latar transparan saat hover atau aktif */
-    color: #ffffff; /* Warna teks tetap putih */
-}
-
-/* Hamburger Menu */
-.hamburger {
-    display: flex; /* Menampilkan hamburger ketika layar kecil */
-    position: relative; /* Tidak diubah, tetap seperti semula */
-}
-
-
-    /* Iklan di bawah navbar */
-    .iklan {
-        margin-top: 10px; /* Memberikan jarak antara navbar dan iklan */
-    }
-}
-
-
-
-/* Responsive Typography for Mobile */
-@media (max-width: 768px) {
-    article p {
-        font-size: 0.9rem; /* Adjust font size for smaller screens */
-    }
-}
-
-/* Responsif untuk layar kecil */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column; /* Mengubah arah menjadi vertikal */
-    }
-
-    .left-column {
-        order: 1; /* Kolom kiri muncul terlebih dahulu */
-        width: 100%; /* Memenuhi lebar layar */
-    }
-
-    .right-column {
-        order: 2; /* Kolom kanan muncul setelah kolom kiri */
-        width: 100%; /* Memenuhi lebar layar */
-    }
-}
 
 
 
