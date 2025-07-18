@@ -322,27 +322,46 @@ body.dark .toggle-button .sun::before {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :root {
-  --primary-color: #dd9933; /* Warna utama (kuning kecoklatan) */
+  /* Warna Dasar */
+  --primary-color: #00d0ff; /* Warna utama (kuning kecoklatan) */
   --accent-color: #007bff; /* Warna aksen (biru) */
-  --text-color: #222; /* Warna teks gelap */
-  --muted-text: #777; /* Warna teks sedikit redup */
-  --dark-bg: #171717; /* Latar belakang gelap utama */
-  --light-bg: #f8f9fa; /* Latar belakang terang utama */
-  --border-color: #e0e0e0; /* Warna border terang */
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Bayangan default */
   --radius: 8px; /* Radius default */
-
-  /* Dark Mode Variables (akan diatur oleh body.dark-mode) */
-  --dark-text-color: #f5f5f5;
-  --dark-muted-text: #bbb;
-  --dark-border-color: #333;
-  --dark-card-bg: #2a2a2a;
-  --dark-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-  --dark-active-link: #00aaff; /* Contoh untuk link aktif/hover di dark mode */
 }
 
-/* ===== Hero Section ===== */
+
+
+/* ## Hero Section */
 .hero-article {
   position: relative;
   width: 100%;
@@ -352,11 +371,7 @@ body.dark .toggle-button .sun::before {
   overflow: hidden;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  transition: box-shadow 0.3s ease; /* Transisi untuk dark mode */
-}
-
-body.dark-mode .hero-article {
-  box-shadow: var(--dark-shadow); /* Bayangan lebih gelap di dark mode */
+  transition: box-shadow 0.3s ease;
 }
 
 .hero-image {
@@ -369,16 +384,16 @@ body.dark-mode .hero-article {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.85)); /* Sudah gelap, tidak perlu dark mode spesifik */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.85));
   display: flex;
   align-items: flex-end;
   padding: 30px;
   box-sizing: border-box;
-  border-radius: var(--radius); /* Menggunakan variabel */
+  border-radius: var(--radius);
 }
 
 .hero-text {
-  color: #fff; /* Teks putih */
+  color: #fff;
   max-width: 700px;
 }
 
@@ -393,11 +408,7 @@ body.dark-mode .hero-article {
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  transition: background-color 0.3s ease; /* Transisi */
-}
-
-body.dark-mode .hero-category {
-  background-color: #b37300; /* Warna lebih gelap di dark mode */
+  transition: background-color 0.3s ease;
 }
 
 .hero-title {
@@ -405,20 +416,18 @@ body.dark-mode .hero-category {
   font-weight: 700;
   margin: 12px 0;
   line-height: 1.3;
-  color: #fff; /* Teks putih */
+  color: #fff;
 }
 
 .hero-meta {
   font-size: 14px;
-  color: #ccc; /* Warna teks terang */
-  transition: color 0.3s ease; /* Transisi */
+  color: #ccc;
+  transition: color 0.3s ease;
 }
 
-body.dark-mode .hero-meta {
-  color: #bbb; /* Warna teks gelap */
-}
+/* --- */
 
-/* ===== Konten Utama & Sidebar Wrapper ===== */
+/* ## Main Content & Sidebar Wrapper */
 .content-wrapper {
   display: grid;
   grid-template-columns: 1fr 300px; /* Desktop: Kolom utama (1fr) & Sidebar (300px) */
@@ -430,59 +439,53 @@ body.dark-mode .hero-meta {
 
 /* === Sidebar (kanan) === */
 .sidebar {
-  grid-column: 2 / 3; /* Desktop: Kolom kedua */
+  grid-column: 2 / 3;
   display: flex;
   flex-direction: column;
-  gap: 24px; /* Jarak antar elemen sidebar */
-  background-color: var(--light-bg); /* Background terang */
+  gap: 24px;
+  background-color: var(--card-bg); /* Background terang */
   padding: 20px;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transisi */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
 }
 
-body.dark-mode .main-content {
-  background-color: var(--dark-bg); /* Warna gelap */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* Bayangan gelap */
+/* Main Content (jika ada wrapper khusus selain content-wrapper) */
+.main-content {
+  background-color: transparent;
+  transition: background-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
 }
 
-body.dark-mode .sidebar {
-  background-color: var(--dark-bg); /* Background gelap */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* Bayangan gelap */
-}
+/* --- */
 
-/* Artikel */
+/* ## Artikel List */
 .article {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   gap: 16px;
   padding-bottom: 24px;
-  margin-bottom: 0; /* Jarak diatur oleh gap main-content */
-  border-bottom: 1px solid var(--border-color); /* Border terang */
-  transition: border-bottom-color 0.3s ease; /* Transisi */
-}
-
-body.dark-mode .article {
-  border-bottom-color: var(--dark-border-color); /* Border gelap */
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--border-color);
+  transition: border-bottom-color 0.3s ease;
 }
 
 .article:last-child {
-  border-bottom: none; /* Hapus border bawah artikel terakhir */
+  border-bottom: none;
   padding-bottom: 0;
 }
 
 .article img {
-  width: 240px; /* Lebar gambar artikel konsisten */
-  height: 160px; /* Tinggi gambar artikel konsisten */
+  width: 240px;
+  height: 160px;
   object-fit: cover;
-  border-radius: var(--radius); /* Menggunakan variabel */
+  border-radius: var(--radius);
   flex-shrink: 0;
-  transition: transform 0.3s ease; /* Transisi hover */
+  transition: transform 0.3s ease;
 }
 
 .article img:hover {
-  transform: scale(1.03); /* Efek zoom gambar */
+  transform: scale(1.03);
 }
 
 /* Konten Artikel */
@@ -491,73 +494,51 @@ body.dark-mode .article {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 8px; /* Jarak antar elemen dalam konten artikel */
+  gap: 8px;
 }
 
 .article-content h3 {
   font-size: 20px;
-  color: var(--text-color); /* Warna teks terang */
   margin: 0;
   font-weight: 600;
   line-height: 1.4;
-  transition: color 0.3s ease; /* Transisi */
 }
 
-/* Hover - Mode terang (default) */
+/* Hover */
 .article-content h3:hover {
-  color: var(--primary-color); /* Warna utama saat hover */
-}
-
-/* === MODE GELAP untuk Artikel Konten === */
-body.dark-mode .article-content h3 {
-  color: var(--dark-text-color); /* Teks putih di dark mode */
-}
-
-/* Hover - Mode gelap */
-body.dark-mode .article-content h3:hover {
-  color: var(--accent-color); /* Warna aksen di dark mode */
+  color: var(--primary-color);
 }
 
 .article-content .meta {
   font-size: 13px;
-  color: var(--muted-text); /* Warna teks terang */
-  margin-top: 0; /* Menghilangkan margin-top negatif */
-  transition: color 0.3s ease; /* Transisi */
-}
-
-body.dark-mode .article-content .meta {
-  color: var(--dark-muted-text); /* Warna teks lebih terang di dark mode */
+  color: var(--muted-text);
+  margin-top: 0;
+  transition: color 0.3s ease;
 }
 
 .article-content .description {
   font-size: 16px;
-  color: #444; /* Warna teks terang */
   line-height: 1.5;
   margin: 0;
   font-family: 'Times New Roman', Times, serif;
-  transition: color 0.3s ease; /* Transisi */
-  display: -webkit-box; /* Untuk line-clamp */
-  -webkit-line-clamp: 3; /* Batasi hingga 3 baris */
+  transition: color 0.3s ease;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-body.dark-mode .article-content .description {
-  color: #ccc; /* Warna teks lebih terang di dark mode */
-}
-
 .article-content span { /* Untuk teks meta yang bold/italic */
   font-weight: bold;
   font-style: italic;
-  color: gold; /* Warna teks terang */
-  transition: color 0.3s ease; /* Transisi */
+  color: rgb(219, 22, 22);
+  transition: color 0.3s ease;
 }
 
-body.dark-mode .article-content span {
-  color: #ffd700; /* Warna emas lebih terang di dark mode */
-}
+/* --- */
 
+/* ## Sidebar Ads & Recommended */
 /* Iklan di sidebar - Tidak sticky */
 .sidebar-ads {
   margin-bottom: 30px;
@@ -567,11 +548,7 @@ body.dark-mode .article-content span {
   width: 100%;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  transition: box-shadow 0.3s ease; /* Transisi */
-}
-
-body.dark-mode .sidebar-ads img {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Bayangan gelap */
+  transition: box-shadow 0.3s ease;
 }
 
 /* Artikel Rekomendasi Sticky */
@@ -583,30 +560,20 @@ body.dark-mode .sidebar-ads img {
 
 /* === Artikel Rekomendasi === */
 .recommended {
-  background-color: var(--light-bg); /* Background terang */
+  background-color: var(--card-bg);
   padding: 16px;
   border-radius: var(--radius);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05); /* Bayangan terang */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transisi */
-}
-
-body.dark-mode .recommended {
-  background-color: var(--dark-card-bg); /* Background gelap */
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Bayangan gelap */
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out, color 0.4s ease-in-out;
 }
 
 .recommended h3 {
   font-size: 18px;
-  border-bottom: 1px solid var(--border-color); /* Border terang */
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 10px;
   margin-bottom: 15px;
-  color: var(--text-color); /* Warna teks terang */
-  transition: color 0.3s ease, border-bottom-color 0.3s ease; /* Transisi */
-}
-
-body.dark-mode .recommended h3 {
-  color: var(--dark-text-color); /* Warna teks gelap */
-  border-bottom-color: var(--dark-border-color); /* Border gelap */
+  color: var(--text-color);
+  transition: color 0.3s ease, border-bottom-color 0.3s ease;
 }
 
 .recommended-item {
@@ -614,15 +581,11 @@ body.dark-mode .recommended h3 {
   align-items: center;
   gap: 12px;
   margin-bottom: 15px;
-  transition: background-color 0.3s ease; /* Transisi */
+  transition: background-color 0.3s ease;
 }
 
 .recommended-item:hover {
-  background-color: #f0f0f0; /* Background terang saat hover */
-}
-
-body.dark-mode .recommended-item:hover {
-  background-color: #333; /* Background gelap saat hover */
+  background-color: #f0f0f0;
 }
 
 .recommended-item img {
@@ -635,15 +598,13 @@ body.dark-mode .recommended-item:hover {
 .recommended-item p {
   font-size: 15px;
   margin: 0;
-  color: var(--text-color); /* Warna teks terang */
-  transition: color 0.3s ease; /* Transisi */
+  color: var(--text-color);
+  transition: color 0.3s ease;
 }
 
-body.dark-mode .recommended-item p {
-  color: var(--dark-text-color); /* Warna teks gelap */
-}
+/* --- */
 
-/* ===== Pagination ===== */
+/* ## Pagination */
 .pagination-container {
   display: flex;
   justify-content: center;
@@ -664,51 +625,24 @@ body.dark-mode .recommended-item p {
   font-weight: 500;
   border-radius: 50%;
   text-decoration: none;
-  border: 1px solid #dcdcdc; /* Border terang */
-  color: #444; /* Warna teks terang */
-  background: #fff; /* Background terang */
+  border: 1px solid #dcdcdc;
+  color: #444;
+  background: #fff;
   transition: all 0.2s ease;
 }
 
-body.dark-mode .page-link,
-body.dark-mode .page-dots {
-  background: #3a3a3a; /* Background gelap */
-  border-color: #555; /* Border gelap */
-  color: #eee; /* Warna teks gelap */
-}
-
-.page-link:hover {
-  background: #f0f0f0; /* Hover background terang */
-  border-color: #bbb; /* Hover border terang */
-  color: #000; /* Hover teks terang */
-}
-
-body.dark-mode .page-link:hover {
-  background: #4a4a4a; /* Hover background gelap */
-  border-color: #777; /* Hover border gelap */
-  color: #fff; /* Hover teks gelap */
-}
 
 .page-link.active {
-  background: var(--accent-color); /* Background aktif terang */
-  border-color: var(--accent-color); /* Border aktif terang */
-  color: #fff; /* Teks aktif terang */
-}
-
-body.dark-mode .page-link.active {
-  background: #0056b3; /* Background aktif gelap */
-  border-color: #0056b3; /* Border aktif gelap */
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: #fff;
 }
 
 .page-dots {
   background: none;
   border: none;
-  color: #aaa; /* Warna terang */
+  color: #aaa;
   cursor: default;
-}
-
-body.dark-mode .page-dots {
-  color: #bbb; /* Warna gelap */
 }
 
 .page-link.next {
@@ -716,31 +650,33 @@ body.dark-mode .page-dots {
   font-weight: bold;
 }
 
-/* === Responsif HP dan Tablet (Max-width 768px - mencakup 480px dan 550px) === */
+/* --- */
+
+/* ## Responsif HP dan Tablet (Max-width 768px) */
 @media screen and (max-width: 768px) {
-  /* Layout Utama */
+  /* Layout Utama (tidak berubah, sudah bagus) */
   .content-wrapper {
-    display: flex; /* Menggunakan flexbox untuk pengaturan kolom */
-    flex-direction: column; /* Mengatur konten dan sidebar dalam satu kolom */
-    padding: 0 15px; /* Sesuaikan padding */
-    gap: 30px; /* Memberi jarak antara main-content dan sidebar */
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px;
+    gap: 30px;
   }
 
-  /* Main Content */
+  /* Main Content (tidak berubah) */
   .main-content {
     width: 100%;
-    order: 1; /* Konten utama akan muncul lebih dulu */
+    order: 1;
   }
 
-  /* Sidebar */
+  /* Sidebar (tidak berubah) */
   .sidebar {
     width: 100%;
-    order: 2; /* Sidebar akan muncul di bawah konten utama */
-    margin-top: 0; /* Pastikan tidak ada margin-top berlebih dari sebelumnya */
-    grid-column: unset; /* Batalkan pengaturan grid-column untuk mobile/tablet */
+    order: 2;
+    margin-top: 0;
+    grid-column: unset;
   }
 
-  /* Pagination */
+  /* Pagination (tidak berubah) */
   .page-link,
   .page-dots {
     width: 26px;
@@ -758,128 +694,102 @@ body.dark-mode .page-dots {
     align-items: flex-start;
     margin-bottom: 20px;
     gap: 15px;
-    padding-bottom: 16px; /* Menyesuaikan padding */
-    border-bottom: 1px solid #eee; /* Border bawah */
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eee;
   }
 
-  body.dark-mode .article {
-    border-bottom-color: #444; /* Border gelap */
-  }
-
+  /* Revisi Ukuran Gambar Artikel */
   .article img {
-    width: 120px; /* Ukuran gambar lebih kecil untuk mobile */
-    height: 80px;
+    width: 140px; /* Diperbesar sedikit dari 120px */
+    height: 90px; /* Disesuaikan agar proporsional */
+    object-fit: cover;
     border-radius: 6px;
+    flex-shrink: 0; /* Penting agar gambar tidak menyusut */
   }
 
+  /* Konten Artikel (tidak banyak perubahan ukuran teks agar konsisten) */
   .article-content {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 0;
-    gap: 5px; /* Disesuaikan untuk mobile */
+    gap: 5px;
   }
 
   .article-content h3 {
-    font-size: 1rem;
+    font-size: 1.05rem; /* Sedikit diperbesar dari 1rem */
     font-weight: bold;
     margin: 0;
-    color: #1f1f1f; /* Warna terang */
-  }
-
-  body.dark-mode .article-content h3 {
-    color: #eee; /* Warna gelap */
   }
 
   .article-content .meta {
-    font-size: 0.8rem;
-    color: #888; /* Warna terang */
+    font-size: 0.85rem; /* Sedikit diperbesar dari 0.8rem */
     margin: 0;
   }
 
-  body.dark-mode .article-content .meta {
-    color: #bbb; /* Warna gelap */
-  }
-
   .description {
-    display: none; /* Disembunyikan di HP */
+    display: none; /* Tetap disembunyikan */
   }
 
   /* Sidebar Rekomendasi */
   .recommended-item {
-    gap: 10px;
-    margin-bottom: 10px;
+    gap: 12px; /* Disesuaikan sedikit dari 10px */
+    margin-bottom: 12px; /* Disesuaikan sedikit dari 10px */
   }
 
+  /* Revisi Ukuran Gambar Rekomendasi */
   .recommended-item img {
-    width: 80px;
-    height: 60px;
+    width: 90px; /* Diperbesar dari 80px */
+    height: 70px; /* Disesuaikan agar proporsional dari 60px */
+    object-fit: cover;
+    border-radius: 6px;
   }
 
   .recommended-item p {
-    font-size: 0.9rem;
+    font-size: 0.95rem; /* Sedikit diperbesar dari 0.9rem */
     margin: 0;
   }
 
   /* Hero Section (Revisi untuk mobile/tablet) */
   .hero-article {
-    margin: 30px auto 25px; /* Margin disesuaikan */
-    height: auto; /* Mengatur tinggi secara otomatis */
-    padding: 0 15px; /* Padding samping untuk responsif */
-    box-shadow: none; /* Hapus bayangan di mobile jika tidak diperlukan */
-  }
-
-  body.dark-mode .hero-article {
-    box-shadow: none; /* Hapus bayangan di dark mode mobile */
+    margin: 30px auto 25px;
+    height: auto;
+    padding: 0 15px;
+    box-shadow: none;
   }
 
   .hero-image {
-    height: 200px; /* Tinggi gambar hero di mobile/tablet */
+    height: 220px; /* Diperbesar sedikit dari 200px */
   }
 
   .hero-overlay {
-    left: 15px; /* Mengikuti padding hero-article */
-    right: 15px; /* Mengikuti padding hero-article */
+    left: 15px;
+    right: 15px;
     padding: 20px 15px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
   }
 
   .hero-category {
-    background: #d32f2f; /* Warna kategori hero */
-    font-size: 0.75rem;
+    font-size: 0.8rem; /* Sedikit diperbesar */
     padding: 5px 10px;
     margin-bottom: 8px;
   }
 
-  body.dark-mode .hero-category {
-    background: #b30000; /* Warna gelap */
-  }
-
   .hero-title {
-    font-size: 1.2rem;
+    font-size: 1.3rem; /* Diperbesar sedikit dari 1.2rem */
     margin-top: 5px;
   }
 
   .hero-meta {
-    font-size: 0.8rem;
+    font-size: 0.85rem; /* Sedikit diperbesar */
     margin-top: 5px;
-  }
-
-  body.dark-mode .hero-meta {
-    color: #bbb; /* Warna gelap */
   }
 
   /* Judul Kategori (jika ada) */
   .category-title {
-    font-size: 1.2rem;
+    font-size: 1.3rem; /* Diperbesar sedikit */
     font-weight: 700;
     margin-bottom: 15px;
-    color: #333; /* Warna terang */
-  }
-
-  body.dark-mode .category-title {
-    color: #eee; /* Warna gelap */
   }
 }
 
@@ -890,19 +800,23 @@ body.dark-mode .page-dots {
 
 
 
+
+/* ## Komentar Section */
 #komentar {
-  background: #f9f9f9;
+  background: var(--card-bg);
   padding: 30px 20px;
   margin-top: 40px;
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: background 0.4s ease-in-out, box-shadow 0.4s ease-in-out, color 0.4s ease-in-out;
 }
 
 #komentar h3 {
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 20px;
-  color: #222;
+  color: var(--text-color);
+  transition: color 0.3s ease;
 }
 
 #komentar form {
@@ -916,11 +830,14 @@ body.dark-mode .page-dots {
 #komentar textarea {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 1rem;
   font-family: inherit;
   box-sizing: border-box;
+  background-color: var(--body-bg);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 #komentar textarea {
@@ -931,18 +848,22 @@ body.dark-mode .page-dots {
 #komentar button {
   width: fit-content;
   padding: 10px 20px;
-  background-color: #1e40af;
+  background-color: var(--accent-color);
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
-  transition: background 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 #komentar button:hover {
-  background-color: #1a368f;
+  background-color: #0056b3;
 }
+
+
+
+
 
 
 
