@@ -1,142 +1,527 @@
-/* Container */
-.container {
-  display: flex;
-  justify-content: space-between;
-  margin: 0; /* Menghilangkan margin container agar kolom lebih dekat */
-  padding: 20px; /* Menambahkan padding agar ada ruang di sekitar konten */
-}
-
-/* Kolom Kiri */
-.left-column {
-    flex: 2; /* Lebar kolom kiri lebih besar */
-    padding: 10px;
-    border: 1px solid #e5dbdb;
-    width: 85%; /* Lebar kolom kiri lebih lebar untuk tampilan normal */
-    margin-right: 20px; /* Menambahkan jarak antara kolom kiri dan kolom kanan */
-    margin-left: -20px; /* Menggeser kolom kiri sedikit ke kiri */
-}
-/* Kolom Kanan */
-.right-column {
-    flex: 1; /* Lebar kolom kanan lebih kecil */
-    padding: 20px; /* Memberikan ruang di dalam kolom */
-    border: 1px solid #ddd; /* Menambahkan garis batas */
-    border-radius: 8px; /* Membuat sudut kolom melengkung */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Memberikan efek bayangan ringan */
-    max-width: 283px; /* Lebar kolom lebih kecil dari sebelumnya */
-    max-height: 455px; /* Tinggi kolom lebih kecil */
-    margin: 15px 0; /* Memberikan jarak antar kolom */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Menyusun elemen di tengah secara horizontal */
-    justify-content: flex-start; /* Menyusun elemen di atas, tidak terpusat vertikal */
-    text-align: center; /* Memusatkan teks */
-    overflow-y: auto; /* Menambahkan scroll jika konten melebihi tinggi */
-    font-size: 0.9rem; /* Sedikit memperkecil ukuran teks untuk proporsi */
-    width: 28%;
-    padding: 10px;
-}
-
-
-
-/* Responsif untuk layar kecil */
-@media screen and (max-width: 768px) {
-    .container {
-        flex-direction: column; /* Mengubah layout menjadi vertikal */
-        padding: 10px; /* Mengurangi padding untuk tampilan lebih rapat di layar kecil */
-    }
-
-    .left-column {
-        width: 100%; /* Membuat kolom kiri memenuhi layar pada perangkat kecil */
-        margin-left: 0; /* Menghilangkan margin kiri */
-        margin-right: 0; /* Menghilangkan margin kanan */
-        padding: 10px 5px; /* Menyesuaikan padding pada layar kecil agar tidak terlalu lebar */
-    }
-
-    .right-column {
-        width: 100%; /* Kolom kanan juga memenuhi layar pada perangkat kecil */
-        margin-top: 20px; /* Menambahkan jarak antar kolom */
-    }
-}
-
-
-/* Gambar Profil */
-.bio-image {
-    margin-bottom: 20px; /* Memberikan jarak bawah pada gambar */
-}
-
-.bio-image img {
-    width: 100%; /* Membuat gambar responsif */
-    max-width: 150px; /* Membatasi lebar gambar */
-    border-radius: 50%; /* Membuat gambar menjadi berbentuk bulat */
-}
-
-/* Konten Bio */
-.bio-content h2 {
-    font-size: 1.5em; /* Ukuran font yang lebih besar untuk judul */
-    color: #333; /* Warna teks judul */
-    font-weight: bold; /* Menebalkan teks judul */
-    margin-bottom: 10px; /* Memberikan jarak bawah pada judul */
-}
-
-.bio-content p {
-    font-size: 1em; /* Ukuran font untuk deskripsi */
-    line-height: 1.6; /* Menambah jarak antar baris */
-    margin-bottom: 15px; /* Memberikan jarak bawah */
-}
-
-/* Social Links */
-.social-links {
-    list-style: none; /* Menghapus tanda bullet pada list */
-    padding: 0; /* Menghapus padding */
-    display: flex; /* Menggunakan flexbox untuk tata letak */
-    justify-content: center; /* Memusatkan tautan */
-    gap: 15px; /* Memberikan jarak antar tombol */
-    margin-top: 20px; /* Jarak atas untuk estetika */
-    flex-wrap: wrap; /* Menambahkan kemampuan untuk membungkus tombol */
-}
-
-.social-links li {
-    display: inline-block; /* Menyusun list secara horizontal */
-}
-
-.social-links a {
-    text-decoration: none; /* Menghapus garis bawah pada link */
-    color: white; /* Warna teks default */
-    font-size: 0.75em; /* Ukuran font lebih kecil agar sesuai dengan ukuran kolom */
-    font-weight: bold; /* Menonjolkan teks */
-    padding: 8px 15px; /* Ruang dalam tombol */
-    border-radius: 50%; /* Membuat tombol berbentuk bulat */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Animasi lebih halus */
-}
-
-/* Efek Hover */
-.social-links a:hover {
-    transform: scale(1.05); /* Perbesaran tombol saat hover */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Bayangan lebih kuat saat hover */
-}
-/* Gaya Khusus untuk Masing-Masing Aplikasi */
-.social-links .facebook {
-    background-color: #4267B2; /* Warna khas Facebook */
-}
-.social-links .telegram {
-    background-color: #0088cc; /* Warna khas Telegram */
-}
-.social-links .instagram {
-    background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5); /* Gradasi khas Instagram */
-}
-.social-links .whatsapp {
-    background-color: #25D366; /* Warna khas WhatsApp */
+header {
+    text-align: center;
+    padding: 16px;
 }
 
 .logo-header {
-  height: 60px;
+    max-height: 60px;
 }
 
-.iklan {
-  height: 60px;
-  max-width: 80%;
-  object-fit: cover;
+.navbar {
+    background: #f5f5f5;
+    padding: 8px 16px;
 }
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1240px; /* Dipertahankan */
+    margin: 0 auto;
+    padding: 16px; /* Padding default untuk desktop */
+    gap: 16px;
+}
+
+.left-column {
+    flex: 2;
+    padding: 16px; /* Padding default untuk desktop */
+    border: 1px solid #ddd;
+}
+
+/* right-column untuk layar besar */
+.right-column {
+    flex: 1;
+    max-width: 320px; /* Dipertahankan */
+    padding: 0; /* Padding diatur di dalam elemen kontennya */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    position: sticky;
+    top: 20px;
+    display: block;
+    max-height: none; /* PENTING: Menghapus batasan tinggi agar semua konten terlihat */
+    overflow-y: visible; /* PENTING: Menghilangkan scrollbar dan membiarkan konten memanjang */
+}
+
+/* ================================================= */
+/* --- Gaya Konten right-column --- */
+/* ================================================= */
+
+.ad-stigma-block {
+    margin-bottom: 0; /* Jarak antara iklan dan rekomendasi DIHILANGKAN */
+    text-align: center;
+    padding: 0; /* TIDAK ADA PADDING DIBERIKAN DISINI, gambar yang membawa background-nya */
+}
+
+.ad-stigma-block img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px 8px 0 0; /* Hanya sudut atas yang melengkung */
+}
+
+.recommendation-block {
+    padding: 16px; /* Memberi padding di sekitar blok rekomendasi */
+    padding-top: 10px; /* Sedikit padding atas, agar tidak terlalu mepet ke gambar iklan */
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
+.tab-button {
+    background-color: transparent;
+    border: none;
+    padding: 10px 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    transition: color 0.3s, border-bottom 0.3s;
+    flex-grow: 1;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.tab-button:hover {
+    color: #333;
+}
+
+.tab-button.active {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.article-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.article-list li {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: flex-start;
+}
+
+.article-list li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.article-list li a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.article-list li img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.article-info {
+    flex-grow: 1;
+}
+
+.article-info h3 {
+    font-size: 0.88rem;
+    margin: 0 0 4px 0;
+    color: #333;
+    line-height: 1.3;
+}
+
+.article-info h3:hover {
+    color: #007bff;
+}
+
+.article-info .date {
+    font-size: 0.7rem;
+    color: #888;
+}
+
+/* ================================================= */
+/* --- Akhir Gaya Konten right-column --- */
+/* ================================================= */
+
+.article-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.article-meta {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 16px;
+}
+
+/* Gambar Masjid - Revisi Ukuran untuk Mobile */
+.masjid-image img {
+    max-width: 100%;
+    border-radius: 8px;
+    /* height: auto; (Ini default, tidak perlu diulang) */
+}
+
+.bio-image img {
+    width: 100px;
+    border-radius: 50%;
+    margin-bottom: 8px;
+}
+
+.bio-content h2 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.bio-content p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* ================================================= */
+/* --- Social Bar (Non-Sticky-Bottom) - Warna & Ukuran Icon --- */
+/* ================================================= */
+.social-bar {
+    display: flex; /* Default: tampilkan di desktop */
+    gap: 10px; /* Jarak antar icon */
+    margin-top: 15px; /* Jarak dari elemen di atasnya */
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.social-bar li {
+    list-style: none;
+}
+
+.social-bar a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px; /* Ukuran icon link yang lebih kecil dan rapi */
+    height: 40px;
+    color: white; /* Warna ikonnya default putih untuk kontras */
+    border-radius: 50%; /* Membuat tombol berbentuk bulat */
+    font-size: 1.1rem; /* Ukuran ikon dalam tombol */
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.social-bar a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Warna spesifik untuk setiap icon (ini akan menimpa background default) */
+.social-bar .facebook { background-color: #4267B2; }
+.social-bar .telegram { background-color: #0088cc; }
+.social-bar .instagram { background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5); }
+.social-bar .whatsapp { background-color: #25D366; }
+.social-bar .youtube { background-color: #FF0000; }
+/* Pastikan warna ikon (child i tag) adalah putih */
+.social-bar a i {
+    color: white;
+}
+
+
+/* ================================================= */
+/* --- Social Bar Sticky Bottom (Mobile) - Dipertahankan --- */
+/* ================================================= */
+.social-bar.sticky-bottom {
+    display: none; /* Default: sembunyikan di layar besar */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: #1c1c1c;
+    padding: 6px 0;
+    border-top: 1px solid #444;
+    justify-content: space-around;
+}
+
+footer {
+    text-align: center;
+    padding: 16px;
+    background: #f5f5f5;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* ================================================= */
+/* --- Tombol Back to Top --- */
+/* ================================================= */
+.back-to-top {
+    position: fixed;
+    bottom: 20px; /* Jarak dari bawah layar */
+    right: 20px; /* Jarak dari kanan layar */
+    background-color: #dc3545; /* Warna merah seperti di Rumaysho */
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Bentuk bulat */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem; /* Ukuran ikon panah */
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, opacity 0.3s, transform 0.3s;
+    opacity: 0; /* Sembunyikan secara default */
+    pointer-events: none; /* Nonaktifkan interaksi saat tersembunyi */
+    z-index: 1000;
+}
+
+.back-to-top:hover {
+    background-color: #c82333;
+    transform: translateY(-3px); /* Efek sedikit naik saat hover */
+}
+
+.back-to-top.show {
+    opacity: 1; /* Tampilkan saat class 'show' ditambahkan */
+    pointer-events: auto; /* Aktifkan interaksi saat terlihat */
+}
+
+
+/* ================================================= */
+/* --- Media Query untuk Layar Kecil (max-width: 900px) --- */
+/* ================================================= */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+        padding: 0 10px; /* PENTING: Mengurangi padding container di mobile */
+    }
+    .left-column {
+        border: none;
+        padding: 10px 0; /* PENTING: Mengurangi padding left-column di mobile */
+        margin-left: 0; /* Pastikan tidak ada margin negatif */
+        margin-right: 0; /* Pastikan tidak ada margin negatif */
+    }
+    /* right-column untuk layar kecil */
+    .right-column {
+        display: block;
+        max-width: 100%;
+        position: static;
+        margin-top: 16px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        max-height: none;
+        overflow-y: visible;
+        padding: 0 10px; /* PENTING: Memberikan padding horizontal ke right-column di mobile */
+    }
+
+    /* Revisi 1: Gambar Utama Artikel (masjid-image img) - Ukuran lebih besar di mobile */
+    .masjid-image img {
+        max-width: 100%;
+        height: auto; /* Pastikan height tetap auto */
+        object-fit: contain; /* Menggunakan 'contain' agar gambar tidak terpotong dan terlihat utuh */
+        max-height: 250px; /* Menambah tinggi maksimal, sesuaikan jika perlu */
+        /* Anda bisa menambahkan width: 100% jika ingin selalu memenuhi lebar */
+    }
+
+    /* Revisi 2: Social Bar di Bawah Gambar Utama - Sembunyikan di layar kecil */
+    .social-bar {
+        display: none; /* Sembunyikan social bar ini di layar kecil */
+    }
+
+    /* Di layar kecil, pastikan gambar iklan tetap responsif */
+    .ad-stigma-block img {
+        max-width: 100%;
+        border-radius: 6px 6px 0 0; /* Sesuaikan border-radius di mobile */
+    }
+
+    /* Sesuaikan ukuran font dan padding tab di mobile */
+    .tab-button {
+        font-size: 0.85rem;
+        padding: 8px 10px;
+    }
+    .article-info h3 {
+        font-size: 0.85rem;
+    }
+    .article-list li img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .article-title {
+        font-size: 1.4rem;
+    }
+    .article-meta {
+        font-size: 0.75rem;
+    }
+
+    /* Tampilkan social-bar.sticky-bottom hanya di layar kecil */
+    .social-bar.sticky-bottom {
+        display: flex; /* Tampilkan di layar kecil */
+        gap: 8px;
+        padding: 8px 10px;
+        justify-content: space-around;
+        flex-wrap: nowrap;
+    }
+    .social-bar.sticky-bottom a {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+    .social-bar.sticky-bottom a i {
+        color: white; /* Pastikan ikon di sticky-bottom juga putih */
+    }
+
+    /* Sembunyikan tombol Back to Top di layar kecil jika tidak diperlukan */
+    .back-to-top {
+        display: none;
+    }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dark-bg-body: #1e1e1e;
+    --dark-bg-element: #2a2a2a;
+    --dark-border: #3a3a3a;
+    --dark-text-primary: #fff; /* Putih cerah */
+    --dark-text-secondary: #ddd; /* Abu terang untuk sekunder */
+    --dark-accent: #0af;
+    --dark-accent-hover: #3cf;
+  }
+
+  body {
+    background-color: var(--dark-bg-body);
+    color: var(--dark-text-primary);
+  }
+
+  .navbar {
+    background-color: var(--dark-bg-element);
+    border-bottom: 1px solid var(--dark-border);
+  }
+
+  .nav-links li a {
+    color: var(--dark-text-primary);
+  }
+
+  .nav-links li a:hover {
+    color: var(--dark-accent);
+  }
+
+  .left-column {
+    background-color: var(--dark-bg-element);
+    border: 1px solid var(--dark-border);
+    color: var(--dark-text-primary);
+  }
+
+  .right-column {
+    background-color: var(--dark-bg-element);
+    border: 1px solid var(--dark-border);
+    color: var(--dark-text-primary);
+  }
+
+  .article-title {
+    color: var(--dark-text-primary);
+  }
+
+  .article-meta {
+    color: var(--dark-text-secondary);
+  }
+
+
+  .left-column a:hover {
+    color: var(--dark-accent);
+  }
+
+  .tabs {
+    border-bottom: 1px solid var(--dark-border);
+  }
+
+  .tab-button {
+    color: var(--dark-text-primary);
+  }
+
+  .tab-button:hover {
+    color: var(--dark-accent);
+  }
+
+  .tab-button.active {
+    color: var(--dark-accent);
+    border-bottom: 2px solid var(--dark-accent);
+  }
+
+  .article-list li {
+    border-bottom: 1px solid var(--dark-border);
+  }
+
+  .article-info h3 {
+    color: var(--dark-text-primary);
+  }
+
+  .article-info h3:hover {
+    color: var(--dark-accent);
+  }
+
+  .article-info .date {
+    color: var(--dark-text-secondary);
+  }
+
+  .social-bar.sticky-bottom {
+    background-color: var(--dark-bg-element);
+    border-top: 1px solid var(--dark-border);
+  }
+
+  .footer-container,
+  footer {
+    background-color: var(--dark-bg-element);
+    color: var(--dark-text-primary);
+  }
+
+  .footer-container a {
+    color: var(--dark-text-primary);
+  }
+
+  .footer-container a:hover {
+    color: var(--dark-accent);
+  }
+
+  .back-to-top {
+    background-color: #e04f5f;
+  }
+
+  .back-to-top:hover {
+    background-color: #f05f6f;
+  }
+}
+
+
+
+
+
 
 /* Navbar Anda yang sudah ada (untuk desktop) */
 .navbar {
@@ -582,6 +967,12 @@ body.dark-mode h4 {
 
 
 }
+
+
+
+
+
+
 
 /* Footer Umum */
 footer {

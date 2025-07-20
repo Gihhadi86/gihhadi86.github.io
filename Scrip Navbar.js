@@ -49,3 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
     sunIcon.style.display = 'none';
   }
 });
+
+
+//punya mode darl article 
+
+document.addEventListener("DOMContentLoaded", function () {
+    const modeToggle = document.getElementById("mode-toggle");
+    modeToggle?.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+    });
+});
