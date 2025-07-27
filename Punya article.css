@@ -1,0 +1,2765 @@
+
+
+/* Reset dan dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ================================================= */
+/* --- Variabel Global CSS (untuk kemudahan pengelolaan) --- */
+/* ================================================= */
+:root {
+    --body-bg: #ffffff;
+    --element-bg: #ffffff;
+    --border-color: #e0e0e0;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-dark: #888888;
+    --accent-color: #007bff;
+    --accent-hover: #0056b3;
+    --red-color: #dc3545;
+    --red-hover: #c82333;
+}
+
+
+.top-info-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 18px; /* Dikurangi lagi untuk tinggi yang lebih ringkas */
+    font-family: 'Poppins', sans-serif; /* Tetap Poppins untuk konsistensi */
+    font-size: 0.78rem; /* Sedikit lebih kecil untuk kesan profesional */
+    background: linear-gradient(135deg, #2c0000 0%, #6f0000 50%, #2c0000 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Bayangan sedikit lebih halus */
+    border-bottom: 0px solid rgba(255,255,255,0.07); /* Border tipis */
+    backdrop-filter: blur(3px); /* Efek blur sedikit dikurangi */
+    -webkit-backdrop-filter: blur(3px);
+    z-index: 1000;
+}
+
+/* Pseudo-elemen untuk efek cahaya atau detail visual */
+.top-info-bar::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0) 70%); /* Opasitas sedikit dikurangi */
+    transform: rotate(45deg);
+    opacity: 0.1;
+    pointer-events: none;
+    animation: subtleShine 20s linear infinite;
+}
+
+@keyframes subtleShine {
+    0% { transform: rotate(0deg) translate(-10%, -10%); opacity: 0.1; }
+    50% { transform: rotate(360deg) translate(10%, 10%); opacity: 0.05; }
+    100% { transform: rotate(0deg) translate(-10%, -10%); opacity: 0.1; }
+}
+
+.top-bar-left,
+.top-bar-middle,
+.top-bar-right {
+    display: flex;
+    align-items: center;
+}
+
+.top-bar-left {
+    flex: 1;
+    font-weight: 600;
+    letter-spacing: 0.2px; /* Sedikit dikurangi */
+    color: rgba(255,255,255,0.9);
+    text-shadow: 0 0 3px rgba(255,255,255,0.15); /* Efek glowing lebih halus */
+    /* Pastikan teks tidak overflow */
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.current-date { /* Gaya khusus untuk tanggal */
+    text-transform: uppercase; /* Tetap uppercase */
+}
+
+.top-bar-middle {
+    flex: 2.5;
+    gap: 8px; /* Jarak antar elemen sedikit dikurangi */
+    justify-content: center;
+    min-width: 0;
+    position: relative;
+    z-index: 10;
+}
+
+.top-bar-right {
+    flex: 1;
+    justify-content: flex-end;
+    gap: 10px; /* Jarak antar icon/search sedikit dikurangi */
+    z-index: 10;
+    min-width: 0; /* Penting untuk mencegah overflow */
+}
+
+.latest-article-label {
+    /* Perubahan untuk tampilan lebih profesional dan ringkas */
+    background: linear-gradient(45deg, #d4af37, #f0e68c); /* Gradasi emas yang lebih halus dan elegan */
+    color: #333;
+    padding: 3px 8px; /* Dikurangi lagi */
+    border-radius: 16px; /* Sedikit lebih kecil */
+    font-weight: bold;
+    font-size: 0.7rem; /* Dikurangi lagi */
+    letter-spacing: 0.5px; /* Sedikit dikurangi */
+    box-shadow: 0 1px 6px rgba(0,0,0,0.15); /* Bayangan lebih halus */
+    border: 1px solid rgba(255,255,255,0.08); /* Border tipis untuk definisi */
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out; /* Transisi untuk efek hover */
+    /* Pastikan teks tidak overflow */
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/* Efek shimmer pada label */
+.latest-article-label::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); /* Opasitas shimmer sedikit dikurangi */
+    transition: transform 0.8s ease-out;
+}
+.latest-article-label:hover {
+    transform: translateY(-1px); /* Efek naik sedikit saat hover */
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25); /* Bayangan lebih kuat saat hover */
+}
+.latest-article-label:hover::after {
+    transform: translateX(200%);
+}
+
+.latest-article-ticker {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    gap: 6px; /* Dikurangi */
+    flex-grow: 1;
+    background-color: rgba(255,255,255,0.10); /* Sedikit lebih transparan */
+    padding: 3px 10px; /* Dikurangi */
+    border-radius: 16px; /* Sedikit lebih kecil */
+    min-width: 0; /* Penting untuk mencegah overflow */
+    border: 1px solid rgba(255,255,255,0.12); /* Border lebih halus */
+    box-shadow: inset 0 0 3px rgba(0,0,0,0.1); /* Bayangan ke dalam lebih halus */
+}
+
+.ticker-track {
+    overflow: hidden;
+    white-space: nowrap;
+    flex-grow: 1;
+    position: relative;
+    min-width: 0; /* Penting untuk mencegah overflow */
+}
+
+.ticker-title {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scrollTicker 25s linear infinite;
+    white-space: nowrap;
+    color: rgba(255,255,255,0.8); /* Sedikit lebih transparan */
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.8rem; /* Dikurangi lagi */
+    transition: color 0.3s ease;
+    /* Pastikan teks tidak overflow */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.ticker-title:hover {
+    color: #fff;
+    text-shadow: 0 0 6px rgba(255,255,255,0.5); /* Efek glowing sedikit dikurangi */
+}
+
+.ticker-nav {
+    background-color: rgba(255,255,255,0.15); /* Sedikit lebih transparan */
+    border: 1px solid rgba(255,255,255,0.2); /* Border lebih halus */
+    padding: 3px 7px; /* Dikurangi */
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Bayangan lebih halus */
+    flex-shrink: 0; /* Mencegah tombol mengecil */
+}
+.ticker-nav:hover {
+    background-color: rgba(255,255,255,0.2);
+    transform: scale(1.05); /* Sedikit membesar */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+}
+.ticker-nav i {
+    font-size: 0.7rem; /* Dikurangi lagi */
+}
+
+.top-bar-search {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255,255,255,0.07); /* Sedikit lebih transparan */
+    border-radius: 18px; /* Sedikit lebih kecil */
+    padding: 3px 10px; /* Dikurangi */
+    border: 1px solid rgba(255,255,255,0.12); /* Border lebih halus */
+    box-shadow: inset 0 0 3px rgba(0,0,0,0.1); /* Bayangan ke dalam lebih halus */
+    min-width: 0; /* Penting untuk mencegah overflow */
+}
+
+.top-bar-search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 2px; /* Dikurangi */
+    font-size: 0.75rem; /* Dikurangi */
+    flex-grow: 1;
+    min-width: 0; /* Penting untuk mencegah overflow pada input */
+}
+.top-bar-search input::placeholder {
+    color: rgba(255,255,255,0.55); /* Placeholder lebih transparan */
+}
+.search-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 0.8rem; /* Dikurangi */
+    margin-left: 3px; /* Dikurangi */
+    cursor: pointer;
+    opacity: 0.7; /* Sedikit lebih transparan */
+    transition: opacity 0.3s, transform 0.2s;
+    flex-shrink: 0; /* Mencegah tombol mengecil */
+}
+.search-btn:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+@keyframes scrollTicker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+@media (max-width: 768px) {
+    .top-info-bar {
+        padding: 4px 6px; /* Padding lebih kecil untuk mobile */
+        flex-wrap: nowrap;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        /* Tambahkan overflow-x: hidden; untuk memastikan tidak ada scrollbar horizontal */
+        overflow-x: hidden;
+    }
+
+    .top-bar-left {
+        background-color: rgba(255,255,255,0.07); /* Background transparan */
+        color: #fff;
+        padding: 2px 6px; /* Dikurangi */
+        border-radius: 10px; /* Lebih kecil */
+        font-size: 0.65rem; /* Dikurangi */
+        flex: 0 0 auto;
+        text-shadow: none;
+        letter-spacing: 0;
+        /* Pastikan teks tidak overflow */
+        min-width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .top-bar-middle {
+        flex: 1;
+        display: flex;
+        border-radius: 10px; /* Lebih kecil */
+        padding: 2px 6px; /* Dikurangi */
+        overflow: hidden;
+        gap: 3px; /* Jarak lebih rapat */
+        min-width: 0; /* Penting untuk mencegah overflow */
+    }
+
+    .latest-article-label {
+        display: none; /* Sembunyikan label di mobile untuk menghemat ruang */
+    }
+
+    .ticker-title {
+        font-size: 0.7rem; /* Dikurangi */
+        color: #fff;
+        animation-duration: 15s;
+        /* Pastikan teks tidak overflow */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .ticker-nav {
+        background-color: rgba(255,255,255,0.07);
+        color: #fff;
+        border: 1px solid rgba(255,255,255,0.12);
+        padding: 1px 3px; /* Dikurangi */
+        font-size: 0.6rem; /* Dikurangi */
+        box-shadow: none;
+        flex-shrink: 0; /* Mencegah tombol mengecil */
+    }
+
+    .top-bar-right,
+    .top-bar-search {
+        display: none; /* Sembunyikan untuk menyederhanakan mobile */
+    }
+}
+
+/* Dark Mode Styles */
+body.dark .top-info-bar {
+    background: linear-gradient(135deg, #0d0000 0%, #300000 50%, #0d0000 100%);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    border-bottom-color: rgba(255,255,255,0.02);
+}
+body.dark .latest-article-label {
+    background: linear-gradient(45deg, #ffd700, #ffcc00); /* Gradasi emas yang lebih mencolok di dark mode */
+    color: #1a1a1a;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.04); /* Border lebih halus di dark mode */
+}
+body.dark .latest-article-ticker {
+    background-color: rgba(255,255,255,0.03);
+    border-color: rgba(255,255,255,0.07);
+    box-shadow: inset 0 0 3px rgba(0,0,0,0.2);
+}
+body.dark .ticker-title {
+    color: #e0e0e0;
+}
+body.dark .ticker-title:hover {
+    color: #fff;
+    text-shadow: 0 0 7px rgba(255,255,255,0.7);
+}
+body.dark .ticker-nav {
+    background-color: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.12);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+body.dark .ticker-nav:hover {
+    background-color: rgba(255,255,255,0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+body.dark .top-bar-search {
+    background-color: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
+    box-shadow: inset 0 0 3px rgba(0,0,0,0.2);
+}
+body.dark .top-bar-search input::placeholder {
+    color: rgba(255,255,255,0.45);
+}
+
+
+
+/* ================================================= */
+/* --- HEADER ATAS (LOGO & BANNER) - STYLING RESPONSIF --- */
+/* DIREVISI AGAR SESUAI GAMBAR RUJUKAN (RUMAYSHO.COM)    */
+/* ================================================= */
+
+.website-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1320px;
+    margin: 26px auto; /* Dikurangi margin atas/bawah */
+    padding: 0;
+    /* Tambahkan overflow-x: hidden; untuk mencegah scrollbar horizontal */
+    overflow-x: hidden;
+}
+
+.header-logo-wrapper {
+    flex-shrink: 0;
+    width: 35%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+.header-logo-img {
+    height: 75px; /* Sedikit dikurangi agar lebih ramping */
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.header-banner-wrapper {
+    flex-grow: 1;
+    width: 65%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-left: 15px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.header-banner-wrapper a {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.header-banner-img {
+    height: 80px; /* Dikurangi dari 90px menjadi 80px */
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .website-header-top {
+        flex-direction: column; /* Ubah ke kolom untuk mobile */
+        margin: 5px auto; /* Margin lebih kecil di mobile */
+        padding: 0 10px; /* Tambah padding horizontal untuk mobile */
+        /* Pastikan tidak ada overflow di mobile */
+        overflow-x: hidden;
+    }
+
+    .header-logo-wrapper {
+        width: 100%; /* Logo mengambil lebar penuh */
+        justify-content: center; /* Pusatkan logo */
+        padding-right: 0;
+        margin-bottom: 5px; /* Jarak antara logo dan banner di mobile */
+    }
+
+    .header-logo-img {
+        height: 60px; /* Ukuran logo lebih kecil di mobile */
+    }
+
+    .header-banner-wrapper {
+        width: 100%; /* Banner mengambil lebar penuh */
+        justify-content: center; /* Pusatkan banner */
+        padding-left: 0;
+    }
+
+    .header-banner-img {
+        height: 70px; /* Ukuran banner lebih kecil di mobile */
+    }
+}
+/* ================================================= */
+/* --- AKHIR HEADER ATAS --- */
+/* ================================================= */
+
+
+/* --- NAVBAR STYLES --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #0a0b1a, #15122b, #07091a); /* Sedikit lebih gelap dan kaya */
+    background-size: 500% 500%;
+    animation: galaxyFlow 18s ease infinite;
+    padding: 12px 30px; /* Dikurangi padding */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow:
+        0 0 20px rgba(255, 255, 255, 0.02),
+        0 0 40px rgba(100, 0, 255, 0.08),
+        0 8px 25px rgba(0, 0, 0, 0.4); /* Bayangan lebih halus */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03); /* Border lebih halus */
+    transition: all 0.4s ease;
+    /* Pastikan tidak ada overflow di navbar */
+    overflow-x: hidden;
+}
+
+@keyframes galaxyFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- NAV LINKS --- */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px; /* Jarak antar item dikurangi */
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.nav-links li a {
+    position: relative;
+    font-weight: 600;
+    padding: 10px 15px; /* Dikurangi padding */
+    display: block;
+    text-decoration: none;
+    color: #dcdcfb; /* Warna teks sedikit lebih terang */
+    font-size: 0.95rem; /* Sedikit dikurangi */
+    transition: color 0.4s ease, transform 0.3s ease;
+    /* Pastikan teks tidak overflow */
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.nav-links li a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg, #8a2be2, #6c5ce7, #00bfff);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+}
+
+.nav-links li a:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.nav-links li a:hover {
+    color: #ffffff; /* Lebih terang saat hover */
+    transform: translateY(-1px); /* Efek naik sedikit */
+    text-shadow: 0 0 8px rgba(148, 0, 211, 0.2); /* Bayangan lebih halus */
+}
+
+.nav-links .home-btn a {
+    color: #ffb347;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Jarak ikon dikurangi */
+    font-size: 1rem; /* Sedikit dikurangi */
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links .home-btn a:hover {
+    color: #ffd699;
+    transform: scale(1.03); /* Skala sedikit dikurangi */
+    text-shadow: 0 0 6px rgba(255, 200, 100, 0.4); /* Bayangan lebih halus */
+}
+
+/* --- HAMBURGER --- */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px; /* Jarak bar dikurangi */
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 8px; /* Padding dikurangi */
+    z-index: 1001;
+    transition: transform 0.3s ease;
+}
+
+.hamburger div {
+    width: 25px; /* Lebar bar dikurangi */
+    height: 2.5px; /* Tinggi bar dikurangi */
+    background: #ffffff;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.hamburger.is-active div:nth-child(1) {
+    transform: translateY(7px) rotate(45deg); /* Penyesuaian transformasi */
+}
+.hamburger.is-active div:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.is-active div:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg); /* Penyesuaian transformasi */
+}
+
+/* --- TOGGLE BUTTON --- */
+.toggle-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 20px; /* Ukuran ikon dikurangi */
+    color: #ffffff;
+    transition: color 0.3s ease;
+    padding: 6px; /* Padding dikurangi */
+}
+
+.toggle-button .moon::before {
+    content: '\f186';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+}
+
+.toggle-button .sun::before {
+    content: '\f185';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    display: none;
+}
+
+/* --- MOBILE NAV GALAXY STYLE --- */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    padding: 15px; /* Padding dikurangi */
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    background: linear-gradient(135deg, rgba(10, 11, 26, 0.98), rgba(20, 0, 30, 0.98)); /* Gradasi gelap lebih pekat */
+    background-size: 300% 300%;
+    animation: galaxyFlow 20s ease infinite;
+    backdrop-filter: blur(15px) brightness(0.9) saturate(1.2); /* Blur sedikit dikurangi */
+    color: #eaeaff;
+    transform: translateX(100%);
+    transition: transform 0.5s ease;
+    box-shadow: inset 0 0 30px rgba(147, 112, 219, 0.06); /* Bayangan lebih halus */
+    border-left: 1px solid rgba(255, 255, 255, 0.04); /* Border lebih halus */
+    /* Pastikan tidak ada overflow di mobile nav */
+    overflow-x: hidden;
+}
+
+.mobile-nav.is-active {
+    transform: translateX(0);
+}
+
+.mobile-nav-close {
+    position: absolute;
+    top: 15px; /* Posisi disesuaikan */
+    right: 15px; /* Posisi disesuaikan */
+    font-size: 26px; /* Ukuran ikon dikurangi */
+    color: #eaeaff;
+    cursor: pointer;
+    z-index: 2010;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav-close:hover {
+    color: #ba68c8;
+}
+
+/* --- SEARCH BAR --- */
+.mobile-search-bar {
+    width: 90%;
+    max-width: 350px; /* Max width dikurangi */
+    margin-top: 50px; /* Margin atas dikurangi */
+    position: relative;
+    border-radius: 30px; /* Radius dikurangi */
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05); /* Sedikit lebih transparan */
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Border lebih halus */
+    display: flex;
+    align-items: center;
+    padding: 8px 15px; /* Padding dikurangi */
+    backdrop-filter: blur(6px); /* Blur dikurangi */
+}
+
+.mobile-search-bar input {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    color: #ffffff;
+    font-size: 0.9rem; /* Ukuran font dikurangi */
+    outline: none;
+    min-width: 0; /* Penting untuk mencegah overflow pada input */
+}
+
+.mobile-search-bar input::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Placeholder lebih transparan */
+}
+
+.mobile-search-bar .search-icon {
+    font-size: 18px; /* Ukuran ikon dikurangi */
+    color: #ffffff;
+    margin-left: 8px; /* Margin dikurangi */
+    cursor: pointer;
+    transition: color 0.3s ease;
+    flex-shrink: 0; /* Mencegah ikon mengecil */
+}
+
+.mobile-search-bar .search-icon:hover {
+    color: #a29bfe;
+}
+
+/* --- NAV LINK INSIDE MOBILE (Galaxy Style) --- */
+.mobile-nav-links {
+    list-style: none;
+    width: 90%;
+    max-width: 350px; /* Max width dikurangi */
+    margin-top: 30px; /* Margin atas dikurangi */
+    text-align: center; /* Pusatkan teks */
+    padding: 0; /* Hapus padding default */
+}
+
+.mobile-nav-links li {
+    padding: 12px 0; /* Padding dikurangi */
+    border-bottom: none; /* HILANGKAN GARIS BAWAH */
+    margin-bottom: 5px; /* Tambah sedikit margin antar item */
+    border-radius: 8px; /* Tambah border radius */
+    overflow: hidden; /* Pastikan gradien tidak keluar */
+    position: relative;
+    z-index: 1; /* Pastikan di atas pseudo-element */
+}
+
+.mobile-nav-links li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Gradasi galaxy transparan yang lebih estetik */
+    background: linear-gradient(90deg, rgba(138, 43, 226, 0.15), rgba(108, 92, 231, 0.15), rgba(0, 191, 255, 0.15));
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: scaleX(0);
+    transform-origin: left;
+    border-radius: 8px;
+    z-index: -1; /* Di belakang konten */
+}
+
+.mobile-nav-links li:hover::before {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+.mobile-nav-links li a {
+    font-size: 1.1rem; /* Ukuran font sedikit dikurangi */
+    display: block;
+    /* Warna teks lebih estetik */
+    color: #c0c0e0; /* Warna dasar yang lebih lembut */
+    padding: 0 10px; /* Padding horizontal untuk teks */
+    text-decoration: none; /* HILANGKAN GARIS BAWAH TEKS */
+    transition: color 0.3s ease;
+    /* Pastikan teks tidak overflow */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.mobile-nav-links li a:hover {
+    /* Warna teks terang saat hover, dengan sentuhan ungu/biru */
+    color: #e0e0ff;
+    text-shadow: 0 0 12px rgba(170, 0, 255, 0.7); /* Efek glowing yang lebih kuat */
+}
+
+/* --- SOCIAL ICONS --- */
+.mobile-social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Jarak antar ikon dikurangi */
+    margin-top: auto;
+    padding-bottom: 20px; /* Padding bawah dikurangi */
+    width: 100%;
+}
+
+.mobile-social-icons a {
+    color: #ffffff;
+    font-size: 22px; /* Ukuran ikon dikurangi */
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.mobile-social-icons a:hover {
+    transform: scale(1.1); /* Skala sedikit dikurangi */
+    color: #a29bfe; /* Warna hover disesuaikan */
+}
+
+/* --- RESPONSIVE HAMBURGER --- */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+}
+
+
+
+/* ================================================= */
+/* --- Layout Utama (Container) --- */
+/* ================================================= */
+.container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 900px; /* Dikurangi dari 1200px */
+    margin: 0 auto;
+    padding: 10px; /* Tetap 10px */
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.left-column {
+    flex: 2;
+    padding: 14px;
+    border: 1px solid var(--border-color);
+    background: var(--element-bg);
+    border-radius: 8px;
+    transition: background 0.3s, border-color 0.3s;
+    box-sizing: border-box;
+    /* Pastikan tidak ada overflow di kolom kiri */
+    overflow-x: hidden;
+}
+
+
+/* right-column untuk LAYAR DESKTOP - KUNCI STICKY */
+.right-column {
+    flex: 1;
+    max-width: 355px; /* Disesuaikan agar proporsional dengan container baru */
+    padding: 0;
+    background: var(--element-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    position: sticky;
+    top: 20px;
+    z-index: 900;
+    align-self: flex-start;
+    height: fit-content;
+    overflow-y: visible;
+    transition: background 0.3s, border-color 0.3s;
+    box-sizing: border-box;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    /* Pastikan tidak ada overflow di kolom kanan */
+    overflow-x: hidden;
+}
+
+/* ================================================= */
+/* --- Konten Artikel Utama (Left Column) --- */
+/* ================================================= */
+.article-title {
+    color: #1e1717;
+    font-style: italic;
+    font-size: 3rem; /* Dikurangi dari 3rem */
+    font-weight: 600;
+    line-height: 1.4; /* Sedikit dikurangi */
+    margin-top: 15px; /* Dikurangi */
+    margin-bottom: 8px; /* Dikurangi */
+    margin-left: 0; /* Dihilangkan margin-left */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.article-meta {
+    font-size: 0.90rem; /* Dikurangi dari 0.85rem */
+    color: var(--text-secondary);
+    margin-bottom: 14px; /* Dikurangi */
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px; /* Dikurangi */
+    margin-top: 8px; /* Dikurangi */
+    transition: color 0.3s;
+    /* Pastikan tidak ada overflow pada meta artikel */
+    flex-wrap: wrap; /* Izinkan wrap jika terlalu panjang */
+    overflow-x: hidden;
+}
+.article-meta .author {
+    font-weight: 400;
+    color: var(--text-primary);
+    /* Pastikan teks tidak overflow */
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.article-meta .author i {
+    color: var(--text-primary);
+    transition: color 0.3s;
+}
+.article-meta .date i,
+.article-meta .read-time i {
+    color: var(--text-secondary);
+    transition: color 0.3s;
+}
+.article-meta .dot {
+    color: var(--text-secondary);
+    font-size: 0.9em; /* Sedikit dikurangi */
+    margin: 0 3px; /* Sedikit dikurangi */
+}
+
+/* Gambar utama artikel */
+.masjid-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+}
+
+/* Gaya untuk paragraf di artikel */
+article p {
+    font-size: 1.1rem; /* Dikurangi dari 1.3rem */
+    line-height: 1.6;
+    margin-bottom: 15px; /* Dikurangi */
+    text-align: justify;
+    letter-spacing: 0.2px; /* Sedikit dikurangi */
+    word-spacing: 0.5px; /* Sedikit dikurangi */
+    color: var(--text-primary);
+    transition: color 0.3s;
+    margin-top: 8px; /* Dikurangi */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+/* Gaya untuk h3 (sub-judul) di artikel utama */
+article h3 {
+    font-size: 1.3rem; /* Dikurangi dari 1.5rem */
+    font-weight: bold;
+    margin-top: 1.2em; /* Dikurangi */
+    margin-bottom: 0.7em; /* Dikurangi */
+    color: var(--text-primary);
+    text-align: center;
+    transition: color 0.3s;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+/* Gaya untuk h4 (sub-sub-judul) di artikel utama */
+article h4 {
+    font-size: 1.1rem; /* Dikurangi dari 1.3rem */
+    font-weight: bold;
+    margin-bottom: 0.4rem; /* Dikurangi */
+    line-height: 1.5; /* Sedikit dikurangi */
+    color: var(--text-primary);
+    transition: color 0.3s;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+/* Gaya untuk Ordered List (ol) di artikel utama */
+article ol {
+    list-style-type: decimal;
+    margin-left: 20px;
+    padding-left: 0;
+    color: var(--text-primary);
+    transition: color 0.3s;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+article ol li {
+    margin-bottom: 0.8rem; /* Dikurangi */
+    color: var(--text-primary);
+    transition: color 0.3s;
+    font-size: 1rem; /* Menyesuaikan dengan p */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+/* Gaya untuk link di artikel utama (sumber, dll) */
+article a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    transition: color 0.3s;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+article a:hover {
+    color: var(--accent-hover);
+}
+
+/* CSS untuk teks Arab */
+.arab {
+    font-family: 'Amiri', serif;
+    font-size: 1.4em; /* Dikurangi dari 1.7em */
+    line-height: 1.8; /* Sedikit dikurangi */
+    direction: rtl;
+    text-align: justify;
+    margin: 15px 0; /* Dikurangi */
+    color: var(--text-primary);
+    display: block;
+    transition: color 0.3s;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* ================================================= */
+/* --- Konten Sidebar (Right Column: Iklan & Rekomendasi) --- */
+/* ================================================= */
+
+.ad-stigma-block {
+    margin-bottom: 0;
+    text-align: center;
+    padding: 0;
+    background: transparent; /* Menghilangkan latar belakang */
+    flex-shrink: 0;
+}
+
+.ad-stigma-block img {
+    max-width: 100%;
+    height: 500px; /* Diperbesar dari 200px untuk desktop */
+    object-fit: contain; /* Menggunakan contain agar gambar tidak terpotong */
+    display: block;
+    border-radius: 8px 8px 0 0;
+}
+
+.recommendation-block {
+    padding: 16px;
+    padding-top: 10px;
+    flex-grow: 1;
+    -webkit-overflow-scrolling: touch;
+    /* Pastikan tidak ada overflow di blok rekomendasi */
+    overflow-x: hidden;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 15px; /* Dikurangi */
+    transition: border-color 0.3s;
+    flex-shrink: 0;
+}
+
+.tab-button {
+    background-color: transparent;
+    border: none;
+    padding: 8px 10px; /* Dikurangi */
+    cursor: pointer;
+    font-size: 0.90rem; /* Sedikit dikurangi */
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: color 0.3s, border-bottom 0.3s;
+    flex-grow: 1;
+    text-align: center;
+    white-space: nowrap;
+    /* Pastikan teks tidak overflow */
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.tab-button:hover {
+    color: var(--text-primary);
+}
+
+.tab-button.active {
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.article-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Mengatur item daftar artikel - Default (Desktop) */
+.article-list li {
+    margin-bottom: 15px; /* Dikurangi dari 20px */
+    padding-bottom: 15px; /* Dikurangi dari 20px */
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: flex-start;
+    gap: 15px; /* Dikurangi dari 20px */
+}
+
+.article-list li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.article-list li a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    gap: 15px; /* Sesuaikan dengan gap di li */
+    width: 100%;
+    align-items: flex-start;
+}
+
+.article-list li img {
+    width: 130px; /* Dikurangi dari 200px */
+    height: 90px; /* Dikurangi dari 130px */
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.article-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left; /* Pastikan rata kiri */
+    /* Pastikan tidak ada overflow pada info artikel */
+    min-width: 0;
+}
+
+.article-info h3 {
+    font-size: 1rem; /* Dikurangi dari 1.25rem */
+    margin: 0 0 5px 0; /* Dikurangi margin-bottom */
+    color: var(--text-primary);
+    line-height: 1.3; /* Sedikit dikurangi */
+    transition: color 0.3s;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: left;
+}
+
+.article-info h3:hover {
+    color: var(--accent-color);
+}
+
+.article-info .date {
+    font-size: 0.8rem; /* Dikurangi dari 0.9rem */
+    color: var(--text-secondary);
+    text-align: left;
+}
+
+/* --- Media Queries untuk Layar Kecil (Mobile) --- */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 0 5px; /* Padding horizontal lebih kecil untuk mendekati tepi */
+        gap: 10px; /* Jarak antar kolom dikurangi */
+        margin: -8px;
+        /* Pastikan tidak ada overflow di mobile container */
+        overflow-x: hidden;
+    }
+
+    .left-column {
+        padding: 10px; /* Padding tetap 10px untuk konten artikel */
+        margin-bottom: 10px; /* Dikurangi */
+        /* Pastikan tidak ada overflow di mobile left column */
+        overflow-x: hidden;
+    }
+
+    .right-column {
+        max-width: 100%;
+        position: static;
+        top: auto;
+        border: 1px solid var(--border-color);
+        margin-left: auto;
+        margin-right: auto;
+        /* Pastikan tidak ada overflow di mobile right column */
+        overflow-x: hidden;
+    }
+
+    .recommendation-block {
+        padding: 10px;
+        /* Pastikan tidak ada overflow di mobile recommendation block */
+        overflow-x: hidden;
+    }
+
+    .tabs {
+        margin-bottom: 10px; /* Dikurangi */
+    }
+
+    .tab-button {
+        font-size: 0.9rem; /* Dikurangi */
+        padding: 7px 8px; /* Dikurangi */
+        /* Pastikan teks tidak overflow */
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    /* Penyesuaian untuk konten artikel utama di layar kecil */
+    .article-title {
+        font-size: 1.70rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 6px !important;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .article-meta {
+        font-size: 0.80rem !important;
+        line-height: 1.3 !important;
+        gap: 6px;
+        flex-wrap: wrap; /* Pastikan wrap di mobile */
+        overflow-x: hidden;
+    }
+
+    .article-meta i {
+        font-size: 0.7rem;        /* Ikon juga dikecilkan */
+    }
+
+    .article-meta .dot {
+        font-size: 0.6rem;
+        margin: 0 4px;
+    }
+
+
+    article p {
+        font-size: 0.75rem; /* Dikurangi lagi dari 0.9rem */
+        margin-bottom: 10px; /* Dikurangi */
+        letter-spacing: 0; /* Dihilangkan */
+        word-spacing: 0; /* Dihilangkan */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    article h3 {
+        font-size: 0.95rem; /* Dikurangi dari 1rem */
+        margin-top: 0.8em; /* Dikurangi */
+        margin-bottom: 0.5em; /* Dikurangi */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    article h4 {
+        font-size: 0.85rem; /* Dikurangi dari 0.9rem */
+        margin-bottom: 0.2rem; /* Dikurangi */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    article ol li {
+        font-size: 1.1rem; /* DITAMBAH lagi dari 1.05rem */
+        margin-bottom: 0.5rem; /* Dikurangi */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    .arab {
+        font-size: 1.1em; /* Dikurangi lagi dari 1.15em */
+        line-height: 1.6; /* Disesuaikan */
+        margin: 8px 0; /* Dikurangi */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+
+    /* Penyesuaian untuk list artikel rekomendasi di layar kecil */
+    .article-list li {
+        flex-direction: row; /* TETAPKAN LAYOUT HORIZONTAL */
+        align-items: flex-start;
+        gap: 8px; /* Dikurangi dari 10px */
+        padding-bottom: 8px; /* Dikurangi */
+        margin-bottom: 8px; /* Dikurangi */
+    }
+
+    .article-list li a {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 8px; /* Sesuaikan dengan gap di li */
+    }
+
+    .article-list li img {
+        width: 110px !important; /* Dikurangi dari 120px */
+        height: 80px !important; /* Dikurangi dari 80px */
+        object-fit: cover;
+        border-radius: 4px;
+        flex-shrink: 0;
+    }
+
+    .article-info {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-align: left;
+        min-width: 0; /* Penting untuk mencegah overflow */
+    }
+
+    .article-info h3 {
+        font-size: 0.90rem !important; /* Dikurangi dari 0.95rem */
+        margin: 0 0 3px 0; /* Dikurangi */
+        line-height: 1.1; /* Disesuaikan */
+        text-align: left;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .article-info .date {
+        font-size: 0.80rem !important; /* Dikurangi dari 0.7rem */
+        color: var(--text-secondary);
+        text-align: left;
+    }
+}
+
+/* Media Query untuk layar yang lebih kecil lagi (misal: ponsel landscape atau sangat sempit) */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 5px; /* Padding horizontal lebih kecil lagi */
+    }
+    .left-column {
+        padding: 5px; /* Padding lebih kecil lagi */
+    }
+
+    .article-title {
+        font-size: 0.90rem !important; /* Dikurangi lagi dari 1.3rem */
+    }
+
+    .article-meta {
+        font-size: 0.4rem !important; /* Dikurangi lagi dari 0.65rem */
+    }
+
+    .article-meta i {
+        font-size: 0.5rem !important;
+    }
+
+    article p {
+        font-size: 0.50rem; /* Dikurangi lagi dari 0.85rem */
+    }
+
+    article h3 {
+        font-size: 0.7rem; /* Dikurangi lagi dari 0.8rem */
+    }
+
+    article ol li {
+        font-size: 1.0rem; /* DITAMBAH lagi dari 0.95rem */
+    }
+    .arab {
+        font-size: 1.0em; /* Dikurangi lagi dari 1.1em */
+    }
+
+    .article-list li img {
+        width: 80px !important; /* Dikurangi dari 100px */
+        height: 50px !important; /* Dikurangi dari 70px */
+    }
+
+    .article-info h3 {
+        font-size: 0.75rem !important; /* Dikurangi dari 0.85rem */
+    }
+
+    .article-info .date {
+        font-size: 0.6rem !important; /* Dikurangi dari 0.65rem */
+    }
+}
+/* ================================================= */
+/* --- Social Bar (Non-Sticky-Bottom) --- */
+/* ================================================= */
+.social-bar {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 15px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.social-bar li {
+    list-style: none;
+}
+
+.social-bar a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    color: white;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    box-sizing: border-box;
+}
+
+.social-bar a:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+    filter: brightness(1.2);
+}
+
+/* Icon-specific colors */
+.social-bar .facebook { background-color: #4267B2; }
+.social-bar .telegram { background-color: #0088cc; }
+.social-bar .instagram { background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5); }
+.social-bar .whatsapp { background-color: #25D366; }
+.social-bar .youtube { background-color: #FF0000; }
+
+.social-bar a i {
+    color: white;
+}
+
+
+/* ================================================= */
+/* --- Social Bar Sticky Bottom (Mobile) --- */
+/* ================================================= */
+.social-bar.sticky-bottom.alt-bar {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: rgba(10, 10, 30, 0.95);
+    height: 48px;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.35);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.social-bar.sticky-bottom.alt-bar li {
+    flex: 1;
+    margin: 0;
+}
+
+.social-bar.sticky-bottom.alt-bar a {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: white;
+    text-decoration: none;
+    position: relative;
+    transition: background 0.3s ease, transform 0.2s ease;
+    border-radius: 0;
+    box-sizing: border-box;
+}
+
+.social-bar.sticky-bottom.alt-bar a:hover {
+    transform: scale(1.03);
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.2), 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.social-bar.sticky-bottom.alt-bar a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, #40c4ff, #ff4081);
+    transition: width 0.3s ease;
+}
+
+.social-bar.sticky-bottom.alt-bar a:hover::after {
+    width: 60%;
+}
+
+/* Warna khusus per platform */
+.social-bar.sticky-bottom.alt-bar .facebook { background-color: #3b5998; }
+.social-bar.sticky-bottom.alt-bar .instagram { background-color: #c13584; }
+.social-bar.sticky-bottom.alt-bar .youtube { background-color: #cc0000; }
+.social-bar.sticky-bottom.alt-bar .telegram { background-color: #229ed9; }
+.social-bar.sticky-bottom.alt-bar .whatsapp { background-color: #1ebe31; }
+
+.social-bar.sticky-bottom.alt-bar a i {
+    color: white;
+    font-size: 1.2rem;
+}
+
+/* =========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .social-bar.sticky-bottom.alt-bar {
+        display: flex;
+    }
+}
+
+@media (min-width: 769px) {
+    .social-bar.sticky-bottom.alt-bar {
+        display: none !important;
+    }
+}
+
+
+/* === WRAPPER FLEX UTAMA === */
+.last-content-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 30px;
+    align-items: flex-start;
+    margin-left: 0; /* Dihilangkan margin-left */
+    margin-bottom: 20px;
+    max-width: 1250px; /* Menyesuaikan dengan container */
+    margin: 20px auto; /* Pusatkan wrapper */
+    padding: 0 8px; /* Tambahkan padding agar tidak terlalu mepet */
+}
+
+/* === KONTEN UTAMA (Artikel & Komentar) === */
+.main-content {
+    flex: 0 0 68%; /* Disesuaikan agar total dengan sidebar 100% */
+}
+
+/* === Artikel Terkait === */
+.related-articles {
+    border: 1px solid var(--border-color); /* Menggunakan variabel */
+    padding: 20px; /* Dikurangi */
+    border-radius: 8px;
+    background-color: var(--element-bg); /* Menggunakan variabel */
+    margin-bottom: 30px; /* Dikurangi */
+    margin-left: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Bayangan lebih halus */
+}
+
+.section-title {
+    font-size: 1.4rem; /* Dikurangi */
+    font-weight: bold;
+    margin-bottom: 8px; /* Dikurangi */
+    color: var(--text-primary); /* Menggunakan variabel */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.underline {
+    width: 40px; /* Dikurangi */
+    height: 2px; /* Dikurangi */
+    background-color: var(--accent-color); /* Menggunakan variabel */
+    margin-bottom: 15px; /* Dikurangi */
+}
+
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Default 3 kolom untuk desktop */
+    gap: 15px; /* Dikurangi */
+}
+
+.related-card {
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: var(--element-bg); /* Menggunakan variabel */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05); /* Bayangan lebih halus */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.related-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 8px; /* Dikurangi */
+}
+
+.related-card img {
+    width: 100%;
+    height: 140px; /* Dikurangi dari 180px */
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.related-card h3 {
+    font-size: 1rem; /* Dikurangi dari 19px */
+    margin: 8px 0 4px; /* Dikurangi */
+    line-height: 1.3; /* Dikurangi */
+    color: var(--text-primary); /* Menggunakan variabel */
+    transition: color 0.3s;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.related-card h3:hover {
+    color: var(--accent-color); /* Menggunakan variabel */
+}
+.related-card .meta {
+    font-size: 0.8rem; /* Dikurangi dari 1rem */
+    color: var(--text-secondary); /* Menggunakan variabel */
+}
+
+/* === KOMENTAR === */
+.comment-section {
+    border: 1px solid var(--border-color); /* Menggunakan variabel */
+    padding: 20px; /* Dikurangi */
+    border-radius: 8px;
+    background-color: var(--element-bg); /* Menggunakan variabel */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Bayangan lebih halus */
+}
+
+.comment-info {
+    font-size: 0.85rem; /* Dikurangi */
+    margin-bottom: 12px; /* Dikurangi */
+    color: var(--text-secondary); /* Menggunakan variabel */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.comment-info span {
+    color: #e53935; /* Warna merah yang lebih lembut */
+}
+
+.comment-form textarea {
+    width: 100%;
+    min-height: 120px; /* Dikurangi */
+    padding: 10px; /* Dikurangi */
+    font-family: inherit;
+    border: 1px solid var(--border-color); /* Menggunakan variabel */
+    border-radius: 5px;
+    margin-bottom: 15px; /* Dikurangi */
+    resize: vertical;
+    background-color: var(--element-bg); /* Menggunakan variabel */
+    color: var(--text-primary); /* Menggunakan variabel */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.comment-form textarea::placeholder,
+.form-row input::placeholder {
+    color: var(--text-secondary); /* Menggunakan variabel */
+    opacity: 0.7;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Dikurangi */
+    margin-bottom: 12px; /* Dikurangi */
+}
+
+.form-row input {
+    flex: 1;
+    padding: 10px; /* Dikurangi */
+    border: 1px solid var(--border-color); /* Menggunakan variabel */
+    border-radius: 5px;
+    background-color: var(--element-bg); /* Menggunakan variabel */
+    color: var(--text-primary); /* Menggunakan variabel */
+    min-width: 0; /* Penting untuk mencegah overflow pada input */
+}
+
+.comment-form button {
+    padding: 10px 20px; /* Dikurangi */
+    background: var(--accent-color); /* Menggunakan variabel */
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.comment-form button:hover {
+    background-color: var(--accent-hover); /* Menggunakan variabel */
+}
+
+/* === SIDEBAR: Artikel Terakhir === */
+.Last-article {
+    flex: 0 0 25%; /* Disesuaikan agar total dengan main-content 100% */
+    position: sticky;
+    top: 20px;
+    align-self: start;
+    border: 1px solid var(--border-color); /* Menggunakan variabel */
+    padding: 20px; /* Dikurangi */
+    background-color: var(--element-bg); /* Menggunakan variabel */
+    border-radius: 8px;
+    height: fit-content;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Bayangan lebih halus */
+}
+
+.last-article-item {
+    display: flex;
+    gap: 12px; /* Dikurangi */
+    margin-bottom: 20px;
+}
+
+.last-article-item a {
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+    align-items: flex-start;
+    transition: background-color 0.2s;
+    border-radius: 6px;
+    width: 100%; /* Pastikan link mengisi lebar penuh item */
+}
+
+.last-article-item a:hover {
+    background-color: rgba(0,0,0,0.03); /* Warna hover lebih lembut */
+}
+body.dark .last-article-item a:hover {
+    background-color: rgba(255,255,255,0.05);
+}
+
+.last-article-item img {
+    width: 80px; /* Dikurangi dari 95px */
+    height: 80px; /* Dikurangi dari 95px */
+    object-fit: cover;
+    border-radius: 4px; /* Dikurangi */
+    flex-shrink: 0;
+}
+
+.last-article-item .info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Pusatkan vertikal */
+    margin-left: 15px;
+    min-width: 0; /* Penting untuk mencegah overflow */
+}
+
+.last-article-item .info h4 {
+    margin: 0 0 4px; /* Dikurangi margin */
+    font-size: 0.95rem; /* Dikurangi dari 19px */
+    font-weight: 600; /* Dikurangi */
+    line-height: 1.3; /* Dikurangi */
+    color: var(--text-primary); /* Menggunakan variabel */
+    transition: color 0.3s;
+    margin-left: 0; /* Hapus margin-left */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.last-article-item a:hover h4 {
+    color: var(--accent-color); /* Menggunakan variabel */
+}
+
+.last-article-item .meta {
+    font-size: 0.75rem; /* Dikurangi dari 13px */
+    color: var(--text-secondary); /* Menggunakan variabel */
+    margin-left: 0; /* Hapus margin-left */
+}
+
+/* === RESPONSIVE MOBILE === */
+@media (max-width: 768px) {
+    .last-content-wrapper {
+        flex-direction: column;
+        gap: 10px; /* Jarak antar bagian di mobile */
+        padding: 0 10px; /* Padding horizontal untuk mobile */
+        /* Pastikan tidak ada overflow */
+        overflow-x: hidden;
+    }
+
+    .main-content {
+        width: 100%;
+        flex: none; /* Reset flex */
+        
+    }
+
+    .related-articles,
+    .comment-section {
+        padding: 15px; /* Dikurangi */
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        margin-bottom: 20px;
+        margin-top: 0; /* Reset margin-top */
+      
+    }
+
+    .section-title {
+        font-size: 1.3rem; /* Dikurangi */
+        margin-bottom: 8px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .underline {
+        width: 30px; /* Dikurangi */
+        height: 2px;
+        margin-bottom: 10px; /* Dikurangi */
+    }
+
+    .related-card img {
+        height: 120px; /* Dikurangi */
+    }
+
+    .related-card h3 {
+        font-size: 0.9rem; /* Dikurangi */
+        margin: 8px 0 3px; /* Dikurangi */
+        line-height: 1.2;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .related-card .meta {
+        font-size: 0.75rem; /* Dikurangi */
+    }
+
+    /* KOMENTAR MOBILE */
+    .comment-info {
+        font-size: 0.8rem; /* Dikurangi */
+        margin-bottom: 10px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .comment-form textarea {
+        min-height: 100px; /* Dikurangi */
+        padding: 8px; /* Dikurangi */
+        margin-bottom: 10px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .form-row {
+        gap: 8px; /* Dikurangi */
+        margin-bottom: 10px;
+    }
+
+    .form-row input {
+        padding: 8px; /* Dikurangi */
+    }
+
+    .comment-form button {
+        padding: 8px 15px; /* Dikurangi */
+        font-size: 0.9rem;
+    }
+
+    .Last-article {
+        position: relative;
+        top: unset;
+        width: auto; /* Biarkan flex mengatur lebar */
+        margin-top: 0; /* Reset margin-top */
+        margin-bottom: 20px;
+        padding: 15px; /* Dikurangi */
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        background-color: var(--element-bg);
+        flex: none; /* Reset flex */
+    }
+
+    .last-article-item {
+        gap: 10px; /* Dikurangi */
+        margin-bottom: 15px; /* Dikurangi */
+    }
+
+    .last-article-item img {
+        width: 70px; /* Dikurangi */
+        height: 70px; /* Dikurangi */
+    }
+
+    .last-article-item .info h4 {
+        font-size: 0.85rem; /* Dikurangi */
+        margin: 0 0 3px;
+        line-height: 1.2;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .last-article-item .meta {
+        font-size: 0.7rem; /* Dikurangi */
+    }
+}
+
+/* === Artikel ke-4 hanya muncul di mobile === */
+@media (min-width: 769px) {
+    .related-grid .related-card:nth-child(4) { /* Sembunyikan artikel ke-4 di desktop */
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .related-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 kolom di mobile */
+    }
+    .related-grid .related-card:nth-child(4) { /* Tampilkan artikel ke-4 di mobile */
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .related-grid {
+        grid-template-columns: 1fr; /* 1 kolom di layar sangat kecil */
+    }
+    .related-card img {
+        height: 100px; /* Lebih kecil lagi */
+    }
+    .related-card h3 {
+        font-size: 0.8rem; /* Lebih kecil lagi */
+    }
+    .related-card .meta {
+        font-size: 0.7rem; /* Lebih kecil lagi */
+    }
+    .last-article-item img {
+        width: 60px; /* Lebih kecil lagi */
+        height: 60px; /* Lebih kecil lagi */
+    }
+    .last-article-item .info h4 {
+        font-size: 0.75rem; /* Lebih kecil lagi */
+    }
+    .last-article-item .meta {
+        font-size: 0.65rem; /* Lebih kecil lagi */
+    }
+}
+
+
+/* === DARK MODE (KONSISTEN DENGAN VARIABEL) === */
+body.dark {
+  --body-bg: #1a1a1a;
+  --element-bg: #222222;
+  --border-color: #383838;
+  --text-primary: #e0e0e0;
+  --text-secondary: #aaaaaa;
+  --text-dark: #888888;
+  --accent-color: #00aaff;
+  --accent-hover: #00c0ff;
+  --red-color: #e04f5f;
+  --red-hover: #f05f6f;
+
+  background: var(--body-bg);
+  color: var(--text-primary);
+}
+
+body.dark .related-articles,
+body.dark .comment-section,
+body.dark .Last-article {
+  background-color: var(--element-bg);
+  border-color: var(--border-color);
+}
+
+body.dark .section-title {
+  color: var(--text-primary);
+}
+
+body.dark .underline {
+  background-color: var(--text-primary);
+}
+
+body.dark .related-card,
+body.dark .comment-form textarea,
+body.dark .form-row input {
+  background-color: var(--element-bg);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+body.dark .related-card a,
+body.dark .article-title,
+body.dark article p,
+body.dark article h3,
+body.dark article h4,
+body.dark article ol,
+body.dark article ol li,
+body.dark .arab {
+  color: var(--text-primary);
+}
+
+body.dark .related-card .meta,
+body.dark .article-meta,
+body.dark .article-meta .date i,
+body.dark .article-meta .read-time i,
+body.dark .last-article-item .meta,
+body.dark .footer-section p,
+body.dark .footer-bottom {
+  color: var(--text-secondary);
+}
+
+body.dark .comment-info span {
+  color: var(--red-color);
+}
+
+body.dark .comment-form textarea::placeholder,
+body.dark .form-row input::placeholder {
+  color: var(--text-dark);
+}
+
+body.dark .comment-form button {
+  background-color: var(--accent-color);
+  color: #fff;
+}
+
+body.dark .comment-form button:hover {
+  background-color: var(--accent-hover);
+}
+
+body.dark .last-article-item a:hover {
+  background-color: #2a2a2a;
+}
+
+body.dark .last-article-item .info h4 {
+  color: var(--text-primary);
+}
+
+/* Responsive Dark Mode */
+@media (max-width: 768px) {
+  body.dark .related-articles,
+  body.dark .comment-section,
+  body.dark .Last-article {
+    background-color: var(--element-bg);
+    border-color: var(--border-color);
+  }
+}
+
+
+/* Dark Mode untuk Header Images */
+body.dark .website-header-top {
+    /* Sesuaikan background atau border jika ada */
+}
+body.dark .header-logo-img {
+    filter: invert(1); /* Jika logo Anda hitam, ini akan membuatnya putih di dark mode */
+}
+body.dark .header-banner-wrapper img {
+    /* Jika banner perlu penyesuaian di dark mode (misal: filter brightness/contrast) */
+}
+
+/* Dark Mode untuk Navbar */
+body.dark .navbar {
+    background: var(--element-bg);
+    border-top-color: var(--border-color);
+    border-bottom-color: var(--border-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .nav-links li a {
+    color: var(--text-primary);
+}
+body.dark .nav-links li a:hover {
+    color: var(--accent-color);
+}
+body.dark .nav-links li a::after {
+    background-color: var(--accent-color);
+}
+body.dark .nav-links .home-btn a {
+    color: var(--accent-color);
+}
+body.dark .nav-links .home-btn a:hover {
+    color: var(--accent-hover);
+}
+
+/* Dark Mode untuk Hamburger */
+body.dark .hamburger div {
+    background: var(--text-primary);
+}
+
+/* Dark Mode untuk Toggle Button */
+body.dark .toggle-button {
+    color: var(--text-primary);
+}
+body.dark .toggle-button .moon::before {
+    display: none;
+}
+body.dark .toggle-button .sun::before {
+    display: inline;
+}
+
+/* Dark Mode untuk Mobile Nav (jika ada) */
+body.dark .mobile-nav-close {
+    color: #fff;
+}
+body.dark .mobile-search-bar input {
+    color: #fff;
+}
+body.dark .mobile-search-bar input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+body.dark .mobile-search-bar .search-icon {
+    color: #fff;
+}
+body.dark .mobile-nav-links li {
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+body.dark .mobile-nav-links li a {
+    color: #fff;
+}
+body.dark .mobile-nav-links li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+body.dark .mobile-social-icons a {
+    color: #fff;
+}
+
+/* Dark Mode untuk Container dan Kolom */
+body.dark .left-column {
+    background: var(--element-bg);
+    border-color: var(--border-color);
+}
+body.dark .right-column {
+    background: var(--element-bg);
+    border-color: var(--border-color);
+}
+
+/* Dark Mode untuk Konten Artikel Utama (Left Column) */
+body.dark .article-title {
+    color: var(--text-primary);
+}
+body.dark .article-meta {
+    color: var(--text-secondary);
+}
+body.dark .article-meta .author {
+    color: var(--text-primary);
+}
+body.dark .article-meta .date i,
+body.dark .article-meta .read-time i {
+    color: var(--text-secondary);
+}
+
+body.dark article p {
+    color: var(--text-primary);
+}
+body.dark article h3,
+body.dark article h4 {
+    color: var(--text-primary);
+}
+body.dark article ol,
+body.dark article ol li {
+    color: var(--text-primary);
+}
+body.dark article a {
+    color: var(--accent-color);
+}
+body.dark article a:hover {
+    color: var(--accent-hover);
+}
+body.dark .arab {
+    color: var(--text-primary);
+}
+
+/* Dark Mode untuk Gaya Gambar Masjid */
+body.dark .masjid-image img {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Dark Mode untuk Konten Sidebar (Right Column) */
+body.dark .tabs {
+    border-bottom-color: var(--border-color);
+}
+body.dark .tab-button {
+    color: var(--text-primary);
+}
+body.dark .tab-button:hover {
+    color: var(--accent-color);
+}
+body.dark .tab-button.active {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+body.dark .article-list li {
+    border-bottom-color: var(--border-color);
+}
+body.dark .article-info h3 {
+    color: var(--text-primary);
+}
+body.dark .article-info h3:hover {
+    color: var(--accent-color);
+}
+body.dark .article-info .date {
+    color: var(--text-secondary);
+}
+
+/* Social Bar (Non-Sticky-Bottom) */
+body.dark .social-bar a {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+/* Warna spesifik untuk setiap icon (ini akan menimpa background default) */
+body.dark .social-bar .facebook { background-color: #3b5998; }
+body.dark .social-bar .telegram { background-color: #007bb6; }
+body.dark .instagram { background: linear-gradient(45deg, #d8bc62, #e06c1a, #c02669, #8028a6, #404bd0); }
+body.dark .whatsapp { background-color: #1a8f46; }
+body.dark .youtube { background-color: #b00000; }
+
+
+/* Dark Mode untuk Social Bar Sticky Bottom (Mobile) */
+body.dark .social-bar.sticky-bottom {
+    background: var(--element-bg);
+    border-top-color: var(--border-color);
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
+}
+body.dark .social-bar.sticky-bottom a {
+    box-shadow: none;
+}
+
+/* Dark Mode untuk Footer */
+body.dark footer {
+    background: var(--element-bg);
+    color: var(--text-primary);
+    border-top-color: var(--border-color);
+}
+body.dark .footer-logo {
+    filter: invert(1);
+}
+body.dark .footer-section p {
+    color: var(--text-secondary);
+}
+body.dark .footer-section h3 {
+    color: var(--text-primary);
+}
+body.dark .footer-section h3::after {
+    background-color: var(--accent-color);
+}
+body.dark .social-links a {
+    background-color: #303030;
+}
+/* Warna spesifik untuk icon di footer dark mode - perbaiki hover */
+body.dark .social-links a.facebook:hover { background-color: #35528b; }
+body.dark .social-links a.telegram:hover { background-color: #006fa1; }
+body.dark .social-links a.instagram:hover { background: linear-gradient(45deg, #d8bc62, #e06c1a, #c02669, #8028a6, #404bd0); }
+body.dark .whatsapp:hover { background-color: #1a8f46; }
+body.dark .youtube:hover { background-color: #b00000; }
+
+
+body.dark .footer-bottom {
+    border-top-color: var(--border-color);
+    color: var(--text-secondary);
+}
+body.dark .footer-bottom p {
+    color: inherit;
+}
+body.dark .footer-links a {
+    color: var(--text-secondary);
+}
+body.dark .footer-links a:hover {
+    color: var(--text-primary);
+}
+
+/* Dark Mode untuk Tombol Back to Top */
+body.dark .back-to-top {
+    background-color: var(--red-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+body.dark .back-to-top:hover {
+    background-color: var(--red-hover);
+}
+
+
+/* ========== GALAXY FOOTER ========= */
+footer {
+    background: radial-gradient(circle at 30% 30%, #1a1b3a, #0a0c1d 80%) fixed;
+    background-image: url('https://www.transparenttextures.com/patterns/stardust.png'), linear-gradient(135deg, #110f29, #0d0820, #1e1557);
+    background-blend-mode: overlay;
+    color: #eaeaff;
+    padding: 70px 0 40px;
+    font-family: 'Poppins', sans-serif;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.8);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background stars (optional) */
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: url('https://raw.githubusercontent.com/malven/generative-art/master/media/stars.png') repeat;
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.footer-main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.footer-column .column-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    color: #ffffff;
+    position: relative;
+    display: inline-block;
+    animation: glowTitle 4s ease-in-out infinite;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+@keyframes glowTitle {
+    0%, 100% { text-shadow: 0 0 5px #e53935, 0 0 10px #ff4081; }
+    50% { text-shadow: 0 0 5px #40c4ff, 0 0 15px #7e57c2; }
+}
+
+.footer-column .underline {
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(to right, #40c4ff, #7e57c2, #ff4081);
+    border-radius: 2px;
+    animation: pulseBar 3s ease-in-out infinite;
+    margin: 10px 0 20px;
+}
+
+@keyframes pulseBar {
+    0%, 100% { transform: scaleX(1); opacity: 0.7; }
+    50% { transform: scaleX(1.5); opacity: 1; }
+}
+
+.link-list, .popular-posts-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.link-list li, .popular-posts-list li {
+    margin-bottom: 12px;
+}
+
+.link-list li a,
+.popular-posts-list li a {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.4s ease;
+    position: relative;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.link-list li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(to right, #7e57c2, #40c4ff, #ff4081);
+    transition: width 0.3s ease;
+}
+
+.link-list li a:hover::after {
+    width: 100%;
+}
+
+.link-list li a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 8px #7e57c2;
+    transform: translateX(4px) scale(1.02);
+}
+
+.link-list li a i {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.3s ease;
+}
+
+.link-list li a:hover i {
+    color: #40c4ff;
+}
+
+.popular-posts-list li p.date-meta {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 2px;
+}
+
+.sub-column-title {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 15px 0 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.footer-bottom-bar {
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    padding-top: 30px;
+    margin-top: 60px;
+    text-align: center;
+    max-width: 1160px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    z-index: 1;
+    position: relative;
+}
+
+.bottom-social-media {
+    display: flex;
+    gap: 18px;
+}
+
+.bottom-social-media a {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1.3rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.bottom-social-media a:hover {
+    color: #40c4ff;
+    transform: scale(1.2);
+    text-shadow: 0 0 8px #40c4ff;
+}
+
+.copyright-info p {
+    font-size: 0.8rem;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.6);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+copyright-info i {
+    color: #ff4081;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    footer {
+        padding: 50px 0 30px;
+    }
+    .footer-main {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 0 20px;
+    }
+    .footer-bottom-bar {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .bottom-social-media {
+        justify-content: center;
+    }
+}
+
+
+
+/* ================================================= */
+/* --- Tombol Back to Top --- */
+/* ================================================= */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--red-color);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, opacity 0.3s, transform 0.3s;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.back-to-top:hover {
+    background-color: var(--red-hover);
+    transform: translateY(-3px);
+}
+
+.back-to-top.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ================================================= */
+/* --- Media Query untuk Layar Desktop (min-width: 901px) --- */
+/* ================================================= */
+@media (min-width: 901px) {
+    /* Header Top hanya ditampilkan di desktop */
+    .website-header-top {
+        display: flex; /* Memastikan ini diaktifkan di desktop */
+    }
+
+    .container {
+        max-width: 1400px;
+        padding: 20px;
+    }
+
+    /* Penyesuaian sidebar untuk mode sticky */
+    .right-column {
+        height: fit-content; /* KEMBALIKAN KE FIT-CONTENT DI DESKTOP */
+        overflow-y: visible; /* HILANGKAN SCROLLBAR INTERNAL DI DESKTOP */
+        max-height: unset; /* Pastikan tidak ada batasan tinggi */
+    }
+
+    /* KUNCI: Batasi jumlah artikel di sidebar agar tidak melebihi tinggi yang tersedia */
+    /* Ini adalah pendekatan terbaik untuk "tidak perlu di-scroll" */
+    .article-list li:nth-child(n+6) { /* Contoh: sembunyikan artikel ke-6 dan seterusnya */
+        display: none;
+    }
+
+    .recommendation-block {
+        flex-grow: unset;
+        overflow-y: visible; /* Hapus scrollbar internal juga */
+        max-height: unset; /* Hapus batasan tinggi di desktop agar konten terlihat semua */
+    }
+}
+
+@media (min-width: 1600px) {
+    .container {
+        max-width: 1500px;
+    }
+    .right-column {
+        max-width: 450px;
+    }
+    /* Jika Anda ingin menampilkan lebih banyak artikel di layar sangat lebar */
+    .article-list li:nth-child(n+8) { /* Contoh: sembunyikan artikel ke-8 dan seterusnya */
+        display: none;
+    }
+    /* Tampilkan kembali yang tersembunyi sebelumnya jika cocok */
+    .article-list li {
+        display: flex; /* Mengatur ulang display untuk semua li */
+    }
+}
+
+/* ================================================= */
+/* --- Media Query untuk Layar Kecil (max-width: 900px) --- */
+/* ================================================= */
+@media (max-width: 900px) {
+    /* Sembunyikan Header Top di mobile */
+    .website-header-top {
+        display: none;
+    }
+
+    /* Navbar di mobile */
+    .navbar {
+        padding: 10px 15px;
+    }
+    .nav-links {
+        display: none;
+    }
+    .hamburger {
+        display: flex;
+    }
+
+    /* Container dan Kolom di mobile */
+    .container {
+        flex-direction: column;
+        padding: 0 10px;
+        gap: 10px;
+    }
+    .left-column {
+        border: none;
+        padding: 10px;
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+
+    }
+    .right-column {
+        display: block;
+        max-width: 100%;
+        position: static; /* PENTING: Untuk mobile, hilangkan sticky agar mengikuti aliran dokumen */
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        max-height: none; /* Pastikan tidak ada batasan tinggi di mobile */
+        padding: 10px;
+        flex-direction: initial; /* Reset flex-direction for mobile */
+        height: auto; /* Reset height */
+    }
+
+    /* Artikel di mobile - Penyesuaian agar "passs" */
+    article {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        box-shadow: none;
+        border-radius: 0;
+    }
+    article p,
+    article h3,
+    article h4,
+    article ol,
+    .arab {
+        padding: 0 15px; /* Lebih lebar sesuai screenshot */
+        box-sizing: border-box;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    article p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-left: 0;
+    }
+    article h3 {
+        font-size: 1.2rem;
+        text-align: left;
+    }
+    article h4 {
+        margin-left: 0;
+        font-size: 1rem;
+    }
+    .arab {
+        font-size: 1.5em;
+        line-height: 1.8;
+    }
+
+
+    /* Revisi untuk FONT JUDUL ARTIKEL (.article-title) di mobile */
+    .article-title {
+        font-size: 1.9rem; /* Sedikit lebih besar dari 1.5rem, mendekati referensi */
+        font-family: 'Roboto', sans-serif; /* Mengubah font style ke sans-serif yang lebih umum */
+        font-style: normal; /* Menghilangkan italic */
+        font-weight: 700; /* Membuat lebih bold */
+        line-height: 1.3; /* Sedikit lebih rapat */
+        margin-top: 15px; /* Sesuaikan margin atas */
+        margin-bottom: 8px; /* Sesuaikan margin bawah */
+        margin-left: 0; /* Pastikan rata kiri */
+        padding: 0 15px; /* Padding samping agar tidak menempel */
+        box-sizing: border-box;
+        color: var(--text-primary); /* Warna teks primer di mobile */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Revisi untuk GAMBAR UTAMA ARTIKEL (.masjid-image img) di mobile */
+    .masjid-image img {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+        max-height: 280px; /* Ditinggikan sedikit lagi dari 250px */
+        width: 100%; /* Memastikan lebar penuh */
+        display: block; /* Penting untuk margin auto */
+        margin-left: auto; /* Untuk centering jika perlu */
+        margin-right: auto; /* Untuk centering jika perlu */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 0 15px; /* Padding samping agar konsisten dengan teks */
+        box-sizing: border-box;
+    }
+
+    /* Revisi untuk ARTICLE-META (.article-meta) di mobile */
+    .article-meta {
+        font-family: 'Roboto', sans-serif; /* Menggunakan Roboto */
+        font-size: 1rem; /* Ukuran font lebih besar, agar sesuai judul */
+        color: var(--text-secondary); /* Warna tetap sekunder */
+        display: flex;
+        flex-wrap: wrap; /* Agar bisa wrap ke bawah jika layar terlalu sempit */
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px; /* Jarak antar elemen lebih rapat */
+        margin-top: 10px;
+        margin-bottom: 15px; /* Sedikit lebih renggang dari sebelumnya */
+        padding: 0 15px; /* Padding samping agar konsisten */
+        box-sizing: border-box;
+        overflow-x: hidden; /* Pastikan tidak ada overflow */
+    }
+
+    /* Styling untuk bullet point (titik) di article-meta */
+    .article-meta .dot {
+        color: var(--text-secondary); /* Warna titiknya mengikuti teks secondary */
+        font-size: 1em; /* Ukuran normal */
+        margin: 0 4px; /* Sedikit ruang di kiri kanan */
+    }
+
+    /* Aturan umum untuk SEMUA GAMBAR di dalam left-column dan right-column */
+    /* Ini penting untuk konsistensi gambar lain yang mungkin ditambahkan */
+    .left-column img,
+    .right-column img {
+        max-width: 100%;
+        height: auto; /* Menjaga proporsi */
+        display: block; /* Agar bisa memiliki margin dan padding dengan baik */
+    }
+
+    /* Untuk gambar iklan di sidebar mobile agar tetap proporsional */
+    .ad-stigma-block img {
+        max-width: 100%;
+        height: auto; /* Penting untuk menjaga proporsi */
+        border-radius: 6px 6px 0 0;
+    }
+
+
+    /* Social Bar di Bawah Gambar Utama - Sembunyikan di layar kecil */
+    .social-bar {
+        display: none;
+    }
+
+    /* Iklan dan Rekomendasi di Sidebar Mobile */
+    .recommendation-block {
+        padding: 10px;
+        padding-top: 5px;
+        overflow-y: visible; /* Pastikan tidak ada scrollbar di mobile */
+    }
+    .tabs {
+        margin-bottom: 10px;
+    }
+    .tab-button {
+        font-size: 0.85rem;
+        padding: 8px 10px;
+    }
+    .article-info h3 {
+        font-size: 0.85rem;
+    }
+    .article-list li img {
+        width: 60px;
+        height: 60px;
+    }
+
+    /* Tampilkan social-bar.sticky-bottom hanya di layar kecil */
+    .social-bar.sticky-bottom {
+        display: flex;
+        gap: 8px;
+        padding: 8px 10px;
+        justify-content: space-around;
+        flex-wrap: nowrap;
+    }
+    .social-bar.sticky-bottom a {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+    .social-bar.sticky-bottom a i {
+        color: white;
+    }
+
+    /* ================================================= */
+    /* --- Tombol Back to Top (Diaktifkan kembali untuk layar kecil) --- */
+    /* ================================================= */
+    .back-to-top {
+        display: flex !important; /* Mengaktifkan kembali tombol di mobile */
+        bottom: 60px; /* Dinaikkan agar tidak tumpang tindih dengan sticky social bar */
+        right: 15px; /* Jarak dari kanan */
+        width: 45px; /* Ukuran tombol yang mungkin lebih cocok untuk mobile */
+        height: 45px;
+        font-size: 1.3rem; /* Ukuran ikon panah */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Tambahkan shadow ringan */
+    }
+
+    /* Responsif Footer */
+    footer {
+        padding: 30px 15px 15px;
+        font-size: 0.9rem;
+    }
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 25px;
+    }
+    .footer-section {
+        margin-bottom: 0;
+        width: 100%;
+    }
+    .footer-section h3 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+    .footer-section h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .footer-logo {
+        width: 120px;
+        margin-bottom: 15px;
+    }
+    .footer-section p {
+        font-size: 0.85rem;
+    }
+    .social-links {
+        justify-content: center;
+        gap: 10px;
+    }
+    .social-links a {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    .social-links a i {
+        color: white;
+    }
+    .footer-bottom {
+        margin-top: 30px;
+        padding-top: 15px;
+        font-size: 0.8rem;
+    }
+    .footer-bottom p {
+        margin-bottom: 8px;
+    }
+    .footer-links {
+        gap: 10px;
+    }
+    .footer-links a {
+        font-size: 0.8rem;
+    }
+}
