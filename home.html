@@ -1,134 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kumpulan Aqidah</title>
-</head>
-<body>
+    <title>Bagian Pertama Website</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons (still included if any icons are used in this section) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
     <style>
         body {
-          margin: 0;
-          padding: 20px;
-          font-family: sans-serif;
-          background-color: #f5f5f5;
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f8f8; /* Warna latar belakang yang sedikit abu-abu */
         }
-      
-        .container-satu {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 20px;
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-      
-        /* Konten Utama */
-        .content.utama {
-          flex: 1 1 100%;
-          background-color: #fff;
-          padding: 20px;
-          box-sizing: border-box;
-          position: relative;
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
         }
-      
-        /* Semua konten lainnya */
-        .conten {
-          flex: 1 1 calc(50% - 10px);
-          background-color: #fff;
-          padding: 20px;
-          position: relative;
-          box-sizing: border-box;
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
         }
-      
-        /* Gaya umum untuk semua konten */
-        .conten a,
-        .content.utama a {
-          display: block;
-          position: relative;
-          text-decoration: none;
-          color: inherit;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
-      
-        .conten img,
-        .content.utama img {
-          width: 100%;
-          height: auto;
-          display: block;
-          border-radius: 8px;
-        }
-      
-        button {
-          position: absolute;
-          top: 10px;
-          left: 10px;
-          background-color: #007bff;
-          color: white;
-          border: none;
-          padding: 5px 10px;
-          font-size: 12px;
-          border-radius: 4px;
-        }
-      
-        p {
-          margin-top: 40px;
-        }
-      
-        /* Responsive untuk layar kecil */
-        @media (max-width: 768px) {
-          .container-satu {
-            flex-direction: column;
-          }
-      
-          .content.utama {
-            order: -1;
-          }
-      
-          .conten {
-            flex: 1 1 48%;
-          }
-        }
-      </style>
-      
+    </style>
+</head>
+<body>
 
-    <div class="container-satu">
-        <div class="content utama">
-            <div class="gambar-utama"></div>
-           <a href="Apakah Wahabi Mengingkari Syafa’at Nabi ﷺ.html">
-            <img src="Gambar/Syafa'at.png" alt="">
-            <button>Aqidah</button>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, rem?</p>
-           </a>
-        </div>
+    <!-- Main Content Area (hanya berisi Bagian Pertama) -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Bagian Pertama: Featured Articles Grid -->
+        <!-- This section is designed to replicate the exact layout from the provided image:
+             One large card on the left and three smaller cards on the right (one horizontal, two vertical)
+             It uses a grid layout that adapts for mobile, tablet, and desktop. -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="bagian-pertama">
+            <!-- Large Featured Card (Left side on desktop, full width on mobile/tablet) -->
+            <div class="relative rounded-lg overflow-hidden shadow-md h-80 md:h-96 lg:h-auto lg:row-span-2">
+                <img src="Gambar/View 1.png" alt="Khutbah Jum'at: Konsekuensi Cinta Pada Tauhid Hamba" class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                <div class="absolute bottom-0 left-0 p-6 text-white">
+                    <span class="bg-blue-600 text-white text-xs font-semibold px-2 py-1 rounded-md mb-2 inline-block">Khutbah Jum'at</span>
+                    <p class="text-sm font-light mb-1">24 July 2025</p>
+                    <h3 class="text-2xl md:text-4xl font-bold leading-tight">Khutbah Jum'at: Konsekuensi Cinta Pada Tauhid Hamba</h3>
+                    <p class="text-sm md:text-base mt-2 hidden sm:block">Khutbah Pertama الحَمْدُ للهِ الَّذِي خَلَقَ الْقُلُوْبَ لِأَنَّهُ، وَجَعَلَ آمَالَ التَّوْحِيْدِ مَحَبَّةً، وَزَرَعَ دَوْحَاتِ ...الغارمين</p>
+                </div>
+            </div>
 
-        <div class="conten"> <a href="Apakah Wahabi Mengingkari Syafa’at Nabi ﷺ.html">
-            <img src="Gambar/Syafa'at.png" alt="">
-            <button>Aqidah</button>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, rem?</p>
-           </a></div>
+            <!-- Right Column for three smaller cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Small Featured Card 1 (Top right on desktop, full width on mobile/tablet) -->
+                <div class="relative rounded-lg overflow-hidden shadow-md h-64 md:col-span-2">
+                    <img src="Gambar/View 2.png" alt="Khutbah Jum'at: Seputar Mahabbatullah" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-4 text-white">
+                        <span class="bg-blue-600 text-white text-xs font-semibold px-2 py-1 rounded-md mb-2 inline-block">Khutbah Jum'at</span>
+                        <p class="text-sm font-light mb-1">24 July 2025</p>
+                        <h3 class="text-xl font-bold leading-tight">Khutbah Jum'at: Seputar Mahabbatullah</h3>
+                    </div>
+                </div>
 
-        <div class="conten">
-            <a href="Apakah Wahabi Mengingkari Syafa’at Nabi ﷺ.html">
-                <img src="Gambar/Syafa'at.png" alt="">
-                <button>Aqidah</button>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, rem?</p>
-               </a>
-        </div>
+                <!-- Small Featured Card 2 (Bottom left on desktop, full width on mobile/tablet) -->
+                <div class="relative rounded-lg overflow-hidden shadow-md h-64">
+                    <img src="Gambar/View 3.png" alt="Khutbah Jum'at: Harapan Keselamatan Untuk yang Terperangkap Cinta Terlarang" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-4 text-white">
+                        <span class="bg-blue-600 text-white text-xs font-semibold px-2 py-1 rounded-md mb-2 inline-block">Khutbah Jum'at</span>
+                        <p class="text-sm font-light mb-1">24 July 2025</p>
+                        <h3 class="text-xl font-bold leading-tight">Khutbah Jum'at: Harapan Keselamatan Untuk yang Terperangkap Cinta Terlarang</h3>
+                    </div>
+                </div>
 
-        <div class="conten"> <a href="Apakah Wahabi Mengingkari Syafa’at Nabi ﷺ.html">
-            <img src="Gambar/Syafa'at.png" alt="">
-            <button>Aqidah</button>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, rem?</p>
-           </a>
-        </div>
-      
-        <div class="conten">
-            <a href="Apakah Wahabi Mengingkari Syafa’at Nabi ﷺ.html">
-                <img src="Gambar/Syafa'at.png" alt="">
-                <button>Aqidah</button>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, rem?</p>
-               </a>
-        </div>
-        
-
-    </div>
-    
+                <!-- Small Featured Card 3 (Bottom right on desktop, full width on mobile/tablet) -->
+                <div class="relative rounded-lg overflow-hidden shadow-md h-64">
+                    <img src="Gambar/View 4.png" alt="Khutbah Jum'at: Empat Gerbang Maksiat" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-4 text-white">
+                        <span class="bg-blue-600 text-white text-xs font-semibold px-2 py-1 rounded-md mb-2 inline-block">Khutbah Jum'at</span>
+                        <p class="text-sm font-light mb-1">18 July 2025</p>
+                        <h3 class="text-xl font-bold leading-tight">Khutbah Jum'at: Empat Gerbang Maksiat</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

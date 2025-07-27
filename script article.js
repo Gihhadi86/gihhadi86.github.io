@@ -120,3 +120,54 @@ document.addEventListener('DOMContentLoaded', () => {
             // melalui media query, jadi tidak perlu JS tambahan untuk itu kecuali ada kebutuhan spesifik.
         });
   
+        // punya humberger
+        // JavaScript untuk efek sembunyikan/tampilkan navbar saat scroll (khusus mobile)
+
+document.addEventListener('DOMContentLoaded', function() {
+    const navbar = document.querySelector('.navbar');
+    let lastScrollY = 0; // Menyimpan posisi scroll terakhir, mulai dari 0
+    // Dapatkan tinggi navbar. Ini penting untuk mengetahui kapan navbar sudah melewati posisi awalnya.
+    const navbarHeight = navbar.offsetHeight; 
+
+    // Fungsi untuk memeriksa apakah layar adalah layar kecil (mobile)
+    function isMobileScreen() {
+        // Sesuaikan breakpoint ini dengan media query CSS Anda (max-width: 768px)
+        return window.innerWidth <= 768;
+    }
+
+    window.addEventListener('scroll', function() {
+        // Hanya terapkan efek ini jika di layar mobile
+        if (isMobileScreen()) {
+            // Jika posisi scroll di paling atas halaman
+            if (window.scrollY <= 0) {
+                navbar.classList.remove('navbar-fixed-active'); // Hapus kelas fixed
+                navbar.classList.remove('navbar-hidden'); // Pastikan terlihat
+            } 
+            // Jika menggulir ke bawah DAN sudah melewati tinggi navbar
+            else if (window.scrollY > lastScrollY && window.scrollY > navbarHeight) {
+                navbar.classList.add('navbar-hidden'); // Sembunyikan navbar
+            } 
+            // Jika menggulir ke atas
+            else if (window.scrollY < lastScrollY) {
+                navbar.classList.remove('navbar-hidden'); // Tampilkan navbar
+                // Jika masih di bawah posisi paling atas, buat navbar fixed
+                if (window.scrollY > 0) {
+                    navbar.classList.add('navbar-fixed-active'); 
+                }
+            }
+            lastScrollY = window.scrollY; // Perbarui posisi scroll terakhir
+        } else {
+            // Pastikan navbar terlihat dan tidak dalam mode fixed yang dikontrol JS di layar besar
+            navbar.classList.remove('navbar-hidden');
+            navbar.classList.remove('navbar-fixed-active');
+        }
+    });
+
+    // Tambahkan event listener untuk resize agar perilaku responsif tetap benar
+    window.addEventListener('resize', function() {
+        if (!isMobileScreen()) {
+            navbar.classList.remove('navbar-hidden');
+            navbar.classList.remove('navbar-fixed-active');
+        }
+    });
+});
