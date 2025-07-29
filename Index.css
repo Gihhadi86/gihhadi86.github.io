@@ -425,7 +425,7 @@ body.dark .top-bar-search input::placeholder {
 }
 
 /* ================================================= */
-/* --- NAVBAR STYLES --- */
+/* --- NAVBAR STYLES (Light Mode - Original & Base) --- */
 /* ================================================= */
 .navbar {
     display: flex;
@@ -459,13 +459,14 @@ body.dark .top-bar-search input::placeholder {
     transform: translateY(-100%);
 }
 
+/* Base galaxyFlow animation - can be enhanced in dark mode */
 @keyframes galaxyFlow {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-/* --- NAV LINKS --- */
+/* --- NAV LINKS (Light Mode) --- */
 .nav-links {
     list-style: none;
     display: flex;
@@ -526,7 +527,7 @@ body.dark .top-bar-search input::placeholder {
     text-shadow: 0 0 6px rgba(255, 200, 100, 0.4);
 }
 
-/* --- HAMBURGER --- */
+/* --- HAMBURGER (Light Mode) --- */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -557,15 +558,18 @@ body.dark .top-bar-search input::placeholder {
     transform: translateY(-7px) rotate(-45deg);
 }
 
-/* --- TOGGLE BUTTON (DARK MODE ICON) --- */
+/* --- TOGGLE BUTTON (Light Mode) --- */
 .toggle-button {
     border: none;
     background: none;
     cursor: pointer;
     font-size: 20px;
     color: #ffffff;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.2s ease, text-shadow 0.3s ease; /* Adjusted transition */
     padding: 6px;
+    display: flex; /* Ensure the button is always displayed */
+    justify-content: center;
+    align-items: center;
 }
 
 /* Default (Light Mode): Moon icon is visible, Sun icon is hidden */
@@ -583,15 +587,394 @@ body.dark .top-bar-search input::placeholder {
     display: none; /* Sembunyikan ikon matahari secara default */
 }
 
-/* When body has 'dark-mode' class (Dark Mode active) */
-body.dark-mode .toggle-button .moon::before {
+/* ================================================= */
+/* --- MOBILE NAVIGATION (SIDEBAR) --- */
+/* ================================================= */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    background: linear-gradient(135deg, rgba(10, 11, 26, 0.98), rgba(20, 0, 30, 0.98));
+    background-size: 300% 300%;
+    animation: galaxyFlow 20s ease infinite;
+    backdrop-filter: blur(15px) brightness(0.9) saturate(1.2);
+    color: #eaeaff;
+    transform: translateX(100%);
+    transition: transform 0.5s ease;
+    box-shadow: inset 0 0 30px rgba(147, 112, 219, 0.06);
+    border-left: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.mobile-nav.is-active {
+    transform: translateX(0);
+}
+
+.mobile-nav-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 26px;
+    color: #eaeaff;
+    cursor: pointer;
+    z-index: 2010;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav-close:hover {
+    color: #ba68c8;
+}
+
+/* --- SEARCH BAR MOBILE --- */
+.mobile-search-bar {
+    width: 90%;
+    max-width: 350px;
+    margin-top: 50px;
+    position: relative;
+    border-radius: 30px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    backdrop-filter: blur(6px);
+}
+
+.mobile-search-bar input {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    color: #ffffff;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.mobile-search-bar input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.mobile-search-bar .search-icon {
+    font-size: 18px;
+    color: #ffffff;
+    margin-left: 8px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.mobile-search-bar .search-icon:hover {
+    color: #a29bfe;
+}
+
+/* --- NAV LINK INSIDE MOBILE (Galaxy Style) --- */
+.mobile-nav-links {
+    list-style: none;
+    width: 90%;
+    max-width: 350px;
+    margin-top: 30px;
+    text-align: center;
+    padding: 0;
+}
+
+.mobile-nav-links li {
+    padding: 12px 0;
+    border-bottom: none;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.mobile-nav-links li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, rgba(138, 43, 226, 0.15), rgba(108, 92, 231, 0.15), rgba(0, 191, 255, 0.15));
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: scaleX(0);
+    transform-origin: left;
+    border-radius: 8px;
+    z-index: -1;
+}
+
+.mobile-nav-links li:hover::before {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+.mobile-nav-links li a {
+    font-size: 1.1rem;
+    display: block;
+    color: #c0c0e0;
+    padding: 0 10px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav-links li a:hover {
+    color: #e0e0ff;
+    text-shadow: 0 0 12px rgba(170, 0, 255, 0.7);
+}
+
+/* --- SOCIAL ICONS MOBILE --- */
+.mobile-social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: auto;
+    padding-bottom: 20px;
+    width: 100%;
+}
+
+.mobile-social-icons a {
+    color: #ffffff;
+    font-size: 22px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.mobile-social-icons a:hover {
+    transform: scale(1.1);
+    color: #a29bfe;
+}
+
+/* ================================================= */
+/* --- RESPONSIVE ADJUSTMENTS (Base) --- */
+/* ================================================= */
+@media (max-width: 1024px) {
+    /* Sembunyikan elemen asli di layar kecil */
+    .website-header-top {
+        display: none;
+    }
+
+    /* Tampilkan logo di dalam navbar untuk mobile */
+    .navbar {
+        justify-content: space-between;
+        padding: 10px 15px; /* Sesuaikan padding navbar di mobile */
+    }
+
+    .header-logo-wrapper-mobile {
+        display: block;
+        margin-right: auto; /* Dorong elemen lain ke kanan */
+        padding-left: 10px; /* Sesuaikan padding untuk logo mobile */
+    }
+
+    .header-logo-img-mobile {
+        height: 50px;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    .nav-links {
+        display: none; /* Sembunyikan nav-links utama di mobile */
+    }
+
+    .hamburger {
+        display: flex;
+        order: -1; /* Pindahkan hamburger ke kiri */
+    }
+
+    .toggle-button {
+        order: 1; /* Pindahkan toggle button ke kanan */
+    }
+
+    /* Sembunyikan banner di bawah navbar untuk mobile */
+    .header-banner-wrapper-mobile {
+        display: none; /* Menyembunyikan banner di layar kecil */
+    }
+}
+
+
+/* ================================================= */
+/* --- NAVBAR STYLES (Dark Mode - Super Keren, Galaxy, Mahal, Estetik) --- */
+/* ================================================= */
+
+/* NAV BAR - Tampilan Mode Dark yang Mewah */
+body.dark .navbar {
+    /* Override background umum untuk tema galaksi yang lebih spesifik */
+    background:
+        radial-gradient(circle at 15% 85%, rgba(138, 43, 226, 0.22) 0%, transparent 60%), /* Nebula ungu cerah, lebih intens */
+        radial-gradient(circle at 85% 15%, rgba(0, 191, 255, 0.22) 0%, transparent 60%), /* Nebula biru cerah, lebih intens */
+        url('https://www.transparenttextures.com/patterns/stardust.png') repeat, /* Tekstur bintang halus */
+        linear-gradient(135deg, #0d011d 0%, #1a0833 50%, #0d011d 100%); /* Gradien galaksi yang lebih dalam dan kaya */
+    background-size: 500% 500%, auto, auto, 500% 500%; /* Memastikan animasi galaxyFlow tetap bekerja */
+    animation: galaxyFlow 28s cubic-bezier(0.4, 0, 0.2, 1) infinite, subtleTwinkle 8s infinite alternate; /* Animasi flow lebih panjang & halus, ditambah efek kerlip halus */
+    padding: 20px 50px; /* Padding yang lebih mewah dan seimbang */
+    border-bottom: 3px solid rgba(138, 43, 226, 0.5); /* Border bawah yang lebih tebal dan bercahaya */
+    box-shadow:
+        0 0 50px rgba(108, 92, 231, 0.5), /* Cahaya utama ungu */
+        0 0 100px rgba(0, 191, 255, 0.3), /* Cahaya sekunder biru */
+        0 20px 70px rgba(0, 0, 0, 0.8); /* Bayangan yang lebih dalam dan dramatis */
+    backdrop-filter: blur(12px) brightness(0.65); /* Efek blur yang lebih kuat dan gelap untuk kedalaman ekstra */
+    -webkit-backdrop-filter: blur(12px) brightness(0.65); /* Untuk Safari */
+    position: sticky; /* Tetap sticky */
+}
+
+/* Animasi keyframe untuk efek kerlip bintang yang halus */
+@keyframes subtleTwinkle {
+    0% { background-position-x: 0%; background-position-y: 0%; opacity: 1; }
+    25% { background-position-x: 5%; background-position-y: 5%; opacity: 0.98; }
+    50% { background-position-x: 10%; background-position-y: 0%; opacity: 1; }
+    75% { background-position-x: 5%; background-position-y: -5%; opacity: 0.98; }
+    100% { background-position-x: 0%; background-position-y: 0%; opacity: 1; }
+}
+
+/* Navbar ketika dalam posisi fixed (saat scroll ke bawah) */
+body.dark .navbar.navbar-fixed-active {
+    border-bottom-color: rgba(138, 43, 226, 0.8); /* Border lebih kuat saat fixed */
+    box-shadow:
+        0 0 60px rgba(108, 92, 231, 0.8), /* Cahaya lebih intens */
+        0 0 120px rgba(0, 191, 255, 0.5),
+        0 25px 80px rgba(0, 0, 0, 1); /* Bayangan lebih gelap dan menonjol */
+}
+
+/* NAV LINKS - Tampilan Mode Dark yang Ditingkatkan */
+body.dark .nav-links li a {
+    color: #e0e0ff; /* Teks yang lebih terang, tampak etereal */
+    font-weight: 300; /* Lebih tipis untuk kesan elegan */
+    letter-spacing: 0.8px; /* Lebih banyak spasi antar huruf untuk estetika */
+    text-shadow: 0 0 7px rgba(224, 224, 255, 0.4); /* Cahaya halus di sekitar teks */
+    transition: all 0.7s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transisi yang lebih mulus dan modern */
+}
+
+body.dark .nav-links li a::before {
+    background: linear-gradient(90deg, #ff8c00, #ff00ff, #00ffff); /* Garis bawah kosmik yang hidup */
+    height: 4px; /* Garis bawah yang sedikit lebih tebal */
+    transform: scaleX(0.05); /* Awalnya sangat sedikit terlihat */
+    transform-origin: center; /* Membesar dari tengah */
+    transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 2px; /* Sedikit pembulatan */
+}
+
+body.dark .nav-links li a:hover {
+    color: #ffffff; /* Putih murni saat di-hover */
+    transform: translateY(-5px) scale(1.05); /* Angkatan yang lebih terasa dan sedikit pembesaran */
+    text-shadow:
+        0 0 15px rgba(255, 255, 255, 1), /* Cahaya putih yang sangat kuat */
+        0 0 30px rgba(138, 43, 226, 0.9); /* Halo ungu yang lebih menonjol */
+    letter-spacing: 1.5px; /* Peningkatan spasi antar huruf saat hover */
+}
+
+body.dark .nav-links li a:hover::before {
+    transform: scaleX(1); /* Garis bawah penuh saat di-hover */
+}
+
+body.dark .nav-links .home-btn a {
+    color: #ffd700; /* Warna emas untuk tombol Home */
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.8), 0 0 25px rgba(255, 165, 0, 0.5); /* Cahaya emas yang lebih kaya */
+}
+
+body.dark .nav-links .home-btn a:hover {
+    color: #ffeb3b; /* Emas yang lebih cerah saat di-hover */
+    transform: scale(1.09); /* Pembesaran yang lebih jelas */
+    text-shadow: 0 0 20px rgba(255, 255, 0, 1), 0 0 40px rgba(255, 200, 0, 0.8); /* Cahaya emas yang sangat kuat */
+}
+
+/* HAMBURGER - Efek Mode Dark */
+body.dark .hamburger div {
+    background: #e0e0ff; /* Warna yang lebih terang untuk visibilitas */
+    box-shadow: 0 0 12px rgba(138, 43, 226, 1); /* Cahaya ungu yang sangat kuat */
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+body.dark .hamburger:hover div {
+    background: #ffffff;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 1.2), 0 0 25px rgba(0, 191, 255, 0.8); /* Multi-color glow on hover */
+}
+
+/* TOGGLE BUTTON (DARK MODE ICON) - Efek Mode Dark */
+body.dark .toggle-button {
+    color: #e0e0ff; /* Warna yang lebih terang untuk visibilitas */
+    text-shadow: 0 0 12px rgba(0, 191, 255, 1); /* Cahaya biru yang sangat kuat */
+    display: flex; /* Memastikan tombol mode dark selalu terlihat di dark mode */
+    /* Pastikan transisi sudah ada dari .toggle-button default */
+}
+
+body.dark .toggle-button:hover {
+    transform: scale(1.2); /* Zoom yang lebih jelas saat di-hover */
+    color: #ffffff;
+    text-shadow: 0 0 18px rgba(255, 255, 255, 1), 0 0 30px rgba(0, 220, 255, 0.9); /* Cahaya ikon yang sangat kuat */
+}
+
+/* When body has 'dark' class (Mode Gelap aktif) */
+/* Aturan ini memastikan ikon yang benar ditampilkan */
+body.dark .toggle-button .moon::before {
     display: none; /* Sembunyikan ikon bulan di mode gelap */
 }
 
-body.dark-mode .toggle-button .sun::before {
+body.dark .toggle-button .sun::before {
     display: block; /* Tampilkan ikon matahari di mode gelap */
 }
 
+
+/* ================================================= */
+/* --- RESPONSIVE ADJUSTMENTS (Enhanced Dark Mode) --- */
+/* ================================================= */
+@media (max-width: 1024px) {
+    /* Sembunyikan elemen asli di layar kecil */
+    .website-header-top {
+        display: none;
+    }
+
+    /* Tampilkan logo di dalam navbar untuk mobile */
+    .navbar {
+        justify-content: space-between;
+        padding: 10px 15px; /* Sesuaikan padding navbar di mobile */
+    }
+
+    .header-logo-wrapper-mobile {
+        display: block;
+        margin-right: auto; /* Dorong elemen lain ke kanan */
+        padding-left: 10px; /* Sesuaikan padding untuk logo mobile */
+    }
+
+    .header-logo-img-mobile {
+        height: 50px;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    .nav-links {
+        display: none; /* Sembunyikan nav-links utama di mobile */
+    }
+
+    .hamburger {
+        display: flex;
+        order: -1; /* Pindahkan hamburger ke kiri */
+    }
+
+    .toggle-button {
+        order: 1; /* Pindahkan toggle button ke kanan */
+    }
+
+    /* Sembunyikan banner di bawah navbar untuk mobile */
+    .header-banner-wrapper-mobile {
+        display: none; /* Menyembunyikan banner di layar kecil */
+    }
+
+    /* Penyesuaian khusus untuk navbar mode gelap di mobile */
+    body.dark .navbar {
+        padding: 15px 25px; /* Padding mobile yang lebih mewah */
+        border-bottom: 2px solid rgba(138, 43, 226, 0.4); /* Border yang lebih tipis untuk mobile */
+        box-shadow: 0 0 30px rgba(108, 92, 231, 0.4), 0 10px 35px rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px) brightness(0.7); /* Blur yang sedikit lebih ringan untuk performa mobile */
+        -webkit-backdrop-filter: blur(8px) brightness(0.7);
+    }
+}
 /* ================================================= */
 /* --- MOBILE NAVIGATION (SIDEBAR) --- */
 /* ================================================= */
@@ -5006,11 +5389,9 @@ body.dark .artikel-sepuluh-dot.artikel-sepuluh-dot-active {
 
 
 
-
 /* ========== GALAXY FOOTER ========= */
 footer {
     background: radial-gradient(circle at 30% 30%, #1a1b3a, #0a0c1d 80%) fixed;
-    background-image: url('https://www.transparenttextures.com/patterns/stardust.png'), linear-gradient(135deg, #110f29, #0d0820, #1e1557);
     background-blend-mode: overlay;
     color: #eaeaff;
     padding: 70px 0 40px;
@@ -5027,7 +5408,6 @@ footer::before {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: url('https://raw.githubusercontent.com/malven/generative-art/master/media/stars.png') repeat;
     opacity: 0.04;
     pointer-events: none;
     z-index: 0;

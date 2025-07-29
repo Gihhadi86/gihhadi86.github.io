@@ -1,0 +1,709 @@
+/* Import font Inter dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+/* Reset dasar dan styling body */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif; /* Menggunakan font Inter */
+    overflow: hidden; /* Mencegah scroll saat loading dan transisi */
+    background: linear-gradient(135deg, #1a0033, #000000, #0d0026); /* Gradien latar belakang galaksi */
+    color: #ffffff; /* Warna teks putih */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Memastikan body mengisi seluruh tinggi viewport */
+    position: relative; /* Untuk pseudo-elemen bintang */
+}
+
+/* Efek bintang di latar belakang */
+body::before,
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, #ffffff 1px, transparent 1px);
+    background-size: 100px 100px;
+    opacity: 0.2;
+    animation: twinkle 150s linear infinite; /* Animasi bintang berkedip */
+    transition: transform 2s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Transisi untuk efek parallax saat body.content-active */
+}
+
+body::after {
+    background-size: 150px 150px;
+    opacity: 0.15;
+    animation: twinkle 200s linear infinite reverse; /* Animasi bintang berkedip terbalik */
+}
+
+/* Efek parallax pada bintang saat konten utama aktif */
+body.content-active::before {
+    transform: translate(-50px, -50px) scale(1.1); /* Bintang bergerak lebih jauh dan sedikit membesar */
+}
+
+body.content-active::after {
+    transform: translate(70px, 70px) scale(0.9); /* Bintang lain bergerak lebih jauh dan sedikit mengecil */
+}
+
+/* Keyframes untuk animasi bintang berkedip */
+@keyframes twinkle {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 100% 100%;
+    }
+}
+
+/* Styling untuk Loading Screen */
+.loading-screen {
+    position: fixed; /* Menutupi seluruh layar */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0d0026, #000000, #1a0033); /* Gradien latar belakang yang sama */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Memastikan di atas elemen lain */
+    transition: opacity 1.5s ease-out, visibility 1.5s ease-out; /* Transisi saat menghilang lebih lambat */
+}
+
+/* Spinner loading yang lebih keren dan kompleks */
+.spinner {
+    width: 120px; /* Ukuran spinner lebih besar */
+    height: 120px;
+    border: 12px solid rgba(255, 255, 255, 0.15); /* Warna border spinner lebih transparan */
+    border-top: 12px solid #8a2be2; /* Warna border atas (ungu) */
+    border-right: 12px solid #6a0dad; /* Warna border kanan (ungu lebih gelap) */
+    border-bottom: 12px solid #4b0082; /* Warna border bawah (ungu paling gelap) */
+    border-radius: 50%; /* Membuat lingkaran */
+    animation: spin-complex 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite, /* Animasi putar dengan bounce yang lebih kompleks */
+               glow-pulse 2.5s ease-in-out infinite alternate; /* Animasi glow yang berdenyut lebih lambat */
+    box-shadow: 0 0 30px #8a2be2, 0 0 60px #8a2be2, 0 0 90px rgba(138, 43, 226, 0.7); /* Efek glow yang lebih kuat */
+}
+
+/* Keyframes untuk animasi putar spinner yang lebih kompleks */
+@keyframes spin-complex {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(120deg) scale(1.1); } /* Membesar sedikit */
+    50% { transform: rotate(240deg) scale(0.9); } /* Mengecil sedikit */
+    75% { transform: rotate(360deg) scale(1.1); } /* Membesar lagi */
+    100% { transform: rotate(720deg) scale(1); } /* Putaran penuh dua kali */
+}
+
+/* Keyframes untuk animasi glow berdenyut */
+@keyframes glow-pulse {
+    from { box-shadow: 0 0 20px #8a2be2, 0 0 40px #8a2be2, 0 0 60px rgba(138, 43, 226, 0.6); }
+    to { box-shadow: 0 0 35px #8a2be2, 0 0 70px #8a2be2, 0 0 100px rgba(138, 43, 226, 0.9); }
+}
+
+/* Teks loading yang lebih dinamis */
+.loading-text {
+    margin-top: 40px; /* Jarak lebih besar dari spinner */
+    font-size: 2.2em; /* Ukuran teks lebih besar */
+    color: #e0e0e0;
+    letter-spacing: 4px; /* Jarak antar huruf lebih lebar */
+    animation: text-fade-in-blur 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards, /* Animasi fade in dan blur */
+               pulse 2s infinite alternate; /* Animasi denyut tetap ada */
+    opacity: 0; /* Awalnya tersembunyi */
+}
+
+/* Keyframes untuk animasi fade in dan blur teks */
+@keyframes text-fade-in-blur {
+    0% { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* Keyframes untuk animasi denyut teks loading */
+@keyframes pulse {
+    from { opacity: 0.7; transform: scale(1); }
+    to { opacity: 1; transform: scale(1.05); }
+}
+
+/* Kelas untuk menyembunyikan elemen */
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Mencegah interaksi saat tersembunyi */
+}
+
+/* Kontainer untuk semua layar */
+#screens-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden; /* Penting untuk transisi antar layar */
+}
+
+/* Styling dasar untuk setiap layar */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px; /* Padding default */
+    box-sizing: border-box;
+    z-index: 1;
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out; /* Transisi umum untuk layar */
+}
+
+/* Animasi keluar "Fade Out Up" */
+.screen.fade-out-up {
+    opacity: 0;
+    transform: translateY(-100vh); /* Bergerak ke atas */
+    pointer-events: none;
+}
+
+/* Animasi kemunculan layar */
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Styling untuk Layar Selamat Datang */
+#welcome-screen {
+    max-width: 1200px; /* Lebar maksimal lebih besar untuk layar besar */
+    padding: 20px 60px; /* Tambah padding horizontal untuk mencegah cutoff */
+}
+
+/* Styling judul utama */
+.welcome-title {
+    font-size: 4.2em; /* Ukuran judul lebih besar */
+    font-weight: 700;
+    margin-bottom: 30px; /* Jarak dari ikon lebih besar */
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(138, 43, 226, 1), 0 0 60px rgba(138, 43, 226, 0.8), 0 0 90px rgba(138, 43, 226, 0.6); /* Efek glow yang sangat kuat */
+    line-height: 1.2;
+    /* white-space: normal; */ /* Allow text to wrap */
+}
+
+/* Styling untuk setiap karakter yang dianimasikan (Welcome Screen) */
+.welcome-title .char {
+    display: inline-block; /* Agar bisa dianimasikan satu per satu */
+    opacity: 0;
+    transform: translateY(20px) scale(0.8); /* Mulai dari bawah dan mengecil */
+    animation: char-fade-in-up-scale 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; /* Faster character animation */
+    /* Delay animasi diatur oleh JavaScript */
+}
+
+/* Kelas khusus untuk spasi agar tidak terlihat bergeser */
+.welcome-title .char.space {
+    transform: none; /* Reset transform untuk spasi */
+    animation: none; /* Hapus animation untuk spasi */
+    opacity: 1; /* Pastikan spasi terlihat */
+    width: 0.5em; /* Berikan lebar agar ada jarak */
+}
+
+/* Keyframes untuk animasi muncul huruf demi huruf (Welcome Screen) */
+@keyframes char-fade-in-up-scale {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+        filter: blur(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
+    }
+}
+
+/* Bagian teks yang di-highlight (karakter di dalamnya) */
+.welcome-title .highlight .char {
+    color: #8a2be2; /* Warna ungu */
+    text-shadow: 0 0 30px #8a2be2, 0 0 60px #8a2be2, 0 0 90px #8a2be2; /* Glow ungu yang lebih kuat */
+}
+
+/* Link website */
+.website-link {
+    font-size: 1.4em; /* Ukuran link lebih besar */
+    color: #e0e0e0;
+    letter-spacing: 2px; /* Jarak antar huruf lebih lebar */
+    /* Animasi masuk dari bawah (fade in dan slide up dengan bounce) */
+    opacity: 0;
+    transform: translateY(80px); /* Mulai lebih jauh dari bawah */
+    animation: slide-up-bounce 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    animation-delay: 3.5s; /* Delay setelah judul selesai muncul */
+}
+
+/* Keyframes untuk animasi slide up dengan bounce (link) */
+@keyframes slide-up-bounce {
+    0% {
+        opacity: 0;
+        transform: translateY(80px);
+        filter: blur(5px);
+    }
+    70% {
+        opacity: 1;
+        transform: translateY(-10px); /* Overshoot sedikit ke atas */
+        filter: blur(0px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+    }
+}
+
+/* Container ikon (Welcome Screen) */
+.icon-container {
+    display: flex;
+    gap: 60px; /* Jarak antar ikon lebih lebar */
+    margin-bottom: 70px; /* Jarak dari judul lebih besar */
+}
+
+/* Styling setiap ikon (Welcome Screen) */
+.icon-item {
+    font-size: 4.5em; /* Ukuran ikon lebih besar */
+    color: #8a2be2; /* Warna ikon ungu */
+    width: 130px; /* Ukuran lingkaran ikon lebih besar */
+    height: 130px;
+    border-radius: 50%; /* Bentuk lingkaran */
+    background: rgba(138, 43, 226, 0.3); /* Latar belakang transparan yang lebih pekat */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 40px rgba(138, 43, 226, 1), 0 0 80px rgba(138, 43, 226, 0.8), 0 0 120px rgba(138, 43, 226, 0.6); /* Efek glow yang sangat kuat */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease-in-out; /* Transisi hover lebih halus */
+    cursor: pointer;
+    opacity: 0; /* Awalnya tersembunyi */
+    /* Semua ikon akan menggunakan animasi slide-up-icon-bounce */
+    transform: translateY(100px) scale(0.5); /* Mulai dari bawah, mengecil */
+    animation: slide-up-icon-bounce 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* Delay animasi untuk setiap ikon agar muncul satu per satu */
+.icon-item.icon-1 { animation-delay: 1.0s; }
+.icon-item.icon-2 { animation-delay: 1.3s; }
+.icon-item.icon-3 { animation-delay: 1.6s; }
+
+/* Keyframes untuk animasi slide up ikon dengan bounce */
+@keyframes slide-up-icon-bounce {
+    0% {
+        opacity: 0;
+        transform: translateY(100px) scale(0.5); /* Mulai dari bawah, mengecil */
+        filter: blur(10px);
+    }
+    70% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.1); /* Overshoot sedikit ke atas, membesar */
+        filter: blur(0px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1); /* Kembali ke posisi normal */
+        filter: blur(0px);
+    }
+}
+
+/* Efek hover pada ikon */
+.icon-item:hover {
+    transform: scale(1.3); /* Membesar saat di-hover lebih signifikan */
+    box-shadow: 0 0 60px rgba(138, 43, 226, 1), 0 0 120px rgba(138, 43, 226, 0.9), 0 0 180px rgba(138, 43, 226, 0.8); /* Glow lebih kuat */
+}
+
+
+/* Styling untuk Home Screen */
+#home-screen {
+    justify-content: center; /* Pusatkan konten secara vertikal */
+    align-items: center; /* Pusatkan konten secara horizontal */
+    padding-top: 0; /* Navbar sudah fixed, tidak perlu padding top di sini */
+    flex-direction: column; /* Default ke kolom untuk responsif */
+    gap: 0; /* Reset gap */
+    max-width: 100%; /* Lebar penuh */
+    width: 100%; /* Lebar penuh */
+    margin: 0; /* Reset margin */
+}
+
+/* Navbar Styling */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background: rgba(0, 0, 0, 0.5); /* Latar belakang transparan */
+    backdrop-filter: blur(10px); /* Efek blur */
+    z-index: 1000;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); /* Shadow untuk kesan melayang */
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    opacity: 0; /* Awalnya tersembunyi */
+    animation: navbar-fade-in 1s ease-out forwards;
+    animation-delay: 4.5s; /* Muncul setelah transisi layar */
+}
+
+.navbar-brand {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #8a2be2;
+    text-shadow: 0 0 10px #8a2be2;
+}
+
+.navbar-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 10px;
+    transition: color 0.3s ease, background-color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #ffffff;
+    background-color: rgba(138, 43, 226, 0.2);
+    text-shadow: 0 0 8px #8a2be2;
+}
+
+/* Keyframes untuk navbar fade in */
+@keyframes navbar-fade-in {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Home Content Layout */
+.home-content {
+    display: flex;
+    align-items: center; /* Pusatkan secara vertikal */
+    justify-content: space-around; /* Distribusi ruang yang lebih baik */
+    width: 90%; /* Menggunakan persentase agar responsif */
+    max-width: 1200px; /* Lebar maksimal untuk konten home */
+    margin-top: 0; /* Reset margin top */
+    flex-wrap: wrap; /* Untuk responsif */
+    padding: 20px 0; /* Padding vertikal */
+}
+
+.home-left {
+    flex: 1;
+    min-width: 400px; /* Minimum width for left column */
+    text-align: left;
+    padding-right: 40px;
+    box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+}
+
+.home-right {
+    flex: 1;
+    min-width: 400px; /* Minimum width for right column */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 40px;
+    box-sizing: border-box;
+}
+
+.tagline {
+    font-size: 1.1em;
+    color: #a0a0a0;
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fade-in-up-new 1s ease-out forwards;
+    animation-delay: 5.0s; /* Setelah navbar */
+}
+
+.role-title {
+    font-size: 3.5em;
+    font-weight: 700;
+    margin-bottom: 15px;
+    line-height: 1.2;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
+    /* Animasi huruf demi huruf akan diterapkan oleh JS */
+    white-space: normal; /* Allow text to wrap naturally */
+    word-break: break-word; /* Break long words */
+}
+
+.role-title .char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: char-fade-in-up-new 0.5s ease-out forwards;
+    /* Delay diatur oleh JS */
+}
+
+@keyframes char-fade-in-up-new {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.role-title .highlight {
+    color: #8a2be2;
+    text-shadow: 0 0 15px #8a2be2;
+}
+
+.company-info {
+    font-size: 1.2em;
+    color: #c0c0c0;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fade-in-up-new 1s ease-out forwards;
+    animation-delay: 5.5s;
+}
+
+.description {
+    font-size: 1em;
+    color: #e0e0e0;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: fade-in-up-new 1s ease-out forwards;
+    animation-delay: 5.8s;
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.tech-item {
+    background: rgba(138, 43, 226, 0.15);
+    color: #8a2be2;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+    border: 1px solid rgba(138, 43, 226, 0.5);
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+    opacity: 0;
+    animation: fade-in-scale-new 0.8s ease-out forwards;
+}
+
+.tech-item:nth-child(1) { animation-delay: 6.0s; }
+.tech-item:nth-child(2) { animation-delay: 6.2s; }
+.tech-item:nth-child(3) { animation-delay: 6.4s; }
+.tech-item:nth-child(4) { animation-delay: 6.6s; }
+
+@keyframes fade-in-scale-new {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.action-buttons {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    animation: fade-in-up-new 1s ease-out forwards;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #8a2be2, #6a0dad);
+    color: #ffffff;
+    animation-delay: 6.8s;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #9933ff, #7b1fa2);
+    box-shadow: 0 8px 20px rgba(138, 43, 226, 0.5);
+    transform: translateY(-3px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #8a2be2;
+    border: 2px solid #8a2be2;
+    animation-delay: 7.0s;
+}
+
+.btn-secondary:hover {
+    background: rgba(138, 43, 226, 0.1);
+    box-shadow: 0 8px 20px rgba(138, 43, 226, 0.2);
+    transform: translateY(-3px);
+}
+
+.social-icons {
+    display: flex;
+    gap: 25px;
+}
+
+.social-link {
+    color: #e0e0e0;
+    font-size: 1.8em;
+    transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+    opacity: 0;
+    animation: fade-in-up-new 1s ease-out forwards;
+}
+
+.social-link:nth-child(1) { animation-delay: 7.2s; }
+.social-link:nth-child(2) { animation-delay: 7.4s; }
+.social-link:nth-child(3) { animation-delay: 7.6s; }
+
+.social-link:hover {
+    color: #8a2be2;
+    transform: translateY(-5px);
+    text-shadow: 0 0 15px #8a2be2;
+}
+
+/* Keyframes for general fade in up for new content */
+@keyframes fade-in-up-new {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-illustration {
+    max-width: 100%; /* Pastikan gambar tidak melebihi lebar kontainer */
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(138, 43, 226, 0.7)); /* Efek glow pada gambar */
+    opacity: 0;
+    transform: scale(0.8);
+    animation: image-fade-in-scale 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: 5.0s; /* Muncul bersamaan dengan tagline */
+}
+
+@keyframes image-fade-in-scale {
+    from { opacity: 0; transform: scale(0.8) rotateY(30deg); filter: blur(10px); }
+    to { opacity: 1; transform: scale(1) rotateY(0deg); filter: blur(0px); }
+}
+
+
+/* Responsif untuk layar kecil */
+@media (max-width: 992px) {
+    .home-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px; /* Tambah padding untuk konten home di mobile */
+    }
+
+    .home-left {
+        padding-right: 0;
+        margin-bottom: 40px;
+        min-width: unset; /* Reset min-width */
+        width: 100%; /* Lebar penuh di mobile */
+    }
+
+    .home-right {
+        padding-left: 0;
+        min-width: unset; /* Reset min-width */
+        width: 100%; /* Lebar penuh di mobile */
+    }
+
+    .navbar {
+        padding: 15px 30px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .navbar-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .role-title {
+        font-size: 3em;
+    }
+
+    #welcome-screen {
+        padding: 20px; /* Kurangi padding di layar kecil */
+    }
+}
+
+@media (max-width: 768px) {
+    .welcome-title {
+        font-size: 2.8em;
+    }
+
+    .icon-container {
+        flex-direction: column; /* Ikon menjadi kolom di layar kecil */
+        gap: 25px;
+        margin-bottom: 50px;
+    }
+
+    .icon-item {
+        width: 90px;
+        height: 90px;
+        font-size: 3em;
+    }
+
+    .loading-text {
+        font-size: 1.5em;
+    }
+
+    .navbar {
+        padding: 10px 20px;
+    }
+
+    .navbar-brand {
+        font-size: 1.5em;
+    }
+
+    .navbar-nav {
+        gap: 15px;
+    }
+
+    .nav-link {
+        font-size: 1em;
+    }
+
+    .role-title {
+        font-size: 2.5em;
+    }
+
+    .company-info, .tagline {
+        font-size: 1em;
+    }
+
+    .description {
+        font-size: 0.9em;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+
+    .social-link {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-title {
+        font-size: 2.2em;
+    }
+
+    .website-link {
+        font-size: 1.1em;
+    }
+
+    .spinner {
+        width: 80px;
+        height: 80px;
+        border-width: 8px;
+    }
+}
