@@ -3,507 +3,1640 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Gih-Hadi</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Portofolio Gigih Hadi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Mengatur font Inter secara global */
+        /* Import font Inter dari Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+
         body {
-            font-family: 'Inter', sans-serif;
+            margin: 0;
+            font-family: 'Inter', sans-serif; /* Menggunakan font Inter */
             overflow-x: hidden; /* Mencegah scroll horizontal */
-            background-color: #0d0d0d; /* Latar belakang gelap utama */
-            cursor: none; /* Sembunyikan kursor default */
+            overflow-y: auto; /* Memungkinkan scrolling vertikal di seluruh halaman */
+            background: linear-gradient(135deg, #1a0033, #000000, #0d0026); /* Gradien latar belakang galaksi */
+            color: #ffffff; /* Warna teks putih */
+            display: flex;
+            flex-direction: column; /* Mengatur tata letak vertikal */
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh; /* Memastikan body mengisi seluruh tinggi viewport */
+            position: relative; /* Untuk pseudo-elemen bintang */
         }
 
-        /* Styling untuk layar loading */
-        #loading-screen {
-            position: fixed;
+        /* Efek bintang di latar belakang */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed; /* Bintang tetap di tempat saat scroll */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #1a1a1a; /* Warna latar belakang gelap */
+            background-image: radial-gradient(circle, #ffffff 1px, transparent 1px);
+            background-size: 100px 100px;
+            opacity: 0.2;
+            animation: twinkle 150s linear infinite; /* Animasi bintang berkedip */
+            transition: transform 2s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Transisi untuk efek parallax saat body.content-active */
+            z-index: -1; /* Pastikan di belakang konten */
+        }
+
+        body::after {
+            background-size: 150px 150px;
+            opacity: 0.15;
+            animation: twinkle 200s linear infinite reverse; /* Animasi bintang berkedip terbalik */
+        }
+
+        /* Efek parallax pada bintang saat konten utama aktif */
+        body.content-active::before {
+            transform: translate(-50px, -50px) scale(1.1); /* Bintang bergerak lebih jauh dan sedikit membesar */
+        }
+
+        body.content-active::after {
+            transform: translate(70px, 70px) scale(0.9); /* Bintang lain bergerak lebih jauh dan sedikit mengecil */
+        }
+
+        /* Keyframes untuk animasi bintang berkedip */
+        @keyframes twinkle {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: 100% 100%;
+            }
+        }
+
+        /* Styling untuk Loading Screen */
+        .loading-screen {
+            position: fixed; /* Menutupi seluruh layar */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0d0026, #000000, #1a0033); /* Gradien latar belakang yang sama */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Memastikan di atas elemen lain */
+            transition: opacity 1.5s ease-out, visibility 1.5s ease-out; /* Transisi saat menghilang lebih lambat */
+        }
+
+        /* Spinner loading yang lebih keren dan kompleks */
+        .spinner {
+            width: clamp(80px, 15vw, 120px); /* Ukuran spinner responsif */
+            height: clamp(80px, 15vw, 120px);
+            border: clamp(8px, 1.5vw, 12px) solid rgba(255, 255, 255, 0.15); /* Warna border spinner lebih transparan */
+            border-top: clamp(8px, 1.5vw, 12px) solid #8a2be2; /* Warna border atas (ungu) */
+            border-right: clamp(8px, 1.5vw, 12px) solid #6a0dad; /* Warna border kanan (ungu lebih gelap) */
+            border-bottom: clamp(8px, 1.5vw, 12px) solid #4b0082; /* Warna border bawah (ungu paling gelap) */
+            border-radius: 50%; /* Membuat lingkaran */
+            animation: spin-complex 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite, /* Animasi putar dengan bounce yang lebih kompleks */
+                       glow-pulse 2.5s ease-in-out infinite alternate; /* Animasi glow yang berdenyut lebih lambat */
+            box-shadow: 0 0 30px #8a2be2, 0 0 60px #8a2be2, 0 0 90px rgba(138, 43, 226, 0.7); /* Efek glow yang lebih kuat */
+        }
+
+        /* Keyframes untuk animasi putar spinner yang lebih kompleks */
+        @keyframes spin-complex {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(120deg) scale(1.1); } /* Membesar sedikit */
+            50% { transform: rotate(240deg) scale(0.9); } /* Mengecil sedikit */
+            75% { transform: rotate(360deg) scale(1.1); } /* Membesar lagi */
+            100% { transform: rotate(720deg) scale(1); } /* Putaran penuh dua kali */
+        }
+
+        /* Keyframes untuk animasi glow berdenyut */
+        @keyframes glow-pulse {
+            from { box-shadow: 0 0 20px #8a2be2, 0 0 40px #8a2be2, 0 0 60px rgba(138, 43, 226, 0.6); }
+            to { box-shadow: 0 0 35px #8a2be2, 0 0 70px #8a2be2, 0 0 100px rgba(138, 43, 226, 0.9); }
+        }
+
+        /* Teks loading yang lebih dinamis */
+        .loading-text {
+            margin-top: clamp(20px, 5vw, 40px); /* Jarak lebih besar dari spinner, responsif */
+            font-size: clamp(1.5em, 3vw, 2.2em); /* Ukuran teks lebih besar, responsif */
+            color: #e0e0e0;
+            letter-spacing: 4px; /* Jarak antar huruf lebih lebar */
+            animation: text-fade-in-blur 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards, /* Animasi fade in dan blur */
+             pulse 2s infinite alternate; /* Animasi denyut tetap ada */
+            opacity: 0; /* Awalnya tersembunyi */
+        }
+
+        /* Keyframes untuk animasi fade in dan blur teks */
+        @keyframes text-fade-in-blur {
+            0% { opacity: 0; transform: translateY(30px); filter: blur(0px); } /* Blur dihilangkan */
+            100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+        }
+
+        /* Keyframes untuk animasi denyut teks loading */
+        @keyframes pulse {
+            from { opacity: 0.7; transform: scale(1); }
+            to { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* Kelas untuk menyembunyikan elemen */
+        .hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none; /* Mencegah interaksi saat tersembunyi */
+        }
+
+        /* Kontainer untuk semua layar/slide */
+#screens-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;  /* Ubah dari height: 100vh ke min-height agar bisa diskroll */
+    overflow-y: auto;   /* Aktifkan scroll */
+    scroll-behavior: smooth;
+}
+
+
+        /* Styling dasar untuk setiap layar */
+        .screen {
+            position: absolute; /* Absolute positioning for sliding */
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100vh; /* Menggunakan min-height agar konten bisa di-scroll */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Menggunakan flex-start agar konten tidak terpotong di bagian bawah */
+            align-items: center;
+            text-align: center;
+            padding: clamp(10px, 2vw, 20px); /* Padding responsif */
+            box-sizing: border-box;
+            z-index: 1;
+            transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out; /* Only transform and opacity transition */
+            overflow-y: auto; /* Memungkinkan scrolling vertikal di dalam layar */
+            padding-top: clamp(60px, 10vw, 80px); /* Memberikan ruang untuk navbar sticky, responsif */
+        }
+
+        /* Initial state for hidden screens (off-screen below) */
+        .screen.hidden {
+            transform: translateY(100vh); /* Start off-screen below */
+            opacity: 0; /* Also keep opacity 0 for initial hidden state */
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Active screen */
+        .screen.active {
+            transform: translateY(0); /* On-screen */
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* Animation for sliding out (current screen moving up) */
+        .screen.slide-out-up {
+            transform: translateY(-100vh); /* Move off-screen above */
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Animation for sliding out (current screen moving down) - for backward navigation */
+        .screen.slide-out-down {
+            transform: translateY(100vh); /* Move off-screen below */
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Styling untuk Layar Selamat Datang */
+        #welcome-screen {
+            max-width: 1200px; /* Lebar maksimal lebih besar untuk layar besar */
+            padding: clamp(10px, 5vw, 20px) clamp(20px, 8vw, 60px); /* Padding responsif */
+            opacity: 0; /* Dimulai tersembunyi */
+            visibility: hidden;
+            transform: translateY(0); /* Welcome screen starts on screen, then fades/slides out */
+            padding-top: clamp(10px, 5vw, 20px); /* Reset padding-top karena tidak ada navbar di sini */
+        }
+
+        /* Animasi masuk untuk welcome screen setelah loading */
+        #welcome-screen.active {
+            animation: fade-in-screen 0.8s ease-out forwards; /* Animasi fade in untuk seluruh layar */
+            visibility: visible; /* Pastikan terlihat saat animasi dimulai */
+        }
+
+        @keyframes fade-in-screen {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Styling judul utama */
+        .welcome-title {
+            font-size: clamp(2.5em, 6vw, 4.2em); /* Ukuran judul lebih besar, responsif */
+            font-weight: 700;
+            margin-bottom: clamp(15px, 3vw, 30px); /* Jarak dari ikon lebih besar, responsif */
+            color: #ffffff;
+            text-shadow: 0 0 30px rgba(138, 43, 226, 1), 0 0 60px rgba(138, 43, 226, 0.8), 0 0 90px rgba(138, 43, 226, 0.6); /* Efek glow yang sangat kuat */
+            line-height: 1.2;
+            text-align: center; /* Pastikan teks di tengah */
+        }
+
+        /* Styling untuk setiap karakter yang dianimasikan (Welcome Screen) */
+        .welcome-title .char {
+            display: inline-block; /* Agar bisa dianimasikan satu per satu */
+            opacity: 0;
+            transform: translateY(20px) scale(0.8); /* Mulai dari bawah dan mengecil */
+            animation: char-fade-in-up-scale 0.05s cubic-bezier(0.23, 1, 0.32, 1) forwards; /* Faster character animation */
+            /* Delay animasi diatur oleh JavaScript */
+        }
+
+        /* Kelas khusus untuk spasi agar tidak terlihat bergeser */
+        .welcome-title .char.space {
+            transform: none; /* Reset transform untuk spasi */
+            animation: none; /* Hapus animation untuk spasi */
+            opacity: 1; /* Pastikan spasi terlihat */
+            width: 0.5em; /* Berikan lebar agar ada jarak */
+        }
+
+        /* Keyframes untuk animasi muncul huruf demi huruf (Welcome Screen) */
+        @keyframes char-fade-in-up-scale {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.8);
+                filter: blur(0px); /* Blur dihilangkan */
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0px);
+            }
+        }
+
+        /* Bagian teks yang di-highlight (karakter di dalamnya) */
+        .welcome-title .highlight .char {
+            color: #8a2be2; /* Warna ungu */
+            text-shadow: 0 0 30px #8a2be2, 0 0 60px #8a2be2, 0 0 90px #8a2be2; /* Glow ungu yang lebih kuat */
+        }
+
+        /* Link website */
+        .website-link {
+            font-size: clamp(1em, 2vw, 1.4em); /* Ukuran link lebih besar, responsif */
+            color: #e0e0e0;
+            letter-spacing: 2px; /* Jarak antar huruf lebih lebar */
+            /* Animasi masuk dari bawah (fade in dan slide up dengan bounce) */
+            opacity: 0;
+            transform: translateY(80px); /* Mulai lebih jauh dari bawah */
+            animation: slide-up-bounce 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            animation-delay: 3.5s; /* Delay setelah judul selesai muncul */
+        }
+
+        /* Keyframes untuk animasi slide up dengan bounce (link) */
+        @keyframes slide-up-bounce {
+            0% {
+                opacity: 0;
+                transform: translateY(80px);
+                filter: blur(0px); /* Blur dihilangkan */
+            }
+            70% {
+                opacity: 1;
+                transform: translateY(-10px); /* Overshoot sedikit ke atas */
+                filter: blur(0px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0px);
+            }
+        }
+
+        /* Container ikon (Welcome Screen) */
+        .icon-container {
+            display: flex;
+            gap: clamp(20px, 5vw, 60px); /* Jarak antar ikon lebih lebar, responsif */
+            margin-bottom: clamp(30px, 8vw, 70px); /* Jarak dari judul lebih besar, responsif */
+        }
+
+        /* Styling setiap ikon (Welcome Screen) */
+        .icon-item {
+            font-size: clamp(3em, 6vw, 4.5em); /* Ukuran ikon lebih besar, responsif */
+            color: #8a2be2; /* Warna ikon ungu */
+            width: clamp(80px, 15vw, 130px); /* Ukuran lingkaran ikon lebih besar, responsif */
+            height: clamp(80px, 15vw, 130px);
+            border-radius: 50%; /* Bentuk lingkaran */
+            background: rgba(138, 43, 226, 0.3); /* Latar belakang transparan yang lebih pekat */
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
-            transition: opacity 1.5s ease-out, visibility 1.5s ease-out; /* Durasi transisi lebih panjang */
+            box-shadow: 0 0 40px rgba(138, 43, 226, 1), 0 0 80px rgba(138, 43, 226, 0.8), 0 0 120px rgba(138, 43, 226, 0.6); /* Efek glow yang sangat kuat */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease-in-out; /* Transisi hover lebih halus */
+            cursor: pointer;
+            opacity: 0; /* Awalnya tersembunyi */
+            /* Semua ikon akan menggunakan animasi slide-up-icon-bounce */
+            transform: translateY(100px) scale(0.5); /* Mulai dari bawah, mengecil */
+            animation: slide-up-icon-bounce 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
         }
 
-        #loading-text {
-            font-size: 4rem;
-            font-weight: 800;
-            color: #555; /* Warna abu-abu untuk teks 'Loading' */
-            position: relative;
-            animation: pulse 1.5s infinite alternate; /* Animasi denyutan untuk teks loading */
-        }
+        /* Delay animasi untuk setiap ikon agar muncul satu per satu */
+        .icon-item.icon-1 { animation-delay: 1.0s; }
+        .icon-item.icon-2 { animation-delay: 1.3s; }
+        .icon-item.icon-3 { animation-delay: 1.6s; }
 
-        #loading-text span {
-            display: inline-block;
-            transition: color 0.3s ease-in-out;
-        }
-
-        @keyframes pulse {
+        /* Keyframes untuk animasi slide up ikon dengan bounce */
+        @keyframes slide-up-icon-bounce {
             0% {
-                transform: scale(1);
-                opacity: 0.7;
+                opacity: 0;
+                transform: translateY(100px) scale(0.5); /* Mulai dari bawah, mengecil */
+                filter: blur(0px); /* Blur dihilangkan */
+            }
+            70% {
+                opacity: 1;
+                transform: translateY(-10px) scale(1.1); /* Overshoot sedikit ke atas, membesar */
+                filter: blur(0px);
             }
             100% {
-                transform: scale(1.05);
                 opacity: 1;
+                transform: translateY(0);
+                filter: blur(0px);
             }
         }
 
-        /* Efek kursor lingkaran */
-        .cursor-circle {
-            position: fixed;
+        /* Efek hover pada ikon */
+        .icon-item:hover {
+            transform: scale(1.3); /* Membesar saat di-hover lebih signifikan */
+            box-shadow: 0 0 60px rgba(138, 43, 226, 1), 0 0 120px rgba(138, 43, 226, 0.9), 0 0 180px rgba(138, 43, 226, 0.8); /* Glow lebih kuat */
+        }
+
+
+        /* Styling untuk Home Screen */
+        #home-screen {
+            justify-content: flex-start; /* Pusatkan konten secara vertikal */
+            align-items: center; /* Pusatkan konten secara horizontal */
+            /* padding-top: Sudah diatur di .screen */
+            flex-direction: column; /* Default ke kolom untuk responsif */
+            gap: 0; /* Reset gap */
+            max-width: 100%; /* Lebar penuh */
+            width: 100%; /* Lebar penuh */
+            margin: 0; /* Reset margin */
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            position: sticky; /* Navbar menjadi sticky */
             top: 0;
             left: 0;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: rgba(0, 255, 170, 0.5); /* Warna hijau transparan */
-            pointer-events: none; /* Memastikan kursor tidak mengganggu interaksi elemen lain */
-            transform: translate(-50%, -50%); /* Memusatkan lingkaran di bawah kursor */
-            transition: width 0.2s ease-out, height 0.2s ease-out, background-color 0.2s ease-out;
-            z-index: 9998; /* Di bawah layar loading */
-            mix-blend-mode: difference; /* Efek blending untuk kursor */
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(10px, 3vw, 20px) clamp(20px, 8vw, 80px); /* Padding responsif */
+            background: rgba(0, 0, 0, 0.5); /* Latar belakang transparan */
+            backdrop-filter: blur(10px); /* Efek blur */
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); /* Shadow untuk kesan melayang */
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            opacity: 0; /* Awalnya tersembunyi */
+            animation: navbar-fade-in 1s ease-out forwards;
+            animation-delay: 0.5s; /* Muncul lebih cepat setelah transisi layar */
         }
 
-        /* Styling untuk konten utama (akan terlihat setelah loading selesai) */
-        #main-content {
-            display: none; /* Sembunyikan konten utama sampai loading selesai */
-            min-height: 100vh;
-            color: #fff;
+        .navbar-brand {
+            font-size: clamp(1.5em, 2.5vw, 1.8em); /* Responsif */
+            font-weight: 700;
+            color: #8a2be2;
+            text-shadow: 0 0 10px #8a2be2;
         }
 
-        /* Custom styling untuk navbar */
-        .navbar {
-            background-color: #0d0d0d;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative; /* Untuk z-index dari menu mobile */
-            z-index: 100;
+        .navbar-nav {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: clamp(15px, 3vw, 30px); /* Responsif */
         }
 
         .nav-link {
-            position: relative;
-            padding: 0.5rem 0;
-            color: #fff;
-            transition: color 0.3s ease-in-out;
-            font-weight: 500;
-            margin-right: 2rem; /* Jarak antar link */
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: #00ffaa;
-            transition: width 0.3s ease-in-out;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: clamp(0.9em, 1.2vw, 1.1em); /* Responsif */
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 10px;
+            transition: color 0.3s ease, background-color 0.3s ease, text-shadow 0.3s ease;
         }
 
         .nav-link:hover {
-            color: #00ffaa;
+            color: #ffffff;
+            background-color: rgba(138, 43, 226, 0.2);
+            text-shadow: 0 0 8px #8a2be2;
         }
 
-        /* Hamburger menu styling */
-        .hamburger-button {
-            background-color: #00ffaa;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            transition: background-color 0.3s ease-in-out;
-            cursor: pointer;
+        /* Keyframes untuk navbar fade in */
+        @keyframes navbar-fade-in {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .hamburger-button:hover {
-            background-color: #00cc88;
-        }
-
-        /* Mobile menu styling (side panel) */
-        #mobile-menu {
-            position: fixed;
-            top: 0;
-            right: -100%; /* Sembunyikan di luar layar */
-            width: 80%;
-            max-width: 350px; /* Lebar maksimum menu samping */
-            height: 100%;
-            background-color: #1a1a1a;
-            z-index: 1000;
-            transition: right 0.5s cubic-bezier(0.7, 0, 0.3, 1); /* Animasi slide yang lebih halus */
-            padding: 2rem;
+        /* Home Content Layout */
+        .home-content {
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-            overflow-y: auto; /* Aktifkan scroll jika konten terlalu panjang */
+            align-items: center; /* Pusatkan secara vertikal */
+            justify-content: space-around; /* Distribusi ruang yang lebih baik */
+            width: 95%; /* Menggunakan persentase agar responsif, diperbesar */
+            max-width: 1400px; /* Lebar maksimal lebih besar untuk konten home */
+            margin-top: clamp(10px, 2vw, 20px); /* Jarak dikurangi, responsif */
+            flex-wrap: wrap; /* Untuk responsif */
+            padding: clamp(10px, 2vw, 20px) 0; /* Padding vertikal, responsif */
+            gap: clamp(15px, 3vw, 20px); /* Jarak antar kolom dikurangi, responsif */
         }
 
-        #mobile-menu.open {
-            right: 0; /* Tampilkan menu */
+        .home-left {
+            flex: 1 1 clamp(280px, 45%, 500px); /* Lebih fleksibel, responsif */
+            /* min-width: Dihapus agar lebih responsif */
+            text-align: left;
+            padding-right: clamp(10px, 2vw, 20px); /* Dikurangi, responsif */
+            box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
         }
 
-        #mobile-menu .close-button {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 2rem;
-            color: #fff;
-            cursor: pointer;
-            transition: transform 0.3s ease-in-out;
+        .home-right {
+            flex: 1 1 clamp(280px, 45%, 400px); /* Lebih fleksibel, responsif */
+            /* min-width: Dihapus agar lebih responsif */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left: clamp(10px, 2vw, 20px); /* Dikurangi, responsif */
+            box-sizing: border-box;
+            position: relative; /* Untuk menempatkan canvas */
+            height: clamp(250px, 35vw, 350px); /* Tinggi canvas sedikit dikurangi, responsif */
         }
 
-        #mobile-menu .close-button:hover {
-            transform: rotate(90deg); /* Animasi putar pada tombol tutup */
-        }
-
-        .nav-link-mobile {
-            color: #fff;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
-            width: 100%; /* Pastikan link memenuhi lebar */
-            padding: 0.5rem 0;
-            transform: translateX(20px); /* Efek slide masuk untuk link */
-            opacity: 0;
-            animation: slideInLink 0.5s forwards;
-        }
-
-        #mobile-menu.open .nav-link-mobile:nth-child(1) { animation-delay: 0.1s; }
-        #mobile-menu.open .nav-link-mobile:nth-child(2) { animation-delay: 0.2s; }
-        #mobile-menu.open .nav-link-mobile:nth-child(3) { animation-delay: 0.3s; }
-        #mobile-menu.open .nav-link-mobile:nth-child(4) { animation-delay: 0.4s; }
-        #mobile-menu.open .nav-link-mobile:nth-child(5) { animation-delay: 0.5s; }
-        #mobile-menu.open .nav-link-mobile:nth-child(6) { animation-delay: 0.6s; }
-
-        @keyframes slideInLink {
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        #mobile-menu a:hover {
-            color: #00ffaa;
-            transform: translateX(5px); /* Efek sedikit geser saat hover */
-        }
-
-        #menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
+        #hero-canvas {
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Overlay gelap */
-            z-index: 990; /* Di bawah menu, di atas konten utama */
+            display: block;
+            opacity: 0; /* Awalnya tersembunyi */
+            animation: canvas-fade-in 1.5s ease-out forwards;
+            animation-delay: 1.0s; /* Muncul setelah navbar */
+        }
+
+        @keyframes canvas-fade-in {
+            from { opacity: 0; transform: scale(0.8); filter: blur(0px); } /* Blur dihilangkan */
+            to { opacity: 1; transform: scale(1); filter: blur(0px); }
+        }
+
+        /* Animasi untuk setiap elemen di home-left */
+        /* Initial state for all direct children of home-left */
+        .home-left > * {
             opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+            filter: blur(0px); /* Blur dihilangkan */
         }
 
-        #menu-overlay.visible {
-            opacity: 1;
-            visibility: visible;
+        /* Keyframes for various slide-in animations for home-left elements */
+        @keyframes slide-in-up-home {
+            from { opacity: 0; transform: translateY(30px); filter: blur(0px); } /* Blur dihilangkan, jarak dikurangi */
+            to { opacity: 1; transform: translateY(0); filter: blur(0px); }
         }
 
-        /* Hexagon shape for image */
-        .hexagon-clip {
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        @keyframes slide-in-left-home {
+            from { opacity: 0; transform: translateX(-50px); filter: blur(0px); } /* Blur dihilangkan, jarak dikurangi */
+            to { opacity: 1; transform: translateX(0); filter: blur(0px); }
         }
 
-        /* Animasi untuk gambar portofolio */
-        .image-container {
-            position: relative;
-            animation: float 4s ease-in-out infinite alternate;
+        @keyframes slide-in-right-home {
+            from { opacity: 0; transform: translateX(50px); filter: blur(0px); } /* Blur dihilangkan, jarak dikurangi */
+            to { opacity: 1; transform: translateX(0); filter: blur(0px); }
         }
 
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-            100% {
-                transform: translateY(0px);
-            }
+        /* Apply animations when home-screen is active */
+        #home-screen.active .home-left .tagline {
+            animation: slide-in-up-home 0.8s ease-out forwards; /* Faster animation */
+            animation-delay: 1.0s; /* Start with canvas */
         }
 
-        /* Animasi teks berganti */
-        .dynamic-text {
+        /* role-title container itself only needs to be visible, chars animate */
+        #home-screen.active .home-left .role-title {
+            animation: fade-in-home-container 0.1s forwards; /* Make container visible immediately */
+            animation-delay: 1.2s; /* Start after tagline */
+        }
+        @keyframes fade-in-home-container {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+
+        #home-screen.active .home-left .company-info {
+            animation: slide-in-left-home 0.8s ease-out forwards; /* Faster animation */
+            animation-delay: 1.8s; /* After role-title chars start */
+        }
+
+        #home-screen.active .home-left .description {
+            animation: slide-in-up-home 0.8s ease-out forwards; /* Faster animation */
+            animation-delay: 2.1s; /* After company-info */
+        }
+
+        #home-screen.active .home-left .tech-stack {
+            animation: slide-in-up-home 0.8s ease-out forwards; /* Faster animation */
+            animation-delay: 2.4s; /* After description */
+        }
+
+        #home-screen.active .home-left .action-buttons {
+            animation: slide-in-up-home 0.8s ease-out forwards; /* Faster animation */
+            animation-delay: 2.7s; /* After tech-stack */
+        }
+
+        #home-screen.active .home-left .social-icons {
+            animation: slide-in-right-home 0.8s ease-out forwards; /* Faster animation */
+            animation-delay: 3.0s; /* After action-buttons */
+        }
+
+
+        /* Override for tech-item (staggered within its container) */
+        .tech-item {
+            opacity: 0; /* Initial state */
+            transform: scale(0.8);
+            animation: fade-in-scale-new 0.8s ease-out forwards;
+        }
+        #home-screen.active .tech-item:nth-child(1) { animation-delay: calc(2.4s + 0.0s); } /* Adjusted delay */
+        #home-screen.active .tech-item:nth-child(2) { animation-delay: calc(2.4s + 0.1s); }
+        #home-screen.active .tech-item:nth-child(3) { animation-delay: calc(2.4s + 0.2s); }
+        #home-screen.active .tech-item:nth-child(4) { animation-delay: calc(2.4s + 0.3s); }
+
+        @keyframes fade-in-scale-new {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+
+        .role-title {
+            font-size: clamp(2.5em, 5vw, 3.5em); /* Responsif */
+            font-weight: 700;
+            margin-bottom: clamp(5px, 1vw, 10px); /* Dikurangi, responsif */
+            line-height: 1.2;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
+            white-space: normal; /* Allow text to wrap naturally */
+            word-break: break-word; /* Break long words */
+            text-align: left; /* Pastikan rata kiri */
+        }
+
+        .role-title .char {
             display: inline-block;
-            overflow: hidden; /* Sembunyikan teks yang tidak terlihat */
-            white-space: nowrap; /* Pastikan teks tetap dalam satu baris */
-            border-right: 3px solid #00ffaa; /* Efek kursor mengetik */
-            animation: typing 3s steps(20, end) forwards, blink-caret 0.75s step-end infinite;
-            animation-delay: 0.5s; /* Jeda sebelum mengetik dimulai */
-            font-size: inherit; /* Pastikan ukuran font mengikuti parent */
+            opacity: 0;
+            transform: translateY(20px);
+            animation: char-fade-in-up-new 0.05s ease-out forwards; /* Faster char animation */
+            /* Delay diatur oleh JS */
         }
 
-        /* Keyframes untuk efek mengetik */
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+        @keyframes char-fade-in-up-new {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Keyframes untuk efek kursor berkedip */
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #00ffaa; }
+        .role-title .highlight {
+            color: #8a2be2;
+            text-shadow: 0 0 15px #8a2be2;
+        }
+
+        .company-info {
+            font-size: clamp(1em, 1.5vw, 1.2em); /* Responsif */
+            color: #c0c0c0;
+            margin-bottom: clamp(10px, 2vw, 15px); /* Dikurangi, responsif */
+        }
+
+        .description {
+            font-size: clamp(0.9em, 1.2vw, 1em); /* Responsif */
+            color: #e0e0e0;
+            line-height: 1.6;
+            margin-bottom: clamp(15px, 3vw, 20px); /* Dikurangi, responsif */
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(5px, 1vw, 8px); /* Dikurangi, responsif */
+            margin-bottom: clamp(15px, 3vw, 20px); /* Dikurangi, responsif */
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: clamp(10px, 2vw, 15px); /* Dikurangi, responsif */
+            margin-bottom: clamp(15px, 3vw, 20px); /* Dikurangi, responsif */
+        }
+
+        .btn {
+            padding: clamp(8px, 1.5vw, 10px) clamp(15px, 3vw, 20px); /* Dikurangi, responsif */
+            border-radius: 30px;
+            font-size: clamp(0.9em, 1.2vw, 1.1em); /* Responsif */
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #8a2be2, #6a0dad);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #9933ff, #7b1fa2);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #8a2be2;
+            border: 2px solid #8a2be2;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(138, 43, 226, 0.1);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: clamp(10px, 2vw, 15px); /* Dikurangi, responsif */
+        }
+
+        .social-link {
+            color: #e0e0e0;
+            font-size: clamp(1.5em, 2.5vw, 1.8em); /* Responsif */
+            transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #8a2be2;
+            transform: translateY(-5px);
+            text-shadow: 0 0 15px #8a2be2;
+        }
+
+        /* Styling untuk About Screen */
+        #about-screen {
+            background: linear-gradient(135deg, #1a0033, #000000, #0d0026); /* Latar belakang yang sama */
+            /* padding-top: Sudah diatur di .screen */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Align ke atas */
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: clamp(20px, 4vw, 30px); /* Dikurangi, responsif */
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slide-in-up-about 1s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        .about-header h2 {
+            font-size: clamp(2.5em, 5vw, 3.5em); /* Responsif */
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
+            margin-bottom: clamp(0px, 1vw, 5px); /* Dikurangi, responsif */
+        }
+
+        .about-header p {
+            font-size: clamp(1em, 1.5vw, 1.2em); /* Responsif */
+            color: #c0c0c0;
+            font-style: italic;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            width: 95%; /* Diperbesar */
+            max-width: 1200px;
+            gap: clamp(20px, 4vw, 30px); /* Dikurangi, responsif */
+            margin-bottom: clamp(30px, 6vw, 40px); /* Dikurangi, responsif */
+        }
+
+        .about-left {
+            flex: 1 1 clamp(280px, 50%, 450px); /* Lebih fleksibel, responsif */
+            /* min-width: Dihapus agar lebih responsif */
+            text-align: left;
+            padding-right: clamp(10px, 2vw, 15px); /* Dikurangi, responsif */
+            box-sizing: border-box;
+        }
+
+        .about-left h3 {
+            font-size: clamp(2em, 4vw, 2.5em); /* Responsif */
+            font-weight: 700;
+            color: #8a2be2;
+            text-shadow: 0 0 15px #8a2be2;
+            margin-bottom: clamp(10px, 2vw, 15px); /* Dikurangi, responsif */
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slide-in-left-about 1s ease-out forwards;
+            animation-delay: 1.0s;
+        }
+
+        .about-left p {
+            font-size: clamp(1em, 1.2vw, 1.1em); /* Responsif */
+            line-height: 1.8;
+            color: #e0e0e0;
+            margin-bottom: clamp(15px, 3vw, 20px); /* Dikurangi, responsif */
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slide-in-up-about 1s ease-out forwards;
+            animation-delay: 1.3s;
+        }
+
+        .about-buttons {
+            display: flex;
+            gap: clamp(10px, 2vw, 15px); /* Dikurangi, responsif */
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slide-in-up-about 1s ease-out forwards;
+            animation-delay: 1.6s;
+        }
+
+        .about-right {
+            flex: 1 1 clamp(200px, 40%, 300px); /* Lebih fleksibel, responsif */
+            /* min-width: Dihapus agar lebih responsif */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-pic-container {
+            width: clamp(180px, 30vw, 300px); /* Responsif */
+            height: clamp(180px, 30vw, 300px); /* Responsif */
+            border-radius: 50%;
+            background: linear-gradient(45deg, #8a2be2, #6a0dad); /* Gradien ungu */
+            padding: clamp(5px, 1vw, 8px); /* Border efek dikurangi, responsif */
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: fade-in-scale-about 1s ease-out forwards;
+            animation-delay: 1.0s;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center; /* Pastikan gambar terpusat */
+            display: block;
+        }
+
+        .about-stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: clamp(15px, 3vw, 20px); /* Dikurangi, responsif */
+            width: 95%; /* Diperbesar */
+            max-width: 1200px;
+            margin-top: clamp(20px, 4vw, 30px); /* Dikurangi, responsif */
+            margin-bottom: clamp(30px, 6vw, 40px); /* Jarak dari tombol next, responsif */
+        }
+
+        .stat-item {
+            flex: 1 1 clamp(180px, 30%, 250px); /* Lebih fleksibel, responsif */
+            /* min-width: Dihapus agar lebih responsif */
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            border-radius: 15px;
+            padding: clamp(15px, 3vw, 20px); /* Dikurangi, responsif */
+            text-align: left;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slide-in-up-about 1s ease-out forwards;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.7);
+        }
+
+        .stat-item i {
+            font-size: clamp(2em, 3.5vw, 2.5em); /* Responsif */
+            color: #8a2be2;
+            margin-bottom: clamp(5px, 1vw, 10px); /* Dikurangi, responsif */
+            text-shadow: 0 0 10px #8a2be2;
+        }
+
+        .stat-item h4 {
+            font-size: clamp(1.5em, 2.2vw, 1.8em); /* Responsif */
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .stat-item p {
+            font-size: clamp(0.9em, 1.1vw, 1em); /* Responsif */
+            color: #c0c0c0;
+        }
+
+        /* Animasi untuk About Screen elements */
+        @keyframes slide-in-up-about {
+            from { opacity: 0; transform: translateY(30px); } /* Jarak dikurangi */
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slide-in-left-about {
+            from { opacity: 0; transform: translateX(-30px); } /* Jarak dikurangi */
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fade-in-scale-about {
+            from { opacity: 0; transform: scale(0.7); } /* Scale dikurangi */
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Staggering for stat items */
+        .stat-item:nth-child(1) { animation-delay: 2.0s; }
+        .stat-item:nth-child(2) { animation-delay: 2.2s; }
+        .stat-item:nth-child(3) { animation-delay: 2.4s; }
+
+        /* Next Button Styling */
+        .next-screen-btn {
+            position: absolute;
+            bottom: clamp(15px, 3vw, 20px); /* Dikurangi, responsif */
+            right: clamp(15px, 3vw, 20px); /* Dikurangi, responsif */
+            padding: clamp(10px, 2vw, 12px) clamp(20px, 4vw, 25px); /* Dikurangi, responsif */
+            background: linear-gradient(45deg, #8a2be2, #6a0dad);
+            color: #ffffff;
+            border: none;
+            border-radius: 30px;
+            font-size: clamp(1em, 1.5vw, 1.2em); /* Responsif */
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            z-index: 10; /* Ensure it's above other content */
+        }
+
+        .next-screen-btn:hover {
+            background: linear-gradient(45deg, #9933ff, #7b1fa2);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.6);
+            transform: translateY(-5px);
+        }
+
+
+        /* Responsif untuk layar kecil */
+        @media (max-width: 992px) {
+            .home-content, .about-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: clamp(10px, 2vw, 15px); /* Padding responsif */
+                gap: clamp(10px, 2vw, 15px); /* Gap responsif */
+            }
+
+            .home-left, .about-left {
+                padding-right: 0;
+                margin-bottom: clamp(20px, 4vw, 40px); /* Margin responsif */
+                min-width: unset; /* Reset min-width */
+                width: 100%; /* Lebar penuh di mobile */
+                text-align: center; /* Pusatkan teks di mobile */
+                flex-basis: auto; /* Memastikan flex item menyesuaikan */
+            }
+
+            .home-right, .about-right {
+                padding-left: 0;
+                min-width: unset; /* Reset min-width */
+                width: 100%; /* Lebar penuh di mobile */
+                height: clamp(200px, 30vw, 280px); /* Kurangi tinggi canvas di mobile, responsif */
+                flex-basis: auto; /* Memastikan flex item menyesuaikan */
+            }
+
+            .navbar {
+                padding: clamp(8px, 2vw, 15px) clamp(15px, 3vw, 30px); /* Padding responsif */
+                flex-direction: column;
+                gap: clamp(8px, 2vw, 10px); /* Gap responsif */
+            }
+
+            .navbar-brand {
+                font-size: clamp(1.3em, 2vw, 1.5em); /* Responsif */
+            }
+
+            .navbar-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: clamp(8px, 2vw, 10px); /* Gap responsif */
+            }
+
+            .nav-link {
+                font-size: clamp(0.8em, 1vw, 0.9em); /* Responsif */
+            }
+
+            .role-title, .about-header h2 {
+                font-size: clamp(2em, 4vw, 2.5em); /* Responsif */
+            }
+
+            #welcome-screen {
+                padding: clamp(10px, 2vw, 15px); /* Padding responsif */
+            }
+
+            .profile-pic-container {
+                width: clamp(150px, 25vw, 200px); /* Responsif */
+                height: clamp(150px, 25vw, 200px); /* Responsif */
+            }
+
+            .about-stats {
+                flex-direction: column;
+                gap: clamp(10px, 2vw, 15px); /* Gap responsif */
+                margin-top: clamp(15px, 3vw, 20px); /* Margin responsif */
+            }
+
+            .stat-item {
+                min-width: unset;
+                width: 90%;
+                padding: clamp(10px, 2vw, 15px); /* Padding responsif */
+                flex-basis: auto; /* Memastikan flex item menyesuaikan */
+            }
+
+            .next-screen-btn {
+                bottom: clamp(10px, 2vw, 15px); /* Responsif */
+                right: clamp(10px, 2vw, 15px); /* Responsif */
+                padding: clamp(8px, 1.5vw, 10px) clamp(15px, 3vw, 20px); /* Responsif */
+                font-size: clamp(0.8em, 1vw, 0.9em); /* Responsif */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .welcome-title {
+                font-size: clamp(1.8em, 3.5vw, 2.2em); /* Responsif */
+            }
+
+            .website-link {
+                font-size: clamp(0.9em, 1.2vw, 1em); /* Responsif */
+            }
+
+            .spinner {
+                width: clamp(60px, 10vw, 80px); /* Responsif */
+                height: clamp(60px, 10vw, 80px); /* Responsif */
+                border-width: clamp(6px, 1vw, 8px); /* Responsif */
+            }
+
+            .loading-text { /* Menyesuaikan ukuran teks loading di layar kecil */
+                font-size: clamp(1.2em, 2vw, 1.5em); /* Responsif */
+            }
+
+            .navbar {
+                padding: clamp(5px, 1.5vw, 8px) clamp(10px, 2vw, 15px); /* Responsif */
+            }
+
+            .navbar-brand {
+                font-size: clamp(1.1em, 1.8vw, 1.3em); /* Responsif */
+            }
+
+            .navbar-nav {
+                gap: clamp(5px, 1.5vw, 10px); /* Responsif */
+            }
+
+            .nav-link {
+                font-size: clamp(0.7em, 0.9vw, 0.8em); /* Responsif */
+            }
+
+            .role-title, .about-header h2 {
+                font-size: clamp(1.8em, 3vw, 2em); /* Responsif */
+            }
+
+            .company-info, .tagline, .about-header p {
+                font-size: clamp(0.8em, 1vw, 0.9em); /* Responsif */
+            }
+
+            .description, .about-left p {
+                font-size: clamp(0.7em, 0.9vw, 0.8em); /* Responsif */
+            }
+
+            .btn {
+                padding: clamp(6px, 1vw, 8px) clamp(10px, 2vw, 15px); /* Responsif */
+                font-size: clamp(0.8em, 1vw, 0.9em); /* Responsif */
+            }
+
+            .social-link {
+                font-size: clamp(1.1em, 1.8vw, 1.3em); /* Responsif */
+            }
+
+            .about-left h3 {
+                font-size: clamp(1.5em, 2.5vw, 1.8em); /* Responsif */
+            }
+
+            .stat-item i {
+                font-size: clamp(1.5em, 2.5vw, 1.8em); /* Responsif */
+            }
+
+            .stat-item h4 {
+                font-size: clamp(1.1em, 1.8vw, 1.3em); /* Responsif */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-title {
+                font-size: clamp(1.5em, 3vw, 1.8em); /* Responsif */
+            }
+
+            .website-link {
+                font-size: clamp(0.8em, 1.2vw, 0.9em); /* Responsif */
+            }
+
+            .spinner {
+                width: clamp(40px, 8vw, 60px); /* Responsif */
+                height: clamp(40px, 8vw, 60px); /* Responsif */
+                border-width: clamp(4px, 0.8vw, 6px); /* Responsif */
+            }
+
+            .loading-text {
+                font-size: clamp(1em, 1.5vw, 1.2em); /* Responsif */
+            }
+
+            .icon-container {
+                gap: clamp(10px, 2vw, 15px); /* Responsif */
+                margin-bottom: clamp(15px, 3vw, 20px); /* Responsif */
+            }
+
+            .icon-item {
+                width: clamp(50px, 10vw, 60px); /* Responsif */
+                height: clamp(50px, 10vw, 60px); /* Responsif */
+                font-size: clamp(1.8em, 3vw, 2em); /* Responsif */
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Layar Loading -->
-    <div id="loading-screen">
-        <div id="loading-text">
-            <span>L</span><span>o</span><span>a</span><span>d</span><span style="color: #00ffaa;">i</span><span>n</span><span>g</span>
-        </div>
+    <div id="loading-screen" class="loading-screen">
+        <div class="spinner"></div>
+        <p class="loading-text">Loading</p>
     </div>
 
-    <!-- Lingkaran kursor -->
-    <div class="cursor-circle"></div>
-
-    <!-- Konten Utama Portofolio (akan dimuat setelah loading) -->
-    <div id="main-content">
-        <!-- Navbar -->
-        <nav class="navbar p-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <!-- Logo "H" -->
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 6H8V18H4V6ZM12 6H16V18H12V6ZM20 6H20V18H20V6Z" fill="#00ffaa"/>
-                    <path d="M4 6L12 12L20 6" stroke="#00ffaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M4 18L12 12L20 18" stroke="#00ffaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span class="text-2xl font-bold text-white">Gih-Hadi</span>
+    <div id="screens-container">
+        <div id="welcome-screen" class="screen hidden">
+            <div class="icon-container">
+                <div class="icon-item icon-1"><i class="fas fa-code"></i></div>
+                <div class="icon-item icon-2"><i class="fas fa-user-astronaut"></i></div>
+                <div class="icon-item icon-3"><i class="fas fa-cogs"></i></div>
             </div>
-            <!-- Daftar Menu Navigasi untuk Desktop -->
-            <div class="hidden md:flex flex-1 justify-center space-x-8">
-                <a href="#" class="nav-link">HOME</a>
-                <a href="#" class="nav-link">ABOUT</a>
-                <a href="#" class="nav-link">SERVICES</a>
-                <a href="#" class="nav-link">PROJECTS</a>
-                <a href="#" class="nav-link">BLOG</a>
-                <a href="#" class="nav-link">CONTACT</a>
-            </div>
-            <!-- Hamburger Icon untuk desktop dan mobile -->
-            <button id="hamburger-button" class="hamburger-button">
-                <svg class="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
-            </button>
-        </nav>
-
-        <!-- Mobile Menu (Side Panel) -->
-        <div id="mobile-menu">
-            <div class="flex items-center justify-between w-full mb-8">
-                <div class="flex items-center space-x-2">
-                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 6H8V18H4V6ZM12 6H16V18H12V6ZM20 6H20V18H20V6Z" fill="#00ffaa"/>
-                        <path d="M4 6L12 12L20 6" stroke="#00ffaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M4 18L12 12L20 18" stroke="#00ffaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span class="text-2xl font-bold text-white">Gih-Hadi</span>
-                </div>
-                <button class="close-button" id="close-mobile-menu">&times;</button>
-            </div>
-
-            <a href="#" class="nav-link-mobile">HOME</a>
-            <a href="#" class="nav-link-mobile">ABOUT</a>
-            <a href="#" class="nav-link-mobile">SERVICES</a>
-            <a href="#" class="nav-link-mobile">PROJECTS</a>
-            <a href="#" class="nav-link-mobile">BLOG</a>
-            <a href="#" class="nav-link-mobile">CONTACT</a>
-
-            <div class="mt-8 w-full">
-                <h3 class="text-xl font-bold text-white mb-4">ABOUT US</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                    Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et magna aliqua. Ut enim ad minim veniam laboris.
-                </p>
-            </div>
-
-            <div class="mt-4 w-full">
-                <h3 class="text-xl font-bold text-white mb-4">GET IN TOUCH</h3>
-                <input type="text" placeholder="Your Name" class="w-full p-3 mb-4 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-[#00ffaa]">
-                <input type="email" placeholder="Your Email" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-[#00ffaa]">
-            </div>
+            <h1 class="welcome-title">Welcome To<br><span class="highlight">My Portofolio Web Developer</span></h1>
+            <p class="website-link">© www.gigihhadi.my.id</p>
         </div>
 
-        <!-- Overlay untuk Mobile Menu -->
-        <div id="menu-overlay"></div>
+        <div id="home-screen" class="screen hidden">
+            <nav class="navbar">
+                <div class="navbar-brand">Ekizr</div>
+                <ul class="navbar-nav">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
 
-        <!-- Hero Section -->
-        <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row items-center justify-between min-h-[calc(100vh-80px)]">
-            <!-- Teks Penjelasan di Kiri -->
-            <div class="md:w-1/2 text-left md:pr-8 mb-8 md:mb-0">
-                <h1 class="text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">HI, I'M GIH-HADI!</h1>
-                <h2 class="text-4xl lg:text-5xl font-bold text-[#00ffaa] mb-8 leading-tight">
-                    <span id="dynamic-text" class="dynamic-text"></span>
-                </h2>
-                <p class="text-base lg:text-lg max-w-xl leading-relaxed">
-                    Saya seorang desainer UI/UX yang bersemangat dengan misi untuk menciptakan pengalaman digital yang menyenangkan dan intuitif. Dengan dasar yang kuat dalam prinsip-prinsip desain dan mata yang tajam untuk detail, saya berspesialisasi dalam menerjemahkan ide-ide kompleks menjadi antarmuka yang ramah pengguna yang memikat dan menarik.
-                </p>
-                <div class="flex flex-col sm:flex-row items-start sm:items-center mt-8 space-y-4 sm:space-y-0 sm:space-x-4">
-                    <button class="bg-[#00ffaa] text-gray-900 font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-[#00cc88] transition duration-300 flex items-center w-full sm:w-auto justify-center">
-                        Download CV
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    <button class="text-[#00ffaa] font-semibold py-3 px-6 rounded-lg border border-[#00ffaa] hover:bg-[#00ffaa] hover:text-gray-900 transition duration-300 flex items-center w-full sm:w-auto justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
-                        </svg>
-                        Watch The Video
-                    </button>
+            <div class="home-content">
+                <div class="home-left">
+                    <p class="tagline">Ready to innovate</p>
+                    <h2 class="role-title">Frontend<br><span class="highlight">Developer</span></h2>
+                    <p class="company-info">Network & Telecom S|</p>
+                    <p class="description">Menciptakan Website Yang Inovatif, Fungsional, dan User-Friendly untuk Solusi Digital.</p>
+                    <div class="tech-stack">
+                        <span class="tech-item">React</span>
+                        <span class="tech-item">Javascript</span>
+                        <span class="tech-item">Node.js</span>
+                        <span class="tech-item">Tailwind</span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="showScreen('portfolio-screen')">Projects</button>
+                        <button class="btn btn-secondary" onclick="showScreen('contact-screen')">Contact</button>
+                    </div>
+                    <div class="social-icons">
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="home-right">
+                    <canvas id="hero-canvas"></canvas>
                 </div>
             </div>
+            <button class="next-screen-btn" onclick="goToNextScreen()">Next <i class="fas fa-arrow-right"></i></button>
+        </div>
 
-            <!-- Gambar di Kanan dengan Bentuk Hexagon dan Animasi -->
-            <div class="md:w-1/2 flex justify-center md:justify-end mt-12 md:mt-0">
-                <div class="relative w-80 h-80 md:w-96 md:h-96 image-container">
-                    <!-- Outer Hexagon Border -->
-                    <div class="absolute inset-0 bg-transparent border-4 border-[#00ffaa] hexagon-clip z-0"></div>
-                    <!-- Inner Image -->
-                    <div class="absolute inset-2 bg-gray-700 hexagon-clip flex items-center justify-center overflow-hidden z-10">
-                        <img src="Gambar/poto profil (2).jpg" onerror="this.onerror=null;this.src='https://placehold.co/384x384/0d0d0d/00ffaa?text=Your+Image';" alt="Portofolio Gih-Hadi" class="w-full h-full object-cover">
+        <div id="about-screen" class="screen hidden">
+            <div class="about-header">
+                <h2>About Me</h2>
+                <p>✨ Transforming ideas into digital experiences ✨</p>
+            </div>
+            <div class="about-content">
+                <div class="about-left">
+                    <h3>Hello, I'm<br>Gigih Hadi Nugroho Said</h3>
+                    <p>
+                        Sebagai seorang mahasiswa PAI yang memiliki ketertarikan mendalam pada pengembangan Front-End, saya berfokus pada penciptaan website yang tidak hanya inovatif dan fungsional, tetapi juga memberikan pengalaman pengguna yang intuitif dan menyenangkan. Saya percaya bahwa perpaduan antara kreativitas dan teknologi dapat menghasilkan solusi digital yang luar biasa.
+                    </p>
+                    <div class="about-buttons">
+                        <button class="btn btn-primary">Download CV</button>
+                        <button class="btn btn-secondary" onclick="showScreen('portfolio-screen')">View Projects</button>
+                    </div>
+                </div>
+                <div class="about-right">
+                    <div class="profile-pic-container">
+                        <!-- Updated image source to use the uploaded image -->
+                        <img src="http://googleusercontent.com/file_content/0" alt="Profile Picture" class="profile-pic">
                     </div>
                 </div>
             </div>
+            <div class="about-stats">
+                <div class="stat-item">
+                    <i class="fas fa-code"></i>
+                    <h4>TOTAL PROJECTS</h4>
+                    <p>Innovative web solutions crafted</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-certificate"></i>
+                    <h4>CERTIFICATES</h4>
+                    <p>Professional skills validated</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-globe"></i>
+                    <h4>YEARS OF EXPERIENCE</h4>
+                    <p>Continuous learning journey</p>
+                </div>
+            </div>
+            <button class="next-screen-btn" onclick="goToNextScreen()">Next <i class="fas fa-arrow-right"></i></button>
         </div>
+
+        <div id="portfolio-screen" class="screen hidden">
+            <h2>Portfolio</h2>
+            <p>This is the Portfolio section. Content will be added here.</p>
+            <button class="next-screen-btn" onclick="goToNextScreen()">Next <i class="fas fa-arrow-right"></i></button>
+        </div>
+
+        <div id="contact-screen" class="screen hidden">
+            <h2>Contact</h2>
+            <p>This is the Contact section. Content will be added here.</p>
+            <button class="next-screen-btn" onclick="goToNextScreen()">Next <i class="fas fa-arrow-right"></i></button>
+        </div>
+
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const loadingScreen = document.getElementById('loading-screen');
-            const mainContent = document.getElementById('main-content');
-            const loadingText = document.getElementById('loading-text');
-            const spans = loadingText.querySelectorAll('span');
-            const cursorCircle = document.querySelector('.cursor-circle');
-            const hamburgerButton = document.getElementById('hamburger-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const closeMobileMenuButton = document.getElementById('close-mobile-menu');
-            const dynamicTextElement = document.getElementById('dynamic-text');
-            const menuOverlay = document.getElementById('menu-overlay');
+        // Mendapatkan elemen loading screen dan semua layar
+        const loadingScreen = document.getElementById('loading-screen');
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const homeScreen = document.getElementById('home-screen');
+        const aboutScreen = document.getElementById('about-screen');
+        const portfolioScreen = document.getElementById('portfolio-screen');
+        const contactScreen = document.getElementById('contact-screen');
+        const body = document.body;
 
-            // Animasi teks loading
-            let charIndex = 0;
-            const animateLoadingText = () => {
-                if (charIndex < spans.length) {
-                    spans[charIndex].style.color = '#00ffaa'; // Mengubah warna huruf
-                    charIndex++;
-                    setTimeout(animateLoadingText, 150); // Kecepatan animasi per huruf
-                } else {
-                    // Setelah semua huruf diwarnai, sembunyikan layar loading
-                    setTimeout(() => {
-                        loadingScreen.style.opacity = '0';
-                        loadingScreen.style.visibility = 'hidden';
-                        mainContent.style.display = 'block'; // Tampilkan konten utama
-                        document.body.style.overflowX = 'hidden'; // Pastikan scroll horizontal tetap tersembunyi
-                        document.body.style.overflowY = 'auto'; // Aktifkan scroll vertikal
-                        document.body.style.cursor = 'auto'; // Kembalikan kursor default setelah loading selesai
-                    }, 1000); // Durasi tunggu lebih lama sebelum menyembunyikan
+        // Mendapatkan elemen judul dari Welcome Screen
+        const welcomeTitle = document.querySelector('#welcome-screen .welcome-title');
+
+        // Mendapatkan elemen teks yang akan dianimasikan di Home Screen
+        const roleTitle = document.querySelector('#home-screen .role-title');
+        const homeTagline = document.querySelector('#home-screen .tagline');
+        const homeCompanyInfo = document.querySelector('#home-screen .company-info');
+        const homeDescription = document.querySelector('#home-screen .description');
+        const homeTechItems = document.querySelectorAll('#home-screen .tech-item');
+        const homeActionButtons = document.querySelectorAll('#home-screen .action-buttons .btn');
+        const homeSocialLinks = document.querySelectorAll('#home-screen .social-icons .social-link');
+        const homeHeroCanvas = document.getElementById('hero-canvas');
+        const navbar = document.querySelector('.navbar');
+
+        // Elemen-elemen About Screen untuk animasi
+        const aboutHeader = document.querySelector('#about-screen .about-header');
+        const aboutLeftH3 = document.querySelector('#about-screen .about-left h3');
+        const aboutLeftP = document.querySelector('#about-screen .about-left p');
+        const aboutButtons = document.querySelector('#about-screen .about-buttons');
+        const profilePicContainer = document.querySelector('#about-screen .profile-pic-container');
+        const statItems = document.querySelectorAll('#about-screen .stat-item');
+
+
+        // Durasi loading screen dalam milidetik (misalnya 3 detik)
+        const loadingDuration = 3000;
+        // Durasi animasi keluar layar (harus sesuai dengan transisi CSS .screen.fade-out-up)
+        const screenTransitionDuration = 800; // 0.8s, for slide transitions
+
+        // --- Three.js for 3D Scene ---
+        let scene, camera, renderer, objects = [];
+        let mouseX = 0, mouseY = 0;
+        let targetX = 0, targetY = 0;
+        let windowHalfX = window.innerWidth / 2; // Make these dynamic
+        let windowHalfY = window.innerHeight / 2; // Make these dynamic
+        let animationFrameId; // To store the requestAnimationFrame ID
+
+        const materialSettings = {
+            color: 0x8a2be2, // Ungu
+            emissive: 0x4b0082, // Emissive ungu gelap untuk glow
+            specular: 0xffffff,
+            shininess: 100,
+            flatShading: false,
+            transparent: true,
+            opacity: 0.9 // Sedikit transparan
+        };
+
+        function init3DScene() {
+            // Only initialize if not already initialized
+            if (scene && camera && renderer) {
+                // If scene exists, just ensure it's rendering
+                if (!animationFrameId) {
+                    animate();
                 }
-            };
+                return;
+            }
 
-            // Memulai animasi loading setelah DOM dimuat
-            animateLoadingText();
+            // Scene
+            scene = new THREE.Scene();
+            scene.background = null; // Transparent background
 
-            // Efek kursor lingkaran
-            document.addEventListener('mousemove', (e) => {
-                cursorCircle.style.left = `${e.clientX}px`;
-                cursorCircle.style.top = `${e.clientY}px`;
-            });
+            // Camera
+            // Use clientWidth/clientHeight of the canvas for aspect ratio
+            camera = new THREE.PerspectiveCamera(75, homeHeroCanvas.clientWidth / homeHeroCanvas.clientHeight, 0.1, 1000);
+            camera.position.z = 5;
 
-            // Efek hover pada tombol dan link untuk kursor
-            document.querySelectorAll('button, a').forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursorCircle.style.width = '40px';
-                    cursorCircle.style.height = '40px';
-                    cursorCircle.style.backgroundColor = 'rgba(0, 255, 170, 0.8)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursorCircle.style.width = '20px';
-                    cursorCircle.style.height = '20px';
-                    cursorCircle.style.backgroundColor = 'rgba(0, 255, 170, 0.5)';
-                });
-            });
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ canvas: homeHeroCanvas, alpha: true, antialias: true });
+            renderer.setSize(homeHeroCanvas.clientWidth, homeHeroCanvas.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
 
-            // Fungsionalitas Hamburger Menu
-            hamburgerButton.addEventListener('click', () => {
-                mobileMenu.classList.add('open');
-                menuOverlay.classList.add('visible');
-                // Tambahkan animasi untuk link menu saat dibuka
-                document.querySelectorAll('#mobile-menu .nav-link-mobile').forEach((link, index) => {
-                    link.style.animationDelay = `${0.1 + index * 0.1}s`;
-                    link.style.animationName = 'slideInLink';
-                });
-            });
+            // Lights
+            const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
+            scene.add(ambientLight);
 
-            closeMobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
-                menuOverlay.classList.remove('visible');
-            });
+            const pointLight1 = new THREE.PointLight(0x8a2be2, 1.5, 100); // Ungu terang
+            pointLight1.position.set(5, 5, 5);
+            scene.add(pointLight1);
 
-            menuOverlay.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
-                menuOverlay.classList.remove('visible');
-            });
+            const pointLight2 = new THREE.PointLight(0x6a0dad, 1.2, 100); // Ungu gelap
+            pointLight2.position.set(-5, -5, -5);
+            scene.add(pointLight2);
 
-            // Animasi teks dinamis untuk "Creative Player"
-            const texts = ["WEB DEVELOPER", "DESIGNER", "CREATIVE PLAYER","CODER","PENUNTUT ILMU"];
-            let textIndex = 0;
-            let charCount = 0;
-            let isDeleting = false;
+            const spotLight = new THREE.SpotLight(0x00ffff, 0.7, 50, Math.PI / 4, 0.5, 2); // Cyan spotlight
+            spotLight.position.set(0, 10, 0);
+            scene.add(spotLight);
 
-            const typeText = () => {
-                const currentText = texts[textIndex];
-                if (isDeleting) {
-                    dynamicTextElement.textContent = currentText.substring(0, charCount - 1);
-                    charCount--;
-                } else {
-                    dynamicTextElement.textContent = currentText.substring(0, charCount + 1);
-                    charCount++;
+            // Create Abstract IT-like Objects
+            const baseMaterial = new THREE.MeshPhongMaterial(materialSettings);
+
+            // Large central object (e.g., complex torus knot)
+            const torusKnot = new THREE.Mesh(new THREE.TorusKnotGeometry(1.5, 0.5, 100, 16), baseMaterial);
+            torusKnot.position.set(0, 0, 0);
+            objects.push({ mesh: torusKnot, rotationSpeed: { x: 0.005, y: 0.008, z: 0.003 } });
+            scene.add(torusKnot);
+
+            // Smaller orbiting cubes/octahedrons
+            const cube1 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.8), baseMaterial);
+            cube1.position.set(2.5, 1.0, -1.0);
+            objects.push({ mesh: cube1, rotationSpeed: { x: 0.01, y: 0.01, z: 0.01 }, orbitSpeed: 0.015, orbitRadius: 3 });
+            scene.add(cube1);
+
+            const octahedron = new THREE.Mesh(new THREE.OctahedronGeometry(0.7), baseMaterial);
+            octahedron.position.set(-2.0, -1.5, 1.0);
+            objects.push({ mesh: octahedron, rotationSpeed: { x: 0.008, y: 0.005, z: 0.01 }, orbitSpeed: 0.01, orbitRadius: 2.5 });
+            scene.add(octahedron);
+
+            // Add a "grid" of small spheres or dots to represent data flow/network
+            const dotGeometry = new THREE.SphereGeometry(0.05, 8, 8);
+            const dotMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.7 });
+            for (let i = 0; i < 50; i++) {
+                const dot = new THREE.Mesh(dotGeometry, dotMaterial);
+                dot.position.set(
+                    (Math.random() - 0.5) * 10,
+                    (Math.random() - 0.5) * 10,
+                    (Math.random() - 0.5) * 10
+                );
+                objects.push({ mesh: dot, pulseSpeed: Math.random() * 0.05 + 0.01 }); // For pulsating effect
+                scene.add(dot);
+            }
+
+            // Start animation loop
+            animate();
+
+            // Handle window resize
+            window.addEventListener('resize', onWindowResize, false);
+            // Mouse interaction for camera
+            document.addEventListener('mousemove', onDocumentMouseMove, false);
+        }
+
+        function animate() {
+            animationFrameId = requestAnimationFrame(animate);
+
+            // Camera subtle movement based on mouse
+            camera.position.x += (targetX - camera.position.x) * 0.05;
+            camera.position.y += (targetY - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            objects.forEach(obj => {
+                // Rotate objects
+                if (obj.rotationSpeed) {
+                    obj.mesh.rotation.x += obj.rotationSpeed.x;
+                    obj.mesh.rotation.y += obj.rotationSpeed.y;
+                    obj.mesh.rotation.z += obj.rotationSpeed.z;
                 }
 
-                let typingSpeed = 100; // Kecepatan mengetik
-                if (isDeleting) {
-                    typingSpeed = 50; // Lebih cepat saat menghapus
+                // Orbiting objects
+                if (obj.orbitSpeed && obj.orbitRadius) {
+                    const time = Date.now() * 0.001;
+                    obj.mesh.position.x = Math.cos(time * obj.orbitSpeed) * obj.orbitRadius;
+                    obj.mesh.position.y = Math.sin(time * obj.orbitSpeed) * obj.orbitRadius * 0.5; // Elliptical orbit
+                    obj.mesh.position.z = Math.sin(time * obj.orbitSpeed) * obj.orbitRadius;
                 }
 
-                if (!isDeleting && charCount === currentText.length) {
-                    typingSpeed = 1500; // Jeda sebelum mulai menghapus
-                    isDeleting = true;
-                } else if (isDeleting && charCount === 0) {
-                    isDeleting = false;
-                    textIndex = (textIndex + 1) % texts.length;
-                    typingSpeed = 500; // Jeda sebelum mulai mengetik teks berikutnya
+                // Pulsating dots
+                if (obj.pulseSpeed) {
+                    obj.mesh.scale.setScalar(1 + Math.sin(Date.now() * 0.001 * obj.pulseSpeed) * 0.5);
                 }
+            });
 
-                setTimeout(typeText, typingSpeed);
-            };
+            renderer.render(scene, camera);
+        }
 
-            // Mulai animasi teks dinamis setelah konten utama ditampilkan
-            const observer = new MutationObserver((mutationsList, observer) => {
-                for (const mutation of mutationsList) {
-                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                        if (mainContent.style.display === 'block') {
-                            setTimeout(typeText, 500); // Beri sedikit jeda sebelum animasi teks dimulai
-                            observer.disconnect(); // Hentikan observer setelah dipanggil
+        function stop3DAnimation() {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = undefined;
+            }
+        }
+
+        function onWindowResize() {
+            // Update windowHalfX and windowHalfY on resize
+            windowHalfX = window.innerWidth / 2;
+            windowHalfY = window.innerHeight / 2;
+
+            // Ensure canvas dimensions are not zero before updating camera aspect and renderer size
+            if (homeHeroCanvas && homeHeroCanvas.clientWidth > 0 && homeHeroCanvas.clientHeight > 0) {
+                camera.aspect = homeHeroCanvas.clientWidth / homeHeroCanvas.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(homeHeroCanvas.clientWidth, homeHeroCanvas.clientHeight);
+            }
+        }
+
+        function onDocumentMouseMove(event) {
+            mouseX = (event.clientX - windowHalfX) / 100; // Adjust sensitivity
+            mouseY = (event.clientY - windowHalfY) / 100; // Adjust sensitivity
+            targetX = mouseX;
+            targetY = -mouseY; // Invert Y for more natural feel
+        }
+        // --- End Three.js ---
+
+        // Fungsi untuk memecah teks menjadi karakter-karakter dan membungkusnya dalam span
+        function animateTextCharacters(element, delayOffset = 0, charDelay = 0.04) {
+            if (!element) return;
+
+            const originalContentNodes = Array.from(element.childNodes);
+            element.innerHTML = '';
+
+            let currentDelay = delayOffset;
+
+            originalContentNodes.forEach(node => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    node.textContent.split('').forEach((char) => {
+                        const span = document.createElement('span');
+                        span.textContent = char;
+                        span.classList.add('char');
+                        if (char === ' ') {
+                            span.classList.add('space');
                         }
+                        span.style.animationDelay = `${currentDelay}s`;
+                        element.appendChild(span);
+                        currentDelay += charDelay;
+                    });
+                } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'SPAN') {
+                    const wrapperSpan = document.createElement('span');
+                    Array.from(node.classList).forEach(cls => wrapperSpan.classList.add(cls));
+
+                    // Check if the span contains only text or further nested elements
+                    if (node.childNodes.length === 1 && node.childNodes[0].nodeType === Node.TEXT_NODE) {
+                         node.textContent.split('').forEach((char) => {
+                            const charSpan = document.createElement('span');
+                            charSpan.textContent = char;
+                            charSpan.classList.add('char');
+                            if (char === ' ') {
+                                charSpan.classList.add('space');
+                            }
+                            charSpan.style.animationDelay = `${currentDelay}s`;
+                            wrapperSpan.appendChild(charSpan);
+                            currentDelay += charDelay;
+                        });
+                    } else {
+                        // If it contains other elements, clone and process them
+                        wrapperSpan.innerHTML = node.innerHTML;
+                        Array.from(wrapperSpan.querySelectorAll('.char')).forEach(charSpan => {
+                            charSpan.style.animationDelay = `${currentDelay}s`;
+                            currentDelay += charDelay;
+                        });
                     }
+                    element.appendChild(wrapperSpan);
+                } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'BR') {
+                    element.appendChild(document.createElement('br'));
                 }
             });
+        }
 
-            observer.observe(mainContent, { attributes: true });
+        // Fungsi untuk transisi dari loading screen ke welcome screen
+        function transitionToWelcomeScreen() {
+            loadingScreen.classList.add('hidden');
+
+            setTimeout(() => {
+                loadingScreen.style.display = 'none'; // Completely remove from flow
+                welcomeScreen.classList.remove('hidden');
+                welcomeScreen.classList.add('active');
+                body.classList.add('content-active'); // For star parallax effect
+                // body.style.overflow = 'hidden'; // Dikelola saat transisi layar
+
+                animateTextCharacters(welcomeTitle, 0.5);
+            }, 1500); // Allow some time for opacity transition before display: none
+        }
+
+        // Fungsi untuk transisi dari welcome screen ke home screen
+        function transitionToHomeScreen() {
+            welcomeScreen.classList.add('slide-out-up'); // Welcome screen slides out up
+            body.style.overflow = 'hidden'; // Pastikan body hidden selama transisi
+
+            setTimeout(() => {
+                welcomeScreen.classList.remove('active', 'slide-out-up');
+                welcomeScreen.classList.add('hidden');
+
+                homeScreen.classList.remove('hidden');
+                homeScreen.classList.add('active');
+
+                // Prepare home screen for slide-in from bottom
+                homeScreen.style.transform = 'translateY(100vh)'; // Start off-screen below
+                homeScreen.style.opacity = '0';
+                void homeScreen.offsetWidth; // Force reflow
+
+                homeScreen.style.transition = `transform ${screenTransitionDuration / 1000}s ease-in-out, opacity ${screenTransitionDuration / 1000}s ease-in-out`;
+                homeScreen.style.transform = 'translateY(0)'; // Slide to on-screen
+                homeScreen.style.opacity = '1';
+
+                // Inisialisasi dan mulai animasi 3D scene
+                init3DScene();
+
+                // Memicu animasi masuk untuk elemen-elemen Home Screen
+                triggerScreenContentAnimations('home-screen');
+
+                // Update current screen index
+                currentScreenIndex = screenOrder.indexOf('home-screen');
+
+                body.style.overflow = 'auto'; // Izinkan scrolling setelah home screen aktif
+
+            }, screenTransitionDuration);
+        }
+
+        // Global array to manage screen order for "Next" button and navigation
+        const screenOrder = ['home-screen', 'about-screen', 'portfolio-screen', 'contact-screen'];
+        let currentScreenIndex = -1; // -1 initially, will be 0 after home screen loads
+
+        function showScreen(targetScreenId) {
+            const currentActiveScreen = document.querySelector('.screen.active');
+            const targetScreen = document.getElementById(targetScreenId);
+
+            if (!targetScreen || targetScreen === currentActiveScreen) {
+                return; // Do nothing if target is invalid or already active
+            }
+
+            const currentIndex = screenOrder.indexOf(currentActiveScreen ? currentActiveScreen.id : '');
+            const targetIndex = screenOrder.indexOf(targetScreenId);
+            const isForward = targetIndex > currentIndex;
+
+            body.style.overflow = 'hidden'; // Sembunyikan overflow body selama transisi
+
+            // Apply slide-out animation to the current active screen
+            if (currentActiveScreen) {
+                currentActiveScreen.classList.add(isForward ? 'slide-out-up' : 'slide-out-down');
+                currentActiveScreen.classList.remove('active');
+                currentActiveScreen.style.pointerEvents = 'none';
+                currentActiveScreen.style.transition = `transform ${screenTransitionDuration / 1000}s ease-in-out, opacity ${screenTransitionDuration / 1000}s ease-in-out`;
+            }
+
+            // Prepare the target screen for slide-in
+            targetScreen.classList.remove('hidden', 'slide-out-up', 'slide-out-down'); // Clean up any previous states
+            targetScreen.classList.add('active');
+            targetScreen.style.pointerEvents = 'auto';
+
+            // Set initial position for the target screen to come from below (or above if backward)
+            targetScreen.style.transform = isForward ? 'translateY(100vh)' : 'translateY(-100vh)';
+            targetScreen.style.opacity = '0';
+
+            // Force reflow to ensure initial transform is applied before transition
+            void targetScreen.offsetWidth;
+
+            // Apply the slide-in animation
+            targetScreen.style.transition = `transform ${screenTransitionDuration / 1000}s ease-in-out, opacity ${screenTransitionDuration / 1000}s ease-in-out`;
+            targetScreen.style.transform = 'translateY(0)'; // Slide to on-screen
+            targetScreen.style.opacity = '1';
+
+            // After the transition, clean up the old screen and reset transition for new screen
+            setTimeout(() => {
+                if (currentActiveScreen) {
+                    currentActiveScreen.classList.add('hidden');
+                    currentActiveScreen.classList.remove('slide-out-up', 'slide-out-down');
+                    // Reset its position and opacity for next use, and remove transition
+                    currentActiveScreen.style.transform = 'translateY(100vh)';
+                    currentActiveScreen.style.opacity = '0';
+                    currentActiveScreen.style.transition = '';
+                }
+                targetScreen.style.transition = ''; // Remove transition property after animation
+
+                // Re-apply animations for content within the new screen
+                triggerScreenContentAnimations(targetScreenId);
+
+                // Update currentScreenIndex
+                currentScreenIndex = screenOrder.indexOf(targetScreenId);
+
+                // Manage 3D scene based on active screen
+                if (targetScreenId === 'home-screen' && targetScreen.classList.contains('active')) {
+                    init3DScene();
+                } else {
+                    stop3DAnimation(); // Stop 3D animation if not on home screen
+                }
+
+                body.style.overflow = 'auto'; // Izinkan scrolling setelah layar baru aktif
+
+            }, screenTransitionDuration); // Match CSS transition duration
+        }
+
+        function triggerScreenContentAnimations(screenId) {
+            // Reset all animations on elements that will be animated to allow re-triggering
+            document.querySelectorAll(`#${screenId} [style*="animation-delay"]`).forEach(el => {
+                const originalAnimation = el.style.animation;
+                el.style.animation = 'none'; // Temporarily remove animation
+                void el.offsetWidth; // Trigger reflow
+                el.style.animation = originalAnimation; // Re-apply animation
+            });
+
+            // Specific animations for each screen's content
+            if (screenId === 'home-screen') {
+                // Ensure initial opacity is set to 0 before animation runs for all animated elements
+                document.querySelectorAll('#home-screen .home-left > *, #home-screen .tech-item, #home-screen #hero-canvas').forEach(el => {
+                    el.style.opacity = '0';
+                });
+
+                homeTagline.style.animation = 'slide-in-up-home 0.8s ease-out forwards 1.0s';
+                homeCompanyInfo.style.animation = 'slide-in-left-home 0.8s ease-out forwards 1.8s';
+                homeDescription.style.animation = 'slide-in-up-home 0.8s ease-out forwards 2.1s';
+                homeActionButtons.forEach((button, index) => {
+                    button.style.animation = `slide-in-up-home 0.8s ease-out forwards ${2.7 + (index * 0.1)}s`;
+                });
+                homeSocialLinks.forEach((link, index) => {
+                    link.style.animation = `slide-in-right-home 0.8s ease-out forwards ${3.0 + (index * 0.1)}s`;
+                });
+                animateTextCharacters(roleTitle, 1.2); // This handles char animations internally
+                homeTechItems.forEach((item, index) => {
+                    item.style.animation = `fade-in-scale-new 0.8s ease-out forwards ${2.4 + (index * 0.1)}s`;
+                });
+                homeHeroCanvas.style.animation = 'canvas-fade-in 1.5s ease-out forwards 1.0s';
+            } else if (screenId === 'about-screen') {
+                 // Ensure initial opacity is set to 0 before animation runs for all animated elements
+                document.querySelectorAll('#about-screen .about-header, #about-screen .about-left h3, #about-screen .about-left p, #about-screen .about-buttons, #about-screen .profile-pic-container, #about-screen .stat-item').forEach(el => {
+                    el.style.opacity = '0';
+                    el.style.transform = ''; // Reset transform to initial state for animation
+                });
+
+                aboutHeader.style.animation = 'slide-in-up-about 1s ease-out forwards 0.5s';
+                aboutLeftH3.style.animation = 'slide-in-left-about 1s ease-out forwards 1.0s';
+                aboutLeftP.style.animation = 'slide-in-up-about 1s ease-out forwards 1.3s';
+                aboutButtons.style.animation = 'slide-in-up-about 1s ease-out forwards 1.6s';
+                profilePicContainer.style.animation = 'fade-in-scale-about 1s ease-out forwards 1.0s';
+                statItems.forEach((item, index) => {
+                    item.style.animation = `slide-in-up-about 1s ease-out forwards ${2.0 + (index * 0.2)}s`;
+                });
+            }
+            // Add similar blocks for portfolio-screen and contact-screen if they have specific animations
+        }
+
+
+        // Next button handler
+        function goToNextScreen() {
+            const nextIndex = currentScreenIndex + 1;
+            if (nextIndex < screenOrder.length) {
+                showScreen(screenOrder[nextIndex]);
+            } else {
+                // Loop back to the first screen or show a message
+                showScreen(screenOrder[0]); // Loop back to home
+            }
+        }
+
+        // Event listener untuk navigasi navbar
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                showScreen(targetId + '-screen');
+            });
+        });
+
+        // Panggil fungsi transitionToWelcomeScreen setelah durasi loading yang ditentukan
+        window.addEventListener('load', () => {
+            setTimeout(transitionToWelcomeScreen, loadingDuration);
+        });
+
+        // Tambahkan event listener untuk memicu transisi ke Home Screen
+        // Listen to the animation end of the *last* character in welcomeTitle
+        welcomeTitle.addEventListener('animationend', (event) => {
+            const allChars = welcomeTitle.querySelectorAll('.char');
+            if (allChars.length > 0 && event.target === allChars[allChars.length - 1] && event.animationName === 'char-fade-in-up-scale') {
+                setTimeout(transitionToHomeScreen, 1000); // Delay before sliding to home screen
+            }
         });
     </script>
 </body>

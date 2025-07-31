@@ -5,12 +5,12 @@
 body {
     margin: 0;
     font-family: 'Inter', sans-serif; /* Menggunakan font Inter */
-    overflow: hidden; /* Mencegah scroll saat loading dan transisi */
+    overflow-y: auto; /* Mencegah scroll saat transisi layar penuh */
     background: linear-gradient(135deg, #1a0033, #000000, #0d0026); /* Gradien latar belakang galaksi */
     color: #ffffff; /* Warna teks putih */
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Align ke atas untuk memungkinkan scroll */
     min-height: 100vh; /* Memastikan body mengisi seluruh tinggi viewport */
     position: relative; /* Untuk pseudo-elemen bintang */
 }
@@ -19,7 +19,7 @@ body {
 body::before,
 body::after {
     content: '';
-    position: absolute;
+    position: fixed; /* Bintang tetap di tempat saat scroll */
     top: 0;
     left: 0;
     width: 100%;
@@ -29,6 +29,7 @@ body::after {
     opacity: 0.2;
     animation: twinkle 150s linear infinite; /* Animasi bintang berkedip */
     transition: transform 2s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Transisi untuk efek parallax saat body.content-active */
+    z-index: -1; /* Pastikan di belakang konten */
 }
 
 body::after {
@@ -108,14 +109,14 @@ body.content-active::after {
     color: #e0e0e0;
     letter-spacing: 4px; /* Jarak antar huruf lebih lebar */
     animation: text-fade-in-blur 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards, /* Animasi fade in dan blur */
-               pulse 2s infinite alternate; /* Animasi denyut tetap ada */
+     pulse 2s infinite alternate; /* Animasi denyut tetap ada */
     opacity: 0; /* Awalnya tersembunyi */
 }
 
 /* Keyframes untuk animasi fade in dan blur teks */
 @keyframes text-fade-in-blur {
-    0% { opacity: 0; transform: translateY(30px); filter: blur(10px); }
-    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    0% { opacity: 0; transform: translateY(30px); filter: blur(0px); } /* Blur dihilangkan */
+    100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
 }
 
 /* Keyframes untuk animasi denyut teks loading */
@@ -131,50 +132,82 @@ body.content-active::after {
     pointer-events: none; /* Mencegah interaksi saat tersembunyi */
 }
 
-/* Kontainer untuk semua layar */
+/* Kontainer untuk semua layar/slide */
 #screens-container {
     position: relative;
     width: 100%;
-    height: 100vh;
-    overflow: hidden; /* Penting untuk transisi antar layar */
+    min-height: 100vh;  /* Ubah dari height: 100vh ke min-height agar bisa diskroll */
+    overflow-y: auto;   /* Aktifkan scroll */
+    scroll-behavior: smooth;
 }
+
 
 /* Styling dasar untuk setiap layar */
 .screen {
-    position: absolute;
+    position: absolute; /* Absolute positioning for sliding */
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100%; /* Full height of container */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 20px; /* Padding default */
+    padding: 20px;
     box-sizing: border-box;
     z-index: 1;
-    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out; /* Transisi umum untuk layar */
+    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out; /* Only transform and opacity transition */
 }
 
-/* Animasi keluar "Fade Out Up" */
-.screen.fade-out-up {
-    opacity: 0;
-    transform: translateY(-100vh); /* Bergerak ke atas */
+/* Initial state for hidden screens (off-screen below) */
+.screen.hidden {
+    transform: translateY(100vh); /* Start off-screen below */
+    opacity: 0; /* Also keep opacity 0 for initial hidden state */
+    visibility: hidden;
     pointer-events: none;
 }
 
-/* Animasi kemunculan layar */
+/* Active screen */
 .screen.active {
+    transform: translateY(0); /* On-screen */
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+}
+
+/* Animation for sliding out (current screen moving up) */
+.screen.slide-out-up {
+    transform: translateY(-100vh); /* Move off-screen above */
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Animation for sliding out (current screen moving down) - for backward navigation */
+.screen.slide-out-down {
+    transform: translateY(100vh); /* Move off-screen below */
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* Styling untuk Layar Selamat Datang */
 #welcome-screen {
     max-width: 1200px; /* Lebar maksimal lebih besar untuk layar besar */
     padding: 20px 60px; /* Tambah padding horizontal untuk mencegah cutoff */
+    opacity: 0; /* Dimulai tersembunyi */
+    visibility: hidden;
+    transform: translateY(0); /* Welcome screen starts on screen, then fades/slides out */
+}
+
+/* Animasi masuk untuk welcome screen setelah loading */
+#welcome-screen.active {
+    animation: fade-in-screen 0.8s ease-out forwards; /* Animasi fade in untuk seluruh layar */
+    visibility: visible; /* Pastikan terlihat saat animasi dimulai */
+}
+
+@keyframes fade-in-screen {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* Styling judul utama */
@@ -185,7 +218,7 @@ body.content-active::after {
     color: #ffffff;
     text-shadow: 0 0 30px rgba(138, 43, 226, 1), 0 0 60px rgba(138, 43, 226, 0.8), 0 0 90px rgba(138, 43, 226, 0.6); /* Efek glow yang sangat kuat */
     line-height: 1.2;
-    /* white-space: normal; */ /* Allow text to wrap */
+    text-align: center; /* Pastikan teks di tengah */
 }
 
 /* Styling untuk setiap karakter yang dianimasikan (Welcome Screen) */
@@ -193,7 +226,7 @@ body.content-active::after {
     display: inline-block; /* Agar bisa dianimasikan satu per satu */
     opacity: 0;
     transform: translateY(20px) scale(0.8); /* Mulai dari bawah dan mengecil */
-    animation: char-fade-in-up-scale 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; /* Faster character animation */
+    animation: char-fade-in-up-scale 0.05s cubic-bezier(0.23, 1, 0.32, 1) forwards; /* Faster character animation */
     /* Delay animasi diatur oleh JavaScript */
 }
 
@@ -210,7 +243,7 @@ body.content-active::after {
     0% {
         opacity: 0;
         transform: translateY(20px) scale(0.8);
-        filter: blur(5px);
+        filter: blur(0px); /* Blur dihilangkan */
     }
     100% {
         opacity: 1;
@@ -242,7 +275,7 @@ body.content-active::after {
     0% {
         opacity: 0;
         transform: translateY(80px);
-        filter: blur(5px);
+        filter: blur(0px); /* Blur dihilangkan */
     }
     70% {
         opacity: 1;
@@ -293,7 +326,7 @@ body.content-active::after {
     0% {
         opacity: 0;
         transform: translateY(100px) scale(0.5); /* Mulai dari bawah, mengecil */
-        filter: blur(10px);
+        filter: blur(0px); /* Blur dihilangkan */
     }
     70% {
         opacity: 1;
@@ -302,7 +335,7 @@ body.content-active::after {
     }
     100% {
         opacity: 1;
-        transform: translateY(0) scale(1); /* Kembali ke posisi normal */
+        transform: translateY(0);
         filter: blur(0px);
     }
 }
@@ -324,18 +357,20 @@ body.content-active::after {
     max-width: 100%; /* Lebar penuh */
     width: 100%; /* Lebar penuh */
     margin: 0; /* Reset margin */
+    overflow-y: auto;
+    max-height: 100vh;
 }
 
 /* Navbar Styling */
 .navbar {
-    position: fixed;
+    position: sticky; /* Navbar menjadi sticky */
     top: 0;
     left: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 50px;
+    padding: 20px 80px; /* Padding yang lebih besar untuk layar besar */
     background: rgba(0, 0, 0, 0.5); /* Latar belakang transparan */
     backdrop-filter: blur(10px); /* Efek blur */
     z-index: 1000;
@@ -344,7 +379,7 @@ body.content-active::after {
     border-bottom-right-radius: 20px;
     opacity: 0; /* Awalnya tersembunyi */
     animation: navbar-fade-in 1s ease-out forwards;
-    animation-delay: 4.5s; /* Muncul setelah transisi layar */
+    animation-delay: 0.5s; /* Muncul lebih cepat setelah transisi layar */
 }
 
 .navbar-brand {
@@ -390,7 +425,7 @@ body.content-active::after {
     align-items: center; /* Pusatkan secara vertikal */
     justify-content: space-around; /* Distribusi ruang yang lebih baik */
     width: 90%; /* Menggunakan persentase agar responsif */
-    max-width: 1200px; /* Lebar maksimal untuk konten home */
+    max-width: 1400px; /* Lebar maksimal lebih besar untuk konten home */
     margin-top: 0; /* Reset margin top */
     flex-wrap: wrap; /* Untuk responsif */
     padding: 20px 0; /* Padding vertikal */
@@ -398,7 +433,7 @@ body.content-active::after {
 
 .home-left {
     flex: 1;
-    min-width: 400px; /* Minimum width for left column */
+    min-width: 500px; /* Minimum width lebih besar untuk left column */
     text-align: left;
     padding-right: 40px;
     box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
@@ -412,16 +447,106 @@ body.content-active::after {
     align-items: center;
     padding-left: 40px;
     box-sizing: border-box;
+    position: relative; /* Untuk menempatkan canvas */
+    height: 400px; /* Berikan tinggi agar canvas terlihat */
 }
 
-.tagline {
-    font-size: 1.1em;
-    color: #a0a0a0;
-    margin-bottom: 10px;
-    opacity: 0;
-    animation: fade-in-up-new 1s ease-out forwards;
-    animation-delay: 5.0s; /* Setelah navbar */
+#hero-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    opacity: 0; /* Awalnya tersembunyi */
+    animation: canvas-fade-in 1.5s ease-out forwards;
+    animation-delay: 1.0s; /* Muncul setelah navbar */
 }
+
+@keyframes canvas-fade-in {
+    from { opacity: 0; transform: scale(0.8); filter: blur(0px); } /* Blur dihilangkan */
+    to { opacity: 1; transform: scale(1); filter: blur(0px); }
+}
+
+/* Animasi untuk setiap elemen di home-left */
+/* Initial state for all direct children of home-left */
+.home-left > * {
+    opacity: 0;
+    filter: blur(0px); /* Blur dihilangkan */
+}
+
+/* Keyframes for various slide-in animations for home-left elements */
+@keyframes slide-in-up-home {
+    from { opacity: 0; transform: translateY(50px); filter: blur(0px); } /* Blur dihilangkan */
+    to { opacity: 1; transform: translateY(0); filter: blur(0px); }
+}
+
+@keyframes slide-in-left-home {
+    from { opacity: 0; transform: translateX(-100px); filter: blur(0px); } /* Blur dihilangkan */
+    to { opacity: 1; transform: translateX(0); filter: blur(0px); }
+}
+
+@keyframes slide-in-right-home {
+    from { opacity: 0; transform: translateX(100px); filter: blur(0px); } /* Blur dihilangkan */
+    to { opacity: 1; transform: translateX(0); filter: blur(0px); }
+}
+
+/* Apply animations when home-screen is active */
+#home-screen.active .home-left .tagline {
+    animation: slide-in-up-home 0.8s ease-out forwards; /* Faster animation */
+    animation-delay: 1.0s; /* Start with canvas */
+}
+
+/* role-title container itself only needs to be visible, chars animate */
+#home-screen.active .home-left .role-title {
+    animation: fade-in-home-container 0.1s forwards; /* Make container visible immediately */
+    animation-delay: 1.2s; /* Start after tagline */
+}
+@keyframes fade-in-home-container {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+#home-screen.active .home-left .company-info {
+    animation: slide-in-left-home 0.8s ease-out forwards; /* Faster animation */
+    animation-delay: 1.8s; /* After role-title chars start */
+}
+
+#home-screen.active .home-left .description {
+    animation: slide-in-up-home 0.8s ease-out forwards; /* Faster animation */
+    animation-delay: 2.1s; /* After company-info */
+}
+
+#home-screen.active .home-left .tech-stack {
+    animation: slide-in-up-home 0.8s ease-out forwards; /* Faster animation */
+    animation-delay: 2.4s; /* After description */
+}
+
+#home-screen.active .home-left .action-buttons {
+    animation: slide-in-up-home 0.8s ease-out forwards; /* Faster animation */
+    animation-delay: 2.7s; /* After tech-stack */
+}
+
+#home-screen.active .home-left .social-icons {
+    animation: slide-in-right-home 0.8s ease-out forwards; /* Faster animation */
+    animation-delay: 3.0s; /* After action-buttons */
+}
+
+
+/* Override for tech-item (staggered within its container) */
+.tech-item {
+    opacity: 0; /* Initial state */
+    transform: scale(0.8);
+    animation: fade-in-scale-new 0.8s ease-out forwards;
+}
+#home-screen.active .tech-item:nth-child(1) { animation-delay: calc(2.4s + 0.0s); } /* Adjusted delay */
+#home-screen.active .tech-item:nth-child(2) { animation-delay: calc(2.4s + 0.1s); }
+#home-screen.active .tech-item:nth-child(3) { animation-delay: calc(2.4s + 0.2s); }
+#home-screen.active .tech-item:nth-child(4) { animation-delay: calc(2.4s + 0.3s); }
+
+@keyframes fade-in-scale-new {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
 
 .role-title {
     font-size: 3.5em;
@@ -430,16 +555,16 @@ body.content-active::after {
     line-height: 1.2;
     color: #ffffff;
     text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
-    /* Animasi huruf demi huruf akan diterapkan oleh JS */
     white-space: normal; /* Allow text to wrap naturally */
     word-break: break-word; /* Break long words */
+    text-align: left; /* Pastikan rata kiri */
 }
 
 .role-title .char {
     display: inline-block;
     opacity: 0;
     transform: translateY(20px);
-    animation: char-fade-in-up-new 0.5s ease-out forwards;
+    animation: char-fade-in-up-new 0.05s ease-out forwards; /* Faster char animation */
     /* Delay diatur oleh JS */
 }
 
@@ -457,9 +582,6 @@ body.content-active::after {
     font-size: 1.2em;
     color: #c0c0c0;
     margin-bottom: 20px;
-    opacity: 0;
-    animation: fade-in-up-new 1s ease-out forwards;
-    animation-delay: 5.5s;
 }
 
 .description {
@@ -467,9 +589,6 @@ body.content-active::after {
     color: #e0e0e0;
     line-height: 1.6;
     margin-bottom: 30px;
-    opacity: 0;
-    animation: fade-in-up-new 1s ease-out forwards;
-    animation-delay: 5.8s;
 }
 
 .tech-stack {
@@ -477,29 +596,6 @@ body.content-active::after {
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 30px;
-}
-
-.tech-item {
-    background: rgba(138, 43, 226, 0.15);
-    color: #8a2be2;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 0.9em;
-    font-weight: 600;
-    border: 1px solid rgba(138, 43, 226, 0.5);
-    box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
-    opacity: 0;
-    animation: fade-in-scale-new 0.8s ease-out forwards;
-}
-
-.tech-item:nth-child(1) { animation-delay: 6.0s; }
-.tech-item:nth-child(2) { animation-delay: 6.2s; }
-.tech-item:nth-child(3) { animation-delay: 6.4s; }
-.tech-item:nth-child(4) { animation-delay: 6.6s; }
-
-@keyframes fade-in-scale-new {
-    from { opacity: 0; transform: scale(0.8); }
-    to { opacity: 1; transform: scale(1); }
 }
 
 .action-buttons {
@@ -517,14 +613,11 @@ body.content-active::after {
     border: none;
     transition: all 0.3s ease;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    animation: fade-in-up-new 1s ease-out forwards;
 }
 
 .btn-primary {
     background: linear-gradient(45deg, #8a2be2, #6a0dad);
     color: #ffffff;
-    animation-delay: 6.8s;
 }
 
 .btn-primary:hover {
@@ -537,7 +630,6 @@ body.content-active::after {
     background: transparent;
     color: #8a2be2;
     border: 2px solid #8a2be2;
-    animation-delay: 7.0s;
 }
 
 .btn-secondary:hover {
@@ -555,13 +647,7 @@ body.content-active::after {
     color: #e0e0e0;
     font-size: 1.8em;
     transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
-    opacity: 0;
-    animation: fade-in-up-new 1s ease-out forwards;
 }
-
-.social-link:nth-child(1) { animation-delay: 7.2s; }
-.social-link:nth-child(2) { animation-delay: 7.4s; }
-.social-link:nth-child(3) { animation-delay: 7.6s; }
 
 .social-link:hover {
     color: #8a2be2;
@@ -569,48 +655,240 @@ body.content-active::after {
     text-shadow: 0 0 15px #8a2be2;
 }
 
-/* Keyframes for general fade in up for new content */
-@keyframes fade-in-up-new {
-    from { opacity: 0; transform: translateY(30px); }
+/* Styling untuk About Screen */
+#about-screen {
+    background: linear-gradient(135deg, #1a0033, #000000, #0d0026); /* Latar belakang yang sama */
+    padding-top: 80px; /* Ruang untuk navbar sticky */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Align ke atas */
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 0px;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: slide-in-up-about 1s ease-out forwards;
+    animation-delay: 0.5s;
+}
+
+.about-header h2 {
+    font-size: 3.5em;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
+    margin-bottom: 10px;
+}
+
+.about-header p {
+    font-size: 1.2em;
+    color: #c0c0c0;
+    font-style: italic;
+}
+
+.about-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+    gap: 50px;
+    margin-bottom: 80px;
+}
+
+.about-left {
+    flex: 1;
+    min-width: 450px;
+    text-align: left;
+    padding-right: 30px;
+    box-sizing: border-box;
+}
+
+.about-left h3 {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #8a2be2;
+    text-shadow: 0 0 15px #8a2be2;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateX(-50px);
+    animation: slide-in-left-about 1s ease-out forwards;
+    animation-delay: 1.0s;
+}
+
+.about-left p {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #e0e0e0;
+    margin-bottom: 25px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slide-in-up-about 1s ease-out forwards;
+    animation-delay: 1.3s;
+}
+
+.about-buttons {
+    display: flex;
+    gap: 20px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slide-in-up-about 1s ease-out forwards;
+    animation-delay: 1.6s;
+}
+
+.about-right {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-pic-container {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #8a2be2, #6a0dad); /* Gradien ungu */
+    padding: 10px; /* Border efek */
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    opacity: 0;
+    transform: scale(0.5);
+    animation: fade-in-scale-about 1s ease-out forwards;
+    animation-delay: 1.0s;
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center; /* Pastikan gambar terpusat */
+    display: block;
+}
+
+.about-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    width: 90%;
+    max-width: 1200px;
+    margin-top: 50px;
+}
+
+.stat-item {
+    flex: 1;
+    min-width: 250px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: left;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: slide-in-up-about 1s ease-out forwards;
+}
+
+.stat-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(138, 43, 226, 0.7);
+}
+
+.stat-item i {
+    font-size: 2.5em;
+    color: #8a2be2;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px #8a2be2;
+}
+
+.stat-item h4 {
+    font-size: 1.8em;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.stat-item p {
+    font-size: 1em;
+    color: #c0c0c0;
+}
+
+/* Animasi untuk About Screen elements */
+@keyframes slide-in-up-about {
+    from { opacity: 0; transform: translateY(50px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-.hero-illustration {
-    max-width: 100%; /* Pastikan gambar tidak melebihi lebar kontainer */
-    height: auto;
-    filter: drop-shadow(0 0 20px rgba(138, 43, 226, 0.7)); /* Efek glow pada gambar */
-    opacity: 0;
-    transform: scale(0.8);
-    animation: image-fade-in-scale 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-    animation-delay: 5.0s; /* Muncul bersamaan dengan tagline */
+@keyframes slide-in-left-about {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes image-fade-in-scale {
-    from { opacity: 0; transform: scale(0.8) rotateY(30deg); filter: blur(10px); }
-    to { opacity: 1; transform: scale(1) rotateY(0deg); filter: blur(0px); }
+@keyframes fade-in-scale-about {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Staggering for stat items */
+.stat-item:nth-child(1) { animation-delay: 2.0s; }
+.stat-item:nth-child(2) { animation-delay: 2.2s; }
+.stat-item:nth-child(3) { animation-delay: 2.4s; }
+
+/* Next Button Styling */
+.next-screen-btn {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #8a2be2, #6a0dad);
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    z-index: 10; /* Ensure it's above other content */
+}
+
+.next-screen-btn:hover {
+    background: linear-gradient(45deg, #9933ff, #7b1fa2);
+    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.6);
+    transform: translateY(-5px);
 }
 
 
 /* Responsif untuk layar kecil */
 @media (max-width: 992px) {
-    .home-content {
+    .home-content, .about-content {
         flex-direction: column;
         align-items: center;
         text-align: center;
         padding: 20px; /* Tambah padding untuk konten home di mobile */
     }
 
-    .home-left {
+    .home-left, .about-left {
         padding-right: 0;
         margin-bottom: 40px;
         min-width: unset; /* Reset min-width */
         width: 100%; /* Lebar penuh di mobile */
+        text-align: center; /* Pusatkan teks di mobile */
     }
 
-    .home-right {
+    .home-right, .about-right {
         padding-left: 0;
         min-width: unset; /* Reset min-width */
         width: 100%; /* Lebar penuh di mobile */
+        height: 300px; /* Kurangi tinggi canvas di mobile */
     }
 
     .navbar {
@@ -624,12 +902,34 @@ body.content-active::after {
         justify-content: center;
     }
 
-    .role-title {
+    .role-title, .about-header h2 {
         font-size: 3em;
     }
 
     #welcome-screen {
         padding: 20px; /* Kurangi padding di layar kecil */
+    }
+
+    .profile-pic-container {
+        width: 250px;
+        height: 250px;
+    }
+
+    .about-stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .stat-item {
+        min-width: unset;
+        width: 90%;
+    }
+
+    .next-screen-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 25px;
+        font-size: 1em;
     }
 }
 
@@ -638,20 +938,18 @@ body.content-active::after {
         font-size: 2.8em;
     }
 
-    .icon-container {
-        flex-direction: column; /* Ikon menjadi kolom di layar kecil */
-        gap: 25px;
-        margin-bottom: 50px;
+    .website-link {
+        font-size: 1.1em;
     }
 
-    .icon-item {
-        width: 90px;
-        height: 90px;
-        font-size: 3em;
+    .spinner {
+        width: 80px;
+        height: 80px;
+        border-width: 8px;
     }
 
-    .loading-text {
-        font-size: 1.5em;
+    .loading-text { /* Menyesuaikan ukuran teks loading di layar kecil */
+        font-size: 1.8em;
     }
 
     .navbar {
@@ -670,15 +968,15 @@ body.content-active::after {
         font-size: 1em;
     }
 
-    .role-title {
+    .role-title, .about-header h2 {
         font-size: 2.5em;
     }
 
-    .company-info, .tagline {
+    .company-info, .tagline, .about-header p {
         font-size: 1em;
     }
 
-    .description {
+    .description, .about-left p {
         font-size: 0.9em;
     }
 
@@ -688,6 +986,18 @@ body.content-active::after {
     }
 
     .social-link {
+        font-size: 1.5em;
+    }
+
+    .about-left h3 {
+        font-size: 2em;
+    }
+
+    .stat-item i {
+        font-size: 2em;
+    }
+
+    .stat-item h4 {
         font-size: 1.5em;
     }
 }
@@ -705,5 +1015,9 @@ body.content-active::after {
         width: 80px;
         height: 80px;
         border-width: 8px;
+    }
+
+    .loading-text {
+        font-size: 1.5em;
     }
 }

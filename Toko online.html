@@ -1,0 +1,3454 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azko - Toko Online</title>
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts untuk font yang mirip (misal: Poppins atau Open Sans) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom Properties (CSS Variables) */
+        :root {
+            --primary-red: #e02a2a; /* Warna merah utama */
+            --light-grey: #f0f2f5;
+            --dark-grey: #333;
+            --text-color: #555;
+            --border-color: #ddd;
+            --font-family-primary: 'Poppins', sans-serif;
+            --carousel-slide-border-radius: 10px; /* Radius untuk gambar carousel */
+            --flash-sale-orange: #f89e1e; /* Warna orange flash sale */
+            --flash-sale-text-color: #333;
+            --azko-red-banner: #ee3c3c; /* Warna merah untuk banner Azko */
+            --tab-active-border: #e02a2a; /* Warna border aktif untuk tab */
+            --footer-bg: #222; /* Warna latar belakang footer */
+            --footer-text-color: #bbb; /* Warna teks footer */
+            --footer-heading-color: #fff; /* Warna judul footer */
+            --footer-border-color: #444; /* Warna border di footer */
+        }
+
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-primary);
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #fff;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+            font-family: inherit;
+        }
+
+        /* -------------------- Navbar Styling -------------------- */
+
+        .top-info-bar {
+            background-color: #fff;
+            padding: 8px 20px;
+            font-size: 14px;
+            color: #666;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .top-info-bar .info-left, .top-info-bar .info-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .top-info-bar .info-left img {
+            height: 20px;
+            margin-right: 5px;
+        }
+        .top-info-bar .info-right i {
+            margin-right: 5px;
+            color: #777;
+        }
+
+        .navbar-container {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        /* Navbar Top Section */
+        .navbar-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-red);
+            letter-spacing: -0.5px;
+            margin-right: 15px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-item {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--dark-grey);
+            padding-bottom: 5px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item.has-underline::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-item.has-underline:hover::after {
+            width: 100%;
+        }
+
+        .nav-item:hover {
+            color: var(--primary-red);
+        }
+
+        /* Search Bar */
+        .navbar-center {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            margin: 0 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 500px;
+            background-color: #f7f7f7;
+        }
+
+        .search-bar input {
+            flex-grow: 1;
+            padding: 8px 15px;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            background-color: transparent;
+        }
+
+        .search-bar input::placeholder {
+            color: #999;
+        }
+
+        .search-button {
+            background-color: var(--primary-red);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 0 25px 25px 0;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #c42424;
+        }
+
+        /* Navbar Right Section */
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icon-group {
+            display: flex;
+            gap: 15px;
+            font-size: 20px;
+            color: var(--dark-grey);
+        }
+
+        .nav-icon {
+            transition: color 0.3s ease;
+        }
+
+        .nav-icon:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-item.rewards {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--primary-red);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-item.rewards i {
+            color: var(--primary-red);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-red {
+            border: 2px solid var(--primary-red);
+            color: var(--primary-red);
+            background-color: #fff;
+        }
+
+        .btn-outline-red:hover {
+            background-color: var(--primary-red);
+            color: #fff;
+        }
+
+        .btn-solid-red {
+            background-color: var(--primary-red);
+            color: #fff;
+            border: 2px solid var(--primary-red); /* Pastikan border sama */
+        }
+
+        .btn-solid-red:hover {
+            background-color: #c42424;
+            border-color: #c42424;
+        }
+
+        /* Hamburger Menu (Hidden by default, shown on mobile) */
+        .hamburger-menu {
+            display: none;
+            font-size: 24px;
+            color: var(--dark-grey);
+        }
+        /* Mobile menu overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1050;
+            display: none; /* Hidden by default */
+            justify-content: flex-end; /* Align menu to right */
+        }
+
+        .mobile-menu {
+            background-color: #fff;
+            width: 280px; /* Lebar menu mobile */
+            height: 100%;
+            padding: 20px;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+            transform: translateX(100%); /* Sembunyikan di luar layar */
+            transition: transform 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0); /* Tampilkan menu */
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .mobile-menu-header .close-btn {
+            font-size: 28px;
+            color: var(--dark-grey);
+        }
+
+        .mobile-menu-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-menu-links ul li {
+            margin-bottom: 15px;
+        }
+
+        .mobile-menu-links ul li a {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--dark-grey);
+            display: block;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .mobile-menu-links ul li a:hover {
+            color: var(--primary-red);
+        }
+
+        .mobile-menu-auth {
+            margin-top: auto; /* Push to bottom */
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Navbar Bottom Section (Categories) */
+        .navbar-bottom-wrapper {
+            background-color: #fff;
+            border-top: 1px solid var(--border-color);
+            padding: 5px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar-bottom {
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 10px;
+        }
+
+        .category-list {
+            display: flex;
+            gap: 30px;
+            padding: 10px 0;
+            white-space: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        /* Sembunyikan scrollbar untuk Chrome, Safari, Opera */
+        .category-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-item {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--dark-grey);
+            padding-bottom: 5px; /* Tambah padding agar tidak terlalu dekat dengan garis */
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .category-item:hover {
+            color: var(--primary-red);
+        }
+
+        /* Scroll Buttons for Categories */
+        .scroll-button {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: var(--dark-grey);
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .scroll-button.left {
+            left: 0;
+        }
+
+        .scroll-button.right {
+            right: 0;
+        }
+
+        /* Show scroll buttons on hover over the wrapper */
+        .navbar-bottom:hover .scroll-button {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-button:hover {
+            background-color: var(--primary-red);
+            color: #fff;
+            border-color: var(--primary-red);
+        }
+
+        /* -------------------- Main Carousel Styling -------------------- */
+        .carousel-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: var(--carousel-slide-border-radius);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: transparent;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            width: 100%;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        /* Sembunyikan scrollbar untuk Chrome, Safari, Opera */
+        .carousel-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-slide {
+            flex-shrink: 0;
+            width: 100%;
+            scroll-snap-align: start;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 300px;
+            background-color: #f0f0f0;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--carousel-slide-border-radius);
+            display: block;
+        }
+
+
+        /* Carousel Navigation Buttons */
+        .carousel-button {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: #555;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .carousel-button.prev {
+            left: 10px;
+        }
+
+        .carousel-button.next {
+            right: 10px;
+        }
+
+        .carousel-button:hover {
+            background-color: var(--primary-red);
+            color: #fff;
+            border-color: var(--primary-red);
+        }
+
+        /* Show carousel buttons on hover over the container */
+        .carousel-container:hover .carousel-button {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Carousel Indicators (Dots) */
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 0;
+        }
+
+        .indicator-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #bbb;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .indicator-dot.active {
+            background-color: var(--primary-red);
+            transform: scale(1.2);
+        }
+
+        .lihat-semua-promo {
+            text-align: right;
+            margin-right: 20px;
+            font-weight: 500;
+            color: var(--primary-red);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-right: 10px;
+        }
+        .lihat-semua-promo:hover {
+            text-decoration: underline;
+        }
+
+        /* -------------------- Flash Sale Section -------------------- */
+        .flash-sale-section {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .flash-sale-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .flash-sale-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--flash-sale-text-color);
+        }
+        .flash-sale-title i {
+            color: var(--flash-sale-orange);
+            font-size: 28px;
+        }
+
+        .countdown-timer-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .countdown-timer-container span {
+            font-weight: 600;
+            color: var(--flash-sale-orange);
+            background-color: #fff6e6;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 18px;
+            border: 1px solid var(--flash-sale-orange);
+        }
+        .countdown-timer-container .timer-label {
+            font-size: 16px;
+            color: var(--flash-sale-text-color);
+            font-weight: 500;
+        }
+
+        .flash-sale-status {
+            font-size: 16px;
+            color: var(--flash-sale-text-color);
+            font-weight: 500;
+        }
+        .flash-sale-status strong {
+            color: var(--primary-red);
+        }
+
+        .flash-sale-sk {
+            font-size: 14px;
+            color: var(--primary-red);
+            font-weight: 500;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid var(--primary-red);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        .flash-sale-sk:hover {
+            background-color: var(--primary-red);
+            color: #fff;
+        }
+
+        .flash-sale-image-container {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .flash-sale-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* -------------------- Product Section Styling -------------------- */
+        .product-section {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px; /* Padding samping untuk keseluruhan section */
+        }
+
+        .product-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .product-section-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark-grey);
+        }
+
+        .lihat-semua-btn {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-red);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+        .lihat-semua-btn:hover {
+            color: #c42424;
+        }
+
+        .product-list-container {
+            display: flex;
+            gap: 15px; /* Gap antara banner dan daftar produk */
+            position: relative;
+        }
+
+        .promo-banner-wrapper {
+            flex-shrink: 0; /* Penting agar banner tidak menyusut */
+            width: 250px; /* Lebar tetap untuk banner di desktop */
+            height: 350px; /* Tinggi tetap untuk banner */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: var(--azko-red-banner);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            color: #fff;
+            position: relative;
+            z-index: 1; /* Pastikan banner di atas scroll buttons jika ada overlap */
+        }
+
+        .promo-banner .banner-logo {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        .promo-banner .banner-logo img {
+            height: 25px; /* Ukuran logo di banner */
+            filter: brightness(0) invert(1); /* Membuat logo putih */
+        }
+        .promo-banner h3 {
+            font-size: 2.5em;
+            font-weight: 700;
+            line-height: 1;
+            margin-top: 20px;
+        }
+        .promo-banner .discount-percentage {
+            font-size: 1.5em; /* Ukuran % lebih besar */
+        }
+        .promo-banner .discount-percentage sup {
+            font-size: 0.5em;
+            vertical-align: super;
+        }
+        .promo-banner .btn-beli-sekarang {
+            background-color: #fff;
+            color: var(--azko-red-banner);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-top: auto; /* Push to bottom */
+            width: fit-content;
+        }
+        .promo-banner .btn-beli-sekarang:hover {
+            background-color: #f0f0f0;
+        }
+
+        .product-cards-wrapper {
+            flex-grow: 1;
+            position: relative;
+            overflow: hidden;
+            padding: 0 10px; /* Padding untuk tombol scroll */
+        }
+
+        /* Base styling for all product cards */
+        .product-card-base {
+            flex-shrink: 0;
+            width: 180px; /* Lebar tetap untuk setiap kartu produk */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .product-card-base:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .product-card-base img {
+            width: 100%;
+            height: 180px; /* Tinggi tetap untuk gambar produk */
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+            transition: transform 0.3s ease-in-out;
+        }
+        .product-card-base:hover img {
+            transform: scale(1.05);
+        }
+        .product-card-base .product-info {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .product-card-base .product-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--dark-grey);
+            margin-bottom: 5px;
+            height: 3.2em; /* Batasi tinggi untuk 2 baris teks */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .product-card-base .product-price {
+            display: flex;
+            flex-direction: column; /* Harga asli di atas harga saat ini */
+            align-items: flex-start; /* Rata kiri */
+            margin-top: auto;
+            position: relative;
+            padding-top: 5px;
+        }
+        .product-card-base .product-price .original-price {
+            font-size: 12px;
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 2px;
+        }
+        .product-card-base .product-price-main {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        .product-card-base .product-price .current-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-right: 8px;
+        }
+        .product-card-base .product-price .discount-tag {
+            background-color: var(--flash-sale-orange);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 6px;
+            border-radius: 3px;
+            margin-left: auto; /* Push to right */
+        }
+        .product-card-base .product-review {
+            display: flex;
+            flex-direction: column; /* Mengubah arah flex menjadi kolom */
+            align-items: flex-start; /* Rata kiri untuk bintang dan ulasan */
+            gap: 2px; /* Mengurangi jarak antar baris */
+            margin-top: 5px; /* Jarak dari harga */
+        }
+        .product-card-base .product-review .review-stars {
+            display: flex; /* Agar bintang tetap sejajar */
+            gap: 2px; /* Jarak antar bintang */
+        }
+        .product-card-base .product-review i {
+            font-size: 14px;
+            color: #FFD700;
+        }
+        .product-card-base .product-review span {
+            font-size: 0.8em;
+            color: #777;
+            margin-top: 2px;
+        }
+        /* Tambahan untuk ikon chat dan "Buy 1 Get 1" */
+        .product-card-base .product-card-badges {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+        .product-card-base .product-card-badges .buy-one-get-one {
+            background-color: #007bff; /* Warna biru untuk Buy 1 Get 1 */
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        .product-card-base .product-card-badges .chat-icon {
+            color: #1a73e8; /* Warna biru untuk ikon chat */
+        }
+
+
+        /* Specific overrides for product-section (if any) */
+        .product-section .product-card .discount-tag {
+            display: none; /* Menghilangkan tulisan persen di sini */
+        }
+
+        .product-cards-list {
+            display: flex;
+            gap: 15px; /* Jarak antar kartu produk */
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding-bottom: 10px; /* Ruang untuk scrollbar yang tersembunyi */
+        }
+        .product-cards-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* "Lihat Semua" card */
+        .product-card.see-all-card {
+            width: 180px; /* Sama dengan lebar kartu produk */
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--primary-red);
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .product-card.see-all-card:hover {
+            background-color: var(--primary-red);
+            color: #fff;
+        }
+        .product-card.see-all-card .see-all-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .product-card.see-all-card .see-all-content i {
+            font-size: 2em;
+        }
+
+        /* Product Scroll Buttons */
+        .product-scroll-button {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: #555;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5; /* Di atas kartu produk tapi di bawah banner */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .product-cards-wrapper:hover .product-scroll-button {
+            opacity: 1;
+            visibility: visible;
+        }
+        .product-scroll-button.left {
+            left: 0;
+        }
+        .product-scroll-button.right {
+            right: 0;
+        }
+        .product-scroll-button:hover {
+            background-color: var(--primary-red);
+            color: #fff;
+            border-color: var(--primary-red);
+        }
+
+        /* -------------------- Super Online Deals Section -------------------- */
+        .super-online-deals-section {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .super-online-deals-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee; /* Garis bawah header */
+            padding-bottom: 10px;
+        }
+
+        .super-online-deals-tabs {
+            display: flex;
+            gap: 20px;
+        }
+
+        .super-online-deals-tab {
+            font-size: 18px;
+            font-weight: 600;
+            color: #999;
+            padding: 5px 0;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .super-online-deals-tab.active {
+            color: var(--dark-grey);
+        }
+
+        .super-online-deals-tab.active::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -12px; /* Sesuaikan posisi garis bawah */
+            width: 100%;
+            height: 3px;
+            background-color: var(--tab-active-border);
+        }
+
+        .super-online-deals-tab:hover:not(.active) {
+            color: var(--primary-red);
+        }
+
+        .super-online-deals-content {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .super-online-deals-banner {
+            flex-shrink: 0;
+            width: 250px; /* Lebar tetap untuk banner */
+            height: 350px; /* Tinggi tetap untuk banner */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #f0f0f0; /* Fallback background */
+        }
+        .super-online-deals-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .super-online-deals-product-wrapper {
+            flex-grow: 1;
+            position: relative;
+            overflow: hidden;
+            padding: 0 10px;
+        }
+
+        .super-online-deals-product-list {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding-bottom: 10px;
+        }
+        .super-online-deals-product-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Product card styling (reused from .product-card-base) */
+        .super-online-deals-product-list .product-card {
+            /* Inherits most styles from .product-card-base */
+            /* Add specific overrides if needed */
+        }
+
+
+        /* Product Scroll Buttons for Super Online Deals */
+        .super-online-deals-scroll-button {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: #555;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .super-online-deals-product-wrapper:hover .super-online-deals-scroll-button {
+            opacity: 1;
+            visibility: visible;
+        }
+        .super-online-deals-scroll-button.left {
+            left: 0;
+        }
+        .super-online-deals-scroll-button.right {
+            right: 0;
+        }
+        .super-online-deals-scroll-button:hover {
+            background-color: var(--primary-red);
+            color: #fff;
+            border-color: var(--primary-red);
+        }
+
+        /* -------------------- Exclusive Azko Section -------------------- */
+        .exclusive-azko-section {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .exclusive-azko-section-header {
+            /* Mengubah flex-direction untuk menumpuk H2 dan Tabs */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Rata kiri */
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee; /* Garis bawah header */
+            padding-bottom: 10px;
+        }
+
+        .exclusive-azko-section-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark-grey);
+            margin-bottom: 15px; /* Jarak antara judul dan tabs */
+            text-align: left; /* Pastikan rata kiri */
+            width: 100%; /* Agar mengambil lebar penuh untuk judul */
+        }
+
+        .exclusive-azko-tabs {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap; /* Agar tabs bisa wrap di layar kecil */
+        }
+
+        .exclusive-azko-tab {
+            font-size: 18px;
+            font-weight: 600;
+            color: #999;
+            padding: 5px 0;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .exclusive-azko-tab.active {
+            color: var(--dark-grey);
+        }
+
+        .exclusive-azko-tab.active::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -12px; /* Sesuaikan posisi garis bawah */
+            width: 100%;
+            height: 3px;
+            background-color: var(--tab-active-border);
+        }
+
+        .exclusive-azko-tab:hover:not(.active) {
+            color: var(--primary-red);
+        }
+
+        .exclusive-azko-content {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .exclusive-azko-banner {
+            flex-shrink: 0;
+            width: 250px; /* Lebar tetap untuk banner */
+            height: 350px; /* Tinggi tetap untuk banner */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #f0f0f0; /* Fallback background */
+        }
+        .exclusive-azko-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .exclusive-azko-product-wrapper {
+            flex-grow: 1;
+            position: relative;
+            overflow: hidden;
+            padding: 0 10px;
+        }
+
+        .exclusive-azko-product-list {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding-bottom: 10px;
+        }
+        .exclusive-azko-product-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Product card styling (reused from .product-card-base) */
+        .exclusive-azko-product-list .product-card {
+            /* Inherits most styles from .product-card-base */
+            /* Add specific overrides if needed */
+        }
+
+
+        /* Product Scroll Buttons for Exclusive Azko */
+        .exclusive-azko-scroll-button {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: #555;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .exclusive-azko-product-wrapper:hover .exclusive-azko-scroll-button {
+            opacity: 1;
+            visibility: visible;
+        }
+        .exclusive-azko-scroll-button.left {
+            left: 0;
+        }
+        .exclusive-azko-scroll-button.right {
+            right: 0;
+        }
+        .exclusive-azko-scroll-button:hover {
+            background-color: var(--primary-red);
+            color: #fff;
+            border-color: var(--primary-red);
+        }
+
+
+        /* -------------------- Footer Styling -------------------- */
+        .main-footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text-color);
+            padding: 40px 20px;
+            font-size: 14px;
+            margin-top: 50px; /* Jarak dari konten atas */
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Kolom responsif */
+            gap: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--footer-border-color);
+        }
+
+        .footer-column h4 {
+            color: var(--footer-heading-color);
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--footer-text-color);
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary-red);
+        }
+
+        .footer-contact p {
+            margin-bottom: 10px;
+        }
+        .footer-contact .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .footer-contact .social-icons a {
+            color: var(--footer-text-color);
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+        .footer-contact .social-icons a:hover {
+            color: var(--primary-red);
+        }
+
+        /* Newsletter Signup in Footer */
+        .footer-newsletter h4 {
+            color: var(--footer-heading-color);
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .footer-newsletter p {
+            color: var(--footer-text-color);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .newsletter-form input[type="email"] {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid var(--footer-border-color);
+            background-color: #333;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+        .newsletter-form input[type="email"]::placeholder {
+            color: #888;
+        }
+        .newsletter-form button {
+            background-color: var(--primary-red);
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .newsletter-form button:hover {
+            background-color: #c42424;
+        }
+
+
+        .footer-payment-shipping {
+            max-width: 1200px;
+            margin: 20px auto 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Allow wrapping */
+            gap: 20px;
+        }
+
+        .footer-payment-methods,
+        .footer-shipping-partners {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .footer-payment-methods img,
+        .footer-shipping-partners img {
+            height: 25px; /* Ukuran ikon pembayaran/pengiriman */
+            filter: grayscale(100%) brightness(150%); /* Membuat ikon abu-abu terang */
+            transition: filter 0.3s ease;
+        }
+        .footer-payment-methods img:hover,
+        .footer-shipping-partners img:hover {
+            filter: none; /* Warna asli saat hover */
+        }
+
+        .footer-copyright {
+            text-align: center;
+            color: #888;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+
+
+        /* -------------------- Media Queries (Responsiveness) -------------------- */
+
+        /* Tablet and smaller screens */
+        @media (max-width: 992px) {
+            .top-info-bar {
+                font-size: 12px;
+                padding: 5px 15px;
+            }
+            .top-info-bar .info-left, .top-info-bar .info-right {
+                flex-direction: row;
+                align-items: center;
+                gap: 5px;
+            }
+            .navbar-top {
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 10px 15px;
+            }
+
+            .navbar-left, .navbar-right {
+                gap: 10px;
+            }
+
+            .navbar-center {
+                order: 3;
+                flex-basis: 100%;
+                margin-top: 10px;
+                margin-bottom: 5px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                font-size: 15px;
+            }
+
+            .nav-item.rewards,
+            .btn-outline-red,
+            .btn-solid-red {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+
+            .search-bar {
+                max-width: 100%;
+            }
+
+            .navbar-bottom {
+                padding: 0 5px;
+            }
+
+            .scroll-button {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+
+            /* Carousel adjustments for tablet */
+            .carousel-container {
+                margin: 15px auto;
+                border-radius: 8px;
+            }
+            .carousel-slide {
+                min-height: 250px;
+            }
+            .carousel-button {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            .carousel-indicators {
+                padding: 10px 0;
+            }
+            .indicator-dot {
+                width: 7px;
+                height: 7px;
+            }
+
+            /* Flash Sale adjustments for tablet */
+            .flash-sale-section {
+                margin: 20px auto;
+                padding: 15px;
+            }
+            .flash-sale-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .flash-sale-title {
+                font-size: 22px;
+            }
+            .flash-sale-title i {
+                font-size: 26px;
+            }
+            .countdown-timer-container {
+                justify-content: flex-start;
+                width: 100%;
+            }
+            .countdown-timer-container span {
+                font-size: 16px;
+            }
+            .countdown-timer-container .timer-label {
+                font-size: 14px;
+            }
+            .flash-sale-status {
+                width: 100%;
+            }
+            .flash-sale-sk {
+                align-self: flex-end;
+            }
+            .flash-sale-image-container {
+                border-radius: 5px;
+            }
+            .flash-sale-image-container img {
+                border-radius: 5px;
+            }
+
+            /* Product Section adjustments for tablet */
+            .product-section {
+                padding: 0 15px;
+            }
+            .product-list-container {
+                flex-direction: column; /* Stack banner and product list */
+                gap: 20px;
+            }
+            .promo-banner-wrapper {
+                width: 100%; /* Full width on tablet */
+                height: 180px; /* Adjust height */
+                flex-direction: row; /* Layout content horizontally */
+                align-items: center;
+                justify-content: space-around;
+                padding: 15px;
+            }
+            .promo-banner h3 {
+                font-size: 2em;
+            }
+            .promo-banner .btn-beli-sekarang {
+                margin-top: 0;
+            }
+            .product-cards-wrapper {
+                padding: 0 5px;
+            }
+            .product-card-base { /* Apply to base class */
+                width: 160px; /* Slightly smaller cards */
+            }
+            .product-card-base img {
+                height: 160px;
+            }
+            .product-scroll-button {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+
+            /* Super Online Deals adjustments for tablet */
+            .super-online-deals-section {
+                padding: 0 15px;
+            }
+            .super-online-deals-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .super-online-deals-tabs {
+                flex-wrap: wrap; /* Allow tabs to wrap */
+                gap: 15px;
+            }
+            .super-online-deals-tab {
+                font-size: 16px;
+            }
+            .super-online-deals-tab.active::after {
+                bottom: -8px;
+            }
+            .super-online-deals-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .super-online-deals-banner {
+                width: 100%;
+                height: 180px; /* Match product banner height */
+            }
+            .super-online-deals-product-wrapper {
+                padding: 0 5px;
+            }
+            .super-online-deals-product-list .product-card-base { /* Apply to base class */
+                width: 160px;
+            }
+            .super-online-deals-product-list .product-card-base img {
+                height: 160px;
+            }
+            .super-online-deals-scroll-button {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+
+            /* Exclusive Azko adjustments for tablet */
+            .exclusive-azko-section {
+                padding: 0 15px;
+            }
+            .exclusive-azko-section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .exclusive-azko-tabs {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            .exclusive-azko-tab {
+                font-size: 16px;
+            }
+            .exclusive-azko-tab.active::after {
+                bottom: -8px;
+            }
+            .exclusive-azko-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .exclusive-azko-banner {
+                width: 100%;
+                height: 180px;
+            }
+            .exclusive-azko-product-wrapper {
+                padding: 0 5px;
+            }
+            .exclusive-azko-product-list .product-card-base { /* Apply to base class */
+                width: 160px;
+            }
+            .exclusive-azko-product-list .product-card-base img {
+                height: 160px;
+            }
+            .exclusive-azko-scroll-button {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+
+            /* Footer adjustments for tablet */
+            .footer-content {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            .footer-payment-shipping {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Mobile screens */
+        @media (max-width: 768px) {
+            .top-info-bar {
+                display: none;
+            }
+            .navbar-top {
+                justify-content: space-between;
+                flex-wrap: nowrap;
+                padding: 10px 15px;
+            }
+
+            .nav-links,
+            .search-bar,
+            .icon-group,
+            .nav-item.rewards,
+            .btn-outline-red,
+            .btn-solid-red {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: block;
+            }
+
+            .navbar-left {
+                flex-grow: 1;
+            }
+
+            .navbar-right {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .navbar-right .nav-icon:first-child {
+                display: block;
+                font-size: 22px;
+            }
+
+            .navbar-bottom-wrapper {
+                display: block;
+                padding: 5px 0;
+            }
+
+            .category-list {
+                gap: 20px;
+                padding: 8px 0;
+            }
+
+            .category-item {
+                font-size: 14px;
+            }
+
+            .scroll-button {
+                opacity: 1;
+                visibility: visible;
+                width: 25px;
+                height: 25px;
+                font-size: 14px;
+            }
+
+            /* Carousel adjustments for mobile */
+            .carousel-container {
+                margin: 10px auto;
+                border-radius: 5px;
+            }
+            .carousel-slide {
+                min-height: 200px;
+            }
+
+            .carousel-button {
+                opacity: 1;
+                visibility: visible;
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+            .carousel-button.prev {
+                left: 5px;
+            }
+            .carousel-button.next {
+                right: 5px;
+            }
+
+            .carousel-indicators {
+                padding: 8px 0;
+            }
+            .indicator-dot {
+                width: 6px;
+                height: 6px;
+            }
+            .lihat-semua-promo {
+                margin-right: 15px;
+                font-size: 14px;
+            }
+
+            /* Flash Sale adjustments for mobile */
+            .flash-sale-section {
+                margin: 15px auto;
+                padding: 10px;
+            }
+            .flash-sale-header {
+                align-items: center;
+                text-align: center;
+                gap: 10px;
+            }
+            .flash-sale-title {
+                font-size: 20px;
+                justify-content: center;
+                width: 100%;
+            }
+            .flash-sale-title i {
+                font-size: 24px;
+            }
+            .countdown-timer-container {
+                justify-content: center;
+                font-size: 14px;
+                width: 100%;
+            }
+            .countdown-timer-container span {
+                font-size: 14px;
+                padding: 3px 8px;
+            }
+            .countdown-timer-container .timer-label {
+                font-size: 12px;
+            }
+            .flash-sale-status {
+                font-size: 14px;
+                text-align: center;
+            }
+            .flash-sale-sk {
+                width: fit-content;
+                margin: 0 auto;
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+            .flash-sale-image-container {
+                border-radius: 3px;
+            }
+            .flash-sale-image-container img {
+                border-radius: 3px;
+            }
+
+            /* Product Section adjustments for mobile */
+            .product-section {
+                padding: 0 10px;
+            }
+            .product-section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .product-section-header h2 {
+                font-size: 20px;
+            }
+            .lihat-semua-btn {
+                font-size: 14px;
+                align-self: flex-end;
+            }
+            .promo-banner-wrapper {
+                height: 150px;
+                padding: 10px;
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+            }
+            .promo-banner .banner-logo {
+                font-size: 16px;
+                justify-content: center;
+            }
+            .promo-banner .banner-logo img {
+                height: 20px;
+            }
+            .promo-banner h3 {
+                font-size: 1.8em;
+                margin-top: 5px;
+                margin-bottom: 10px;
+            }
+            .promo-banner .btn-beli-sekarang {
+                font-size: 13px;
+                padding: 8px 15px;
+            }
+            .product-cards-wrapper {
+                padding: 0;
+            }
+            .product-card-base { /* Apply to base class */
+                width: 140px;
+            }
+            .product-card-base img {
+                height: 140px;
+            }
+            .product-price .current-price {
+                font-size: 14px;
+            }
+            /* Menghilangkan tulisan persen (50%, 30%, dll.) */
+            /* .product-price .discount-tag {
+                display: none;
+            } */
+            .product-scroll-button {
+                opacity: 1;
+                visibility: visible;
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+            .product-scroll-button.left {
+                left: 0;
+            }
+            .product-scroll-button.right {
+                right: 0;
+            }
+            .product-card.see-all-card {
+                width: 140px;
+                font-size: 1em;
+            }
+            .product-card.see-all-card .see-all-content i {
+                font-size: 1.5em;
+            }
+
+            /* Super Online Deals adjustments for mobile */
+            .super-online-deals-section {
+                padding: 0 10px;
+            }
+            .super-online-deals-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .super-online-deals-tabs {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .super-online-deals-tab {
+                font-size: 14px;
+            }
+            .super-online-deals-tab.active::after {
+                bottom: -5px;
+            }
+            .super-online-deals-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .super-online-deals-banner {
+                width: 100%;
+                height: 150px;
+            }
+            .super-online-deals-product-wrapper {
+                padding: 0;
+            }
+            .super-online-deals-product-list .product-card-base { /* Apply to base class */
+                width: 140px;
+            }
+            .super-online-deals-product-list .product-card-base img {
+                height: 140px;
+            }
+            .super-online-deals-product-list .product-price .current-price {
+                font-size: 14px;
+            }
+            .super-online-deals-product-list .product-price .original-price {
+                font-size: 10px;
+            }
+            .super-online-deals-product-list .product-price .discount-tag {
+                font-size: 9px;
+            }
+            .super-online-deals-scroll-button {
+                opacity: 1;
+                visibility: visible;
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+
+            /* Exclusive Azko adjustments for mobile */
+            .exclusive-azko-section {
+                padding: 0 10px;
+            }
+            .exclusive-azko-section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .exclusive-azko-section-header h2 {
+                font-size: 20px;
+                text-align: center;
+                width: 100%;
+            }
+            .exclusive-azko-tabs {
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center; /* Center tabs on mobile */
+                width: 100%;
+            }
+            .exclusive-azko-tab {
+                font-size: 14px;
+                padding: 3px 0;
+            }
+            .exclusive-azko-tab.active::after {
+                bottom: -5px;
+            }
+            .exclusive-azko-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .exclusive-azko-banner {
+                width: 100%;
+                height: 150px;
+            }
+            .exclusive-azko-product-wrapper {
+                padding: 0;
+            }
+            .exclusive-azko-product-list .product-card-base { /* Apply to base class */
+                width: 140px;
+            }
+            .exclusive-azko-product-list .product-card-base img {
+                height: 140px;
+            }
+            .exclusive-azko-product-list .product-price .current-price {
+                font-size: 14px;
+            }
+            .exclusive-azko-product-list .product-price .original-price {
+                font-size: 10px;
+            }
+            .exclusive-azko-product-list .product-price .discount-tag {
+                font-size: 9px;
+            }
+            .exclusive-azko-product-list .product-review span {
+                font-size: 0.7em;
+            }
+            .exclusive-azko-scroll-button {
+                opacity: 1;
+                visibility: visible;
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+        }
+
+        /* Very small mobile (adjust as needed) */
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Info Bar -->
+    <div class="top-info-bar">
+        <div class="info-left">
+            <img src="Gambar/rupamania.png" alt="Rupamania Logo">
+            <span>Official AZKO</span>
+        </div>
+        <div class="info-right">
+            <i class="fas fa-truck"></i> Free Shipping JABODETABEK pembelanjaan Rp75.000+
+        </div>
+    </div>
+
+    <header class="navbar-container">
+        <nav class="navbar-top">
+            <div class="navbar-left">
+                <a href="#" class="logo">azko</a>
+                <div class="nav-links">
+                    <a href="#" class="nav-item has-underline">Kategori</a>
+                    <a href="#" class="nav-item has-underline">Inspirasi</a>
+                </div>
+            </div>
+
+            <div class="navbar-center">
+                <div class="search-bar">
+                    <input type="text" placeholder="Cari lampu">
+                    <button class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="navbar-right">
+                <div class="icon-group">
+                    <a href="#" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
+                    <a href="#" class="nav-icon"><i class="fas fa-bell"></i></a>
+                </div>
+                <a href="#" class="nav-item rewards">
+                    <i class="fas fa-star-burst"></i> rewards
+                </a>
+                <a href="Login Register.html">
+                <button class="btn btn-outline-red">Masuk</button>
+                <button class="btn btn-solid-red">Daftar</button>
+                </a>
+            </div>
+
+            <!-- Hamburger menu for mobile -->
+            <button class="hamburger-menu" id="hamburgerMenu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <!-- Mobile Menu Overlay -->
+            <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+                <div class="mobile-menu" id="mobileMenu">
+                    <div class="mobile-menu-header">
+                        <h4>Menu</h4>
+                        <button class="close-btn" id="closeMobileMenu">&times;</button>
+                    </div>
+                    <div class="mobile-menu-links">
+                        <ul>
+                            <li><a href="#">Kategori</a></li>
+                            <li><a href="#">Inspirasi</a></li>
+                            <li><a href="#">Flash Sale</a></li>
+                            <li><a href="#">Produk Pilihan</a></li>
+                            <li><a href="#">Super Online Deals</a></li>
+                            <li><a href="#">Eksklusif di Azko</a></li>
+                            <li><a href="#">Bantuan</a></li>
+                            <!-- Tambahkan lebih banyak tautan jika perlu -->
+                        </ul>
+                    </div>
+                    <div class="mobile-menu-auth">
+                        <button class="btn btn-outline-red">Masuk</button>
+                        <button class="btn btn-solid-red">Daftar</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <nav class="navbar-bottom-wrapper">
+            <div class="navbar-bottom" id="categoryScrollContainer">
+                <button class="scroll-button left" id="scrollLeft"><i class="fas fa-chevron-left"></i></button>
+                <div class="category-list" id="categoryList">
+                    <a href="#" class="category-item">Kamar Mandi & Laundry</a>
+                    <a href="#" class="category-item">Hobi & Gaya Hidup</a>
+                    <a href="#" class="category-item">Otomotif</a>
+                    <a href="#" class="category-item">Home Improvement</a>
+                    <a href="#" class="category-item">Lampu & Bohlam</a>
+                    <a href="#" class="category-item">Peralatan Elektronik</a>
+                    <a href="#" class="category-item">Olahraga & Outdoor</a>
+                    <a href="#" class="category-item">Best Seller</a>
+                    <a href="#" class="category-item">Kesehatan & Kecantikan</a>
+                    <a href="#" class="category-item">Buku & Musik</a>
+                    <a href="#" class="category-item">Mainan & Hobi</a>
+                </div>
+                <button class="scroll-button right" id="scrollRight"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Carousel Section -->
+    <section class="carousel-container" id="mainCarousel">
+        <button class="carousel-button prev" id="carouselPrev"><i class="fas fa-chevron-left"></i></button>
+        <div class="carousel-wrapper" id="carouselWrapper">
+            <!-- Slide 1: Menggunakan gambar utuh dari Anda -->
+            <div class="carousel-slide">
+                <img src="Gambar/Toko 1.png" alt="Promo Kebutuhan Rumah">
+            </div>
+
+            <!-- Slide 2: Menggunakan gambar utuh dari Anda -->
+            <div class="carousel-slide">
+                <img src="Gambar/Toko 2.png" alt="Promo Elektronik">
+            </div>
+
+            <!-- Slide 3: Menggunakan gambar utuh dari Anda -->
+            <div class="carousel-slide">
+                <img src="Gambar/Toko 3.png" alt="Promo Kamar Mandi">
+            </div>
+
+            <!-- Tambahkan lebih banyak slide jika Anda memiliki gambar promo lain -->
+            <div class="carousel-slide">
+                <img src="Gambar/Toko 1.png" alt="Promo Outdoor">
+            </div>
+            <div class="carousel-slide">
+                <img src="Gambar/Toko 3.png" alt="Promo Best Seller">
+            </div>
+
+        </div>
+        <button class="carousel-button next" id="carouselNext"><i class="fas fa-chevron-right"></i></button>
+        <div class="carousel-indicators" id="carouselIndicators">
+            <!-- Dots will be generated by JavaScript -->
+        </div>
+    </section>
+
+    <a href="#" class="lihat-semua-promo">Lihat semua promo</a>
+
+    <!-- Flash Sale Section -->
+    <section class="flash-sale-section">
+        <div class="flash-sale-header">
+            <div class="flash-sale-title">
+                <i class="fas fa-bolt"></i>
+                <span>FLASH SALE</span>
+            </div>
+            <div class="countdown-timer-container">
+                <span id="countdownHours">00</span> :
+                <span id="countdownMinutes">00</span> :
+                <span id="countdownSeconds">00</span>
+                <span class="timer-label">berakhir dalam</span>
+            </div>
+            <a href="#" class="flash-sale-sk">S&K <i class="fas fa-chevron-right"></i></a>
+        </div>
+        <div class="flash-sale-status">
+            Berlangsung <strong>10:00</strong>
+        </div>
+        <div class="flash-sale-image-container">
+            <img src="Gambar/Toko 4.png" alt="Flash Sale Produk">
+        </div>
+    </section>
+
+    <!-- Product Section -->
+    <section class="product-section">
+        <div class="product-section-header">
+            <h2>Produk Pilihan Untukmu</h2>
+            <a href="#" class="lihat-semua-btn">Lihat Semua <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="product-list-container">
+            <div class="promo-banner-wrapper">
+                <div class="promo-banner">
+                    <div class="banner-logo">
+                        <!-- Ganti dengan logo Azko putih Anda, atau gunakan ikon Font Awesome jika tidak ada gambar -->
+                        <img src="https://placehold.co/25x25/ffffff/000000?text=AZ" alt="Azko Logo"> by az.ko
+                    </div>
+                    <h3>Hemat hingga <span class="discount-percentage">70<sup>%</sup></span></h3>
+                    <a href="#" class="btn-beli-sekarang">BELI SEKARANG <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+            <div class="product-cards-wrapper" id="productCardsWrapper">
+                <button class="product-scroll-button left" id="productScrollLeft"><i class="fas fa-chevron-left"></i></button>
+                <div class="product-cards-list" id="productCardsList">
+                    <!-- Product Card 1 -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/e02a2a/ffffff?text=Kopin+Mangkok" alt="Kopin Mangkok Porselen">
+                        <div class="product-info">
+                            <h4 class="product-name">Kopin 15 Cm Mangkok Porselen...</h4>
+                            <div class="product-price">
+                                <span class="current-price">Rp19.500</span>
+                                <!-- <span class="discount-tag">50%</span> --> <!-- Tulisan persen dihilangkan -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 2 -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/f89e1e/ffffff?text=Maxbuilt+Troli" alt="Maxbuilt Troli Lipat Portabel">
+                        <div class="product-info">
+                            <h4 class="product-name">Maxbuilt Troli Lipat Portabel 25 Kg -...</h4>
+                            <div class="product-price">
+                                <span class="current-price">Rp243.900</span>
+                                <!-- <span class="discount-tag">30%</span> --> <!-- Tulisan persen dihilangkan -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 3 -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/333/ffffff?text=Krisbow+Rak" alt="Krisbow Rak Besi">
+                        <div class="product-info">
+                            <h4 class="product-name">Krisbow 195x61x183 Cm Rak Besi 4...</h4>
+                            <div class="product-price">
+                                <span class="current-price">Rp3.949.000</span>
+                                <!-- <span class="discount-tag">12%</span> --> <!-- Tulisan persen dihilangkan -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 4 -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/8e24aa/ffffff?text=Ataru+Botol" alt="Ataru Botol Vacuum Flask">
+                        <div class="product-info">
+                            <h4 class="product-name">Ataru 420 Ml Botol Vacuum Flask...</h4>
+                            <div class="product-price">
+                                <span class="current-price">Rp59.900</span>
+                                <!-- <span class="discount-tag">53%</span> --> <!-- Tulisan persen dihilangkan -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 5 -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/00796b/ffffff?text=Acroz+Gantungan" alt="Acroz Gantungan Kamar Mandi">
+                        <div class="product-info">
+                            <h4 class="product-name">Acroz Gantungan Kamar Mandi 928...</h4>
+                            <div class="product-price">
+                                <span class="current-price">Rp36.900</span>
+                                <!-- <span class="discount-tag">75%</span> --> <!-- Tulisan persen dihilangkan -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Anda bisa menambahkan lebih banyak kartu produk di sini -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/e02a2a/ffffff?text=Produk+6" alt="Produk 6">
+                        <div class="product-info">
+                            <h4 class="product-name">Nama Produk Keenam Sangat Panjang</h4>
+                            <div class="product-price">
+                                <span class="current-price">Rp123.456</span>
+                                <!-- <span class="discount-tag">10%</span> --> <!-- Tulisan persen dihilangkan -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/f89e1e/ffffff?text=Produk+7" alt="Produk 7">
+                        <div class="product-info">
+                            <h4 class="product-name">Nama Produk Ketujuh</h4>
+                            <div class="product-price">
+                                <span class="current-price">Rp78.900</span>
+                                <!-- <span class="discount-tag">25%</span> --> <!-- Tulisan persen dihilangkan -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/333/ffffff?text=Produk+8" alt="Produk 8">
+                        <div class="product-info">
+                            <h4 class="product-name">Nama Produk Kedelapan</h4>
+                            <div class="product-price">
+                                <span class="current-price">Rp99.000</span>
+                                <!-- <span class="discount-tag">40%</span> --> <!-- Tulisan persen dihilangkan -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/8e24aa/ffffff?text=Produk+9" alt="Produk 9">
+                        <div class="product-info">
+                            <h4 class="product-name">Nama Produk Kesembilan</h4>
+                            <div class="product-price">
+                                <span class="current-price">Rp150.000</span>
+                                <!-- <span class="discount-tag">15%</span> --> <!-- Tulisan persen dihilangkan -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/00796b/ffffff?text=Produk+10" alt="Produk 10">
+                        <div class="product-info">
+                            <h4 class="product-name">Nama Produk Kesepuluh</h4>
+                            <div class="product-price">
+                                <span class="current-price">Rp25.000</span>
+                                <!-- <span class="discount-tag">60%</span> --> <!-- Tulisan persen dihilangkan -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- "Lihat Semua" card di akhir -->
+                    <a href="#" class="product-card see-all-card">
+                        <div class="see-all-content">
+                            <span>Lihat Semua</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+                <button class="product-scroll-button right" id="productScrollRight"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Super Online Deals Section -->
+    <section class="super-online-deals-section">
+        <div class="super-online-deals-header">
+            <div class="super-online-deals-tabs">
+                <span class="super-online-deals-tab active" data-tab="diskon-kaget">Diskon Kaget</span>
+                <span class="super-online-deals-tab" data-tab="spesial-online">Spesial Online</span>
+                <span class="super-online-deals-tab" data-tab="new-collections">Explore New Collections</span>
+                <span class="super-online-deals-tab" data-tab="beli-1-gratis-1">Beli 1 Gratis 1</span>
+                <span class="super-online-deals-tab" data-tab="trending-now">Trending Now</span>
+                <span class="super-online-deals-tab" data-tab="rewards">Harga Spesial ruparupa Rewards</span>
+            </div>
+        </div>
+
+        <div class="super-online-deals-content">
+            <!-- Banner Super Online Deals -->
+            <div class="super-online-deals-banner">
+                <!-- Pastikan path gambar ini benar -->
+                <img src="Gambar/super_online_deals_banner.png" alt="Diskon Kaget Banner">
+            </div>
+
+            <div class="super-online-deals-product-wrapper" id="superDealsProductWrapper">
+                <button class="super-online-deals-scroll-button left" id="superDealsScrollLeft"><i class="fas fa-chevron-left"></i></button>
+                <!-- Product List for Diskon Kaget Tab -->
+                <div class="super-online-deals-product-list active-tab-content" id="diskon-kaget-products">
+                    <!-- Product Card 1 (Diskon Kaget) -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/e02a2a/ffffff?text=Sepeda+Statik" alt="Kinetic Sepeda Statis">
+                        <div class="product-info">
+                            <h4 class="product-name">Kinetic Sepeda Statis Magnetic...</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp2.899.000</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp1.349.000</span>
+                                    <span class="discount-tag">53%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star-half-alt" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(123 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 2 (Diskon Kaget) -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/f89e1e/ffffff?text=Delicia+Set" alt="Delicia Set Teko Cangkir">
+                        <div class="product-info">
+                            <h4 class="product-name">Delicia Set 5 Pcs Teko Dan Cangkir...</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp169.900</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp84.950</span>
+                                    <span class="discount-tag">50%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(45 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 3 (Diskon Kaget) -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/333/ffffff?text=Krisbow+Sabun" alt="Krisbow Dispenser Sabun">
+                        <div class="product-info">
+                            <h4 class="product-name">Krisbow 380 Ml Dispenser Sabun...</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp139.900</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp69.900</span>
+                                    <span class="discount-tag">50%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(88 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 4 (Diskon Kaget) -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/8e24aa/ffffff?text=Otto+Pijat" alt="Otto Klasse Bantal Pijat">
+                        <div class="product-info">
+                            <h4 class="product-name">Otto Klasse Bantal Kursi Pijat...</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp3.199.000</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp1.899.000</span>
+                                    <span class="discount-tag">40%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(55 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 5 (Diskon Kaget) -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/00796b/ffffff?text=Produk+5" alt="Produk 5">
+                        <div class="product-info">
+                            <h4 class="product-name">Nama Produk Diskon Kaget 5</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp100.000</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp50.000</span>
+                                    <span class="discount-tag">50%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(20 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- "Lihat Semua" card di akhir -->
+                    <a href="#" class="product-card see-all-card">
+                        <div class="see-all-content">
+                            <span>Lihat Semua</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product List for Spesial Online Tab (Hidden by default) -->
+                <div class="super-online-deals-product-list" id="spesial-online-products" style="display: none;">
+                    <!-- Contoh Produk untuk tab "Spesial Online" -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/0000FF/ffffff?text=Online+Deal+1" alt="Online Deal 1">
+                        <div class="product-info">
+                            <h4 class="product-name">Spesial Online Produk A</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp1.000.000</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp750.000</span>
+                                    <span class="discount-tag">25%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(15 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/00FF00/ffffff?text=Online+Deal+2" alt="Online Deal 2">
+                        <div class="product-info">
+                            <h4 class="product-name">Spesial Online Produk B</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp500.000</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp200.000</span>
+                                    <span class="discount-tag">60%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(30 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="product-card see-all-card">
+                        <div class="see-all-content">
+                            <span>Lihat Semua</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product List for New Collections Tab (Hidden by default) -->
+                <div class="super-online-deals-product-list" id="new-collections-products" style="display: none;">
+                    <!-- Contoh Produk untuk tab "New Collections" -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/FF0000/ffffff?text=New+Collection+1" alt="New Collection 1">
+                        <div class="product-info">
+                            <h4 class="product-name">Koleksi Baru Item X</h4>
+                            <div class="product-price">
+                                <span class="current-price">Rp350.000</span>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star-half-alt" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(5 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="product-card see-all-card">
+                        <div class="see-all-content">
+                            <span>Lihat Semua</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product List for Beli 1 Gratis 1 Tab (Hidden by default) -->
+                <div class="super-online-deals-product-list" id="beli-1-gratis-1-products" style="display: none;">
+                    <!-- Contoh Produk untuk tab "Beli 1 Gratis 1" -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/FFFF00/000000?text=Beli+1+Gratis+1" alt="Beli 1 Gratis 1">
+                        <div class="product-info">
+                            <h4 class="product-name">Beli 1 Gratis 1 Produk A</h4>
+                            <div class="product-price">
+                                <span class="current-price">Rp120.000</span>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(100 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="product-card see-all-card">
+                        <div class="see-all-content">
+                            <span>Lihat Semua</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product List for Trending Now Tab (Hidden by default) -->
+                <div class="super-online-deals-product-list" id="trending-now-products" style="display: none;">
+                    <!-- Contoh Produk untuk tab "Trending Now" -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/00FFFF/000000?text=Trending+1" alt="Trending 1">
+                        <div class="product-info">
+                            <h4 class="product-name">Produk Trending Terlaris</h4>
+                            <div class="product-price">
+                                <span class="current-price">Rp95.000</span>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star-half-alt" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(70 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="product-card see-all-card">
+                        <div class="see-all-content">
+                            <span>Lihat Semua</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product List for Rewards Tab (Hidden by default) -->
+                <div class="super-online-deals-product-list" id="rewards-products" style="display: none;">
+                    <!-- Contoh Produk untuk tab "Harga Spesial ruparupa Rewards" -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/FF00FF/ffffff?text=Rewards+Product" alt="Rewards Product">
+                        <div class="product-info">
+                            <h4 class="product-name">Produk Rewards Eksklusif</h4>
+                            <div class="product-price">
+                                <span class="current-price">Rp200.000</span>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star-half-alt" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(25 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="product-card see-all-card">
+                        <div class="see-all-content">
+                            <span>Lihat Semua</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <button class="super-online-deals-scroll-button right" id="superDealsScrollRight"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exclusive Azko Section -->
+    <section class="exclusive-azko-section">
+        <div class="exclusive-azko-section-header">
+            <h2>Eksklusif di Azko</h2>
+            <div class="exclusive-azko-tabs">
+                <span class="exclusive-azko-tab active" data-tab="krisbow-sync">Krisbow Sync</span>
+                <span class="exclusive-azko-tab" data-tab="stora">STORA</span>
+                <span class="exclusive-azko-tab" data-tab="ataru">Ataru</span>
+                <span class="exclusive-azko-tab" data-tab="kris">KRIS</span>
+                <span class="exclusive-azko-tab" data-tab="soleil">SOLEIL</span>
+                <span class="exclusive-azko-tab" data-tab="proclean">PROCLEAN</span>
+            </div>
+        </div>
+
+        <div class="exclusive-azko-content">
+            <!-- Banner Exclusive Azko -->
+            <div class="exclusive-azko-banner">
+                <!-- Pastikan path gambar ini benar -->
+                <img src="Gambar/exclusive_azko_banner.png" alt="Krisbow Sync Banner">
+            </div>
+
+            <div class="exclusive-azko-product-wrapper" id="exclusiveAzkoProductWrapper">
+                <button class="exclusive-azko-scroll-button left" id="exclusiveAzkoScrollLeft"><i class="fas fa-chevron-left"></i></button>
+                <!-- Product List for Krisbow Sync Tab -->
+                <div class="exclusive-azko-product-list active-tab-content" id="krisbow-sync-products">
+                    <!-- Product Card 1 (Krisbow Sync) -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/007bff/ffffff?text=Smart+IP+Cam" alt="Krisbow Sync Smart Ip Camera Wifi">
+                        <div class="product-info">
+                            <h4 class="product-name">Krisbow Sync Smart Ip Camera Wifi Bui...</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp799.000</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp499.900</span>
+                                    <span class="discount-tag">37%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star-half-alt" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(110 ulasan)</span>
+                            </div>
+                            <div class="product-card-badges">
+                                <i class="fas fa-comment-dots chat-icon"></i>
+                                <span>Voucher Diskon</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 2 (Krisbow Sync) -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/343a40/ffffff?text=Smart+Timbangan" alt="Krisbow Sync Smart Timbangan">
+                        <div class="product-info">
+                            <h4 class="product-name">Krisbow Sync 180 Kg Smart Timbangan...</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp399.900</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp359.910</span>
+                                    <span class="discount-tag">10%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star-half-alt" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(59 ulasan)</span>
+                            </div>
+                            <div class="product-card-badges">
+                                <i class="fas fa-comment-dots chat-icon"></i>
+                                <span>Voucher Diskon</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 3 (Krisbow Sync) -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/dc3545/ffffff?text=Smart+Bohlam" alt="Krisbow Sync Smart Bohlam Led">
+                        <div class="product-info">
+                            <h4 class="product-name">Krisbow Sync Smart Bohlam Led...</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp139.900</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp69.900</span>
+                                    <span class="discount-tag">50%</span>
+                                </div>
+                            </div>
+                            <div class="product-card-badges">
+                                <span class="buy-one-get-one">Buy 1 Get 1</span>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(96 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 4 (Krisbow Sync) -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/28a745/ffffff?text=Ultrasonic+Diffuser" alt="Krisbow Sync Smart Ultrasonic Diffuser">
+                        <div class="product-info">
+                            <h4 class="product-name">Krisbow Sync Smart Ultrasonic Diffuse...</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp740.000</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp599.900</span>
+                                    <span class="discount-tag">20%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star-half-alt" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(51 ulasan)</span>
+                            </div>
+                            <div class="product-card-badges">
+                                <i class="fas fa-comment-dots chat-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 5 (Krisbow Sync) -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/6f42c1/ffffff?text=Produk+5" alt="Produk 5">
+                        <div class="product-info">
+                            <h4 class="product-name">Krisbow Sync Produk Lainnya...</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp250.000</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp150.000</span>
+                                    <span class="discount-tag">40%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(30 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- "Lihat Semua" card di akhir -->
+                    <a href="#" class="product-card see-all-card">
+                        <div class="see-all-content">
+                            <span>Lihat Semua</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product List for STORA Tab (Hidden by default) -->
+                <div class="exclusive-azko-product-list" id="stora-products" style="display: none;">
+                    <!-- Contoh Produk untuk tab "STORA" -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/ADD8E6/000000?text=STORA+Produk+1" alt="STORA Produk 1">
+                        <div class="product-info">
+                            <h4 class="product-name">STORA Lemari Pakaian Minimalis</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp1.500.000</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp1.200.000</span>
+                                    <span class="discount-tag">20%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star-half-alt" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(75 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="product-card see-all-card">
+                        <div class="see-all-content">
+                            <span>Lihat Semua</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product List for Ataru Tab (Hidden by default) -->
+                <div class="exclusive-azko-product-list" id="ataru-products" style="display: none;">
+                    <!-- Contoh Produk untuk tab "Ataru" -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/90EE90/000000?text=Ataru+Produk+1" alt="Ataru Produk 1">
+                        <div class="product-info">
+                            <h4 class="product-name">Ataru Botol Minum Sporty</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp150.000</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp100.000</span>
+                                    <span class="discount-tag">33%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(90 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="product-card see-all-card">
+                        <div class="see-all-content">
+                            <span>Lihat Semua</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product List for KRIS Tab (Hidden by default) -->
+                <div class="exclusive-azko-product-list" id="kris-products" style="display: none;">
+                    <!-- Contoh Produk untuk tab "KRIS" -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/FFB6C1/000000?text=KRIS+Produk+1" alt="KRIS Produk 1">
+                        <div class="product-info">
+                            <h4 class="product-name">KRIS Set Peralatan Dapur Lengkap</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp400.000</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp250.000</span>
+                                    <span class="discount-tag">37%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star-half-alt" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(60 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="product-card see-all-card">
+                        <div class="see-all-content">
+                            <span>Lihat Semua</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product List for SOLEIL Tab (Hidden by default) -->
+                <div class="exclusive-azko-product-list" id="soleil-products" style="display: none;">
+                    <!-- Contoh Produk untuk tab "SOLEIL" -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/FFD700/000000?text=SOLEIL+Produk+1" alt="SOLEIL Produk 1">
+                        <div class="product-info">
+                            <h4 class="product-name">SOLEIL Lampu Hias Gantung Modern</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp800.000</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp600.000</span>
+                                    <span class="discount-tag">25%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(40 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="product-card see-all-card">
+                        <div class="see-all-content">
+                            <span>Lihat Semua</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product List for PROCLEAN Tab (Hidden by default) -->
+                <div class="exclusive-azko-product-list" id="proclean-products" style="display: none;">
+                    <!-- Contoh Produk untuk tab "PROCLEAN" -->
+                    <div class="product-card product-card-base">
+                        <img src="https://placehold.co/200x200/87CEEB/000000?text=PROCLEAN+Produk+1" alt="PROCLEAN Produk 1">
+                        <div class="product-info">
+                            <h4 class="product-name">PROCLEAN Pembersih Lantai Anti Bakteri</h4>
+                            <div class="product-price">
+                                <span class="original-price">Rp50.000</span>
+                                <div class="product-price-main">
+                                    <span class="current-price">Rp35.000</span>
+                                    <span class="discount-tag">30%</span>
+                                </div>
+                            </div>
+                            <div class="product-review">
+                                <div class="review-stars">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    <i class="fas fa-star-half-alt" style="color: #FFD700;"></i>
+                                </div>
+                                <span>(150 ulasan)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="product-card see-all-card">
+                        <div class="see-all-content">
+                            <span>Lihat Semua</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <button class="exclusive-azko-scroll-button right" id="exclusiveAzkoScrollRight"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Konten halaman lainnya akan ada di sini -->
+    <div style="height: 500px; background-color: #f0f2f5; padding-top: 20px; text-align: center;">
+        <h2>Area Konten Berikutnya</h2>
+        <p>Anda bisa menambahkan lebih banyak produk, kategori, atau informasi lainnya di sini.</p>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-column footer-contact">
+                <h4>Hubungi Kami</h4>
+                <p>Jl. Contoh No. 123, Jakarta Selatan</p>
+                <p>Email: info@azko.com</p>
+                <p>Telepon: (021) 1234 5678</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Informasi</h4>
+                <ul>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Karir</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Layanan Pelanggan</h4>
+                <ul>
+                    <li><a href="#">Bantuan</a></li>
+                    <li><a href="#">Cara Berbelanja</a></li>
+                    <li><a href="#">Pengembalian & Penukaran</a></li>
+                    <li><a href="#">Lacak Pesanan</a></li>
+                </ul>
+            </div>
+            <div class="footer-column footer-newsletter">
+                <h4>Newsletter</h4>
+                <p>Dapatkan update terbaru dan penawaran spesial langsung ke inbox Anda!</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Masukkan email Anda" aria-label="Masukkan email Anda untuk Newsletter">
+                    <button type="submit">Daftar</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-payment-shipping">
+            <div class="footer-payment-methods">
+                <span>Metode Pembayaran:</span>
+                <img src="https://placehold.co/40x25/ffffff/000000?text=VISA" alt="Visa">
+                <img src="https://placehold.co/40x25/ffffff/000000?text=MC" alt="Mastercard">
+                <img src="https://placehold.co/40x25/ffffff/000000?text=OVO" alt="OVO">
+                <img src="https://placehold.co/40x25/ffffff/000000?text=GOPAY" alt="Gopay">
+                <img src="https://placehold.co/40x25/ffffff/000000?text=BCA" alt="BCA">
+                <img src="https://placehold.co/40x25/ffffff/000000?text=BRI" alt="BRI">
+                <!-- Tambahkan lebih banyak ikon pembayaran -->
+            </div>
+            <div class="footer-shipping-partners">
+                <span>Mitra Pengiriman:</span>
+                <img src="https://placehold.co/40x25/ffffff/000000?text=JNE" alt="JNE">
+                <img src="https://placehold.co/40x25/ffffff/000000?text=TIKI" alt="TIKI">
+                <img src="https://placehold.co/40x25/ffffff/000000?text=POS" alt="POS Indonesia">
+                <img src="https://placehold.co/40x25/ffffff/000000?text=SICEPAT" alt="SiCepat">
+                <img src="https://placehold.co/40x25/ffffff/000000?text=J&T" alt="J&T Express">
+                <!-- Tambahkan lebih banyak ikon pengiriman -->
+            </div>
+        </div>
+        <div class="footer-copyright">
+            &copy; 2025 Azko. Hak Cipta Dilindungi.
+        </div>
+    </footer>
+
+    <script>
+        // Fungsi pembantu untuk mengatur scroll dan visibilitas tombol
+        function setupHorizontalScroll(containerId, listId, leftBtnId, rightBtnId) {
+            const container = document.getElementById(containerId);
+            const list = document.getElementById(listId);
+            const leftBtn = document.getElementById(leftBtnId);
+            const rightBtn = document.getElementById(rightBtnId);
+
+            if (!container || !list || !leftBtn || !rightBtn) {
+                console.warn(`One or more elements for scroll setup not found in ${containerId}.`);
+                return;
+            }
+
+            const scrollAmount = 200; // Jarak scroll per klik
+
+            const updateButtonVisibility = () => {
+                // Sembunyikan tombol jika konten tidak bisa discroll
+                if (list.scrollWidth <= list.clientWidth) {
+                    leftBtn.style.display = 'none';
+                    rightBtn.style.display = 'none';
+                } else {
+                    // Tampilkan tombol dan atur opacity/visibility berdasarkan posisi scroll
+                    leftBtn.style.display = 'flex'; // Use flex to center icon
+                    rightBtn.style.display = 'flex'; // Use flex to center icon
+
+                    // Tombol kiri tersembunyi jika di paling kiri
+                    if (list.scrollLeft === 0) {
+                        leftBtn.style.opacity = '0';
+                        leftBtn.style.visibility = 'hidden';
+                    } else {
+                        leftBtn.style.opacity = '1';
+                        leftBtn.style.visibility = 'visible';
+                    }
+
+                    // Tombol kanan tersembunyi jika di paling kanan
+                    if (list.scrollLeft + list.clientWidth >= list.scrollWidth - 1) { /* -1 for potential sub-pixel issues */
+                        rightBtn.style.opacity = '0';
+                        rightBtn.style.visibility = 'hidden';
+                    } else {
+                        rightBtn.style.opacity = '1';
+                        rightBtn.style.visibility = 'visible';
+                    }
+                }
+            };
+
+            const scrollList = (direction) => {
+                if (direction === 'left') {
+                    list.scrollBy({
+                        left: -scrollAmount,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    list.scrollBy({
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                }
+            };
+
+            leftBtn.addEventListener('click', () => scrollList('left'));
+            rightBtn.addEventListener('click', () => scrollList('right'));
+
+            // Update visibility on scroll, resize, and initial load
+            list.addEventListener('scroll', updateButtonVisibility);
+            window.addEventListener('resize', updateButtonVisibility);
+            // Add a small delay for initial visibility check to ensure all content is rendered
+            setTimeout(updateButtonVisibility, 100);
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Navbar Category Scroll Logic ---
+            setupHorizontalScroll('categoryScrollContainer', 'categoryList', 'scrollLeft', 'scrollRight');
+
+            // --- Main Carousel Logic ---
+            const carouselWrapper = document.getElementById('carouselWrapper');
+            const carouselSlides = document.querySelectorAll('.carousel-slide');
+            const carouselPrevBtn = document.getElementById('carouselPrev');
+            const carouselNextBtn = document.getElementById('carouselNext');
+            const carouselIndicators = document.getElementById('carouselIndicators');
+            const mainCarouselContainer = document.getElementById('mainCarousel');
+
+            let currentIndex = 0;
+            let autoplayInterval;
+            const autoplayDelay = 5000; // 5 detik
+
+            // Generate dots
+            if (carouselIndicators) { // Check if carouselIndicators exists
+                carouselSlides.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.classList.add('indicator-dot');
+                    if (index === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => goToSlide(index));
+                    carouselIndicators.appendChild(dot);
+                });
+            }
+            const dots = document.querySelectorAll('.indicator-dot'); // Re-query after dots are generated
+
+            const updateCarousel = () => {
+                if (!carouselWrapper) return; // Add null check
+                const slideWidth = carouselWrapper.clientWidth;
+                carouselWrapper.scrollTo({
+                    left: currentIndex * slideWidth,
+                    behavior: 'smooth'
+                });
+                updateDots();
+            };
+
+            const goToSlide = (index) => {
+                currentIndex = index;
+                updateCarousel();
+            };
+
+            const nextSlide = () => {
+                currentIndex = (currentIndex + 1) % carouselSlides.length;
+                updateCarousel();
+            };
+
+            const prevSlide = () => {
+                currentIndex = (currentIndex - 1 + carouselSlides.length) % carouselSlides.length;
+                updateCarousel();
+            };
+
+            const updateDots = () => {
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            };
+
+            const startAutoplay = () => {
+                stopAutoplay(); // Pastikan tidak ada interval ganda
+                autoplayInterval = setInterval(nextSlide, autoplayDelay);
+            };
+
+            const stopAutoplay = () => {
+                clearInterval(autoplayInterval);
+            };
+
+            // Event listeners for carousel buttons
+            if (carouselPrevBtn) carouselPrevBtn.addEventListener('click', () => {
+                prevSlide();
+                stopAutoplay(); // Stop autoplay on manual interaction
+                startAutoplay(); // Restart after a brief pause
+            });
+            if (carouselNextBtn) carouselNextBtn.addEventListener('click', () => {
+                nextSlide();
+                stopAutoplay(); // Stop autoplay on manual interaction
+                startAutoplay(); // Restart after a brief pause
+            });
+
+            // Pause autoplay on hover, resume on mouse leave
+            if (mainCarouselContainer) {
+                mainCarouselContainer.addEventListener('mouseenter', stopAutoplay);
+                mainCarouselContainer.addEventListener('mouseleave', startAutoplay);
+            }
+
+            // Update dots and potentially current index when user manually scrolls (e.g., on mobile touch)
+            if (carouselWrapper) {
+                carouselWrapper.addEventListener('scroll', () => {
+                    const scrollLeft = carouselWrapper.scrollLeft;
+                    const slideWidth = carouselWrapper.clientWidth;
+                    let closestIndex = Math.round(scrollLeft / slideWidth);
+                    if (closestIndex !== currentIndex) {
+                        currentIndex = closestIndex;
+                        updateDots();
+                    }
+                });
+            }
+
+            // Initialize carousel
+            if (carouselSlides.length > 0) { // Only start if there are slides
+                startAutoplay();
+                updateCarousel();
+                window.addEventListener('resize', () => {
+                    updateCarousel();
+                    stopAutoplay();
+                    startAutoplay();
+                });
+            }
+
+
+            // --- Flash Sale Countdown Timer Logic ---
+            const countdownHoursSpan = document.getElementById('countdownHours');
+            const countdownMinutesSpan = document.getElementById('countdownMinutes');
+            const countdownSecondsSpan = document.getElementById('countdownSeconds');
+
+            if (countdownHoursSpan && countdownMinutesSpan && countdownSecondsSpan) {
+                // Set the end date for the countdown (e.g., today + 1 hour for testing)
+                // For actual implementation, get this from your backend or specific event time
+                const now = new Date();
+                const endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 22, 0, 0); // Today, 10:00 PM WITA (22:00)
+
+                // If the current time is already past 10:00 PM today, set it for tomorrow
+                if (now.getTime() > endDate.getTime()) {
+                    endDate.setDate(endDate.getDate() + 1);
+                }
+
+                function updateCountdown() {
+                    const now = new Date().getTime();
+                    const distance = endDate.getTime() - now;
+
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    countdownHoursSpan.textContent = hours < 10 ? '0' + hours : hours;
+                    countdownMinutesSpan.textContent = minutes < 10 ? '0' + minutes : minutes;
+                    countdownSecondsSpan.textContent = seconds < 10 ? '0' + seconds : seconds;
+
+                    if (distance < 0) {
+                        clearInterval(flashSaleCountdownInterval);
+                        countdownHoursSpan.textContent = "00";
+                        countdownMinutesSpan.textContent = "00";
+                        countdownSecondsSpan.textContent = "00";
+                        document.querySelector('.countdown-timer-container .timer-label').textContent = "Selesai";
+                        document.querySelector('.flash-sale-status').textContent = "Flash Sale Telah Berakhir";
+                    }
+                }
+
+                const flashSaleCountdownInterval = setInterval(updateCountdown, 1000);
+                updateCountdown(); // Call once immediately to avoid delay on first load
+            }
+
+
+            // --- Product Cards Scroll Logic ---
+            setupHorizontalScroll('productCardsWrapper', 'productCardsList', 'productScrollLeft', 'productScrollRight');
+
+            // --- Super Online Deals Tab and Scroll Logic ---
+            const superOnlineDealsTabs = document.querySelectorAll('.super-online-deals-tab');
+            const superDealsProductLists = document.querySelectorAll('.super-online-deals-product-list');
+            const superDealsScrollLeftBtn = document.getElementById('superDealsScrollLeft');
+            const superDealsScrollRightBtn = document.getElementById('superDealsScrollRight');
+            const superDealsProductWrapper = document.getElementById('superDealsProductWrapper');
+
+
+            let activeSuperDealList = document.getElementById('diskon-kaget-products'); // Default active list
+
+            // Function to show active tab content and hide others
+            const showSuperDealTab = (tabId) => {
+                superDealsProductLists.forEach(list => {
+                    list.style.display = 'none'; // Hide all lists
+                });
+                const targetList = document.getElementById(tabId);
+                if (targetList) {
+                    targetList.style.display = 'flex'; // Show the selected list
+                    activeSuperDealList = targetList; // Update active list reference
+                    activeSuperDealList.scrollTo({
+                        left: 0,
+                        behavior: 'auto' // No smooth scroll on tab change
+                    });
+                    // Update button visibility for the new active list
+                    if (superDealsProductWrapper) { // Check if wrapper exists before calling
+                        updateButtonVisibilityForWrapper(superDealsProductWrapper, activeSuperDealList, superDealsScrollLeftBtn, superDealsScrollRightBtn);
+                    }
+                }
+            };
+
+            // Function to update active tab styling
+            const updateSuperDealTabs = (selectedTab) => {
+                superOnlineDealsTabs.forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                selectedTab.classList.add('active');
+            };
+
+            // Event listeners for tabs
+            superOnlineDealsTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.dataset.tab + '-products'; // Get the target product list ID
+                    showSuperDealTab(tabId);
+                    updateSuperDealTabs(tab);
+                });
+            });
+
+            // Scroll logic for Super Online Deals products
+            const scrollSuperDeals = (direction) => {
+                const scrollAmount = 200; // Adjust scroll amount as needed
+                if (activeSuperDealList) { // Ensure active list exists
+                    if (direction === 'left') {
+                        activeSuperDealList.scrollBy({
+                            left: -scrollAmount,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        activeSuperDealList.scrollBy({
+                            left: scrollAmount,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            };
+
+            if (superDealsScrollLeftBtn) superDealsScrollLeftBtn.addEventListener('click', () => scrollSuperDeals('left'));
+            if (superDealsScrollRightBtn) superDealsScrollRightBtn.addEventListener('click', () => scrollSuperDeals('right'));
+
+            // Update button visibility for Super Online Deals on scroll and resize
+            if (activeSuperDealList && superDealsProductWrapper && superDealsScrollLeftBtn && superDealsScrollRightBtn) {
+                activeSuperDealList.addEventListener('scroll', () => {
+                    updateButtonVisibilityForWrapper(superDealsProductWrapper, activeSuperDealList, superDealsScrollLeftBtn, superDealsScrollRightBtn);
+                });
+                window.addEventListener('resize', () => {
+                    updateButtonVisibilityForWrapper(superDealsProductWrapper, activeSuperDealList, superDealsScrollLeftBtn, superDealsScrollRightBtn);
+                });
+                setTimeout(() => updateButtonVisibilityForWrapper(superDealsProductWrapper, activeSuperDealList, superDealsScrollLeftBtn, superDealsScrollRightBtn), 100);
+            }
+
+
+            // --- Exclusive Azko Tab and Scroll Logic ---
+            const exclusiveAzkoTabs = document.querySelectorAll('.exclusive-azko-tab');
+            const exclusiveAzkoProductLists = document.querySelectorAll('.exclusive-azko-product-list');
+            const exclusiveAzkoScrollLeftBtn = document.getElementById('exclusiveAzkoScrollLeft');
+            const exclusiveAzkoScrollRightBtn = document.getElementById('exclusiveAzkoScrollRight');
+            const exclusiveAzkoProductWrapper = document.getElementById('exclusiveAzkoProductWrapper');
+
+            let activeExclusiveAzkoList = document.getElementById('krisbow-sync-products'); // Default active list
+
+            // Function to show active tab content and hide others
+            const showExclusiveAzkoTab = (tabId) => {
+                exclusiveAzkoProductLists.forEach(list => {
+                    list.style.display = 'none'; // Hide all lists
+                });
+                const targetList = document.getElementById(tabId);
+                if (targetList) {
+                    targetList.style.display = 'flex'; // Show the selected list
+                    activeExclusiveAzkoList = targetList; // Update active list reference
+                    activeExclusiveAzkoList.scrollTo({
+                        left: 0,
+                        behavior: 'auto' // No smooth scroll on tab change
+                    });
+                    // Update button visibility for the new active list
+                    if (exclusiveAzkoProductWrapper) { // Check if wrapper exists before calling
+                        updateButtonVisibilityForWrapper(exclusiveAzkoProductWrapper, activeExclusiveAzkoList, exclusiveAzkoScrollLeftBtn, exclusiveAzkoScrollRightBtn);
+                    }
+                }
+            };
+
+            // Function to update active tab styling
+            const updateExclusiveAzkoTabs = (selectedTab) => {
+                exclusiveAzkoTabs.forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                selectedTab.classList.add('active');
+            };
+
+            // Event listeners for tabs
+            exclusiveAzkoTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.dataset.tab + '-products'; // Get the target product list ID
+                    showExclusiveAzkoTab(tabId);
+                    updateExclusiveAzkoTabs(tab);
+                });
+            });
+
+            // Scroll logic for Exclusive Azko products
+            const scrollExclusiveAzko = (direction) => {
+                const scrollAmount = 200; // Adjust scroll amount as needed
+                if (activeExclusiveAzkoList) { // Ensure active list exists
+                    if (direction === 'left') {
+                        activeExclusiveAzkoList.scrollBy({
+                            left: -scrollAmount,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        activeExclusiveAzkoList.scrollBy({
+                            left: scrollAmount,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            };
+
+            if (exclusiveAzkoScrollLeftBtn) exclusiveAzkoScrollLeftBtn.addEventListener('click', () => scrollExclusiveAzko('left'));
+            if (exclusiveAzkoScrollRightBtn) exclusiveAzkoScrollRightBtn.addEventListener('click', () => scrollExclusiveAzko('right'));
+
+            // Update button visibility for Exclusive Azko on scroll and resize
+            if (activeExclusiveAzkoList && exclusiveAzkoProductWrapper && exclusiveAzkoScrollLeftBtn && exclusiveAzkoScrollRightBtn) {
+                activeExclusiveAzkoList.addEventListener('scroll', () => {
+                    updateButtonVisibilityForWrapper(exclusiveAzkoProductWrapper, activeExclusiveAzkoList, exclusiveAzkoScrollLeftBtn, exclusiveAzkoScrollRightBtn);
+                });
+                window.addEventListener('resize', () => {
+                    updateButtonVisibilityForWrapper(exclusiveAzkoProductWrapper, activeExclusiveAzkoList, exclusiveAzkoScrollLeftBtn, exclusiveAzkoScrollRightBtn);
+                });
+                setTimeout(() => updateButtonVisibilityForWrapper(exclusiveAzkoProductWrapper, activeExclusiveAzkoList, exclusiveAzkoScrollLeftBtn, exclusiveAzkoScrollRightBtn), 100);
+            }
+
+
+            // --- Hamburger Menu (Basic Toggle) ---
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const closeMobileMenuBtn = document.getElementById('closeMobileMenu');
+
+            if (hamburgerMenu && mobileMenuOverlay && mobileMenu && closeMobileMenuBtn) {
+                hamburgerMenu.addEventListener('click', () => {
+                    mobileMenuOverlay.style.display = 'flex'; // Show overlay
+                    setTimeout(() => {
+                        mobileMenu.classList.add('active'); // Slide in menu
+                    }, 10); // Small delay for CSS transition
+                });
+
+                closeMobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active'); // Slide out menu
+                    setTimeout(() => {
+                        mobileMenuOverlay.style.display = 'none'; // Hide overlay after transition
+                    }, 300); // Match CSS transition duration
+                });
+
+                // Close menu if clicking outside the menu itself
+                mobileMenuOverlay.addEventListener('click', (event) => {
+                    if (event.target === mobileMenuOverlay) {
+                        mobileMenu.classList.remove('active');
+                        setTimeout(() => {
+                            mobileMenuOverlay.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            }
+
+            // Helper function for dynamic scroll button visibility (reused for all scrollable sections)
+            function updateButtonVisibilityForWrapper(wrapper, list, leftBtn, rightBtn) {
+                if (!wrapper || !list || !leftBtn || !rightBtn) return;
+
+                const isScrollable = list.scrollWidth > list.clientWidth;
+
+                if (isScrollable) {
+                    // Show buttons
+                    leftBtn.style.display = 'flex';
+                    rightBtn.style.display = 'flex';
+
+                    // Adjust opacity based on scroll position
+                    leftBtn.style.opacity = list.scrollLeft === 0 ? '0' : '1';
+                    leftBtn.style.visibility = list.scrollLeft === 0 ? 'hidden' : 'visible';
+
+                    rightBtn.style.opacity = (list.scrollLeft + list.clientWidth >= list.scrollWidth - 1) ? '0' : '1';
+                    rightBtn.style.visibility = (list.scrollLeft + list.clientWidth >= list.scrollWidth - 1) ? 'hidden' : 'visible';
+                } else {
+                    // Hide buttons if not scrollable
+                    leftBtn.style.display = 'none';
+                    rightBtn.style.display = 'none';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

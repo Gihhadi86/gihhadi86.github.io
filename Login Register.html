@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Daftar Azko</title>
+    <!-- Font Awesome untuk ikon (spinner loading) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts untuk font yang mirip (misal: Poppins) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Menghubungkan ke file CSS terpisah -->
+    <link rel="stylesheet" href="Login Register.css">
+</head>
+<body>
+
+    <!-- Tombol untuk membuka modal (untuk demo di file ini) -->
+    <button class="demo-open-button" id="openLoginModalBtn">Buka Login / Daftar</button>
+
+    <!-- Login/Register Modal -->
+    <div class="auth-modal-overlay" id="authModalOverlay">
+        <div class="auth-modal" id="authModal">
+            <!-- Toggle Mode ON/OFF -->
+            <div class="mode-toggle-container">
+                <span class="mode-label" id="modeLabel">OFF</span>
+                <label class="switch">
+                    <input type="checkbox" id="modeToggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+
+            <button class="auth-modal-close-btn" id="authModalCloseBtn">&times;</button>
+            <div class="auth-modal-content">
+                <div class="auth-forms-container">
+                    <!-- Login Form -->
+                    <form class="auth-form" id="loginForm">
+                        <h3>Login</h3>
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="text" id="loginEmail" placeholder="" required>
+                            <span class="input-icon"><i class="fas fa-envelope"></i></span>
+                            <span class="error-message" id="loginEmailError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" placeholder="" required>
+                            <span class="input-icon"><i class="fas fa-lock"></i></span>
+                            <span class="error-message" id="loginPasswordError"></span>
+                        </div>
+                        <div class="form-options">
+                            <label class="remember-me">
+                                <input type="checkbox"> Remember me
+                            </label>
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="auth-submit-btn" id="loginSubmitBtn">
+                            Login
+                            <i class="fas fa-spinner fa-spin loading-spinner" style="display: none;"></i>
+                        </button>
+                        <p class="auth-message" id="loginMessage"></p>
+                        <p class="switch-form-text">Don't have an account? <span class="switch-form-link" id="showRegisterForm">Register</span></p>
+                    </form>
+
+                    <!-- Register Form -->
+                    <form class="auth-form" id="registerForm" style="display: none;">
+                        <h3>Register</h3>
+                        <div class="form-group">
+                            <label for="registerName">Full Name</label>
+                            <input type="text" id="registerName" placeholder="" required>
+                            <span class="input-icon"><i class="fas fa-user"></i></span>
+                            <span class="error-message" id="registerNameError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" placeholder="" required>
+                            <span class="input-icon"><i class="fas fa-envelope"></i></span>
+                            <span class="error-message" id="registerEmailError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" placeholder="" required>
+                            <span class="input-icon"><i class="fas fa-lock"></i></span>
+                            <span class="error-message" id="registerPasswordError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerConfirmPassword">Confirm Password</label>
+                            <input type="password" id="registerConfirmPassword" placeholder="" required>
+                            <span class="input-icon"><i class="fas fa-lock"></i></span>
+                            <span class="error-message" id="registerConfirmPasswordError"></span>
+                        </div>
+                        <button type="submit" class="auth-submit-btn" id="registerSubmitBtn">
+                            Register
+                            <i class="fas fa-spinner fa-spin loading-spinner" style="display: none;"></i>
+                        </button>
+                        <p class="auth-message" id="registerMessage"></p>
+                        <p class="switch-form-text">Already have an account? <span class="switch-form-link" id="showLoginForm">Login</span></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Elemen Cahaya Kristal Biru (akan terlihat di mode ON) -->
+    <div class="blue-crystal-light" id="blueCrystalLight"></div>
+
+    <!-- Menghubungkan ke file JavaScript terpisah -->
+    <script src="Login Register.js"></script>
+</body>
+</html>

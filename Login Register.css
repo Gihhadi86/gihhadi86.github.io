@@ -1,0 +1,546 @@
+/* Custom Properties (CSS Variables) */
+:root {
+    /* Mode Gelap (Default - seperti gambar referensi OFF) */
+    --bg-color-dark: #212529; /* Background gelap dari gambar */
+    --modal-bg-dark: #2b2d30; /* Modal background gelap dari gambar */
+    --text-color-dark: #e0e0e0; /* Teks terang di mode gelap */
+    --input-line-dark: #e0e0e0; /* Garis bawah input */
+    --input-icon-dark: #e0e0e0; /* Ikon input */
+    --input-placeholder-dark: #888; /* Placeholder gelap */
+    --button-bg-dark: #444; /* Button background gelap */
+    --button-text-dark: #fff; /* Button text terang */
+    --link-color-dark: #e0e0e0; /* Link di mode gelap */
+    --error-color-dark: #ff6b6b; /* Error merah di mode gelap */
+    --neon-glow-color-dark: rgba(255, 255, 255, 0.05); /* Neon glow halus di dark mode */
+    --neon-border-color-dark: rgba(255, 255, 255, 0.1); /* Neon border halus di dark mode */
+
+    /* Mode Terang (Blue Crystal - seperti gambar referensi ON) */
+    --bg-color-light: #212529; /* Background tetap gelap, cahaya dari atas */
+    --modal-bg-light: #2b2d30; /* Modal background tetap gelap */
+    --text-color-light: #00e5ff; /* Teks biru kristal */
+    --input-line-light: #00e5ff; /* Garis bawah input biru */
+    --input-icon-light: #00e5ff; /* Ikon input biru */
+    --input-placeholder-light: #00e5ff; /* Placeholder biru */
+    --button-bg-light: #00e5ff; /* Button background biru kristal */
+    --button-text-light: #000; /* Button text gelap */
+    --link-color-light: #00e5ff; /* Link biru kristal */
+    --error-color-light: #ff6b6b; /* Error merah di mode terang */
+    --neon-glow-color-light: rgba(0, 229, 255, 0.8); /* Neon glow terang */
+    --neon-border-color-light: #00e5ff; /* Neon border terang */
+
+    /* Umum */
+    --font-family-primary: 'Poppins', sans-serif;
+}
+
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-primary);
+    line-height: 1.6;
+    color: var(--text-color-dark); /* Default dark mode text */
+    background-color: var(--bg-color-dark); /* Default dark mode background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    transition: background-color 0.8s ease-in-out, color 0.8s ease-in-out; /* Transisi mode */
+    overflow: hidden; /* Penting untuk efek cahaya */
+    position: relative; /* Untuk positioning blue-crystal-light */
+}
+
+/* Mode Terang */
+body.light-mode {
+    /* Background tetap gelap, cahaya dari atas yang membuat efek terang */
+    /* color: var(--text-color-light); /* Warna teks utama bisa berubah */ */
+}
+
+/* Tombol untuk membuka modal (hanya untuk demo di file ini) */
+.demo-open-button {
+    padding: 12px 25px;
+    background-color: #5a5a5a; /* Warna abu-abu netral */
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    z-index: 100; /* Pastikan di atas background */
+}
+.demo-open-button:hover {
+    background-color: #6a6a6a;
+    transform: translateY(-2px);
+}
+
+/* -------------------- Login/Register Modal Styling -------------------- */
+.auth-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Overlay gelap */
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+}
+
+.auth-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.auth-modal {
+    background: var(--modal-bg-dark); /* Default dark mode modal bg */
+    border-radius: 15px;
+    box-shadow: 0 0 15px var(--neon-glow-color-dark), 0 0 30px var(--neon-glow-color-dark), 0 0 45px var(--neon-glow-color-dark); /* Neon glow default */
+    width: 90%;
+    max-width: 450px; /* Lebar maksimum */
+    position: relative;
+    padding: 40px;
+    transform: translateY(-50px) scale(0.9);
+    opacity: 0;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out, background 0.8s ease-in-out, box-shadow 0.8s ease-in-out;
+    border: 1px solid var(--neon-border-color-dark); /* Neon border default */
+}
+
+/* Mode Terang untuk Modal */
+body.light-mode .auth-modal {
+    background: var(--modal-bg-light);
+    border: 1px solid var(--neon-border-color-light);
+    box-shadow: 0 0 25px var(--neon-glow-color-light), 0 0 50px var(--neon-glow-color-light), 0 0 75px var(--neon-glow-color-light); /* Neon glow terang */
+}
+
+
+.auth-modal-overlay.active .auth-modal {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.auth-modal-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 32px;
+    color: #666;
+    cursor: pointer;
+    background: none;
+    border: none;
+    line-height: 1;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+.auth-modal-close-btn:hover {
+    color: var(--primary-red);
+    transform: rotate(90deg);
+}
+
+.auth-forms-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-form {
+    padding: 10px 0;
+}
+
+.auth-form h3 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-color-dark); /* Default dark mode text */
+    margin-bottom: 30px;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+    transition: color 0.8s ease-in-out;
+}
+body.light-mode .auth-form h3 {
+    color: var(--text-color-light);
+    text-shadow: 0 0 10px var(--neon-glow-color-light); /* Efek neon pada judul */
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative; /* Untuk ikon input */
+}
+
+.form-group label {
+    display: block;
+    font-size: 15px;
+    color: var(--text-color-dark);
+    margin-bottom: 10px;
+    font-weight: 500;
+    transition: color 0.8s ease-in-out;
+}
+body.light-mode .form-group label {
+    color: var(--text-color-light);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px 18px;
+    padding-right: 45px; /* Ruang untuk ikon */
+    border: none; /* Hapus border default */
+    border-bottom: 2px solid var(--input-line-dark); /* Garis bawah input */
+    background-color: transparent; /* Background transparan */
+    font-size: 16px;
+    color: var(--text-color-dark);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, color 0.8s ease-in-out;
+    border-radius: 0; /* Pastikan tidak ada border-radius */
+}
+.form-group input::placeholder {
+    color: var(--input-placeholder-dark);
+    transition: color 0.8s ease-in-out;
+}
+body.light-mode .form-group input {
+    border-bottom: 2px solid var(--input-line-light);
+    color: var(--text-color-light);
+}
+body.light-mode .form-group input::placeholder {
+    color: var(--input-placeholder-light);
+}
+
+.form-group input:focus {
+    border-color: var(--input-line-light); /* Garis bawah biru saat fokus */
+    box-shadow: 0 2px 10px rgba(0, 229, 255, 0.3); /* Bayangan neon saat fokus */
+}
+
+.input-icon {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: var(--input-icon-dark);
+    pointer-events: none; /* Agar tidak menghalangi input */
+    transition: color 0.8s ease-in-out;
+}
+body.light-mode .input-icon {
+    color: var(--input-icon-light);
+}
+
+
+.error-message {
+    color: var(--error-color-dark);
+    font-size: 13px;
+    margin-top: 6px;
+    display: block;
+    font-weight: 500;
+    transition: color 0.8s ease-in-out;
+}
+body.light-mode .error-message {
+    color: var(--error-color-light);
+}
+
+.auth-submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--button-bg-dark); /* Default dark mode button bg */
+    color: var(--button-text-dark); /* Default dark mode button text */
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.auth-submit-btn:hover:not(:disabled) {
+    background: #666; /* Sedikit lebih terang saat hover di dark mode */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+.auth-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Mode Terang untuk Tombol Submit */
+body.light-mode .auth-submit-btn {
+    background: var(--button-bg-light);
+    color: var(--button-text-light);
+    box-shadow: 0 0 15px var(--neon-glow-color-light), 0 0 30px var(--neon-glow-color-light); /* Neon glow tombol */
+}
+body.light-mode .auth-submit-btn:hover:not(:disabled) {
+    background: #00c7e0; /* Sedikit lebih gelap saat hover di light mode */
+    box-shadow: 0 0 20px var(--neon-glow-color-light), 0 0 40px var(--neon-glow-color-light);
+}
+
+
+.loading-spinner {
+    display: none;
+    font-size: 1.2em;
+    color: inherit; /* Mengikuti warna teks tombol */
+}
+
+.auth-message {
+    text-align: center;
+    font-size: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    min-height: 20px;
+    padding: 8px 15px;
+    border-radius: 8px;
+    background-color: rgba(0, 128, 0, 0.1); /* Background hijau muda untuk sukses */
+    color: green;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: background-color 0.8s ease-in-out, color 0.8s ease-in-out;
+}
+.auth-message[style*="color: red"] { /* Override for error messages */
+    background-color: rgba(255, 0, 0, 0.1); /* Background merah muda untuk error */
+    color: red;
+}
+
+.switch-form-text {
+    text-align: center;
+    font-size: 15px;
+    color: var(--text-color-dark);
+    margin-top: 30px;
+    transition: color 0.8s ease-in-out;
+}
+body.light-mode .switch-form-text {
+    color: var(--text-color-light);
+}
+
+.switch-form-link {
+    color: var(--link-color-dark);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+    transition: color 0.3s ease;
+}
+.switch-form-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--link-color-dark);
+    transition: width 0.3s ease;
+}
+.switch-form-link:hover::after {
+    width: 100%;
+}
+.switch-form-link:hover {
+    color: #0097a7;
+}
+body.light-mode .switch-form-link {
+    color: var(--link-color-light);
+}
+body.light-mode .switch-form-link::after {
+    background-color: var(--link-color-light);
+}
+body.light-mode .switch-form-link:hover {
+    color: #00c7e0;
+}
+
+/* Remember me & Forgot password */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-color-dark);
+    transition: color 0.8s ease-in-out;
+}
+body.light-mode .remember-me {
+    color: var(--text-color-light);
+}
+.remember-me input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--input-line-dark); /* Warna checkbox dasar */
+    cursor: pointer;
+    transition: accent-color 0.8s ease-in-out;
+}
+body.light-mode .remember-me input[type="checkbox"] {
+    accent-color: var(--input-line-light); /* Warna checkbox mode terang */
+}
+.forgot-password {
+    color: var(--link-color-dark);
+    transition: color 0.8s ease-in-out;
+}
+body.light-mode .forgot-password {
+    color: var(--link-color-light);
+}
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* Mode Toggle Switch */
+.mode-toggle-container {
+    position: absolute;
+    top: 20px; /* Posisi dari atas */
+    right: 20px; /* Posisi dari kanan, agar di samping modal */
+    display: flex;
+    flex-direction: column; /* Stack label and switch */
+    align-items: center;
+    gap: 5px;
+    z-index: 10;
+    background-color: var(--modal-bg-dark); /* Background toggle container */
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    border: 1px solid var(--neon-border-color-dark);
+    transition: background-color 0.8s ease-in-out, border-color 0.8s ease-in-out, box-shadow 0.8s ease-in-out;
+}
+body.light-mode .mode-toggle-container {
+    background-color: var(--modal-bg-light);
+    border: 1px solid var(--neon-border-color-light);
+    box-shadow: 0 0 15px var(--neon-glow-color-light);
+}
+
+.mode-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color-dark);
+    transition: color 0.8s ease-in-out;
+}
+body.light-mode .mode-label {
+    color: var(--text-color-light);
+    text-shadow: 0 0 5px var(--neon-glow-color-light);
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px; /* Lebar switch lebih besar */
+    height: 28px; /* Tinggi switch lebih besar */
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #555; /* Warna slider OFF */
+    transition: 0.4s;
+    border-radius: 28px; /* Bentuk bulat */
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px; /* Ukuran lingkaran slider */
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%; /* Bentuk lingkaran */
+}
+
+input:checked + .slider {
+    background-color: #00bcd4; /* Warna slider ON (biru kristal) */
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #00bcd4;
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px); /* Geser lingkaran ke kanan */
+}
+
+/* Round sliders */
+.slider.round {
+    border-radius: 28px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Blue Crystal Light Effect */
+.blue-crystal-light {
+    position: fixed;
+    top: -100%; /* Mulai dari atas, tersembunyi */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150vw; /* Lebar cahaya lebih besar dari viewport */
+    height: 150vh; /* Tinggi cahaya lebih besar dari viewport */
+    background: radial-gradient(circle at center, rgba(0, 229, 255, 0.4) 0%, rgba(0, 229, 255, 0) 70%); /* Warna biru kristal */
+    border-radius: 50%;
+    filter: blur(150px); /* Efek blur yang sangat kuat */
+    z-index: 999; /* Di bawah modal, di atas body */
+    opacity: 0; /* Sembunyikan secara default */
+    transition: opacity 1s ease-in-out, top 1s ease-in-out; /* Transisi lebih lambat */
+    pointer-events: none; /* Agar tidak menghalangi interaksi */
+}
+
+body.light-mode .blue-crystal-light {
+    opacity: 1;
+    top: -50%; /* Turun ke tengah atas saat aktif */
+}
+
+
+/* Responsiveness for modal */
+@media (max-width: 500px) {
+    .auth-modal {
+        margin: 15px;
+        padding: 25px;
+    }
+    .auth-form h3 {
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+    .form-group label,
+    .form-group input,
+    .auth-submit-btn,
+    .auth-message,
+    .switch-form-text {
+        font-size: 14px;
+    }
+    .auth-submit-btn {
+        padding: 12px;
+    }
+    .mode-toggle-container {
+        top: 15px;
+        right: 15px;
+    }
+    .auth-modal-close-btn {
+        top: 15px;
+        right: 15px;
+        font-size: 24px;
+    }
+    .blue-crystal-light {
+        width: 200vw;
+        height: 200vh;
+        filter: blur(100px);
+    }
+}
