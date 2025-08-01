@@ -1213,295 +1213,296 @@ body.dark .toggle-button .sun::before {
             /* Tambahkan border-radius agar tombol panah tidak muncul di sudut tajam container */
             border-radius: 8px;
         }
+/* === Tombol Panah Slider === */
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.8); /* Sedikit transparan */
+    color: #333;
+    border: none;
+    font-size: 20px; /* Ukuran font lebih kecil */
+    padding: 6px 10px; /* Padding lebih kecil */
+    width: 40px; /* Lebar tetap */
+    height: 40px; /* Tinggi tetap */
+    display: flex; /* Untuk memusatkan ikon panah */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%; /* Membuat tombol melingkar */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0; /* Awalnya sembunyikan di layar besar */
+    visibility: hidden; /* Awalnya sembunyikan di layar besar */
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
 
-        /* === Tombol Panah Slider === */
-        .slider-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-            background-color: rgba(255, 255, 255, 0.8); /* Sedikit transparan */
-            color: #333;
-            border: none;
-            font-size: 20px; /* Ukuran font lebih kecil */
-            padding: 6px 10px; /* Padding lebih kecil */
-            width: 40px; /* Lebar tetap */
-            height: 40px; /* Tinggi tetap */
-            display: flex; /* Untuk memusatkan ikon panah */
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border-radius: 50%; /* Membuat tombol melingkar */
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            opacity: 0; /* Awalnya sembunyikan di layar besar */
-            visibility: hidden; /* Awalnya sembunyikan di layar besar */
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-        }
+.slider-arrow:hover {
+    background-color: #2563eb;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
 
-        .slider-arrow:hover {
-            background-color: #2563eb;
-            color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
+.left-arrow {
+    left: 15px; /* Jarak dari kiri */
+}
 
-        .left-arrow {
-            left: 15px; /* Jarak dari kiri */
-        }
+.right-arrow {
+    right: 15px; /* Jarak dari kanan */
+}
 
-        .right-arrow {
-            right: 15px; /* Jarak dari kanan */
-        }
+/* Tampilkan tombol panah saat hover pada container, hanya untuk layar besar */
+@media (min-width: 769px) { /* Terapkan hanya di layar yang lebih besar dari mobile */
+    #slider-container:hover .slider-arrow {
+        opacity: 1;
+        visibility: visible;
+    }
+}
 
-        /* Tampilkan tombol panah saat hover pada container, hanya untuk layar besar */
-        @media (min-width: 769px) { /* Terapkan hanya di layar yang lebih besar dari mobile */
-            #slider-container:hover .slider-arrow {
-                opacity: 1;
-                visibility: visible;
-            }
-        }
+/* Selalu tampilkan tombol panah di layar kecil */
+@media (max-width: 768px) {
+    .slider-arrow {
+        opacity: 1;
+        visibility: visible;
+        left: 5px; /* Sesuaikan posisi untuk mobile */
+        right: 5px; /* Sesuaikan posisi untuk mobile */
+        font-size: 18px;
+        width: 36px;
+        height: 36px;
+    }
+}
 
-        /* Selalu tampilkan tombol panah di layar kecil */
-        @media (max-width: 768px) {
-            .slider-arrow {
-                opacity: 1;
-                visibility: visible;
-                left: 5px; /* Sesuaikan posisi untuk mobile */
-                right: 5px; /* Sesuaikan posisi untuk mobile */
-                font-size: 18px;
-                width: 36px;
-                height: 36px;
-            }
-        }
+/* ========== Layout Berita Utama (Featured Section) ========== */
+.slider.layout-utama {
+    display: grid;
+    /* Rasio kolom disesuaikan agar gambar besar lebih tinggi dan gambar grid lebih lebar */
+    grid-template-columns: 1fr 1fr;
+    /* Mengurangi jarak antar kolom agar lebih rapat seperti di gambar */
+    gap: 4px;
+    padding: 24px;
+    max-width: 1280px;
+    margin: auto;
+}
 
-        /* === Layout Utama === */
-        .slider.layout-utama {
-            display: grid;
-            grid-template-columns: 1.7fr 1fr;
-            gap: 14px; /* tambah jarak antar kolom */
-            padding: 36px 28px;
-            max-width: 1280px;
-            margin: auto; /* Pastikan ini tetap ada untuk centering */
-        }
+/* === Kolom Gambar Besar (Kiri) === */
+.featured-large {
+    position: relative;
+    overflow: hidden;
+    /* Tinggi disesuaikan agar lebih proporsional dengan gambar di sampingnya */
+    height: 550px;
+    /* Menghapus border-radius */
+    border-radius: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-out;
+}
 
-        /* === Gambar Besar Kiri === */
-        .featured-large {
-            position: relative;
-            border-radius: 8px; /* Tambahkan border-radius agar lebih modern */
-            overflow: hidden;
-            height: 380px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease-out; /* Efek hover pada item utama */
-        }
+.featured-large:hover {
+    transform: translateY(-5px);
+}
 
-        .featured-large:hover {
-            transform: translateY(-5px); /* Sedikit naik saat di-hover */
-        }
+.featured-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
 
-        .featured-large img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+/* === Overlay untuk Gambar Besar === */
+.featured-large .overlay {
+    position: absolute;
+    bottom: 0;
+    padding: 32px; /* Padding lebih besar untuk konten yang lebih banyak */
+    background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0));
+    color: white;
+    width: 100%;
+    /* Menghapus border-radius */
+    border-radius: 0;
+    box-sizing: border-box;
+    max-height: 250px; /* Batasi tinggi awal overlay */
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, transform 0.4s ease-out, padding-bottom 0.4s ease-out;
+}
 
-        /* === Overlay untuk gambar besar === */
-        .featured-large .overlay {
-            position: absolute;
-            bottom: 0;
-            padding: 24px;
-            background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0)); /* Gradient lebih gelap */
-            color: white;
-            width: 100%;
-            border-radius: 0 0 8px 8px; /* Sesuaikan dengan border-radius parent */
-            box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
-            max-height: 150px; /* Batasi tinggi awal overlay */
-            overflow: hidden; /* Sembunyikan konten berlebih */
-            transition: max-height 0.4s ease-out, transform 0.4s ease-out, padding-bottom 0.4s ease-out;
-        }
+/* Efek hover pada overlay besar */
+.featured-large a:hover .overlay {
+    max-height: 400px; /* Perluas tinggi overlay */
+    transform: translateY(0); /* Nonaktifkan translasi */
+    padding-bottom: 32px; /* Kembalikan ke padding normal */
+}
 
-        /* Efek hover pada overlay besar */
-        .featured-large a:hover .overlay {
-            max-height: 250px; /* Perluas tinggi untuk menampilkan lebih banyak teks */
-            transform: translateY(-20px); /* Geser seluruh overlay ke atas */
-            padding-bottom: 44px; /* Tambah padding bawah untuk memberi ruang */
-        }
+.featured-large .overlay .category {
+    background-color: #2563eb;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 12px;
+    transition: transform 0.4s ease-out;
+}
 
-        .featured-large .overlay .category {
-            background-color: #2563eb; /* Perbaikan: g# menjadi background-color */
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 13px;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 10px;
-            /* Transisi untuk kategori saat overlay naik */
-            transition: transform 0.4s ease-out;
-        }
+.featured-large .overlay .time {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 6px;
+    display: block;
+    transition: transform 0.4s ease-out;
+}
 
-        .featured-large .overlay .time {
-            font-size: 13px;
-            opacity: 0.9;
-            margin-bottom: 5px;
-            display: block;
-            /* Transisi untuk waktu saat overlay naik */
-            transition: transform 0.4s ease-out;
-        }
+.featured-large .overlay .title {
+    font-size: 32px; /* Ukuran judul lebih besar */
+    font-weight: bold;
+    line-height: 1.2; /* Line-height lebih rapat */
+    margin-bottom: 15px;
+    transition: transform 0.4s ease-out;
+}
 
-        .featured-large .overlay .title {
-            font-size: 24px;
-            font-weight: bold;
-            line-height: 1.3;
-            margin-bottom: 10px; /* Tambahkan margin bawah */
-            /* Transisi untuk judul saat overlay naik */
-            transition: transform 0.4s ease-out;
-        }
+.featured-large .overlay .desc {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-top: 10px;
+    line-height: 1.6;
+    transition: transform 0.4s ease-out, max-height 0.4s ease-out;
+    max-height: 80px;
+    overflow: hidden;
+}
 
-        .featured-large .overlay .desc {
-            font-size: 15px;
-            opacity: 0.9;
-            margin-top: 10px;
-            line-height: 1.5;
-            transition: transform 0.4s ease-out, max-height 0.4s ease-out;
-            max-height: 60px; /* Batasi tinggi deskripsi awal */
-            overflow: hidden; /* Sembunyikan teks berlebih */
-        }
-
-        /* Saat overlay di-hover, deskripsi akan menampilkan lebih banyak teks */
-        .featured-large a:hover .overlay .desc {
-            max-height: 120px; /* Tampilkan lebih banyak teks */
-        }
+/* Saat hover, deskripsi akan menampilkan lebih banyak teks */
+.featured-large a:hover .overlay .desc {
+    max-height: 150px;
+}
 
 
-        /* === Gambar Grid 4 (Kanan) === */
-        .featured-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
+/* === Kolom Grid 4 (Kanan) === */
+.featured-grid {
+    display: grid;
+    /* Grid 2x2 */
+    grid-template-columns: 1fr 1fr;
+    /* Mengurangi jarak antar item agar lebih rapat seperti di gambar */
+    gap: 4px;
+}
 
-        .featured-grid .item {
-            position: relative;
-            border-radius: 8px; /* Tambahkan border-radius */
-            overflow: hidden;
-            height: 180px; /* Tambah tinggi sedikit biar proporsional */
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
-        }
+.featured-grid .item {
+    position: relative;
+    overflow: hidden;
+    /* Menghapus border-radius */
+    border-radius: 0;
+    /* Tinggi disesuaikan agar proporsional dengan gambar besar */
+    height: 273px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
 
-        .featured-grid .item:hover {
-            transform: translateY(-5px); /* Sedikit naik saat di-hover */
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15); /* Bayangan lebih kuat */
-        }
+.featured-grid .item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
 
-        .featured-grid .item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+.featured-grid .item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
 
-        .featured-grid .overlay {
-            position: absolute;
-            bottom: 0;
-            padding: 12px;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
-            color: white;
-            width: 100%;
-            border-radius: 0 0 8px 8px; /* Sesuaikan dengan border-radius parent */
-            box-sizing: border-box;
-            max-height: 100px; /* Batasi tinggi awal overlay grid */
-            overflow: hidden; /* Sembunyikan konten berlebih */
-            transition: max-height 0.3s ease-out, transform 0.3s ease-out, padding-bottom 0.3s ease-out;
-        }
+/* === Overlay untuk Gambar Grid === */
+.featured-grid .overlay {
+    position: absolute;
+    bottom: 0;
+    padding: 16px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+    color: white;
+    width: 100%;
+    /* Menghapus border-radius */
+    border-radius: 0;
+    box-sizing: border-box;
+    max-height: 120px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, transform 0.3s ease-out, padding-bottom 0.3s ease-out;
+}
 
-        /* Efek hover pada overlay grid */
-        .featured-grid .item:hover .overlay {
-            max-height: 150px; /* Perluas tinggi untuk menampilkan lebih banyak teks */
-            transform: translateY(-10px); /* Geser seluruh overlay ke atas */
-            padding-bottom: 24px; /* Tambah padding bawah untuk memberi ruang */
-        }
+/* Efek hover pada overlay grid */
+.featured-grid .item:hover .overlay {
+    max-height: 200px;
+    transform: translateY(0);
+    padding-bottom: 16px;
+}
 
-        .featured-grid .overlay .category {
-            background-color: #00d5ff;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 5px;
-            transition: transform 0.3s ease-out;
-        }
+.featured-grid .overlay .category {
+    background-color: #00d5ff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 6px;
+    transition: transform 0.3s ease-out;
+}
 
-        .featured-grid .overlay .time {
-            font-size: 12px;
-            opacity: 0.85;
-            display: block;
-            margin-bottom: 4px;
-            transition: transform 0.3s ease-out;
-        }
+.featured-grid .overlay .time {
+    font-size: 13px;
+    opacity: 0.85;
+    display: block;
+    margin-bottom: 5px;
+    transition: transform 0.3s ease-out;
+}
 
-        .featured-grid .overlay .title {
-            font-size: 15px;
-            font-weight: bold;
-            line-height: 1.3;
-            transition: transform 0.3s ease-out;
-        }
+.featured-grid .overlay .title {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.3;
+    transition: transform 0.3s ease-out;
+}
 
-        /* === Responsif untuk HP/tablet === */
-        @media (max-width: 768px) {
-            .slider.layout-utama {
-                grid-template-columns: 1fr;
-                padding: 20px 16px;
-            }
+/* === Responsif untuk HP/tablet === */
+@media (max-width: 768px) {
+    .slider.layout-utama {
+        /* Mengubah layout menjadi satu kolom vertikal */
+        grid-template-columns: 1fr;
+        padding: 20px 16px;
+        /* Menambahkan jarak antar item yang lebih besar */
+        gap: 16px;
+    }
 
-            .featured-large {
-                height: 300px;
-            }
+    .featured-large {
+        height: 350px; /* Tinggi gambar utama disesuaikan untuk mobile */
+    }
 
-            .featured-large .overlay .title {
-                font-size: 20px;
-            }
+    .featured-large .overlay {
+        padding: 20px; /* Padding disesuaikan untuk mobile */
+        max-height: 150px;
+    }
 
-            .featured-large .overlay .desc {
-                font-size: 14px;
-                max-height: 50px; /* Sesuaikan tinggi deskripsi awal untuk mobile */
-            }
+    .featured-large .overlay .title {
+        font-size: 22px; /* Ukuran judul lebih kecil */
+        margin-bottom: 10px;
+    }
+    
+    /* Menghilangkan deskripsi di layar kecil */
+    .featured-large .overlay .desc {
+        display: none;
+    }
 
-            /* Nonaktifkan efek hover naik pada mobile untuk overlay besar */
-            .featured-large a:hover .overlay {
-                max-height: 150px; /* Kembali ke ukuran awal */
-                transform: translateY(0); /* Nonaktifkan translasi */
-                padding-bottom: 24px; /* Kembali ke padding awal */
-            }
+    .featured-grid {
+        /* Mengubah grid menjadi dua kolom untuk item kecil */
+        grid-template-columns: 1fr 1fr;
+        gap: 12px; /* Jarak antar item grid yang rapat */
+    }
 
-            .featured-large a:hover .overlay .desc {
-                max-height: 50px; /* Kembali ke ukuran awal */
-            }
+    .featured-grid .item {
+        /* Tinggi item grid disesuaikan */
+        height: 180px;
+    }
 
-            .featured-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 16px;
-            }
+    .featured-grid .overlay {
+        padding: 12px;
+        max-height: 80px;
+    }
 
-            .featured-grid .item {
-                height: 160px;
-            }
-
-            .featured-grid .overlay {
-                max-height: 80px; /* Batasi tinggi awal overlay grid di mobile */
-            }
-
-            .featured-grid .item:hover .overlay {
-                max-height: 100px; /* Kembali ke ukuran awal di mobile */
-                transform: translateY(0); /* Nonaktifkan translasi di mobile */
-                padding-bottom: 12px; /* Kembali ke padding awal di mobile */
-            }
-
-            .featured-grid .overlay .title {
-                font-size: 14px;
-            }
-        }
-
+    .featured-grid .overlay .title {
+        font-size: 14px;
+    }
+}
 
 
 
