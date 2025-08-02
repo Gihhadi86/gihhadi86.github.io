@@ -1123,15 +1123,15 @@ article a:hover {
 /* Media Query untuk layar yang lebih kecil lagi (misal: ponsel landscape atau sangat sempit) */
 @media (max-width: 480px) {
     .article-title {
-        font-size: 2rem;
+        font-size: 2rem !important;
     }
 
     article p {
-        font-size: 1.1rem;
+        font-size: 1.50rem !important;
     }
 
     article h3 {
-        font-size: 1.3rem;
+        font-size: 2rem !important;
     }
 
     .article-list li img {
@@ -1142,14 +1142,17 @@ article a:hover {
 
     .article-info h3 {
         /* **UKURAN FONT JUDUL UNTUK LAYAR SANGAT KECIL - DIBESARKAN LEBIH BANYAK** */
-        font-size: 1rem !important; /* Perbesar font judul DI SINI */
+        font-size: 2rem !important; /* Perbesar font judul DI SINI */
     }
 
     .article-info .date {
         /* **UKURAN FONT TANGGAL UNTUK LAYAR SANGAT KECIL - DIBESARKAN LEBIH BANYAK** */
-        font-size: 0.75rem !important; /* Perbesar font tanggal DI SINI */
+        font-size: 2rem !important; /* Perbesar font tanggal DI SINI */
     }
 }
+
+
+
 
 /* ================================================= */
 /* --- Social Bar (Non-Sticky-Bottom) --- */
