@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donasi - Perpustakaan Ilmu</title>
+    
+    <!-- Fonts from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==================================== */
+        /* VARIABEL CSS & GAYA DASAR            */
+        /* ==================================== */
+        :root {
+            --bg-dark: #3a2a22;
+            --bg-light: #f5f2e8;
+            --text-light: #fcfcfc;
+            --text-dark: #3a2a22;
+            --accent-gold: #c2954a;
+            --accent-main: #1e6e44;
+            --border-color: #d1cbc0;
+            --font-serif: 'Merriweather', serif;
+            --font-sans: 'Lato', sans-serif;
+            --shadow-soft: 0 10px 30px rgba(0,0,0,0.15);
+            --shadow-card: 0 8px 25px rgba(0,0,0,0.1);
+            --whatsapp-green: #25d366;
+            --whatsapp-dark-green: #128c7e;
+            --dana-purple: #1e70e5;
+            --bri-blue: #004584;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-sans);
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            transition: all 0.5s ease;
+        }
+
+        /* GAYA UNTUK DARK MODE */
+        body.dark-mode {
+            --bg-dark: #121212;
+            --bg-light: #1e1e1e;
+            --text-light: #fcfcfc;
+            --text-dark: #e0e0e0;
+            --accent-gold: #e2b35a;
+            --accent-main: #66bb6a;
+            --border-color: #383838;
+            --shadow-soft: 0 10px 30px rgba(0,0,0,0.5);
+            --shadow-card: 0 8px 25px rgba(0,0,0,0.7);
+        }
+        body.dark-mode header, body.dark-mode main { background-color: var(--bg-light); }
+        body.dark-mode .donation-card { background-color: var(--bg-light); box-shadow: var(--shadow-card); }
+        body.dark-mode .donation-card h2, body.dark-mode .donation-card h3, body.dark-mode .donation-card h4 { color: var(--text-light); }
+        body.dark-mode .donation-card p, body.dark-mode .donation-card li { color: #ccc; }
+        body.dark-mode .nav-link, body.dark-mode .logo { color: var(--text-dark) !important; }
+        body.dark-mode .dark-mode-toggle-container span { color: var(--text-light); }
+        body.dark-mode .bank-info ul li { background-color: #333; border-color: #555; }
+        body.dark-mode .donation-amount .amount-option { background-color: #333; color: #eee; }
+        body.dark-mode .donation-amount .amount-option:hover { background-color: #444; }
+        body.dark-mode .donation-amount .amount-option.selected { background-color: var(--accent-main); color: white; border-color: var(--accent-gold); }
+        body.dark-mode .form-group input, body.dark-mode .form-group textarea { background-color: #333; border-color: #555; color: #eee; }
+        body.dark-mode .form-group input::placeholder, body.dark-mode .form-group textarea::placeholder { color: #888; }
+        body.dark-mode .payment-method .method-btn { background-color: #333; border-color: #555; color: #eee; }
+        body.dark-mode .payment-method .method-btn:hover { background-color: #444; }
+        body.dark-mode .payment-method .method-btn.active { background-color: var(--accent-main); color: white; border-color: var(--accent-main); }
+        body.dark-mode .modal-content { background-color: #2c2c2c; }
+        body.dark-mode .modal-content .close-btn { color: var(--text-light); }
+        body.dark-mode .modal-content h3 { color: var(--accent-gold); }
+        body.dark-mode .modal-content .bank-details, body.dark-mode .modal-content .whatsapp-info { background-color: #3a3a3a; }
+        body.dark-mode .modal-content .whatsapp-btn { background-color: var(--whatsapp-green); color: white; }
+        body.dark-mode .payment-method .method-btn[data-method="dana"] i { color: var(--dana-purple); }
+        body.dark-mode .payment-method .method-btn[data-method="bri"] i { color: var(--bri-blue); }
+        body.dark-mode .payment-method .method-btn.active[data-method="dana"] i,
+        body.dark-mode .payment-method .method-btn.active[data-method="bri"] i { color: white; }
+
+        /* ==================================== */
+        /* HEADER & NAVIGASI                    */
+        /* ==================================== */
+        header {
+            background-color: var(--bg-light);
+            box-shadow: var(--shadow-soft);
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            position: relative;
+            font-weight: normal;
+        }
+        .logo .open-tag {
+            background-color: var(--accent-main);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 5px;
+            text-transform: uppercase;
+            position: absolute;
+            top: -20px;
+            left: 0;
+            transform: rotate(-10deg);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .nav-links .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .nav-links .nav-link:hover {
+            color: var(--accent-main);
+        }
+
+        .dark-mode-toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .dark-mode-toggle-container span {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border-color);
+            transition: .4s;
+            border-radius: 28px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: var(--accent-main);
+        }
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+        
+        /* ==================================== */
+        /* HALAMAN DONASI UTAMA                 */
+        /* ==================================== */
+        main {
+            padding: 4rem 3rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .hero-donation {
+            margin-bottom: 4rem;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+        .hero-donation h1 {
+            font-family: var(--font-serif);
+            font-size: 3.5rem;
+            color: var(--accent-main);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            transform: translateY(-20px);
+            opacity: 0;
+            animation: slideInUp 0.8s ease-out forwards;
+        }
+        .hero-donation h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--accent-gold);
+            border-radius: 2px;
+            animation: expandWidth 1s ease-out forwards;
+        }
+        .hero-donation p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #666;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-out forwards 0.3s;
+        }
+        
+        .donation-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+        
+        .donation-form {
+            background-color: white;
+            border-radius: 16px; 
+            padding: 3rem; 
+            box-shadow: var(--shadow-card);
+            animation: fadeIn 1s ease-out forwards;
+        }
+        .donation-form h2 {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            color: var(--accent-main);
+            margin-top: 0;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .donation-amount {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem; 
+            margin-bottom: 2rem;
+        }
+        .donation-amount .amount-option {
+            flex: 1 1 calc(50% - 1.5rem);
+            background-color: #f0f0f0;
+            border: 2px solid transparent;
+            padding: 1.5rem; 
+            border-radius: 12px; 
+            font-size: 1.2rem; 
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .donation-amount .amount-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(30,110,68,0.1), rgba(194,149,74,0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .donation-amount .amount-option:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.05); 
+        }
+        .donation-amount .amount-option:hover::before {
+            opacity: 1;
+        }
+        .donation-amount .amount-option.selected {
+            background-color: var(--accent-main);
+            color: white;
+            border-color: var(--accent-gold);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(30, 110, 68, 0.4);
+        }
+
+        .form-group {
+            margin-bottom: 2rem; 
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 1.2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-main);
+            box-shadow: 0 0 0 4px rgba(30, 110, 68, 0.2);
+            transform: translateY(-2px);
+        }
+        .custom-amount-input {
+            width: 100%;
+            display: none; 
+        }
+        .custom-amount-input.visible {
+            display: block;
+        }
+
+        .payment-method {
+            margin-bottom: 3rem; 
+        }
+        .payment-method .method-btns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1.5rem;
+        }
+        .payment-method .method-btn {
+            background-color: #f0f0f0;
+            border: 2px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .payment-method .method-btn i {
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+        .payment-method .method-btn span {
+            font-size: 1.1rem;
+        }
+        .payment-method .method-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .payment-method .method-btn.active {
+            background-color: var(--accent-main);
+            color: white;
+            border-color: var(--accent-main);
+            box-shadow: 0 8px 20px rgba(30, 110, 68, 0.4);
+            transform: scale(1.05);
+        }
+        .payment-method .method-btn.active i,
+        .payment-method .method-btn.active span {
+            color: white;
+        }
+        .payment-method .method-btn[data-method="dana"] i { color: var(--dana-purple); }
+        .payment-method .method-btn[data-method="bri"] i { color: var(--bri-blue); }
+        body.dark-mode .payment-method .method-btn[data-method="dana"] i { color: var(--dana-purple); }
+        body.dark-mode .payment-method .method-btn[data-method="bri"] i { color: var(--bri-blue); }
+        body.dark-mode .payment-method .method-btn.active[data-method="dana"] i,
+        body.dark-mode .payment-method .method-btn.active[data-method="bri"] i { color: white; }
+
+        .submit-donation-btn {
+            width: 100%;
+            background-color: var(--accent-main);
+            color: white;
+            border: none;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .submit-donation-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+            z-index: -1;
+        }
+        .submit-donation-btn:hover::before {
+            transform: scaleX(1);
+        }
+        .submit-donation-btn:hover {
+            background-color: #1a5b36;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+        }
+        
+        .donation-info-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            animation: fadeInRight 1s ease-out forwards 0.5s;
+        }
+        .donation-info-sidebar h3 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--accent-main);
+            margin-bottom: 1rem;
+        }
+        .donation-info-sidebar .donation-card {
+            padding: 2rem;
+            animation: slideInUp 0.8s ease-out forwards;
+        }
+        .donation-info-sidebar .donation-card:nth-of-type(1) { animation-delay: 0.1s; }
+        .donation-info-sidebar .donation-card:nth-of-type(2) { animation-delay: 0.2s; }
+        .donation-info-sidebar .donation-card:nth-of-type(3) { animation-delay: 0.3s; }
+        .donation-info-sidebar .donation-card:nth-of-type(4) { animation-delay: 0.4s; }
+        .donation-info-sidebar .donation-card:nth-of-type(5) { animation-delay: 0.5s; }
+
+        /* REVISI BAGIAN MENGAPA DONASI */
+        .donation-card.why-donate {
+            text-align: left;
+            position: relative;
+            padding: 2.5rem;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-card);
+        }
+        .donation-card.why-donate h3 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .donation-card.why-donate h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-gold);
+            border-radius: 2px;
+        }
+        .donation-card.why-donate ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        .donation-card.why-donate li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .donation-card.why-donate li:hover {
+            transform: translateX(10px);
+            background-color: #e0e0e0;
+        }
+        body.dark-mode .donation-card.why-donate li {
+            background-color: #333;
+            color: #eee;
+        }
+        body.dark-mode .donation-card.why-donate li:hover {
+            background-color: #444;
+        }
+        .donation-card.why-donate li i {
+            font-size: 2rem;
+            color: var(--accent-main);
+            flex-shrink: 0;
+            position: relative;
+            top: 5px;
+        }
+        .donation-card.why-donate li span {
+            display: block;
+            font-weight: 700;
+        }
+
+        /* ==================================== */
+        /* MODAL (POPU-UP)                    */
+        /* ==================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 2000;
+        }
+        .modal-overlay.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 3rem; 
+            border-radius: 16px;
+            width: 90%;
+            max-width: 550px;
+            position: relative;
+            text-align: center;
+            transform: scale(0.7);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .modal-content .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            transition: transform 0.3s ease;
+        }
+        .modal-content .close-btn:hover {
+            transform: rotate(90deg);
+        }
+        .modal-content h3 {
+            font-family: var(--font-serif);
+            color: var(--accent-main);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        .modal-content .bank-details, .modal-content .whatsapp-info {
+            background-color: #f9f9f9;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+        .modal-content .bank-details h4, .modal-content .whatsapp-info h4 {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            color: var(--accent-gold);
+            font-size: 1.3rem;
+        }
+        .modal-content .bank-details p {
+            margin: 0;
+            font-family: monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        .modal-content .whatsapp-btn {
+            display: block;
+            width: 0;
+            background-color: var(--whatsapp-green);
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            animation: expandWidthBtn 0.8s ease-out forwards 0.5s;
+        }
+        @keyframes expandWidthBtn {
+            to { width: 100%; }
+        }
+        .modal-content .whatsapp-btn:hover {
+            background-color: var(--whatsapp-dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37,211,102,0.4);
+        }
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--accent-main);
+            cursor: pointer;
+            margin-left: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        .copy-btn:hover {
+            color: var(--accent-gold);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 100px; }
+        }
+        @keyframes fadeInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(30,110,68,0.4); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(30,110,68,0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(30,110,68,0); }
+        }
+        .submit-donation-btn.active-pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        /* ==================================== */
+        /* FOOTER & TOMBOL WHATSAPP (FROM PREV) */
+        /* ==================================== */
+        .main-footer {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding: 4rem 3rem;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+        }
+        .main-footer .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            text-align: left;
+        }
+        .main-footer .footer-section h4 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            margin: 0;
+            position: relative;
+        }
+        .main-footer .footer-section h4::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-gold);
+        }
+        .main-footer .footer-section p {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-top: 1.5rem;
+            line-height: 1.6;
+        }
+        .main-footer .footer-links h5, .main-footer .footer-contact h5 {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 1.25rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+        .main-footer .footer-links h5::before, .main-footer .footer-contact h5::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-gold);
+            border-radius: 50%;
+        }
+        .main-footer .footer-links ul { list-style: none; padding: 0; margin: 0; }
+        .main-footer .footer-links a, .main-footer .footer-contact a {
+            text-decoration: none;
+            color: #ccc;
+            font-size: 0.9rem;
+            line-height: 2;
+            transition: color 0.3s ease;
+            display: block;
+        }
+        .main-footer .footer-links a:hover, .main-footer .footer-contact a:hover { color: var(--accent-gold); }
+        .main-footer .social-icons { margin-top: 1rem; display: flex; gap: 1rem; }
+        .main-footer .social-icons a {
+            color: #ccc;
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .main-footer .social-icons a:hover { color: var(--accent-gold); transform: scale(1.1); background-color: rgba(255, 255, 255, 0.2); }
+        .main-footer .copyright { margin-top: 3rem; border-top: 1px solid #555; padding-top: 1.5rem; font-size: 0.8rem; color: #888; text-align: center; }
+        .footer-credit {
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+        .whatsapp-container {
+            position: fixed;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-container .wa-text {
+            background-color: var(--whatsapp-green);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(15px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .whatsapp-container:hover .wa-text {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+        .whatsapp-container .whatsapp-fab {
+            background-color: var(--whatsapp-green);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-container .whatsapp-fab:hover {
+            background-color: var(--whatsapp-dark-green);
+            transform: scale(1.1);
+        }
+        .whatsapp-container.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(20px);
+        }
+        
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            header { padding: 1.5rem; }
+            main { padding: 2rem 1.5rem; }
+            .hero-donation h1 { font-size: 2.5rem; }
+            .hero-donation p { font-size: 1rem; }
+            .donation-container { grid-template-columns: 1fr; gap: 2rem; }
+            .donation-form, .donation-info-sidebar { padding: 1.5rem; }
+            .donation-options { grid-template-columns: 1fr; }
+            .main-footer .footer-content { grid-template-columns: 1fr; text-align: center; }
+            .main-footer .footer-logo h4::after { left: 50%; transform: translateX(-50%); }
+            .main-footer .social-icons { justify-content: center; }
+            .payment-method .method-btns {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Modal Konfirmasi Donasi -->
+    <div class="modal-overlay" id="confirmation-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            <h3>Donasi Anda Berhasil Dibuat!</h3>
+            <p>Terima kasih atas partisipasi Anda. Silakan lanjutkan langkah berikut untuk menyelesaikan donasi:</p>
+            
+            <div class="bank-details">
+                <h4>Detail Transfer</h4>
+                <p>Jumlah: <span id="modal-amount"></span></p>
+                <p>Transfer ke: <span id="modal-bank"></span> - <span id="modal-account-number"></span></p>
+                <p>A.n. <span id="modal-account-holder"></span></p>
+                <button class="copy-btn" onclick="copyToClipboard('modal-account-number')"><i class="fas fa-copy"></i> Salin Nomor Rekening</button>
+            </div>
+            
+            <div class="whatsapp-info">
+                <h4>Konfirmasi Donasi</h4>
+                <p>Setelah transfer, konfirmasi donasi Anda melalui WhatsApp.</p>
+                <a href="#" class="whatsapp-btn" id="whatsapp-confirmation-btn" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Konfirmasi Sekarang
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <a href="index.html" class="logo">
+            <span class="open-tag">OPEN</span> LIBRARY
+        </a>
+        <nav class="nav-links">
+            <a href="index.html" class="nav-link">Beranda</a>
+            <div class="dark-mode-toggle-container">
+                <span><i class="fas fa-moon"></i> Mode Gelap</span>
+                <label class="switch">
+                    <input type="checkbox" id="dark-mode-toggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-donation">
+            <h1>Salurkan Donasi Anda</h1>
+            <p>Dukung kami dalam menyebarkan ilmu yang bermanfaat. Setiap donasi Anda sangat berarti untuk operasional dan pengembangan Perpustakaan Ilmu.</p>
+        </section>
+
+        <section class="donation-container">
+            <div class="donation-form">
+                <h2>Formulir Donasi</h2>
+                <form id="donation-form">
+                    <div class="form-group">
+                        <label for="donor-name">Nama Lengkap</label>
+                        <input type="text" id="donor-name" name="donor-name" placeholder="Nama Anda" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="donation-amount">Jumlah Donasi</label>
+                        <div class="donation-amount">
+                            <div class="amount-option" data-amount="50000">Rp 50.000</div>
+                            <div class="amount-option" data-amount="100000">Rp 100.000</div>
+                            <div class="amount-option" data-amount="250000">Rp 250.000</div>
+                            <div class="amount-option" data-amount="0">Jumlah Lainnya</div>
+                        </div>
+                        <input type="number" id="custom-amount-input" class="custom-amount-input" name="donation-amount" placeholder="Masukkan jumlah donasi (contoh: 50000)" min="10000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="payment-method">Metode Pembayaran</label>
+                        <div class="payment-method">
+                            <div class="method-btns">
+                                <button type="button" class="method-btn" data-method="bank-syariah">
+                                    <i class="fas fa-university"></i> <span>Bank Syariah</span>
+                                </button>
+                                <button type="button" class="method-btn" data-method="bank-bri">
+                                    <i class="fas fa-university"></i> <span>Bank BRI</span>
+                                </button>
+                                <button type="button" class="method-btn" data-method="dana">
+                                    <i class="fas fa-wallet"></i> <span>DANA</span>
+                                </button>
+                                <!-- Tambahan metode pembayaran baru -->
+                                <button type="button" class="method-btn" data-method="bank-bsi">
+                                    <i class="fas fa-university"></i> <span>Bank BSI</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-donation-btn">
+                        <i class="fas fa-paper-plane"></i> Kirim Donasi
+                    </button>
+                </form>
+            </div>
+
+            <div class="donation-info-sidebar">
+                <!-- REVISI TOTAL BAGIAN "MENGAPA DONASI" -->
+                <div class="donation-card why-donate">
+                    <h3>Mengapa Donasi ke Kami?</h3>
+                    <ul>
+                        <li>
+                            <i class="fas fa-book-open"></i>
+                            <div>
+                                <span>Menyebarkan Ilmu Berkesinambungan</span>
+                                <p>Donasi Anda memungkinkan kami terus menambah dan menyebarkan konten kajian Islam yang otentik dan bermanfaat.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-server"></i>
+                            <div>
+                                <span>Menjamin Akses Digital Stabil</span>
+                                <p>Dana donasi memastikan server kami tetap optimal dan dapat diakses 24/7 oleh seluruh penuntut ilmu di Indonesia.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <span>Transparansi dan Amanah</span>
+                                <p>Kami berkomitmen penuh untuk mengelola setiap donasi dengan transparan. Laporan keuangan akan kami publikasikan secara berkala.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-hand-holding-heart"></i>
+                            <div>
+                                <span>Berpartisipasi dalam Dakwah Digital</span>
+                                <p>Setiap rupiah yang Anda berikan adalah wujud partisipasi Anda dalam pahala dakwah digital yang terus mengalir.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-users-cog"></i>
+                            <div>
+                                <span>Mengembangkan Fitur Inovatif</span>
+                                <p>Dukungan Anda membantu tim pengembang kami untuk terus berinovasi, menambah fitur, dan meningkatkan kualitas platform.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tambahan card baru: Laporan Donasi -->
+                <div class="donation-card">
+                    <h3>Laporan Donasi</h3>
+                    <p>Lihat transparansi penggunaan dana donasi kami.</p>
+                    <a href="#" class="submit-donation-btn" style="background-color: var(--accent-gold); font-size: 1rem; padding: 1rem;">
+                        <i class="fas fa-chart-bar"></i> Lihat Laporan
+                    </a>
+                </div>
+
+                <!-- Tambahan card baru: Testimoni -->
+                 <div class="donation-card">
+                    <h3>Testimoni</h3>
+                    <p>"Website ini sangat membantu saya. Semoga Allah membalas kebaikan para donatur."</p>
+                    <p class="author">- Budi Santoso</p>
+                </div>
+
+                <div class="donation-card">
+                    <h3>Hubungi Kami</h3>
+                    <p>Butuh bantuan atau ingin bertanya lebih lanjut?</p>
+                    <a href="#" class="whatsapp-btn" id="sidebar-whatsapp-btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section footer-logo">
+                <h4>Perpustakaan Ilmu</h4>
+                <p>Jelajahi, pelajari, dan sebarkan ilmu agama.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section footer-links">
+                <h5>Tentang Kami</h5>
+                <ul>
+                    <li><a href="#">Sejarah</a></li>
+                    <li><a href="#">Visi & Misi</a></li>
+                    <li><a href="#">Tim Pengembang</a></li>
+                    <li><a href="#">Karir</a></li>
+                </ul>
+            </div>
+            <div class="footer-section footer-links">
+                <h5>Layanan</h5>
+                <ul>
+                    <li><a href="#">Donasi</a></li>
+                    <li><a href="#">Menjadi Relawan</a></li>
+                    <li><a href="#">Bantuan & FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section footer-contact">
+                <h5>Kebijakan</h5>
+                <ul>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                    <li><a href="#">Kebijakan Hak Cipta</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Perpustakaan Ilmu. All rights reserved.</p>
+            <p class="footer-credit">Dibuat dengan sepenuh hati oleh: Gigih Hadi Lombok</p>
+        </div>
+    </footer>
+    
+    <!-- Floating WhatsApp button -->
+    <div class="whatsapp-container" id="whatsapp-container">
+        <span class="wa-text">Mau tanya tentang donasi?</span>
+        <a href="https://wa.me/6282138748270?text=Assalamualaikum,%20saya%20ingin%20bertanya%20tentang%20donasi" class="whatsapp-fab" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <script>
+        // Data rekening bank dan e-wallet
+        const bankAccounts = {
+            'bank-syariah': { name: 'Bank Syariah', number: '7430-1029-4821', holder: 'Yayasan Perpustakaan Ilmu' },
+            'bank-bsi': { name: 'Bank BSI', number: '7120-1329-8765', holder: 'Yayasan Perpustakaan Ilmu' },
+            'dana': { name: 'DANA', number: '083112008253', holder: 'Yayasan Perpustakaan Ilmu (No. HP)' },
+            'bri': { name: 'Bank BRI', number: '015701026440536', holder: 'Yayasan Perpustakaan Ilmu' }
+        };
+
+        // Nomor WhatsApp baru
+        const whatsappNumber = "6282138748270";
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dark mode toggle logic
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('change', () => {
+                    document.body.classList.toggle('dark-mode');
+                });
+            }
+
+            // Floating WhatsApp button logic
+            const whatsappContainer = document.getElementById('whatsapp-container');
+            const floatingWhatsappLink = document.querySelector('.whatsapp-fab');
+            floatingWhatsappLink.href = `https://wa.me/${whatsappNumber}?text=Assalamualaikum,%20saya%20ingin%20bertanya%20tentang%20donasi`;
+
+            if (whatsappContainer) {
+                 window.addEventListener('scroll', () => {
+                    if (window.scrollY > 300) {
+                        whatsappContainer.classList.remove('hidden');
+                    } else {
+                        whatsappContainer.classList.add('hidden');
+                    }
+                });
+            }
+            
+            // Donation Form logic
+            const form = document.getElementById('donation-form');
+            const amountOptions = document.querySelectorAll('.amount-option');
+            const customAmountInput = document.getElementById('custom-amount-input');
+            const paymentMethodBtns = document.querySelectorAll('.payment-method .method-btn');
+            const submitBtn = document.querySelector('.submit-donation-btn');
+            const modal = document.getElementById('confirmation-modal');
+            const whatsappBtn = document.getElementById('whatsapp-confirmation-btn');
+            const sidebarWhatsappBtn = document.getElementById('sidebar-whatsapp-btn');
+            
+            sidebarWhatsappBtn.href = `https://wa.me/${whatsappNumber}?text=Assalamualaikum,%20saya%20ingin%20bertanya%20tentang%20donasi.`;
+
+            let selectedAmount = 0;
+            let selectedMethod = '';
+            let selectedBankInfo = {};
+
+            // Handle amount selection
+            amountOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    amountOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    selectedAmount = parseInt(option.dataset.amount);
+                    if (selectedAmount === 0) {
+                        customAmountInput.classList.add('visible');
+                        customAmountInput.value = '';
+                        customAmountInput.focus();
+                    } else {
+                        customAmountInput.classList.remove('visible');
+                    }
+                    updateSubmitButtonState();
+                });
+            });
+
+            // Handle custom amount input
+            customAmountInput.addEventListener('input', () => {
+                selectedAmount = parseInt(customAmountInput.value) || 0;
+                updateSubmitButtonState();
+            });
+
+            // Handle payment method selection
+            paymentMethodBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    paymentMethodBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    selectedMethod = btn.dataset.method;
+                    selectedBankInfo = bankAccounts[selectedMethod];
+                    updateSubmitButtonState();
+                });
+            });
+            
+            // Fungsionalitas baru: Update state tombol submit
+            function updateSubmitButtonState() {
+                const donorName = document.getElementById('donor-name').value;
+                const finalAmount = selectedAmount === 0 ? parseInt(customAmountInput.value) : selectedAmount;
+                if (donorName && finalAmount >= 10000 && selectedMethod) {
+                    submitBtn.classList.add('active-pulse');
+                } else {
+                    submitBtn.classList.remove('active-pulse');
+                }
+            }
+            document.getElementById('donor-name').addEventListener('input', updateSubmitButtonState);
+
+            // Handle form submission
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const donorName = document.getElementById('donor-name').value;
+                const finalAmount = selectedAmount === 0 ? parseInt(customAmountInput.value) : selectedAmount;
+                
+                // Validasi yang lebih detail
+                if (!donorName) {
+                    alert('Mohon isi nama lengkap Anda.');
+                    return;
+                }
+                if (!finalAmount || finalAmount < 10000) {
+                    alert('Jumlah donasi minimal adalah Rp 10.000.');
+                    return;
+                }
+                if (!selectedMethod) {
+                    alert('Mohon pilih metode pembayaran.');
+                    return;
+                }
+
+                // Tampilkan modal konfirmasi
+                showModal(donorName, finalAmount, selectedBankInfo);
+            });
+
+            // Modal Functions
+            function showModal(name, amount, bankInfo) {
+                const modalAmount = document.getElementById('modal-amount');
+                const modalBank = document.getElementById('modal-bank');
+                const modalAccountNumber = document.getElementById('modal-account-number');
+                const modalAccountHolder = document.getElementById('modal-account-holder');
+
+                modalAmount.textContent = `Rp ${amount.toLocaleString('id-ID')}`;
+                modalBank.textContent = bankInfo.name;
+                modalAccountNumber.textContent = bankInfo.number;
+                modalAccountHolder.textContent = bankInfo.holder;
+
+                // Buat pesan WhatsApp dengan data dinamis
+                const whatsappMessage = `Assalamualaikum, saya ingin konfirmasi donasi. Nama: ${name}. Jumlah: Rp ${amount.toLocaleString('id-ID')}. Transfer ke: ${bankInfo.name} (${bankInfo.number}).`;
+                whatsappBtn.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+                modal.classList.add('visible');
+            }
+
+            window.closeModal = function() {
+                modal.classList.remove('visible');
+            }
+
+            window.copyToClipboard = function(id) {
+                const text = document.getElementById(id).textContent;
+                const dummyInput = document.createElement('textarea');
+                document.body.appendChild(dummyInput);
+                dummyInput.value = text;
+                dummyInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(dummyInput);
+                alert('Nomor rekening berhasil disalin!');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1210,7 +1210,6 @@ body.dark .toggle-button .sun::before {
             max-width: 1280px; /* Sesuaikan dengan max-width slider */
             margin: 20px auto; /* Pusatkan container */
             overflow: hidden; /* Penting untuk efek hover tombol */
-            /* Tambahkan border-radius agar tombol panah tidak muncul di sudut tajam container */
             border-radius: 8px;
         }
 /* === Tombol Panah Slider === */
@@ -1259,7 +1258,6 @@ body.dark .toggle-button .sun::before {
     }
 }
 
-/* Selalu tampilkan tombol panah di layar kecil */
 @media (max-width: 768px) {
     .slider-arrow {
         opacity: 1;
@@ -1275,9 +1273,7 @@ body.dark .toggle-button .sun::before {
 /* ========== Layout Berita Utama (Featured Section) ========== */
 .slider.layout-utama {
     display: grid;
-    /* Rasio kolom disesuaikan agar gambar besar lebih tinggi dan gambar grid lebih lebar */
     grid-template-columns: 1fr 1fr;
-    /* Mengurangi jarak antar kolom agar lebih rapat seperti di gambar */
     gap: 4px;
     padding: 24px;
     max-width: 1280px;
@@ -1288,10 +1284,7 @@ body.dark .toggle-button .sun::before {
 .featured-large {
     position: relative;
     overflow: hidden;
-    /* Tinggi disesuaikan agar lebih proporsional dengan gambar di sampingnya */
     height: 550px;
-    /* Menghapus border-radius */
-    border-radius: 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-out;
 }
@@ -1315,8 +1308,6 @@ body.dark .toggle-button .sun::before {
     background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0));
     color: white;
     width: 100%;
-    /* Menghapus border-radius */
-    border-radius: 0;
     box-sizing: border-box;
     max-height: 250px; /* Batasi tinggi awal overlay */
     overflow: hidden;
@@ -1413,8 +1404,6 @@ body.dark .toggle-button .sun::before {
     background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
     color: white;
     width: 100%;
-    /* Menghapus border-radius */
-    border-radius: 0;
     box-sizing: border-box;
     max-height: 120px;
     overflow: hidden;
@@ -1457,10 +1446,8 @@ body.dark .toggle-button .sun::before {
 /* === Responsif untuk HP/tablet === */
 @media (max-width: 768px) {
     .slider.layout-utama {
-        /* Mengubah layout menjadi satu kolom vertikal */
         grid-template-columns: 1fr;
         padding: 20px 16px;
-        /* Menambahkan jarak antar item yang lebih besar */
         gap: 16px;
     }
 
@@ -1483,24 +1470,30 @@ body.dark .toggle-button .sun::before {
         display: none;
     }
 
+    .featured-grid .item .desc {
+        display: none;
+    }
+    
+    
+
     .featured-grid {
-        /* Mengubah grid menjadi dua kolom untuk item kecil */
         grid-template-columns: 1fr 1fr;
-        gap: 12px; /* Jarak antar item grid yang rapat */
+        gap: 8px; /* Jarak antar item grid yang rapat */
     }
 
     .featured-grid .item {
-        /* Tinggi item grid disesuaikan */
         height: 180px;
+
     }
 
     .featured-grid .overlay {
         padding: 12px;
-        max-height: 80px;
+        max-height: 800px;
     }
 
     .featured-grid .overlay .title {
-        font-size: 14px;
+        font-size: 16px;
+        
     }
 }
 
