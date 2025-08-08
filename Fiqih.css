@@ -1143,6 +1143,10 @@ body.dark .toggle-button .sun::before {
 }
 
 
+
+
+
+
 /* ================================================= */
 /* --- MAIN CONTENT GRID STYLES --- */
 /* ================================================= */
@@ -1488,6 +1492,9 @@ body.dark .large-card .article-excerpt {
     color: rgba(255,255,255,0.8);
 }
 
+/* ================================================= */
+/* --- MEDIA QUERIES (RESPONSIVE) --- */
+/* ================================================= */
 @media (max-width: 1024px) {
     .main-content-grid {
         display: grid;
@@ -1523,7 +1530,7 @@ body.dark .large-card .article-excerpt {
     }
 
     /* Di mobile, kembalikan padding-bottom untuk image wrapper large-card
-       agar memiliki rasio aspek yang lebih terkontrol */
+        agar memiliki rasio aspek yang lebih terkontrol */
     .large-card .article-image-wrapper {
         padding-bottom: 50%; 
     }
@@ -1535,7 +1542,6 @@ body.dark .large-card .article-excerpt {
         left: 0;
         right: 0;
     }
-
 
     .medium-card .article-image-wrapper {
         padding-bottom: 30%;
@@ -1552,6 +1558,17 @@ body.dark .large-card .article-excerpt {
 
     .small-card .article-image-wrapper {
         padding-bottom: 65%;
+    }
+
+    /* Menyembunyikan tanggal dan deskripsi di layar kecil */
+    .article-date,
+    .article-excerpt {
+        display: none;
+    }
+
+    /* Memastikan judul artikel tidak terpotong */
+    .article-title {
+        white-space: normal; /* Memastikan teks judul dapat turun ke baris baru */
     }
 
     .large-card .article-title {
@@ -1587,6 +1604,12 @@ body.dark .large-card .article-excerpt {
         font-weight: 600;
     }
 }
+
+
+
+
+
+
 
 /* ================================================= */
 /* --- HUKUM ISLAM SECTION STYLES --- */
