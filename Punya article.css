@@ -1255,7 +1255,7 @@ body.dark-mode .toggle-button .sun::before {
             }
 
             .article-meta {
-                font-size: 0.90rem !important; /* Dikurangi lagi dari 0.65rem */
+                font-size: 1.20rem !important; /* Dikurangi lagi dari 0.65rem */
             }
 
             .article-meta i {
@@ -1263,7 +1263,7 @@ body.dark-mode .toggle-button .sun::before {
             }
 
             article p {
-                font-size: 1.20rem !important; /* Dikurangi lagi dari 0.85rem */
+                font-size: 1.30rem !important; /* Dikurangi lagi dari 0.85rem */
             }
 
             article h3 {
@@ -1271,7 +1271,7 @@ body.dark-mode .toggle-button .sun::before {
             }
 
             article ol li {
-                font-size: 1.0rem; /* DITAMBAH lagi dari 0.95rem */
+                font-size: 1rem; /* DITAMBAH lagi dari 0.95rem */
             }
             .arab {
                 font-size: 1em; /* Dikurangi lagi dari 1.1em */
@@ -1283,11 +1283,11 @@ body.dark-mode .toggle-button .sun::before {
             }
 
             .article-info h3 {
-                font-size: 0.75rem !important; /* Dikurangi dari 0.85rem */
+                font-size: 0.85rem !important; /* Dikurangi dari 0.85rem */
             }
 
             .article-info .date {
-                font-size: 0.6rem !important; /* Dikurangi dari 0.65rem */
+                font-size: 0.90rem !important; /* Dikurangi dari 0.65rem */
             }
         }
 /* ================================================= */
