@@ -1288,7 +1288,7 @@ body.dark-mode .toggle-button .sun::before {
             }
 
             .article-info .date {
-                font-size: 1rem !important; /* Dikurangi dari 0.65rem */
+                font-size: 1.10rem !important; /* Dikurangi dari 0.65rem */
             }
         }
 
