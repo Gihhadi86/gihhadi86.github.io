@@ -1251,11 +1251,12 @@ body.dark-mode .toggle-button .sun::before {
             }
 
             .article-title {
-                font-size: 1.2rem !important; /* Dikurangi lagi dari 1.3rem */
+                font-size: 1.4rem !important; /* Dikurangi lagi dari 1.3rem */
             }
 
+
             .article-meta {
-                font-size: 1rem !important; /* Dikurangi lagi dari 0.65rem */
+                font-size: 0.80rem !important; /* Dikurangi lagi dari 0.65rem */
             }
 
             .article-meta i {
@@ -1263,7 +1264,7 @@ body.dark-mode .toggle-button .sun::before {
             }
 
             article p {
-                font-size: 1rem !important; /* Dikurangi lagi dari 0.85rem */
+                font-size: 0.90rem !important; /* Dikurangi lagi dari 0.85rem */
             }
 
             article h3 {
@@ -1287,11 +1288,11 @@ body.dark-mode .toggle-button .sun::before {
             }
 
             .article-info .date {
-                font-size: 0.80rem !important; /* Dikurangi dari 0.65rem */
+                font-size: 1rem !important; /* Dikurangi dari 0.65rem */
             }
         }
 
-        
+
 /* ================================================= */
 /* --- Social Bar (Non-Sticky-Bottom) --- */
 /* ================================================= */
