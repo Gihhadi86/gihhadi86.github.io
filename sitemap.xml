@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
 
-    <url>
-  <loc>https://gihhadi86.github.io/</loc>
-  <lastmod>2025-08-10</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>1.0</priority>
-</url>
-
+  <url>
+    <loc>https://gihhadi86.github.io/</loc>
+    <lastmod>2025-08-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
 
   <url>
     <loc>https://gihhadi86.github.io/Adab%20Berdoa.html</loc>
@@ -18,20 +16,20 @@
   </url>
 
   <url>
-    <loc>https://gihhadi86.github.io/Apakah%20Wahabi%20Mengingkari%20Syafa%E2%80%99at%20Nabi%20%E2%9C%8D.html</loc>
+    <loc>https://gihhadi86.github.io/Apakah%20Wahabi%20Mengingkari%20Syafaat%20Nabi.html</loc>
     <lastmod>2025-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://gihhadi86.github.io/Aqidah%20yang%20benar%20dalam%20asma%E2%80%99%20was-Sifat.html</loc>
+    <loc>https://gihhadi86.github.io/Aqidah%20yang%20benar%20dalam%20asma%20was-Sifat.html</loc>
     <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-    <url>
+  <url>
     <loc>https://gihhadi86.github.io/Batalkah%20Puasa%20Seseorang%20Yang%20Menggunakan%20Obat%20Supposotoria%20Di%20Siang%20Hari.html</loc>
     <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -53,7 +51,7 @@
   </url>
 
   <url>
-    <loc>https://gihhadi86.github.io/Bolehkah%20Menambahkan%20kata%20%D8%B1%D8%B6%D9%8A%20%D8%A7%D9%84%D9%84%D9%87%20%D8%B9%D9%86%D9%87%20%28Radhiallahu%E2%80%99%20Anhu%29%20Kepada%20Selain%20Sahabat.html</loc>
+    <loc>https://gihhadi86.github.io/Bolehkah%20Menambahkan%20kata%20Radhiallahu%20Anhu%20Kepada%20Selain%20Sahabat.html</loc>
     <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -80,7 +78,7 @@
     <priority>0.8</priority>
   </url>
 
-    <url>
+  <url>
     <loc>https://gihhadi86.github.io/Donasi.html</loc>
     <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -115,8 +113,7 @@
     <priority>0.8</priority>
   </url>
 
-
-    <url>
+  <url>
     <loc>https://gihhadi86.github.io/Fiqih.html</loc>
     <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -151,7 +148,7 @@
     <priority>0.8</priority>
   </url>
 
-    <url>
+  <url>
     <loc>https://gihhadi86.github.io/Kamu%20lupa%20mengqadha%20puasa%20ramadhan.html</loc>
     <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -179,7 +176,7 @@
     <priority>0.8</priority>
   </url>
 
-    <url>
+  <url>
     <loc>https://gihhadi86.github.io/Me%20Time.html</loc>
     <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -194,32 +191,31 @@
   </url>
 
   <url>
-    <loc>https://gihhadi86.github.io/Meninggalkan%20yang%20Mubah%20sebagai%20Bentuk%20Takwa%20atau%20Bid'ah.html</loc>
+    <loc>https://gihhadi86.github.io/Meninggalkan%20yang%20Mubah%20sebagai%20Bentuk%20Takwa%20atau%20Bidah.html</loc>
     <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-    <url>
+  <url>
     <loc>https://gihhadi86.github.io/My%20CV.html</loc>
     <lastmod>2025-08-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
-    <url>
+  <url>
     <loc>https://gihhadi86.github.io/Suka%20Mengakhirkan%20Shalat%20Karena%20Sibuk%20Kerja.html</loc>
     <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+
   <url>
     <loc>https://gihhadi86.github.io/Toko%20online.html</loc>
     <lastmod>2025-08-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-
-
 
 </urlset>
