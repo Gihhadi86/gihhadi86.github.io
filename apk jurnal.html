@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jurnal Harian Premium — Revisi</title>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Montserrat:wght@400;500;700&family=Playfair+Display&family=Roboto+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ============ Reset & Base ============ */
+    *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --bg-color: #f8fafc;        /* body background */
+      --bg-paper: #ffffff;        /* card/paper background */
+      --text-color: #0f172a;      /* main text */
+      --text-secondary: #64748b;  /* secondary text */
+      --primary-color: #4f46e5;   /* primary brand */
+      --primary-dark: #3730a3;    /* primary hover */
+      --border-color: #e2e8f0;    /* borders */
+      --shadow: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -2px rgba(0,0,0,.05);
+      --radius: 16px;
+      --transition-speed: .25s;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #0f172a;
+        --bg-paper: #1e293b;
+        --text-color: #f8fafc;
+        --text-secondary: #94a3b8;
+        --primary-color: #818cf8;
+        --primary-dark: #6366f1;
+        --border-color: #475569;
+      }
+    }
+
+    body.dark-mode {
+      --bg-color: #0f172a;
+      --bg-paper: #1e293b;
+      --text-color: #f8fafc;
+      --text-secondary: #94a3b8;
+      --primary-color: #818cf8;
+      --primary-dark: #6366f1;
+      --border-color: #475569;
+    }
+
+    /* Body
+    ------------------------------------- */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif;
+      transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+      overflow-y: auto;
+    }
+
+    /* Font utilities (keeps base classes intact) */
+    .font-sans { font-family: 'Montserrat', sans-serif; }
+    .font-serif { font-family: 'Merriweather', serif; }
+    .font-playfair { font-family: 'Playfair Display', serif; }
+    .font-mono { font-family: 'Roboto Mono', monospace; }
+
+    /* Size utilities */
+    .text-sm { font-size: .875rem; }
+    .text-base { font-size: 1rem; }
+    .text-lg { font-size: 1.125rem; }
+    .text-xl { font-size: 1.25rem; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 4px; }
+
+    /* Background theme swatches (body bg only) */
+    .bg-soft-ivory      { --bg-color: #F8F5E9; }
+    .bg-linen-white     { --bg-color: #FAF3E0; }
+    .bg-cream-beige     { --bg-color: #F5E6CC; }
+    .bg-almond-milk     { --bg-color: #EDE3D2; }
+    .bg-warm-sand       { --bg-color: #E4D3B6; }
+    .bg-champagne       { --bg-color: #F7E7CE; }
+    .bg-old-lace        { --bg-color: #FDF5E6; }
+    .bg-vanilla-cream   { --bg-color: #F8EBDD; }
+    .bg-latte-beige     { --bg-color: #E6D4C0; }
+    .bg-antique-white   { --bg-color: #FAEBD7; }
+    .bg-dusty-blush     { --bg-color: #EAD6D3; }
+    .bg-rose-taupe      { --bg-color: #D8B4A6; }
+    .bg-warm-taupe      { --bg-color: #D2B48C; }
+    .bg-sandstone       { --bg-color: #C9B39C; }
+    .bg-misty-rose      { --bg-color: #FFE4E1; }
+    .bg-light-apricot   { --bg-color: #FDD9B5; }
+    .bg-soft-peach      { --bg-color: #FAD4C0; }
+    .bg-desert-sand     { --bg-color: #EDC9AF; }
+    .bg-blanched-almond { --bg-color: #FFEBCD; }
+    .bg-wheat           { --bg-color: #F5DEB3; }
+    .bg-pale-khaki      { --bg-color: #E6D8AD; }
+    .bg-pale-olive      { --bg-color: #DDD6B8; }
+    .bg-sage-mist       { --bg-color: #C8C2AE; }
+    .bg-cool-gray       { --bg-color: #D1D5D8; }
+    .bg-silver-mist     { --bg-color: #D6D6D6; }
+    .bg-moonlight-gray  { --bg-color: #EAEAEA; }
+    .bg-porcelain       { --bg-color: #F6F6F6; }
+    .bg-soft-lavender   { --bg-color: #E6E6FA; }
+    .bg-powder-blue     { --bg-color: #B0E0E6; }
+    .bg-misty-aqua      { --bg-color: #D0EBE8; }
+
+    /* Layout
+    ------------------------------------- */
+    .sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: 350px;
+      background: var(--bg-paper);
+      padding: 1.25rem 1.25rem 1.75rem;
+      box-shadow: var(--shadow);
+      transform: translateX(-100%);
+      transition: transform var(--transition-speed) ease;
+      z-index: 40;
+      overflow-y: auto;
+      border-right: 1px solid var(--border-color);
+    }
+    .sidebar.open { transform: translateX(0); }
+
+    .backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,.3);
+      z-index: 30; opacity: 0; pointer-events: none;
+      transition: opacity var(--transition-speed) ease;
+    }
+    .backdrop.show { opacity: 1; pointer-events: auto; }
+
+    .main-content {
+      flex: 1; display: flex; justify-content: center; align-items: flex-start;
+      padding: 1.5rem; transition: margin-left var(--transition-speed) ease;
+      margin-left: 0; background: var(--bg-color);
+    }
+    .sidebar.open + .backdrop + .main-content { margin-left: 350px; }
+
+    .journal-container {
+      width: 100%; max-width: 900px; background: var(--bg-paper);
+      backdrop-filter: blur(8px); box-shadow: var(--shadow);
+      border-radius: var(--radius); padding: 2rem; margin-top: 1rem; position: relative;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Header controls */
+    .header { display: flex; justify-content: space-between; align-items: center; gap: .75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+    .header input[type="date"] {
+      font-size: 1.1rem; font-weight: 500; padding: .7rem 1rem; border-radius: 10px;
+      border: 1px solid var(--border-color); background: transparent; color: var(--text-color);
+    }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; cursor: pointer; border: none; border-radius: 9999px; box-shadow: var(--shadow); transition: filter .15s ease, transform .05s ease; }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background: var(--primary-color); color: #fff; padding: .7rem 1.25rem; }
+    .btn-muted { background: #94a3b8; color: #fff; padding: .7rem .95rem; }
+
+    /* Writing area */
+    .journal-title {
+      width: 100%; font-weight: 700; border: none; border-bottom: 2px solid var(--border-color);
+      background: transparent; color: var(--text-color); outline: none; margin: .25rem 0 1rem; padding: .5rem 0;
+    }
+    .journal-text {
+      width: 100%; min-height: 420px; padding: 1rem; border: 1px solid var(--border-color);
+      border-radius: 12px; background: transparent; resize: vertical; color: var(--text-color); outline: none;
+    }
+
+    /* Sidebar content */
+    .sidebar .section-title { font-size: 1.15rem; font-weight: 700; margin: 1rem 0 .5rem; }
+    .option-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: .5rem; }
+    .option-btn {
+      width: 100%; height: 2rem; border-radius: 8px; border: 1px solid var(--border-color);
+      cursor: pointer; transition: border-color .15s ease, outline .15s ease;
+    }
+    .option-btn.active { outline: 2px solid var(--primary-color); }
+
+    .font-btn, .size-btn {
+      background: var(--bg-paper); color: var(--text-color);
+      border: 1px solid var(--border-color); padding: .5rem 1rem; border-radius: 10px; cursor: pointer;
+    }
+    .font-btn.active, .size-btn.active { background: var(--primary-color); color: #fff; }
+
+    .archive-list { list-style: none; margin: 0; padding: 0; }
+    .archive-list li {
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .75rem;
+      padding: .6rem .5rem; border-bottom: 1px solid var(--border-color); cursor: pointer; border-radius: 8px;
+    }
+    .archive-list li:hover { background: rgba(0,0,0,.04); }
+    body.dark-mode .archive-list li:hover { background: rgba(255,255,255,.05); }
+    .archive-list li.active { outline: 2px solid var(--primary-color); }
+    .archive-list .delete-btn { color: #ef4444; background: transparent; border: none; font-size: 1rem; cursor: pointer; }
+
+    /* Mood */
+    .mood-row { display: flex; align-items: center; gap: .5rem; margin-bottom: .75rem; }
+    .mood-options button { background: none; border: none; cursor: pointer; font-size: 1.45rem; padding: .25rem; border-radius: 50%; }
+    .mood-options button:hover { transform: scale(1.08); }
+    .mood-options .active-mood { transform: scale(1.14); outline: 2px solid var(--primary-color); }
+
+    /* Tags */
+    .tags-row { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+    .tag { background: #cbd5e1; color: #1e293b; padding: .25rem .55rem; border-radius: 9999px; font-size: .875rem; display: inline-flex; align-items: center; gap: .25rem; }
+    body.dark-mode .tag { background: #475569; color: #f8fafc; }
+    .tag-remove { background: none; border: none; cursor: pointer; color: #334155; }
+
+    /* Footer */
+    .footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; flex-wrap: wrap; gap: .5rem; }
+    .status-message { font-size: .9rem; color: #10b981; display: inline-flex; align-items: center; gap: .4rem; }
+    .muted { color: var(--text-secondary); font-size: .9rem; }
+
+    /* Toggle switch styling */
+    .switch { position: relative; display: inline-block; width: 48px; height: 26px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #cbd5e1; transition: .2s; border-radius: 9999px; }
+    .slider::before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background: white; transition: .2s; border-radius: 50%; }
+    .switch input:checked + .slider { background: var(--primary-color); }
+    .switch input:checked + .slider::before { transform: translateX(22px); }
+
+    /* Focus ring */
+    :focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; }
+      .sidebar.open + .backdrop + .main-content { margin-left: 0; }
+      .main-content { padding: 1rem; }
+      .journal-container { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar" aria-label="Panel kustomisasi & arsip">
+    <div class="header" style="margin-bottom: .5rem;">
+      <h3 class="section-title" style="margin: 0;">Kustomisasi & Arsip</h3>
+      <button class="btn btn-muted" id="closeSidebarBtn" title="Tutup" aria-label="Tutup panel">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div>
+      <div class="section-title">Tampilan</div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.5rem;">
+        <span>Mode Gelap</span>
+        <label class="switch">
+          <input type="checkbox" id="dark-mode-toggle" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="section-title">Latar Belakang</div>
+      <div class="option-grid" id="bg-options" aria-label="Pilihan warna latar"></div>
+
+      <div class="section-title">Font (<span id="current-font-name">Montserrat</span>)</div>
+      <div id="font-options" style="display:flex; flex-direction:column; gap:.5rem;">
+        <button class="font-btn" data-font="font-sans">Montserrat</button>
+        <button class="font-btn" data-font="font-serif">Merriweather</button>
+        <button class="font-btn" data-font="font-playfair">Playfair Display</button>
+        <button class="font-btn" data-font="font-mono">Roboto Mono</button>
+      </div>
+
+      <div class="section-title">Ukuran Teks (<span id="current-font-size">Normal</span>)</div>
+      <div id="font-size-options" style="display:flex; gap:.5rem; flex-wrap:wrap;">
+        <button class="size-btn" data-size="text-sm">Kecil</button>
+        <button class="size-btn" data-size="text-base">Normal</button>
+        <button class="size-btn" data-size="text-lg">Besar</button>
+        <button class="size-btn" data-size="text-xl">Sangat Besar</button>
+      </div>
+
+      <hr style="margin: 1rem 0; border-color: var(--border-color);" />
+
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:.5rem;">
+        <h3 class="section-title" style="margin:0;">Arsip Entri (<span id="entry-count">0</span>)</h3>
+        <div style="display:flex; gap:.25rem;">
+          <button id="btnImport" class="btn btn-muted" title="Impor data" aria-label="Impor data"><i class="fas fa-upload"></i></button>
+          <button id="btnExport" class="btn btn-muted" title="Ekspor semua data" aria-label="Ekspor semua data"><i class="fas fa-download"></i></button>
+        </div>
+      </div>
+
+      <div style="margin:.75rem 0; display:flex; flex-direction:column; gap:.5rem;">
+        <input id="search-input" type="text" placeholder="Cari entri..." style="width:100%; padding:.55rem .75rem; border-radius:10px; border:1px solid var(--border-color); background:var(--bg-paper); color:var(--text-color);" />
+        <select id="sort-by" style="width:100%; padding:.55rem .75rem; border-radius:10px; border:1px solid var(--border-color); background:var(--bg-paper); color:var(--text-color);">
+          <option value="newest">Terbaru</option>
+          <option value="oldest">Terlama</option>
+          <option value="az">Judul (A-Z)</option>
+          <option value="za">Judul (Z-A)</option>
+        </select>
+      </div>
+
+      <ul id="archive-list" class="archive-list" aria-label="Daftar arsip"></ul>
+      <button id="btnLogout" class="btn" style="width:100%; background:#ef4444; color:#fff; padding:.75rem 1rem; margin-top:1rem;">Keluar (Hapus Semua Data)</button>
+    </div>
+  </aside>
+  <div id="backdrop" class="backdrop" aria-hidden="true"></div>
+
+  <!-- Main -->
+  <main id="main-content" class="main-content">
+    <section class="journal-container" aria-label="Kanvas menulis jurnal">
+      <div class="header">
+        <input type="date" id="date-picker" aria-label="Tanggal entri" />
+        <div style="display:flex; gap:.5rem;">
+          <button id="btnToggleSidebar" class="btn btn-primary" title="Buka Sidebar">Kustomisasi</button>
+          <button id="btnExportCurrent" class="btn btn-muted" title="Ekspor entri saat ini"><i class="fas fa-file-export"></i></button>
+          <button id="btnPrint" class="btn btn-muted" title="Cetak entri saat ini"><i class="fas fa-print"></i></button>
+        </div>
+      </div>
+
+      <div class="mood-row">
+        <span style="font-weight:600;">Mood:</span>
+        <div id="mood-options" class="mood-options" role="group" aria-label="Pilih mood">
+          <button data-mood="😊">😊</button>
+          <button data-mood="😂">😂</button>
+          <button data-mood="😭">😭</button>
+          <button data-mood="😡">😡</button>
+          <button data-mood="😴">😴</button>
+          <button data-mood="🤯">🤯</button>
+          <button data-mood="🤔">🤔</button>
+          <button data-mood="😎">😎</button>
+        </div>
+      </div>
+
+      <input id="journal-title" class="journal-title text-lg font-sans" type="text" placeholder="Judul Entri..." />
+      <textarea id="journal-text" class="journal-text text-base font-sans" placeholder="Tulis jurnal harianmu di sini..."></textarea>
+
+      <div class="tags-row" style="margin-top:.75rem;">
+        <input id="tag-input" type="text" placeholder="Tambah tag..." style="padding:.5rem .75rem; border-radius:10px; border:1px solid var(--border-color); background:var(--bg-paper); width: 180px; color: var(--text-color);" />
+        <div id="tags-container" class="tags-row"></div>
+      </div>
+
+      <footer class="footer">
+        <div style="display:flex; align-items:center; gap:.5rem;">
+          <span id="save-status" class="status-message">Tersimpan</span>
+          <span class="muted">•</span>
+          <span id="word-count" class="muted">0 kata • 0 karakter</span>
+        </div>
+        <div style="display:flex; gap:.5rem;">
+          <button id="btnNewEntry" class="btn" style="background:#38bdf8; color:#fff; padding:.5rem 1rem;">Entri Baru</button>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    // ==========================
+    // Utilities & Constants
+    // ==========================
+    const qs = (sel, el = document) => el.querySelector(sel);
+    const qsa = (sel, el = document) => Array.from(el.querySelectorAll(sel));
+
+    const STORAGE_KEY_V2 = 'journalEntries.v2';
+    const STORAGE_KEY_V1 = 'journalEntries'; // legacy
+    const SETTINGS_KEY = 'journalSettings.v1';
+
+    const datePicker = qs('#date-picker');
+    const titleEl = qs('#journal-title');
+    const textEl = qs('#journal-text');
+    const sidebar = qs('#sidebar');
+    const backdrop = qs('#backdrop');
+    const mainContent = qs('#main-content');
+    const archiveList = qs('#archive-list');
+    const entryCount = qs('#entry-count');
+    const wordCountDisplay = qs('#word-count');
+    const saveStatus = qs('#save-status');
+    const tagInput = qs('#tag-input');
+    const tagsContainer = qs('#tags-container');
+    const searchInput = qs('#search-input');
+    const sortBySelect = qs('#sort-by');
+    const darkModeToggle = qs('#dark-mode-toggle');
+    const moodOptions = qs('#mood-options');
+    const fontOptions = qs('#font-options');
+    const fontSizeOptions = qs('#font-size-options');
+    const currentFontName = qs('#current-font-name');
+    const currentFontSize = qs('#current-font-size');
+    const bgOptionsContainer = qs('#bg-options');
+
+    const btnToggleSidebar = qs('#btnToggleSidebar');
+    const btnExport = qs('#btnExport');
+    const btnImport = qs('#btnImport');
+    const btnLogout = qs('#btnLogout');
+    const btnExportCurrent = qs('#btnExportCurrent');
+    const btnPrint = qs('#btnPrint');
+    const btnNewEntry = qs('#btnNewEntry');
+    const btnCloseSidebar = qs('#closeSidebarBtn');
+
+    const BG_COLORS = [
+      { name: 'Soft Ivory', class: 'bg-soft-ivory', color: '#F8F5E9' },
+      { name: 'Linen White', class: 'bg-linen-white', color: '#FAF3E0' },
+      { name: 'Cream Beige', class: 'bg-cream-beige', color: '#F5E6CC' },
+      { name: 'Almond Milk', class: 'bg-almond-milk', color: '#EDE3D2' },
+      { name: 'Warm Sand', class: 'bg-warm-sand', color: '#E4D3B6' },
+      { name: 'Champagne', class: 'bg-champagne', color: '#F7E7CE' },
+      { name: 'Old Lace', class: 'bg-old-lace', color: '#FDF5E6' },
+      { name: 'Vanilla Cream', class: 'bg-vanilla-cream', color: '#F8EBDD' },
+      { name: 'Latte Beige', class: 'bg-latte-beige', color: '#E6D4C0' },
+      { name: 'Antique White', class: 'bg-antique-white', color: '#FAEBD7' },
+      { name: 'Dusty Blush', class: 'bg-dusty-blush', color: '#EAD6D3' },
+      { name: 'Rose Taupe', class: 'bg-rose-taupe', color: '#D8B4A6' },
+      { name: 'Warm Taupe', class: 'bg-warm-taupe', color: '#D2B48C' },
+      { name: 'Sandstone', class: 'bg-sandstone', color: '#C9B39C' },
+      { name: 'Misty Rose', class: 'bg-misty-rose', color: '#FFE4E1' },
+      { name: 'Light Apricot', class: 'bg-light-apricot', color: '#FDD9B5' },
+      { name: 'Soft Peach', class: 'bg-soft-peach', color: '#FAD4C0' },
+      { name: 'Desert Sand', class: 'bg-desert-sand', color: '#EDC9AF' },
+      { name: 'Blanched Almond', class: 'bg-blanched-almond', color: '#FFEBCD' },
+      { name: 'Wheat', class: 'bg-wheat', color: '#F5DEB3' },
+      { name: 'Pale Khaki', class: 'bg-pale-khaki', color: '#E6D8AD' },
+      { name: 'Pale Olive', class: 'bg-pale-olive', color: '#DDD6B8' },
+      { name: 'Sage Mist', class: 'bg-sage-mist', color: '#C8C2AE' },
+      { name: 'Cool Gray', class: 'bg-cool-gray', color: '#D1D5D8' },
+      { name: 'Silver Mist', class: 'bg-silver-mist', color: '#D6D6D6' },
+      { name: 'Moonlight Gray', class: 'bg-moonlight-gray', color: '#EAEAEA' },
+      { name: 'Porcelain', class: 'bg-porcelain', color: '#F6F6F6' },
+      { name: 'Soft Lavender', class: 'bg-soft-lavender', color: '#E6E6FA' },
+      { name: 'Powder Blue', class: 'bg-powder-blue', color: '#B0E0E6' },
+      { name: 'Misty Aqua', class: 'bg-misty-aqua', color: '#D0EBE8' },
+    ];
+
+    // ==========================
+    // State
+    // ==========================
+    let savedEntries = {}; // { 'YYYY-MM-DD': { title, text, mood, tags: [], updatedAt } }
+    let currentMood = '';
+    let debounceId = null;
+
+    // ==========================
+    // Helpers
+    // ==========================
+    const todayISO = () => {
+      const d = new Date();
+      // Convert to local ISO (avoid UTC off-by-one)
+      d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+      return d.toISOString().slice(0, 10);
+    };
+
+    const fmtTime = (d = new Date()) => d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+    const setStatus = (msg) => { saveStatus.textContent = msg; };
+
+    function removeBodyBgClasses() {
+      qsa('body')[0].classList.forEach(cls => {
+        if (cls.startsWith('bg-')) document.body.classList.remove(cls);
+      });
+    }
+
+    function uniqueTagsFromUI() {
+      return qsa('.tag', tagsContainer).map(t => t.dataset.tag);
+    }
+
+    function saveSettings(partial) {
+      const prev = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify({ ...prev, ...partial }));
+    }
+
+    function readSettings() {
+      return JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
+    }
+
+    // ==========================
+    // Renderers
+    // ==========================
+    function renderBgOptions(activeClass) {
+      bgOptionsContainer.innerHTML = '';
+      BG_COLORS.forEach(bg => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn' + (activeClass === bg.class ? ' active' : '');
+        btn.title = bg.name; btn.dataset.bg = bg.class; btn.style.backgroundColor = bg.color;
+        btn.addEventListener('click', () => setBgColor(bg.class, btn));
+        bgOptionsContainer.appendChild(btn);
+      });
+    }
+
+    function renderTags(tags) {
+      tagsContainer.innerHTML = '';
+      (tags || []).forEach(tag => {
+        const span = document.createElement('span');
+        span.className = 'tag';
+        span.dataset.tag = tag;
+        span.innerHTML = `#${tag} <button class="tag-remove" title="Hapus tag" aria-label="Hapus tag ${tag}">&times;</button>`;
+        span.querySelector('button').addEventListener('click', (e) => {
+          e.stopPropagation();
+          const rest = uniqueTagsFromUI().filter(t => t !== tag);
+          renderTags(rest); saveEntry();
+        });
+        tagsContainer.appendChild(span);
+      });
+    }
+
+    function updateMoodDisplay() {
+      qsa('button', moodOptions).forEach(btn => {
+        btn.classList.toggle('active-mood', btn.dataset.mood === currentMood);
+      });
+    }
+
+    function updateWordCount() {
+      const words = (textEl.value.match(/\b\w+\b/g) || []).length; // simple word count
+      const chars = textEl.value.length;
+      wordCountDisplay.textContent = `${words} kata • ${chars} karakter`;
+    }
+
+    function renderArchive() {
+      archiveList.innerHTML = '';
+      const filter = (searchInput.value || '').toLowerCase();
+      const entries = Object.entries(savedEntries).filter(([date, entry]) => {
+        const t = (entry.title || '').toLowerCase();
+        const x = (entry.text || '').toLowerCase();
+        const matchTags = (entry.tags || []).some(tag => tag.toLowerCase().includes(filter));
+        return t.includes(filter) || x.includes(filter) || matchTags;
+      });
+
+      entries.sort(([aDate, a], [bDate, b]) => {
+        const mode = sortBySelect.value;
+        if (mode === 'newest') return bDate.localeCompare(aDate);
+        if (mode === 'oldest') return aDate.localeCompare(bDate);
+        const at = (a.title || '').toLowerCase();
+        const bt = (b.title || '').toLowerCase();
+        if (mode === 'az') return at.localeCompare(bt);
+        if (mode === 'za') return bt.localeCompare(at);
+        return 0;
+      });
+
+      entryCount.textContent = entries.length;
+
+      entries.forEach(([date, entry]) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <div class="entry-info">
+            <div style="font-weight:700;">${entry.title || 'Entri Tanpa Judul'} ${entry.mood || ''}</div>
+            <div class="muted" style="font-size:.85rem;">${new Date(date).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+          </div>
+          <button class="delete-btn" title="Hapus"> <i class="fas fa-trash-alt"></i> </button>
+        `;
+        li.addEventListener('click', () => {
+          datePicker.value = date;
+          loadJournalEntry(date);
+          qsa('li', archiveList).forEach(it => it.classList.remove('active'));
+          li.classList.add('active');
+          if (window.innerWidth <= 768) closeSidebar();
+        });
+        li.querySelector('.delete-btn').addEventListener('click', (e) => handleDeleteEntry(e, date));
+        archiveList.appendChild(li);
+      });
+    }
+
+    // ==========================
+    // Core actions
+    // ==========================
+    function saveEntry() {
+      const date = datePicker.value;
+      if (!date) return;
+      const tags = uniqueTagsFromUI();
+      savedEntries[date] = {
+        title: titleEl.value.trim(),
+        text: textEl.value,
+        mood: currentMood,
+        tags,
+        updatedAt: Date.now()
+      };
+      localStorage.setItem(STORAGE_KEY_V2, JSON.stringify(savedEntries));
+      setStatus('Tersimpan • ' + fmtTime());
+      renderArchive();
+    }
+
+    function loadJournalEntry(date) {
+      const entry = savedEntries[date] || {};
+      titleEl.value = entry.title || '';
+      textEl.value = entry.text || '';
+      currentMood = entry.mood || '';
+      renderTags(entry.tags || []);
+      updateMoodDisplay();
+      updateWordCount();
+      textEl.focus();
+    }
+
+    function newEntry() {
+      datePicker.value = todayISO();
+      titleEl.value = '';
+      textEl.value = '';
+      currentMood = '';
+      renderTags([]);
+      updateMoodDisplay();
+      updateWordCount();
+      textEl.focus();
+      setStatus('Siap menulis ✍️');
+    }
+
+    function handleDeleteEntry(e, date) {
+      e.stopPropagation();
+      if (!confirm('Apakah kamu yakin ingin menghapus entri ini?')) return;
+      delete savedEntries[date];
+      localStorage.setItem(STORAGE_KEY_V2, JSON.stringify(savedEntries));
+      renderArchive();
+      if (date === datePicker.value) newEntry();
+    }
+
+    // ==========================
+    // Settings & Appearance
+    // ==========================
+    function setBgColor(colorClass, buttonEl) {
+      removeBodyBgClasses();
+      document.body.classList.add(colorClass);
+      if (buttonEl) {
+        qsa('.option-btn', bgOptionsContainer).forEach(b => b.classList.remove('active'));
+        buttonEl.classList.add('active');
+      }
+      saveSettings({ bg: colorClass });
+    }
+
+    function setFontFamily(fontClass) {
+      // Keep base classes and sizes; only toggle font-* classes
+      const fontClasses = ['font-sans','font-serif','font-playfair','font-mono'];
+      [titleEl, textEl].forEach(el => {
+        fontClasses.forEach(fc => el.classList.remove(fc));
+        el.classList.add(fontClass);
+      });
+      qsa('[data-font]', fontOptions).forEach(btn => btn.classList.toggle('active', btn.dataset.font === fontClass));
+      currentFontName.textContent = qsa(`[data-font="${fontClass}"]`, fontOptions)?.textContent || 'Montserrat';
+      saveSettings({ font: fontClass });
+    }
+
+    function setFontSize(sizeClass) {
+      const sizeClasses = ['text-sm','text-base','text-lg','text-xl'];
+      [titleEl, textEl].forEach(el => {
+        sizeClasses.forEach(sc => el.classList.remove(sc));
+        el.classList.add(sizeClass);
+      });
+      qsa('[data-size]', fontSizeOptions).forEach(btn => btn.classList.toggle('active', btn.dataset.size === sizeClass));
+      currentFontSize.textContent = qsa(`[data-size="${sizeClass}"]`, fontSizeOptions)?.textContent || 'Normal';
+      saveSettings({ size: sizeClass });
+    }
+
+    function setDarkMode(enabled) {
+      document.body.classList.toggle('dark-mode', enabled);
+      darkModeToggle.checked = enabled;
+      saveSettings({ dark: enabled });
+    }
+
+    // ==========================
+    // Import / Export / Print
+    // ==========================
+    function handleExportAll() {
+      const data = JSON.stringify(savedEntries, null, 2);
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'jurnal_harian.json';
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    }
+
+    function handleImportAll() {
+      const input = document.createElement('input');
+      input.type = 'file'; input.accept = 'application/json';
+      input.onchange = (e) => {
+        const file = e.target.files[0]; if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          try {
+            const json = JSON.parse(ev.target.result);
+            if (typeof json !== 'object' || Array.isArray(json)) throw new Error('Format tidak valid');
+            if (!confirm('Timpa semua data jurnal dengan file ini?')) return;
+            savedEntries = json;
+            localStorage.setItem(STORAGE_KEY_V2, JSON.stringify(savedEntries));
+            renderArchive();
+            if (datePicker.value) loadJournalEntry(datePicker.value);
+            alert('Data berhasil diimpor!');
+          } catch (err) { alert('Format file tidak valid.'); }
+        };
+        reader.readAsText(file);
+      };
+      input.click();
+    }
+
+    function exportCurrent() {
+      const date = datePicker.value; const entry = savedEntries[date];
+      if (!entry) { alert('Tidak ada entri untuk diekspor!'); return; }
+      const data = JSON.stringify(entry, null, 2);
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = `jurnal_${date}.json`;
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    }
+
+    function printCurrent() {
+      const date = datePicker.value; const entry = savedEntries[date];
+      if (!entry) { alert('Tidak ada entri untuk dicetak!'); return; }
+      const w = window.open('', '', 'height=700,width=900');
+      w.document.write('<html><head><title>Cetak Jurnal</title>');
+      w.document.write('<style>body{font-family:serif; line-height:1.6; padding:2rem; color:#111} h1{text-align:center;} pre{white-space:pre-wrap;}</style>');
+      w.document.write('</head><body>');
+      w.document.write(`<h1>${(entry.title || 'Entri Tanpa Judul') + ' ' + (entry.mood || '')}</h1>`);
+      w.document.write(`<div>Tanggal: ${new Date(date).toLocaleDateString('id-ID')}</div><br>`);
+      w.document.write(`<div>Tag: ${(entry.tags || []).map(t => '#' + t).join(' ')}</div><br>`);
+      w.document.write(`<pre>${(entry.text || '')}</pre>`);
+      w.document.write('</body></html>');
+      w.document.close(); w.focus(); w.print();
+    }
+
+    // ==========================
+    // Sidebar open/close
+    // ==========================
+    function openSidebar() { sidebar.classList.add('open'); backdrop.classList.add('show'); }
+    function closeSidebar() { sidebar.classList.remove('open'); backdrop.classList.remove('show'); }
+
+    // ==========================
+    // Load & Migrate
+    // ==========================
+    function migrateIfNeeded() {
+      const v2 = localStorage.getItem(STORAGE_KEY_V2);
+      if (v2) return; // already on v2
+      const legacy = localStorage.getItem(STORAGE_KEY_V1);
+      if (legacy) {
+        try {
+          const json = JSON.parse(legacy);
+          localStorage.setItem(STORAGE_KEY_V2, JSON.stringify(json));
+          localStorage.removeItem(STORAGE_KEY_V1);
+        } catch { /* ignore */ }
+      }
+    }
+
+    function loadAll() {
+      migrateIfNeeded();
+      try { savedEntries = JSON.parse(localStorage.getItem(STORAGE_KEY_V2) || '{}'); }
+      catch { savedEntries = {}; }
+      renderArchive();
+
+      // Settings
+      const settings = readSettings();
+      const bg = settings.bg || 'bg-soft-ivory';
+      const font = settings.font || 'font-sans';
+      const size = settings.size || 'text-base';
+      const dark = Boolean(settings.dark);
+
+      // Render swatches with active state first
+      setTimeout(() => renderBgOptions(bg));
+
+      setBgColor(bg);
+      setFontFamily(font);
+      setFontSize(size);
+      setDarkMode(dark);
+
+      // Date (use local ISO to avoid timezone issue)
+      datePicker.value = todayISO();
+      loadJournalEntry(datePicker.value);
+    }
+
+    // ==========================
+    // Event bindings
+    // ==========================
+    function bindEvents() {
+      btnToggleSidebar.addEventListener('click', openSidebar);
+      btnCloseSidebar.addEventListener('click', closeSidebar);
+      backdrop.addEventListener('click', closeSidebar);
+
+      // Text inputs with debounce autosave
+      const debounced = () => {
+        clearTimeout(debounceId);
+        setStatus('Menyimpan...');
+        debounceId = setTimeout(() => { saveEntry(); }, 700);
+      };
+      textEl.addEventListener('input', () => { debounced(); updateWordCount(); });
+      titleEl.addEventListener('input', debounced);
+
+      // Date change: save current before switching
+      datePicker.addEventListener('change', (e) => {
+        saveEntry();
+        loadJournalEntry(e.target.value);
+      });
+
+      // Mood
+      moodOptions.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-mood]');
+        if (!btn) return;
+        currentMood = btn.dataset.mood; updateMoodDisplay(); saveEntry();
+      });
+
+      // Tags
+      tagInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const v = tagInput.value.trim(); if (!v) return;
+          const tags = new Set(uniqueTagsFromUI());
+          tags.add(v);
+          renderTags(Array.from(tags));
+          saveEntry();
+          tagInput.value = '';
+        }
+      });
+
+      // Search & sort
+      searchInput.addEventListener('input', renderArchive);
+      sortBySelect.addEventListener('change', renderArchive);
+
+      // Font & size
+      fontOptions.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-font]');
+        if (btn) setFontFamily(btn.dataset.font);
+      });
+      fontSizeOptions.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-size]');
+        if (btn) setFontSize(btn.dataset.size);
+      });
+
+      // Dark mode
+      darkModeToggle.addEventListener('change', (e) => setDarkMode(e.target.checked));
+
+      // Export / Import / Print / New
+      btnExport.addEventListener('click', handleExportAll);
+      btnImport.addEventListener('click', handleImportAll);
+      btnExportCurrent.addEventListener('click', exportCurrent);
+      btnPrint.addEventListener('click', printCurrent);
+      btnNewEntry.addEventListener('click', newEntry);
+
+      // Keyboard shortcuts
+      document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); saveEntry(); }
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'n') { e.preventDefault(); newEntry(); }
+      });
+
+      // Save before unload (best-effort)
+      window.addEventListener('beforeunload', () => { try { saveEntry(); } catch {} });
+    }
+
+    // ==========================
+    // Bootstrap
+    // ==========================
+    document.addEventListener('DOMContentLoaded', () => {
+      loadAll();
+      bindEvents();
+    });
+  </script>
+</body>
+</html>
