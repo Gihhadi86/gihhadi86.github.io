@@ -3,7 +3,6 @@ let isLoggedIn = false;
 let loggedInUsername = ''; // Akan diisi jika login berhasil
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Elemen Modal Autentikasi ---
     const authModalOverlay = document.getElementById('authModalOverlay');
     const authModal = document.getElementById('authModal');
     const authModalCloseBtn = document.getElementById('authModalCloseBtn');
@@ -12,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const showRegisterFormLink = document.getElementById('showRegisterForm');
     const showLoginFormLink = document.getElementById('showLoginForm');
 
-    // Tombol demo untuk membuka modal (hanya di file ini)
     const openLoginModalBtn = document.getElementById('openLoginModalBtn');
     if (openLoginModalBtn) {
         openLoginModalBtn.addEventListener('click', () => openAuthModal(false));
@@ -20,8 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fungsi untuk membuka modal autentikasi
     const openAuthModal = (showRegister = false) => {
-        authModalOverlay.classList.add('active'); // Aktifkan overlay (mengaktifkan transisi CSS)
-        // Tampilkan form yang sesuai
+        authModalOverlay.classList.add('active')
         if (showRegister) {
             loginForm.style.display = 'none';
             registerForm.style.display = 'block';
