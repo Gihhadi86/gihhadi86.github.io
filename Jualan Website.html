@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Digital - Marketplace Website Premium</title>
+    <!-- Memuat Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Konfigurasi Font dan Warna Kustom -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#0f172a', // Slate 900
+                        'secondary-gold': '#f59e0b', // Amber 500
+                        'accent-light': '#cbd5e1', // Slate 300
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    keyframes: {
+                        fadeInDown: {
+                            '0%': { opacity: '0', transform: 'translateY(-20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    },
+                    animation: {
+                        fadeInDown: 'fadeInDown 0.8s ease-out',
+                    }
+                },
+            }
+        }
+    </script>
+    <style>
+        /* Gaya Kustom untuk Efek Memukau */
+        body {
+            background-color: #0f172a; /* Latar Belakang Gelap Primer */
+            color: #cbd5e1;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Gradient untuk Kartu Premium */
+        .premium-card-bg {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .premium-card-bg:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.2);
+        }
+
+        /* Gaya Tombol Emas Berkilau */
+        .btn-gold {
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        }
+        .btn-gold:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.6);
+        }
+
+        /* Placeholder untuk Icon (bisa diganti dengan Lucide/FontAwesome jika ada library) */
+        .icon-placeholder {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            background-color: #f59e0b;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E") no-repeat center;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E") no-repeat center;
+            mask-size: contain;
+        }
+    </style>
+</head>
+<body class="bg-primary-dark min-h-screen">
+
+    <!-- 1. Header dan Navigasi -->
+    <header class="sticky top-0 z-50 bg-primary-dark/95 backdrop-blur-sm shadow-xl border-b border-secondary-gold/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-3xl font-extrabold tracking-tight text-secondary-gold">
+                Gihh<span class="text-white">Digital</span>
+            </a>
+            <!-- Navigasi (Desktop) -->
+            <nav class="hidden md:flex space-x-8 text-lg font-medium">
+                <a href="#" class="hover:text-secondary-gold transition duration-200">Koleksi</a>
+                <a href="#" class="hover:text-secondary-gold transition duration-200">Cara Kerja</a>
+                <a href="#" class="hover:text-secondary-gold transition duration-200">Fitur</a>
+                <a href="#" class="hover:text-secondary-gold transition duration-200">Tentang Kami</a>
+            </nav>
+            <!-- Tombol Aksi -->
+            <div class="hidden md:block">
+                <button class="btn-gold text-primary-dark font-bold py-2 px-6 rounded-full text-lg shadow-lg">
+                    Jual Website Anda
+                </button>
+            </div>
+            <!-- Menu Mobile (Placeholder) -->
+            <button class="md:hidden text-secondary-gold text-2xl">
+                <!-- SVG Icon Menu -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- 2. Hero Section - Paling Memukau -->
+        <section class="relative overflow-hidden pt-20 pb-28 md:pt-32 md:pb-40 text-center animation-fadeInDown">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6">
+                <h1 class="text-4xl sm:text-6xl md:text-8xl font-extrabold leading-tight tracking-tighter mb-6 text-white drop-shadow-lg">
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-secondary-gold to-yellow-300">
+                        Koleksi Website
+                    </span> <br class="hidden sm:inline"> Siap Diluncurkan.
+                </h1>
+                <p class="text-xl md:text-2xl text-accent-light mb-10 max-w-3xl mx-auto">
+                    Temukan dan miliki aset digital premium, dirancang oleh para ahli. Desain luar biasa, performa tak tertandingi.
+                </p>
+                <!-- Search Bar Fungsional -->
+                <div class="max-w-xl mx-auto flex gap-3 p-2 bg-primary-dark rounded-full shadow-2xl border border-secondary-gold/50">
+                    <input type="text" placeholder="Cari Niche, Teknologi, atau Harga..."
+                           class="flex-grow bg-transparent text-white placeholder-accent-light px-6 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-secondary-gold/50 transition duration-300">
+                    <button class="btn-gold text-primary-dark font-bold py-3 px-8 rounded-full flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        Cari
+                    </button>
+                </div>
+            </div>
+            <!-- Elemen Desain Latar Belakang Geometris (Opsional untuk Visual Keren) -->
+            <div class="absolute inset-0 z-[-1] opacity-10">
+                <canvas id="hero-canvas" class="w-full h-full"></canvas>
+            </div>
+        </section>
+
+        <!-- 3. Fitur Utama & Kategori -->
+        <section class="py-20 bg-slate-900 border-t border-b border-secondary-gold/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white text-center mb-16">
+                    Pilihan <span class="text-secondary-gold">Website Terbaik</span>
+                </h2>
+
+                <!-- Kategori Filter (Mock) -->
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <button class="bg-secondary-gold text-primary-dark font-semibold py-2 px-6 rounded-full transition hover:bg-yellow-300 shadow-md">Semua</button>
+                    <button class="bg-primary-dark text-accent-light border border-slate-700 font-semibold py-2 px-6 rounded-full transition hover:border-secondary-gold">E-Commerce</button>
+                    <button class="bg-primary-dark text-accent-light border border-slate-700 font-semibold py-2 px-6 rounded-full transition hover:border-secondary-gold">SaaS & Aplikasi</button>
+                    <button class="bg-primary-dark text-accent-light border border-slate-700 font-semibold py-2 px-6 rounded-full transition hover:border-secondary-gold">Blog & Media</button>
+                    <button class="bg-primary-dark text-accent-light border border-slate-700 font-semibold py-2 px-6 rounded-full transition hover:border-secondary-gold">Portfolio</button>
+                </div>
+
+                <!-- Daftar Website (Grid) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+                    <!-- Website Card 1: E-Commerce Mewah -->
+                    <div class="premium-card-bg rounded-xl overflow-hidden">
+                        <div class="p-6">
+                            <span class="text-sm font-bold uppercase text-secondary-gold/80 bg-secondary-gold/10 px-3 py-1 rounded-full">TERLARIS</span>
+                            <h3 class="text-3xl font-bold text-white mt-3 mb-2">Luxor Commerce</h3>
+                            <p class="text-accent-light mb-4">Platform e-commerce dengan desain minimalis mewah, siap untuk brand fashion premium.</p>
+                            <div class="h-40 bg-slate-800 rounded-lg mb-4 flex items-center justify-center text-secondary-gold text-xl font-medium">
+                                
+                            </div>
+                            <div class="flex justify-between items-center border-t border-slate-700 pt-4">
+                                <span class="text-3xl font-extrabold text-secondary-gold">Rp 15.000.000</span>
+                                <button class="btn-gold text-primary-dark font-semibold py-2 px-4 rounded-lg text-sm">
+                                    Lihat Detail
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Website Card 2: Landing Page SaaS -->
+                    <div class="premium-card-bg rounded-xl overflow-hidden">
+                        <div class="p-6">
+                            <span class="text-sm font-bold uppercase text-white bg-blue-600/50 px-3 py-1 rounded-full">SaaS</span>
+                            <h3 class="text-3xl font-bold text-white mt-3 mb-2">InnovateApp</h3>
+                            <p class="text-accent-light mb-4">Landing page konversi tinggi untuk promosi produk SaaS berbasis langganan.</p>
+                            <div class="h-40 bg-slate-800 rounded-lg mb-4 flex items-center justify-center text-secondary-gold text-xl font-medium">
+                                
+                            </div>
+                            <div class="flex justify-between items-center border-t border-slate-700 pt-4">
+                                <span class="text-3xl font-extrabold text-secondary-gold">Rp 8.500.000</span>
+                                <button class="btn-gold text-primary-dark font-semibold py-2 px-4 rounded-lg text-sm">
+                                    Lihat Detail
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Website Card 3: Blog Lifestyle -->
+                    <div class="premium-card-bg rounded-xl overflow-hidden">
+                        <div class="p-6">
+                            <span class="text-sm font-bold uppercase text-secondary-gold/80 bg-secondary-gold/10 px-3 py-1 rounded-full">BLOG</span>
+                            <h3 class="text-3xl font-bold text-white mt-3 mb-2">The Zen Writer</h3>
+                            <p class="text-accent-light mb-4">Template blog yang fokus pada keterbacaan, SEO, dan estetika yang menenangkan.</p>
+                            <div class="h-40 bg-slate-800 rounded-lg mb-4 flex items-center justify-center text-secondary-gold text-xl font-medium">
+                                
+                            </div>
+                            <div class="flex justify-between items-center border-t border-slate-700 pt-4">
+                                <span class="text-3xl font-extrabold text-secondary-gold">Rp 5.200.000</span>
+                                <button class="btn-gold text-primary-dark font-semibold py-2 px-4 rounded-lg text-sm">
+                                    Lihat Detail
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- Tombol Lihat Semua -->
+                <div class="text-center mt-16">
+                    <button class="bg-transparent border border-secondary-gold text-secondary-gold font-bold py-3 px-8 rounded-full text-lg hover:bg-secondary-gold/10 transition duration-300">
+                        Lihat Semua Koleksi (100+)
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. Mengapa Memilih NexusDigital (Fitur Profesional) -->
+        <section class="py-20 md:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white text-center mb-6">
+                    Mengapa Memilih <span class="text-secondary-gold">Layanan Kami?</span>
+                </h2>
+                <p class="text-xl text-accent-light text-center max-w-2xl mx-auto mb-16">
+                    Kami menawarkan lebih dari sekadar desain. Kami menawarkan aset digital yang teruji dan siap menghasilkan.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <!-- Keunggulan 1 -->
+                    <div class="text-center p-8 premium-card-bg rounded-xl">
+                        <div class="mx-auto mb-4 p-3 rounded-full bg-secondary-gold/20 inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Kualitas 5 Bintang</h3>
+                        <p class="text-accent-light">Semua *website* dikurasi ketat, memastikan kode bersih, performa cepat, dan desain yang memenangkan penghargaan.</p>
+                    </div>
+
+                    <!-- Keunggulan 2 -->
+                    <div class="text-center p-8 premium-card-bg rounded-xl">
+                         <div class="mx-auto mb-4 p-3 rounded-full bg-secondary-gold/20 inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M12 7v5l4 2"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Transfer Instan</h3>
+                        <p class="text-accent-light">Akuisisi *website* Anda diselesaikan dalam hitungan menit, termasuk domain, hosting, dan semua aset. Siap *go live*.</p>
+                    </div>
+
+                    <!-- Keunggulan 3 -->
+                    <div class="text-center p-8 premium-card-bg rounded-xl">
+                        <div class="mx-auto mb-4 p-3 rounded-full bg-secondary-gold/20 inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Transaksi Aman</h3>
+                        <p class="text-accent-light">Semua transaksi dilindungi melalui sistem *escrow* dan verifikasi dua faktor untuk ketenangan pikiran pembeli dan penjual.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Testimonial - Bukti Sosial -->
+        <section class="py-20 bg-slate-900 border-t border-secondary-gold/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <h2 class="text-4xl md:text-5xl font-extrabold text-white text-center mb-16">
+                    Apa Kata <span class="text-secondary-gold">Klien Kami?</span>
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testi 1 -->
+                    <div class="p-6 bg-primary-dark rounded-xl border border-secondary-gold/30 shadow-2xl">
+                        <p class="italic text-lg mb-4 text-accent-light">"Proses pembelian sangat cepat dan mudah. Website e-commerce yang saya dapatkan benar-benar berkualitas premium. Sangat direkomendasikan!"</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-secondary-gold/50 flex items-center justify-center text-white font-bold mr-3">JD</div>
+                            <div>
+                                <p class="font-bold text-white">Joko D.</p>
+                                <p class="text-sm text-secondary-gold">Pemilik Brand Fashion</p>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Testi 2 -->
+                    <div class="p-6 bg-primary-dark rounded-xl border border-secondary-gold/30 shadow-2xl">
+                        <p class="italic text-lg mb-4 text-accent-light">"Saya berhasil menjual platform SaaS saya di sini dengan harga yang fantastis. Verifikasi penjual profesional dan komisi yang adil."</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-secondary-gold/50 flex items-center justify-center text-white font-bold mr-3">AW</div>
+                            <div>
+                                <p class="font-bold text-white">Aisyah W.</p>
+                                <p class="text-sm text-secondary-gold">Developer & Penjual</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testi 3 -->
+                    <div class="p-6 bg-primary-dark rounded-xl border border-secondary-gold/30 shadow-2xl">
+                        <p class="italic text-lg mb-4 text-accent-light">"Pilihan desainnya sungguh menakjubkan. Saya tidak perlu pusing mendesain, tinggal pilih dan langsung bisnis!"</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-secondary-gold/50 flex items-center justify-center text-white font-bold mr-3">RT</div>
+                            <div>
+                                <p class="font-bold text-white">Rizky T.</p>
+                                <p class="text-sm text-secondary-gold">Investor Digital</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Call to Action Akhir -->
+        <section class="py-20 md:py-28 text-center">
+             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-slate-800/50 p-10 rounded-3xl border border-secondary-gold/20 shadow-2xl">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                    Saatnya Miliki <span class="text-secondary-gold">Aset Digital Anda.</span>
+                </h2>
+                <p class="text-xl text-accent-light mb-8">
+                    Jelajahi ratusan *website* premium atau daftarkan *website* terbaik Anda untuk dijual.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button class="btn-gold text-primary-dark font-bold py-3 px-10 rounded-full text-xl shadow-lg">
+                        Mulai Belanja Sekarang
+                    </button>
+                    <button class="bg-transparent border-2 border-white text-white font-bold py-3 px-10 rounded-full text-xl hover:bg-white hover:text-primary-dark transition duration-300">
+                        Hubungi Tim Penjualan
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 7. Footer Profesional -->
+    <footer class="bg-primary-dark border-t border-secondary-gold/20 mt-12 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8 text-sm">
+                <div>
+                    <h4 class="font-bold text-lg text-white mb-4">Perusahaan</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-accent-light hover:text-secondary-gold transition">Tentang Nexus</a></li>
+                        <li><a href="#" class="text-accent-light hover:text-secondary-gold transition">Karir</a></li>
+                        <li><a href="#" class="text-accent-light hover:text-secondary-gold transition">Pers</a></li>
+                        <li><a href="#" class="text-accent-light hover:text-secondary-gold transition">Kebijakan Privasi</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg text-white mb-4">Marketplace</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-accent-light hover:text-secondary-gold transition">Jual Website</a></li>
+                        <li><a href="#" class="text-accent-light hover:text-secondary-gold transition">Koleksi Terbaru</a></li>
+                        <li><a href="#" class="text-accent-light hover:text-secondary-gold transition">Website Premium</a></li>
+                        <li><a href="#" class="text-accent-light hover:text-secondary-gold transition">Layanan Purna Jual</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg text-white mb-4">Dukungan</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-accent-light hover:text-secondary-gold transition">Pusat Bantuan</a></li>
+                        <li><a href="#" class="text-accent-light hover:text-secondary-gold transition">Panduan Pembeli</a></li>
+                        <li><a href="#" class="text-accent-light hover:text-secondary-gold transition">Panduan Penjual</a></li>
+                        <li><a href="#" class="text-accent-light hover:text-secondary-gold transition">Kontak Kami</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg text-white mb-4">Ikuti Kami</h4>
+                    <!-- Mockup Ikon Sosial Media -->
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-accent-light hover:text-secondary-gold transition text-2xl">F</a>
+                        <a href="#" class="text-accent-light hover:text-secondary-gold transition text-2xl">X</a>
+                        <a href="#" class="text-accent-light hover:text-secondary-gold transition text-2xl">I</a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-slate-700 text-center text-sm text-accent-light">
+                &copy; 2024 NexusDigital. Hak Cipta Dilindungi.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript untuk Efek Visual Tambahan (Canvas Geometris) -->
+    <script>
+        // FUNGSI INI HANYA UNTUK EFEK ESTETIKA DI BAGIAN HERO
+        function initCanvas() {
+            const canvas = document.getElementById('hero-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            function resizeCanvas() {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight;
+            }
+
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            const particles = [];
+            const numParticles = 30;
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.radius = Math.random() * 1.5 + 0.5;
+                    this.color = 'rgba(245, 158, 11, ' + (Math.random() * 0.2 + 0.1) + ')';
+                    this.velocity = {
+                        x: (Math.random() - 0.5) * 0.5,
+                        y: (Math.random() - 0.5) * 0.5
+                    };
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                }
+
+                update() {
+                    if (this.x > canvas.width || this.x < 0) this.velocity.x = -this.velocity.x;
+                    if (this.y > canvas.height || this.y < 0) this.velocity.y = -this.velocity.y;
+
+                    this.x += this.velocity.x;
+                    this.y += this.velocity.y;
+
+                    this.draw();
+                }
+            }
+
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new Particle());
+            }
+
+            function connectParticles() {
+                let opacityValue = 1;
+                for (let a = 0; a < particles.length; a++) {
+                    for (let b = a; b < particles.length; b++) {
+                        let distance = Math.sqrt(
+                            (particles[a].x - particles[b].x) ** 2 +
+                            (particles[a].y - particles[b].y) ** 2
+                        );
+
+                        if (distance < 100) {
+                            opacityValue = 1 - (distance / 100);
+                            ctx.strokeStyle = 'rgba(251, 191, 36, ' + opacityValue * 0.3 + ')';
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[a].x, particles[a].y);
+                            ctx.lineTo(particles[b].x, particles[b].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                connectParticles();
+                particles.forEach(p => p.update());
+            }
+
+            animate();
+        }
+
+        window.onload = initCanvas;
+    </script>
+</body>
+</html>

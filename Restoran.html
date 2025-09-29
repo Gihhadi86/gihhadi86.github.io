@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Juice Dynamic Menu | Jus Segar</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for cleaner UI icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Default: Strawberry Theme */
+            --color-start: #ff8c8c;
+            --color-end: #FF4D4D;
+            --accent-color: #FF4D4D;
+        }
+
+        /* Transisi Smooth untuk Latar Belakang (Menggantikan Framer Motion) */
+        .smooth-bg {
+            background-image: linear-gradient(135deg, var(--color-start) 0%, var(--color-end) 100%);
+            transition: background 0.8s ease-in-out; 
+        }
+        
+        /* Animasi Melayang untuk Buah-buahan */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        .animate-float {
+            animation: float infinite ease-in-out;
+            animation-duration: 4s; 
+        }
+
+        /* Animasi Transisi Hero Image (Fade Out/In & Scale) */
+        .hero-transition {
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+        }
+        
+        /* Gaya untuk Thumbnail Menu */
+        .menu-thumbnail {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .menu-thumbnail:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+        }
+        .menu-thumbnail.active {
+            border: 4px solid var(--accent-color);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--accent-color);
+        }
+    </style>
+</head>
+
+<body class="font-[Inter] antialiased min-h-screen relative overflow-x-hidden">
+
+    <!-- Latar Belakang Utama (Akan berubah secara dinamis oleh JS) -->
+    <div id="main-container" class="smooth-bg absolute inset-0 -z-10"></div>
+    
+    <!-- Navbar -->
+    <header class="fixed top-0 left-0 right-0 z-50 p-4 md:p-6 flex justify-between items-center text-white/90 backdrop-blur-sm bg-black/10">
+        <!-- Logo -->
+        <div class="font-black text-2xl tracking-wider select-none">
+            Fresh<span id="logo-accent" style="color: var(--accent-color);">Juice</span>
+        </div>
+
+        <!-- Navigasi Desktop -->
+        <nav class="hidden md:flex space-x-8 font-medium">
+            <a href="#" class="hover:opacity-70 transition duration-300">Products</a>
+            <a href="#" class="hover:opacity-70 transition duration-300">About</a>
+            <a href="#" class="hover:opacity-70 transition duration-300">Contact</a>
+            <a href="#" class="hover:opacity-70 transition duration-300">Account</a>
+        </nav>
+
+        <!-- Cart Icon -->
+        <button id="cart-button" class="relative p-2 rounded-full hover:bg-white/20 transition duration-300 focus:outline-none">
+            <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+            <span id="cart-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full hidden">0</span>
+        </button>
+    </header>
+
+    <!-- Konten Utama (Hero Section) -->
+    <main class="flex-1 flex flex-col justify-center items-center pt-24 pb-32 md:pb-24 px-4 md:px-8 lg:px-16 w-full max-w-7xl mx-auto min-h-screen">
+        <div class="w-full h-full flex flex-col lg:flex-row gap-8 items-center pt-10">
+            
+            <!-- Konten Kiri (40% Layar Desktop) -->
+            <div class="lg:w-2/5 text-white w-full">
+                <div class="p-6 sm:p-8 md:p-10 bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl space-y-4">
+                    <!-- Judul Besar -->
+                    <h1 id="menu-title" class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tighter">
+                        STRAWBERRY <span class="block lg:inline-block">BLISS</span>
+                    </h1>
+                    
+                    <!-- Sub-judul / Deskripsi -->
+                    <p id="menu-desc" class="text-white/80 text-base md:text-lg max-w-sm pt-2">
+                        Perpaduan murni strawberry segar, air kelapa, dan sedikit mint. Manis, asam, dan menyegarkan!
+                    </p>
+
+                    <!-- Area Fitur Gemini (Hanya TTS yang tersisa) -->
+                    <div class="flex flex-col space-y-3 pt-4">
+                        <button id="tts-btn"
+                                style="background-color: var(--accent-color);"
+                                class="px-5 py-2 rounded-full font-bold text-sm text-white shadow-md hover:brightness-110 transition duration-300 flex items-center justify-center space-x-2"
+                        >
+                            <i data-lucide="volume-2" class="w-4 h-4"></i>
+                            <span>Dengarkan Deskripsi 🔊</span>
+                        </button>
+                    </div>
+
+                    <!-- Tombol CTA -->
+                    <button id="add-to-cart-btn"
+                            style="background-color: var(--accent-color);"
+                            class="mt-6 w-full px-8 py-3 rounded-full font-bold text-lg text-white shadow-xl hover:shadow-2xl hover:brightness-110 transition duration-300 transform hover:-translate-y-0.5"
+                    >
+                        Pesan Sekarang (Rp 35.000)
+                    </button>
+
+                    <!-- Thumbnail Menu di Bawah Deskripsi (Hanya tampil di Desktop/Tablet) -->
+                    <div id="menu-thumbnails-container" class="hidden md:flex pt-8 justify-start space-x-4">
+                        <!-- Thumbnails akan diinjeksi di sini oleh JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Image Kanan (60% Layar Desktop) -->
+            <div class="lg:w-3/5 relative flex justify-center items-center h-full w-full">
+                <!-- Buah-buahan Floating -->
+                <div id="floating-fruits-container" class="absolute inset-0 z-0 opacity-80 pointer-events-none">
+                    <!-- Fruits will be injected here by JS -->
+                </div>
+
+                <!-- Hero Image -->
+                <img
+                    id="hero-image"
+                    src="Gambar/Strowbery.png"
+                    alt="Jus Strawberry"
+                    class="w-full max-w-lg md:max-w-xl lg:max-w-2xl object-contain shadow-2xl rounded-full hero-transition transform hover:scale-[1.02]"
+                    style="aspect-ratio: 1/1;"
+                    loading="lazy"
+                    onerror="this.onerror=null; this.src='https://placehold.co/600x600/CCCCCC/000000?text=Jus+Segar'"
+                />
+            </div>
+        </div>
+    </main>
+
+    <!-- Menu Selector di bagian bawah (dipertahankan untuk mobile) -->
+    <div id="menu-selector" class="fixed bottom-0 left-0 right-0 z-40 bg-white/10 backdrop-blur-md p-4 flex justify-center shadow-inner overflow-x-auto md:hidden">
+        <!-- Buttons will be injected here by JS -->
+    </div>
+
+    <!-- Cart Drawer (Mini Cart Interaktif) -->
+    <div id="cart-drawer"
+        class="fixed top-0 right-0 h-full w-full md:w-96 bg-gray-900/95 backdrop-blur-lg z-[100] shadow-2xl transition-transform duration-500 ease-in-out translate-x-full"
+    >
+        <div class="p-6 h-full flex flex-col">
+            <div class="flex justify-between items-center pb-4 border-b border-gray-700">
+                <h2 id="cart-title" class="text-3xl font-bold text-white">Keranjang Anda (0)</h2>
+                <button id="cart-close-btn" class="text-white hover:text-red-400 transition duration-300 p-2 rounded-full">
+                    <i data-lucide="x" class="w-8 h-8"></i>
+                </button>
+            </div>
+
+            <!-- List Item Cart -->
+            <div id="cart-items-list" class="flex-1 overflow-y-auto py-4 space-y-4">
+                <p id="empty-cart-message" class="text-gray-400 text-center pt-8">Keranjang Anda masih kosong. Ayo pesan sekarang!</p>
+            </div>
+
+            <!-- Footer Cart -->
+            <div id="cart-footer" class="pt-4 border-t border-gray-700 hidden">
+                <div class="flex justify-between items-center text-xl font-bold text-white mb-4">
+                    <span>Total:</span>
+                    <span id="cart-total" style="color: var(--accent-color);">Rp 0</span>
+                </div>
+                <button
+                    class="w-full bg-green-500 text-white py-3 rounded-full font-bold text-lg hover:bg-green-600 transition duration-300 shadow-lg"
+                    onclick="console.log('Proses Checkout!');"
+                >
+                    PROSES CHECKOUT
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Overlay untuk Cart Drawer -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/50 z-50 transition-opacity duration-300 opacity-0 pointer-events-none" onclick="toggleCart(false)"></div>
+
+    <!-- Kotak Pesan untuk Notifikasi (Menggantikan Alert) -->
+    <div id="message-box" class="fixed top-20 right-4 md:right-8 bg-black text-white p-4 rounded-lg shadow-2xl z-[150] opacity-0 transition-opacity duration-500 pointer-events-none max-w-sm">
+        <p id="message-content"></p>
+    </div>
+
+<script>
+    // Inisialisasi Lucide Icons
+    lucide.createIcons();
+    
+    // API KEY untuk Gemini (Ditinggalkan kosong untuk runtime injection)
+    const apiKey = ""; 
+    const GEMINI_TTS_API = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+    
+    // Audio Context untuk TTS
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    let audioSource = null;
+
+    // --- 1. DATA & THEME CONFIGURATION (Jus Segar) ---
+    // Menggunakan URL gambar realistik dan sesuai tema Anda.
+    const menuData = {
+        strawberry: {
+            key: 'strawberry',
+            name: "STRAWBERRY BLISS",
+            desc: "Perpaduan murni strawberry segar, air kelapa, dan sedikit mint. Manis, asam, dan menyegarkan!",
+            color: "#FF4D4D", // Accent: Merah Muda
+            bgStart: "#ff8c8c", // Coral/Merah Muda Gradient Start
+            bgEnd: "#FF4D4D", // Coral/Merah Muda Gradient End
+            image: "Gambar/Strowbery.png",
+            fruits: ['🍓', '🥥', '🌿'],
+            price: 35000,
+        },
+        blueberry: {
+            key: 'blueberry',
+            name: "BLUEBERRY GALAXY",
+            desc: "Kaya antioksidan dengan blueberry liar, yogurt rendah lemak, dan sedikit madu. Energi untuk hari Anda.",
+            color: "#6C63FF", // Accent: Ungu/Biru Tua
+            bgStart: "#9692ff", 
+            bgEnd: "#6C63FF", 
+            image: "Gambar/Anggur.png",
+            fruits: ['🍇', '🫐', '🍯'],
+            price: 38000,
+        },
+        banana: {
+            key: 'banana',
+            name: "BANANA SUNRISE",
+            desc: "Jus pisang kental, potongan mangga, dan biji chia. Tekstur creamy yang memuaskan.",
+            color: "#FEC20F", // Accent: Kuning Cerah
+            bgStart: "#ffe788", 
+            bgEnd: "#FFD93D", 
+            image: "Gambar/Pisang.png",
+            fruits: ['🍌', '🥭', '🥣'],
+            price: 32000,
+        },
+        mango: {
+            key: 'mango',
+            name: "MANGO TANGO",
+            desc: "Kelezatan mangga harum, sedikit jeruk nipis, dan sentuhan cabai (opsional). Rasa tropis yang unik.",
+            color: "#FF7F11", // Accent: Orange
+            bgStart: "#ffa952", 
+            bgEnd: "#FF9F1C", 
+            image: "Gambar/Mangga.png",
+            fruits: ['🥭', '🌶️', '🍊'],
+            price: 36000,
+        },
+        matcha: {
+            key: 'matcha',
+            name: "MATCHA ZEN",
+            desc: "Matcha premium, susu almond, dan pemanis alami. Pilihan sehat untuk fokus yang menenangkan.",
+            color: "#16A34A", // Accent: Hijau
+            bgStart: "#46cd77", 
+            bgEnd: "#16A34A", 
+            image: "Gambar/Matcha.png",
+            fruits: ['🍵', '🥛', '🌿'],
+            price: 40000,
+        },
+    };
+    const menuKeys = Object.keys(menuData);
+
+    // --- 2. STATE MANAGEMENT (Vanilla JS) ---
+    let activeMenu = 'strawberry';
+    let cartItems = [];
+
+    // --- 3. DOM ELEMENTS ---
+    const root = document.documentElement.style;
+    const heroImage = document.getElementById('hero-image');
+    const menuTitle = document.getElementById('menu-title');
+    const menuDesc = document.getElementById('menu-desc');
+    const addToCartBtn = document.getElementById('add-to-cart-btn');
+    const floatingFruitsContainer = document.getElementById('floating-fruits-container');
+    const menuSelectorContainer = document.getElementById('menu-selector');
+    const menuThumbnailsContainer = document.getElementById('menu-thumbnails-container'); // NEW
+    const cartCountSpan = document.getElementById('cart-count');
+    const cartDrawer = document.getElementById('cart-drawer');
+    const cartItemsList = document.getElementById('cart-items-list');
+    const cartTitle = document.getElementById('cart-title');
+    const cartFooter = document.getElementById('cart-footer');
+    const cartTotalSpan = document.getElementById('cart-total');
+    const emptyCartMessage = document.getElementById('empty-cart-message');
+    const cartOverlay = document.getElementById('cart-overlay');
+    const logoAccent = document.getElementById('logo-accent');
+    const ttsBtn = document.getElementById('tts-btn');
+    const messageBox = document.getElementById('message-box');
+    const messageContent = document.getElementById('message-content');
+
+
+    // --- 4. UTILITY FUNCTIONS ---
+
+    /** Menampilkan pesan notifikasi kustom (menggantikan alert). */
+    function showMessage(message, duration = 3000) {
+        messageContent.innerHTML = message;
+        messageBox.classList.remove('opacity-0', 'pointer-events-none');
+        
+        // Atur timeout untuk menyembunyikan
+        clearTimeout(messageBox.timer);
+        messageBox.timer = setTimeout(() => {
+            messageBox.classList.add('opacity-0', 'pointer-events-none');
+        }, duration);
+    }
+    
+    /** Konversi Base64 ke ArrayBuffer */
+    function base64ToArrayBuffer(base64) {
+        const binaryString = window.atob(base64);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+        return bytes.buffer;
+    }
+
+    /** Konversi PCM menjadi Blob WAV */
+    function pcmToWav(pcm16, sampleRate) {
+        const numChannels = 1;
+        const bitDepth = 16;
+        const bytesPerSample = bitDepth / 8;
+        const dataLength = pcm16.length * bytesPerSample;
+
+        const buffer = new ArrayBuffer(44 + dataLength);
+        const view = new DataView(buffer);
+
+        let offset = 0;
+
+        // RIFF chunk
+        writeString(view, offset, 'RIFF'); offset += 4;
+        view.setUint32(offset, 36 + dataLength, true); offset += 4;
+        writeString(view, offset, 'WAVE'); offset += 4;
+
+        // fmt chunk
+        writeString(view, offset, 'fmt '); offset += 4;
+        view.setUint32(offset, 16, true); offset += 4; // Sub-chunk size
+        view.setUint16(offset, 1, true); offset += 2; // Audio format (1 for PCM)
+        view.setUint16(offset, numChannels, true); offset += 2; // Number of channels
+        view.setUint32(offset, sampleRate, true); offset += 4; // Sample rate
+        view.setUint32(offset, sampleRate * numChannels * bytesPerSample, true); offset += 4; // Byte rate
+        view.setUint16(offset, numChannels * bytesPerSample, true); offset += 2; // Block align
+        view.setUint16(offset, bitDepth, true); offset += 2; // Bit depth
+
+        // data chunk
+        writeString(view, offset, 'data'); offset += 4;
+        view.setUint32(offset, dataLength, true); offset += 4; // Data size
+
+        // Write PCM data
+        for (let i = 0; i < pcm16.length; i++) {
+            view.setInt16(offset, pcm16[i], true); offset += 2;
+        }
+
+        return new Blob([view], { type: 'audio/wav' });
+    }
+
+    function writeString(view, offset, string) {
+        for (let i = 0; i < string.length; i++) {
+            view.setUint8(offset + i, string.charCodeAt(i));
+        }
+    }
+    
+    /** Fungsi untuk melakukan retry dengan exponential backoff */
+    async function fetchWithRetry(url, options, maxRetries = 5) {
+        for (let i = 0; i < maxRetries; i++) {
+            try {
+                const response = await fetch(url, options);
+                if (response.status !== 429) { // 429 Too Many Requests
+                    return response;
+                }
+            } catch (error) {
+                // Biarkan error koneksi diulang
+                if (i === maxRetries - 1) throw error;
+            }
+            const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+        throw new Error('Gagal melakukan fetch setelah beberapa kali percobaan.');
+    }
+
+    // --- 5. GEMINI API FUNCTIONS ---
+
+    /**
+     * Membaca deskripsi jus menggunakan Gemini Text-to-Speech (TTS).
+     */
+    async function playJuiceDescription() {
+        const theme = menuData[activeMenu];
+        const textToSpeak = `Deskripsi Jus ${theme.name}. ${theme.desc}`;
+        
+        // Hentikan pemutaran sebelumnya
+        if (audioSource) {
+            audioSource.stop();
+            audioSource.disconnect();
+            audioSource = null;
+        }
+
+        ttsBtn.disabled = true;
+        ttsBtn.innerHTML = '<i data-lucide="volume-2" class="w-4 h-4 animate-pulse"></i> <span>Memuat Audio...</span>';
+        lucide.createIcons();
+
+        const payload = {
+            contents: [{
+                parts: [{ text: textToSpeak }]
+            }],
+            generationConfig: {
+                responseModalities: ["AUDIO"],
+                speechConfig: {
+                    voiceConfig: {
+                        // Menggunakan suara yang ramah dan jelas
+                        prebuiltVoiceConfig: { voiceName: "Puck" } 
+                    }
+                }
+            },
+            model: "gemini-2.5-flash-preview-tts"
+        };
+
+        try {
+            const response = await fetchWithRetry(GEMINI_TTS_API, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error('TTS API request failed');
+
+            const result = await response.json();
+            const part = result?.candidates?.[0]?.content?.parts?.[0];
+            const audioData = part?.inlineData?.data;
+            const mimeType = part?.inlineData?.mimeType;
+
+            if (audioData && mimeType && mimeType.startsWith("audio/L16")) {
+                const sampleRateMatch = mimeType.match(/rate=(\d+)/);
+                const sampleRate = sampleRateMatch ? parseInt(sampleRateMatch[1], 10) : 24000;
+                
+                const pcmData = base64ToArrayBuffer(audioData);
+                const pcm16 = new Int16Array(pcmData);
+                
+                const wavBlob = pcmToWav(pcm16, sampleRate);
+                const audioUrl = URL.createObjectURL(wavBlob);
+                
+                // Putar Audio
+                const audio = new Audio(audioUrl);
+                audio.play();
+
+                audio.onplaying = () => {
+                    ttsBtn.innerHTML = '<i data-lucide="pause" class="w-4 h-4"></i> <span>Mendengarkan...</span>';
+                    lucide.createIcons();
+                }
+
+                audio.onended = () => {
+                    ttsBtn.disabled = false;
+                    ttsBtn.innerHTML = '<i data-lucide="volume-2" class="w-4 h-4"></i> <span>Dengarkan Deskripsi 🔊</span>';
+                    lucide.createIcons();
+                };
+                
+            } else {
+                throw new Error('Format audio tidak valid atau data hilang.');
+            }
+
+        } catch (error) {
+            console.error('Error playing TTS:', error);
+            showMessage('Gagal memutar deskripsi audio.', 4000);
+            ttsBtn.disabled = false;
+            ttsBtn.innerHTML = '<i data-lucide="volume-2" class="w-4 h-4"></i> <span>Dengarkan Deskripsi 🔊</span>';
+            lucide.createIcons();
+        }
+    }
+
+
+    // --- 6. CORE FUNCTIONS (Lanjutan) ---
+
+    /**
+     * Mengubah tema visual dan konten berdasarkan menu yang dipilih.
+     * @param {string} key - Kunci menu (e.g., 'strawberry', 'banana').
+     */
+    function switchMenu(key) {
+        if (activeMenu === key) return;
+        
+        const newTheme = menuData[key];
+        const oldImage = menuData[activeMenu].image;
+        activeMenu = key; // Update state
+
+        // Hentikan audio jika sedang diputar saat menu diganti
+        if (audioSource) {
+            audioSource.stop();
+            audioSource.disconnect();
+            audioSource = null;
+            ttsBtn.disabled = false;
+            ttsBtn.innerHTML = '<i data-lucide="volume-2" class="w-4 h-4"></i> <span>Dengarkan Deskripsi 🔊</span>';
+            lucide.createIcons();
+        }
+
+        // 1. Animasi Transisi Hero Image (Fade Out)
+        heroImage.classList.add('opacity-0', 'scale-90');
+        heroImage.classList.remove('scale-100');
+        
+        // 2. Transisi Warna (Langsung diterapkan di root CSS properties)
+        root.setProperty('--color-start', newTheme.bgStart);
+        root.setProperty('--color-end', newTheme.bgEnd);
+        root.setProperty('--accent-color', newTheme.color);
+        logoAccent.style.color = newTheme.color; // Update logo accent color
+
+        // 3. Update Konten dan Animasi (Setelah Fade Out)
+        setTimeout(() => {
+            // Update Image Source
+            heroImage.src = newTheme.image;
+            
+            // Update Text Content
+            menuTitle.innerHTML = newTheme.name.split(' ').map((word, index) => 
+                `<span class="${index > 0 ? 'block lg:inline-block' : ''}">${word}</span>`
+            ).join(' ');
+            menuDesc.textContent = newTheme.desc;
+            addToCartBtn.textContent = `Pesan Sekarang (Rp ${newTheme.price.toLocaleString('id-ID')})`;
+            
+            // Re-render Floating Fruits
+            renderFloatingFruits(newTheme);
+
+            // Animasi Transisi Hero Image (Fade In)
+            heroImage.classList.remove('opacity-0', 'scale-90');
+            heroImage.classList.add('scale-100');
+            
+            // Re-render Menu Selector (mobile) dan Thumbnails (desktop)
+            renderMenuSelector();
+            renderMenuThumbnails();
+        }, 300); // Tunggu sebentar agar animasi fade out terlihat
+    }
+
+    /**
+     * Merender buah-buahan melayang (floating fruits) di sekitar hero image.
+     * @param {object} theme - Data tema menu aktif.
+     */
+    function renderFloatingFruits(theme) {
+        floatingFruitsContainer.innerHTML = ''; // Clear previous fruits
+        theme.fruits.forEach((fruit, index) => {
+            const fruitDiv = document.createElement('div');
+            const top = 10 + (index * 15) % 40;
+            const left = 5 + (index * 20) % 70;
+            const delay = index * 0.5;
+            const duration = 2.5 + (index % 3) * 0.5;
+
+            fruitDiv.className = 'absolute text-3xl md:text-5xl lg:text-6xl animate-float transition-opacity duration-500 hover:scale-110 hover:rotate-6';
+            fruitDiv.style.cssText = `
+                top: ${top}%;
+                left: ${left}%;
+                animation-delay: ${delay}s;
+                animation-duration: ${duration}s;
+            `;
+            fruitDiv.textContent = fruit;
+            floatingFruitsContainer.appendChild(fruitDiv);
+        });
+        lucide.createIcons(); // Re-render icons if any were used here
+    }
+
+    /**
+     * Merender tombol-tombol Menu Selector di bagian bawah (untuk Mobile).
+     */
+    function renderMenuSelector() {
+        menuSelectorContainer.innerHTML = '';
+        const menuList = document.createElement('div');
+        menuList.className = 'flex space-x-4 md:space-x-8';
+        
+        menuKeys.forEach(key => {
+            const theme = menuData[key];
+            const isActive = activeMenu === key;
+            
+            const button = document.createElement('button');
+            button.onclick = () => switchMenu(key);
+            button.textContent = theme.name.split(' ')[0].replace('ES', ''); // Teks tab
+            button.className = `
+                px-4 py-2 text-sm md:text-base font-semibold rounded-full border-2 
+                transition-all duration-300 ease-in-out transform 
+                ${isActive ? 'shadow-lg scale-105 text-white' : 'hover:bg-white/20 hover:scale-105'}
+            `;
+            button.style.cssText = `
+                border-color: ${theme.color};
+                ${isActive ? `background-color: ${theme.color};` : `color: ${theme.color};`}
+            `;
+
+            menuList.appendChild(button);
+        });
+        menuSelectorContainer.appendChild(menuList);
+    }
+    
+    /**
+     * Merender thumbnail menu kecil di bawah deskripsi (untuk Desktop/Tablet).
+     */
+    function renderMenuThumbnails() {
+        menuThumbnailsContainer.innerHTML = '';
+        
+        menuKeys.forEach(key => {
+            const theme = menuData[key];
+            const isActive = activeMenu === key;
+
+            const img = document.createElement('img');
+            img.src = theme.image;
+            img.alt = theme.name;
+            img.title = theme.name; // Tambahkan tooltip nama menu
+            img.onclick = () => switchMenu(key);
+            
+            img.className = `
+                w-16 h-16 object-cover rounded-full cursor-pointer 
+                menu-thumbnail border-2 border-transparent 
+                ${isActive ? 'active' : 'opacity-70'}
+            `;
+
+            menuThumbnailsContainer.appendChild(img);
+        });
+    }
+
+    /**
+     * Menambah item aktif ke keranjang.
+     */
+    function addToCart() {
+        const theme = menuData[activeMenu];
+        
+        // Logika animasi "item meluncur kecil ke icon cart"
+        addToCartBtn.classList.add('shadow-inner', 'opacity-80');
+        setTimeout(() => {
+            addToCartBtn.classList.remove('shadow-inner', 'opacity-80');
+        }, 100);
+
+        const existingItemIndex = cartItems.findIndex(item => item.key === theme.key);
+
+        if (existingItemIndex > -1) {
+            cartItems[existingItemIndex].quantity += 1;
+        } else {
+            cartItems.push({
+                key: theme.key,
+                name: theme.name,
+                color: theme.color,
+                emoji: theme.fruits[0],
+                price: theme.price,
+                quantity: 1,
+            });
+        }
+        
+        updateCartDisplay();
+        toggleCart(true); // Buka keranjang setelah menambah
+        showMessage(`${theme.name} telah ditambahkan ke keranjang!`, 2000);
+    }
+
+    /**
+     * Mengubah status Cart Drawer (buka/tutup).
+     * @param {boolean} [open] - True untuk buka, False untuk tutup. Default: toggle.
+     */
+    function toggleCart(open) {
+        const isOpen = open !== undefined ? open : cartDrawer.classList.contains('translate-x-full');
+
+        if (isOpen) {
+            cartDrawer.classList.remove('translate-x-full');
+            cartOverlay.classList.remove('opacity-0', 'pointer-events-none');
+        } else {
+            cartDrawer.classList.add('translate-x-full');
+            cartOverlay.classList.add('opacity-0', 'pointer-events-none');
+        }
+    }
+
+    /**
+     * Memperbarui tampilan Keranjang Belanja.
+     */
+    function updateCartDisplay() {
+        const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+        const totalPrice = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+        
+        cartCountSpan.textContent = totalItems;
+        if (totalItems > 0) {
+            cartCountSpan.classList.remove('hidden');
+            emptyCartMessage.classList.add('hidden');
+            cartFooter.classList.remove('hidden');
+        } else {
+            cartCountSpan.classList.add('hidden');
+            emptyCartMessage.classList.remove('hidden');
+            cartFooter.classList.add('hidden');
+        }
+
+        cartTitle.textContent = `Keranjang Anda (${totalItems})`;
+        cartTotalSpan.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+        
+        // Render item list
+        cartItemsList.innerHTML = '';
+        if (cartItems.length > 0) {
+            cartItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'flex items-center justify-between bg-gray-800 p-3 rounded-xl shadow-md';
+                itemDiv.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="text-3xl">${item.emoji}</div>
+                        <div>
+                            <p class="font-semibold text-white">${item.name}</p>
+                            <p class="text-sm text-gray-400">Qty: ${item.quantity}</p>
+                        </div>
+                    </div>
+                    <p class="font-bold text-lg" style="color: ${item.color};">
+                        Rp ${(item.price * item.quantity).toLocaleString('id-ID')}
+                    </p>
+                `;
+                cartItemsList.appendChild(itemDiv);
+            });
+        }
+    }
+
+    // --- 7. INITIALIZATION & EVENT LISTENERS ---
+    window.onload = function() {
+        // Initial rendering
+        switchMenu('strawberry'); 
+        updateCartDisplay();
+        
+        // Render menu selector (mobile) dan thumbnails (desktop) saat inisialisasi
+        renderMenuSelector(); 
+        renderMenuThumbnails();
+
+        // Add Event Listeners
+        addToCartBtn.addEventListener('click', addToCart);
+        document.getElementById('cart-button').addEventListener('click', () => toggleCart(true));
+        document.getElementById('cart-close-btn').addEventListener('click', () => toggleCart(false));
+        
+        // Event Listener untuk Gemini TTS
+        ttsBtn.addEventListener('click', playJuiceDescription);
+    }
+</script>
+
+</body>
+</html>
