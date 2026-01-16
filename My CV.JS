@@ -10,7 +10,6 @@ const body = document.body;
 // Mendapatkan elemen judul dari Welcome Screen
 const welcomeTitle = document.querySelector('#welcome-screen .welcome-title');
 
-// Mendapatkan elemen teks yang akan dianimasikan di Home Screen
 const roleTitle = document.querySelector('#home-screen .role-title');
 const homeTagline = document.querySelector('#home-screen .tagline');
 const homeCompanyInfo = document.querySelector('#home-screen .company-info');
