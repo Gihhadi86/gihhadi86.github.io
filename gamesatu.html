@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kata Islami Pro - 15 Level Edukasi</title>
+    <style>
+        :root {
+            --primary: #064e3b;
+            --primary-light: #059669;
+            --secondary: #d97706;
+            --accent: #f59e0b;
+            --bg-canvas: #f0fdf4;
+            --white: #ffffff;
+            --text-dark: #064e3b;
+            --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #d1fae5;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(5, 150, 105, 0.05) 0%, transparent 50%),
+                url('https://www.transparenttextures.com/patterns/islamic-art.png');
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #game-container {
+            width: 100%;
+            max-width: 480px;
+            height: 100vh;
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            #game-container {
+                height: 95vh;
+                max-height: 850px;
+                border-radius: 24px;
+                border: 6px solid var(--white);
+            }
+        }
+
+        header {
+            padding: 12px 20px;
+            background: linear-gradient(to bottom, var(--primary), #064e3b);
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--secondary);
+            flex-shrink: 0;
+        }
+
+        .level-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .level-tag h2 { font-size: 0.8rem; letter-spacing: 1px; font-weight: 700; }
+
+        .score-display {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 800;
+            color: var(--accent);
+            font-size: 1.1rem;
+            background: rgba(0,0,0,0.2);
+            padding: 4px 10px;
+            border-radius: 15px;
+        }
+
+        #puzzle-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background-color: var(--bg-canvas);
+            position: relative;
+            min-height: 0;
+        }
+
+        .progress-container {
+            width: 60%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            flex-shrink: 0;
+        }
+
+        #progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary-light), var(--primary));
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.6s ease;
+        }
+
+        #clue-box {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 8px 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-align: center;
+            max-width: 90%;
+            border-left: 4px solid var(--secondary);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            flex-shrink: 0;
+        }
+
+        #word-preview {
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--primary);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            flex-shrink: 0;
+        }
+
+        .grid-layout {
+            display: grid;
+            gap: 6px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(4px);
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            max-width: 95%;
+            max-height: 80%;
+            overflow: visible;
+        }
+
+        .tile {
+            width: 36px;
+            height: 36px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 800;
+            font-size: 1rem;
+            color: transparent;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 0 #cbd5e1;
+        }
+
+        .tile.revealed {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: var(--white);
+            border: none;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 0 #064e3b;
+        }
+
+        .bottom-shelf {
+            background: var(--primary);
+            border-radius: 32px 32px 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 15px;
+            flex-shrink: 0;
+            box-shadow: 0 -10px 25px rgba(0,0,0,0.1);
+        }
+
+        .button-row {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 12px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--white);
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .control-btn.gold { color: var(--accent); border-color: var(--accent); }
+        .control-btn:active { transform: scale(0.95); }
+
+        .letter-wheel {
+            width: 160px;
+            height: 160px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-height: 700px) {
+            .letter-wheel { width: 130px; height: 130px; }
+            .bottom-shelf { padding: 10px; }
+            .tile { width: 30px; height: 30px; font-size: 0.9rem; }
+            #clue-box { font-size: 0.75rem; padding: 5px 10px; margin-bottom: 10px; }
+        }
+
+        .letter-node {
+            width: 46px;
+            height: 46px;
+            background: var(--white);
+            border-radius: 50%;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 0 #cbd5e1;
+            user-select: none;
+        }
+
+        @media (max-height: 700px) {
+            .letter-node { width: 40px; height: 40px; font-size: 1rem; }
+        }
+
+        .letter-node.selected {
+            background: var(--secondary);
+            color: var(--white);
+            transform: scale(0.9);
+            box-shadow: none;
+        }
+
+        #notif-box {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: var(--white);
+            padding: 15px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 100;
+            border-top: 4px solid var(--secondary);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        #notif-box.active {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .msg-title { color: var(--primary); font-weight: 900; font-size: 1.2rem; }
+        .msg-body { color: #64748b; font-size: 0.85rem; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-5px); }
+            80% { transform: translateX(5px); }
+        }
+        .shake { animation: shake 0.4s ease-in-out; }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <header>
+        <div class="level-tag">
+            <h2 id="lvl-display">LEVEL 1</h2>
+        </div>
+        <div id="lvl-theme" style="font-size: 0.75rem; font-weight: bold; text-transform: uppercase; opacity: 0.8;">Aqidah Dasar</div>
+        <div class="score-display">
+            <span id="score-text">0</span>
+            <span style="font-size: 0.9rem;">🪙</span>
+        </div>
+    </header>
+
+    <div id="puzzle-area">
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+
+        <div id="clue-box">Petunjuk akan muncul di sini...</div>
+        
+        <div id="word-preview"></div>
+        <div id="grid-host" class="grid-layout"></div>
+        
+        <div id="notif-box">
+            <div class="msg-title" id="notif-title">MasyaAllah!</div>
+            <div class="msg-body" id="notif-body">Kata ditemukan.</div>
+        </div>
+    </div>
+
+    <div class="bottom-shelf">
+        <div class="button-row">
+            <button class="control-btn" onclick="shuffleLetters()">🔄 Acak</button>
+            <button class="control-btn gold" onclick="useHint()">💡 Petunjuk (-25)</button>
+            <button class="control-btn" onclick="clearSelection()">❌ Hapus</button>
+        </div>
+
+        <div class="letter-wheel" id="letter-ring"></div>
+    </div>
+</div>
+
+<script>
+    const levels = [
+        { title: "Iman", clue: "Percaya kepada Allah dan para Utusan-Nya disebut?", words: ["IMAN", "NABI"], letters: ["I", "M", "A", "N", "B"], grid: [{char:'I',r:0,c:0,w:0},{char:'M',r:1,c:0,w:0},{char:'A',r:2,c:0,w:0},{char:'N',r:3,c:0,w:0},{char:'A',r:3,c:1,w:1},{char:'B',r:3,c:2,w:1},{char:'I',r:3,c:3,w:1}] },
+        { title: "Ibadah Utama", clue: "Agama kita dan tiang agama (5 waktu)?", words: ["ISLAM", "SALAT"], letters: ["I", "S", "L", "A", "M", "T"], grid: [{char:'I',r:0,c:1,w:0},{char:'S',r:1,c:1,w:0},{char:'L',r:2,c:1,w:0},{char:'A',r:3,c:1,w:0},{char:'M',r:4,c:1,w:0},{char:'S',r:1,c:0,w:1},{char:'L',r:1,c:2,w:1},{char:'A',r:1,c:3,w:1},{char:'T',r:1,c:4,w:1}] },
+        { title: "Kitab & Zakat", clue: "Kitab suci kita dan kewajiban harta?", words: ["QURAN", "ZAKAT"], letters: ["Q", "U", "R", "A", "N", "Z", "K", "T"], grid: [{char:'Q',r:0,c:0,w:0},{char:'U',r:1,c:0,w:0},{char:'R',r:2,c:0,w:0},{char:'A',r:3,c:0,w:0},{char:'N',r:4,c:0,w:0},{char:'Z',r:3,c:-2,w:1},{char:'A',r:3,c:-1,w:1},{char:'K',r:3,c:1,w:1},{char:'T',r:3,c:2,w:1}] },
+        { title: "Puasa", clue: "Menahan lapar di bulan Ramadhan dan berbuat baik?", words: ["PUASA", "IHSAN"], letters: ["P", "U", "A", "S", "A", "I", "H", "N"], grid: [{char:'P',r:0,c:0,w:0},{char:'U',r:1,c:0,w:0},{char:'A',r:2,c:0,w:0},{char:'S',r:3,c:0,w:0},{char:'A',r:4,c:0,w:0},{char:'I',r:3,c:-1,w:1},{char:'H',r:3,c:1,w:1},{char:'N',r:3,c:2,w:1}] },
+        { title: "Haji", clue: "Rukun islam ke-5 dan kiblat kita?", words: ["HAJI", "KAABAH"], letters: ["H", "A", "J", "I", "K", "B"], grid: [{char:'H',r:0,c:0,w:0},{char:'A',r:1,c:0,w:0},{char:'J',r:2,c:0,w:0},{char:'I',r:3,c:0,w:0},{char:'K',r:1,c:-1,w:1},{char:'A',r:1,c:1,w:1},{char:'B',r:1,c:2,w:1},{char:'A',r:1,c:3,w:1},{char:'H',r:1,c:4,w:1}] },
+        { title: "Akhlak", clue: "Sopan santun dan mencari pengetahuan?", words: ["ADAB", "ILMU"], letters: ["A", "D", "B", "I", "L", "M", "U"], grid: [{char:'A',r:0,c:0,w:0},{char:'D',r:1,c:0,w:0},{char:'A',r:2,c:0,w:0},{char:'B',r:3,c:0,w:0},{char:'I',r:1,c:1,w:1},{char:'L',r:1,c:2,w:1},{char:'M',r:1,c:3,w:1},{char:'U',r:1,c:4,w:1}] },
+        { title: "Utusan", clue: "Pencipta alam dan pembawa risalah?", words: ["ALLAH", "RASUL"], letters: ["A", "L", "H", "R", "S", "U"], grid: [{char:'A',r:0,c:0,w:0},{char:'L',r:1,c:0,w:0},{char:'L',r:2,c:0,w:0},{char:'A',r:3,c:0,w:0},{char:'H',r:4,c:0,w:0},{char:'R',r:3,c:-2,w:1},{char:'A',r:3,c:-1,w:1},{char:'S',r:3,c:1,w:1},{char:'U',r:3,c:2,w:1},{char:'L',r:3,c:3,w:1}] },
+        { title: "Malaikat", clue: "Makhluk dari cahaya dan pembawa wahyu?", words: ["MALAIKAT", "JIBRIL"], letters: ["M", "A", "L", "I", "K", "T", "J", "B", "R"], grid: [{char:'M',r:0,c:0,w:0},{char:'A',r:1,c:0,w:0},{char:'L',r:2,c:0,w:0},{char:'A',r:3,c:0,w:0},{char:'I',r:4,c:0,w:0},{char:'K',r:5,c:0,w:0},{char:'A',r:6,c:0,w:0},{char:'T',r:7,c:0,w:0},{char:'J',r:2,c:-1,w:1},{char:'B',r:2,c:1,w:1},{char:'R',r:2,c:2,w:1},{char:'I',r:2,c:3,w:1},{char:'L',r:2,c:4,w:1}] },
+        { title: "Kebersihan", clue: "Bersuci sebelum shalat dan arah shalat?", words: ["WUDHU", "KIBLAT"], letters: ["W", "U", "D", "H", "K", "I", "B", "L", "A", "T"], grid: [{char:'W',r:0,c:0,w:0},{char:'U',r:1,c:0,w:0},{char:'D',r:2,c:0,w:0},{char:'H',r:3,c:0,w:0},{char:'U',r:4,c:0,w:0},{char:'K',r:3,c:-2,w:1},{char:'I',r:3,c:-1,w:1},{char:'B',r:3,c:1,w:1},{char:'L',r:3,c:2,w:1},{char:'A',r:3,c:3,w:1},{char:'T',r:3,c:4,w:1}] },
+        { title: "Rumah Allah", clue: "Tempat ibadah dan pindahnya Nabi?", words: ["MASJID", "HIJRAH"], letters: ["M", "A", "S", "J", "I", "D", "H", "R"], grid: [{char:'M',r:0,c:0,w:0},{char:'A',r:1,c:0,w:0},{char:'S',r:2,c:0,w:0},{char:'J',r:3,c:0,w:0},{char:'I',r:4,c:0,w:0},{char:'D',r:5,c:0,w:0},{char:'H',r:3,c:-1,w:1},{char:'I',r:3,c:1,w:1},{char:'R',r:3,c:2,w:1},{char:'A',r:3,c:3,w:1},{char:'H',r:3,c:4,w:1}] },
+        { title: "Kejujuran", clue: "Tahan uji dan selalu berkata benar?", words: ["SABAR", "JUJUR"], letters: ["S", "A", "B", "R", "J", "U"], grid: [{char:'S',r:0,c:0,w:0},{char:'A',r:1,c:0,w:0},{char:'B',r:2,c:0,w:0},{char:'A',r:3,c:0,w:0},{char:'R',r:4,c:0,w:0},{char:'J',r:2,c:-1,w:1},{char:'U',r:2,c:1,w:1},{char:'J',r:2,c:2,w:1},{char:'U',r:2,c:3,w:1},{char:'R',r:2,c:4,w:1}] },
+        { title: "Terima Kasih", clue: "Berterima kasih dan pemberian Allah?", words: ["SYUKUR", "NIKMAT"], letters: ["S", "Y", "U", "K", "R", "N", "I", "M", "A", "T"], grid: [{char:'S',r:0,c:0,w:0},{char:'Y',r:1,c:0,w:0},{char:'U',r:2,c:0,w:0},{char:'K',r:3,c:0,w:0},{char:'U',r:4,c:0,w:0},{char:'R',r:5,c:0,w:0},{char:'N',r:1,c:1,w:1},{char:'I',r:1,c:2,w:1},{char:'K',r:1,c:3,w:1},{char:'M',r:1,c:4,w:1},{char:'A',r:1,c:5,w:1},{char:'T',r:1,c:6,w:1}] },
+        { title: "Balasan", clue: "Tempat penuh kenikmatan dan hari akhir?", words: ["SURGA", "AKHIRAT"], letters: ["S", "U", "R", "G", "A", "K", "H", "I", "T"], grid: [{char:'S',r:0,c:0,w:0},{char:'U',r:1,c:0,w:0},{char:'R',r:2,c:0,w:0},{char:'G',r:3,c:0,w:0},{char:'A',r:4,c:0,w:0},{char:'A',r:4,c:1,w:1},{char:'K',r:4,c:2,w:1},{char:'H',r:4,c:3,w:1},{char:'I',r:4,c:4,w:1},{char:'R',r:4,c:5,w:1},{char:'A',r:4,c:6,w:1},{char:'T',r:4,c:7,w:1}] },
+        { title: "Orang Tua", clue: "Sosok yang paling berjasa dalam hidup?", words: ["AYAH", "IBU"], letters: ["A", "Y", "H", "I", "B", "U"], grid: [{char:'A',r:0,c:0,w:0},{char:'Y',r:1,c:0,w:0},{char:'A',r:2,c:0,w:0},{char:'H',r:3,c:0,w:0},{char:'I',r:1,c:1,w:1},{char:'B',r:1,c:2,w:1},{char:'U',r:1,c:3,w:1}] },
+        { title: "Doa", clue: "Permohonan dan kata penutup doa?", words: ["DOA", "AMIN"], letters: ["D", "O", "A", "M", "I", "N"], grid: [{char:'D',r:0,c:0,w:0},{char:'O',r:1,c:0,w:0},{char:'A',r:2,c:0,w:0},{char:'M',r:2,c:1,w:1},{char:'I',r:2,c:2,w:1},{char:'N',r:2,c:3,w:1}] }
+    ];
+
+    let currentLvl = 0;
+    let score = 0;
+    let selectedIdx = [];
+    let foundWords = [];
+    let audioCtx = null;
+
+    function initAudio() {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    function playSound(freq, type, dur) {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + dur);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(); osc.stop(audioCtx.currentTime + dur);
+    }
+
+    function setupLevel() {
+        const data = levels[currentLvl];
+        document.getElementById('lvl-display').innerText = `LEVEL ${currentLvl + 1}`;
+        document.getElementById('lvl-theme').innerText = data.title;
+        document.getElementById('clue-box').innerText = data.clue;
+        document.getElementById('score-text').innerText = score;
+        
+        foundWords = [];
+        selectedIdx = [];
+        updateProgress();
+        updatePreview();
+        renderGrid(data);
+        renderWheel(data.letters);
+    }
+
+    function renderGrid(level) {
+        const host = document.getElementById('grid-host');
+        host.innerHTML = '';
+        
+        let minR = Infinity, maxR = -Infinity, minC = Infinity, maxC = -Infinity;
+        level.grid.forEach(c => {
+            if (c.r < minR) minR = c.r; if (c.r > maxR) maxR = c.r;
+            if (c.c < minC) minC = c.c; if (c.c > maxC) maxC = c.c;
+        });
+
+        const rows = maxR - minR + 1;
+        const cols = maxC - minC + 1;
+        
+        const isShortScreen = window.innerHeight < 700;
+        const size = cols > 8 ? (isShortScreen ? 24 : 28) : (isShortScreen ? 30 : 36);
+        host.style.gridTemplateColumns = `repeat(${cols}, ${size}px)`;
+
+        const map = {};
+        level.grid.forEach(item => map[`${item.r-minR}-${item.c-minC}`] = item);
+
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+                const div = document.createElement('div');
+                const cell = map[`${r}-${c}`];
+                if (cell) {
+                    div.className = 'tile';
+                    div.style.width = div.style.height = `${size}px`;
+                    div.style.fontSize = `${size * 0.55}px`;
+                    div.dataset.char = cell.char;
+                    div.dataset.word = level.words[cell.w];
+                    div.innerText = cell.char;
+                } else {
+                    div.style.visibility = 'hidden';
+                }
+                host.appendChild(div);
+            }
+        }
+    }
+
+    function renderWheel(letters) {
+        const ring = document.getElementById('letter-ring');
+        ring.innerHTML = '';
+        const rect = ring.getBoundingClientRect();
+        const radius = (rect.width / 2) - (window.innerHeight < 700 ? 20 : 25);
+        const centerX = rect.width / 2, centerY = rect.height / 2;
+
+        letters.forEach((l, i) => {
+            const angle = (i / letters.length) * Math.PI * 2 - Math.PI / 2;
+            const x = centerX + radius * Math.cos(angle) - (window.innerHeight < 700 ? 20 : 23);
+            const y = centerY + radius * Math.sin(angle) - (window.innerHeight < 700 ? 20 : 23);
+
+            const btn = document.createElement('div');
+            btn.className = 'letter-node';
+            btn.style.left = `${x}px`; btn.style.top = `${y}px`;
+            btn.innerText = l;
+            btn.onclick = () => selectLetter(i, btn);
+            ring.appendChild(btn);
+        });
+    }
+
+    function selectLetter(idx, el) {
+        if (selectedIdx.includes(idx)) return;
+        playSound(440, 'sine', 0.1);
+        selectedIdx.push(idx);
+        el.classList.add('selected');
+        updatePreview();
+        checkWord();
+    }
+
+    function updatePreview() {
+        const lvl = levels[currentLvl];
+        document.getElementById('word-preview').innerText = selectedIdx.map(i => lvl.letters[i]).join('');
+    }
+
+    function checkWord() {
+        const lvl = levels[currentLvl];
+        const word = selectedIdx.map(i => lvl.letters[i]).join('');
+        
+        if (lvl.words.includes(word) && !foundWords.includes(word)) {
+            foundWords.push(word);
+            score += 20;
+            document.getElementById('score-text').innerText = score;
+            document.querySelectorAll('.tile').forEach(t => {
+                if (t.dataset.word === word) t.classList.add('revealed');
+            });
+            notify("MasyaAllah!", "Lanjutkan perjuanganmu!");
+            playSound(660, 'sine', 0.15);
+            setTimeout(() => playSound(880, 'sine', 0.2), 100);
+            updateProgress();
+            clearSelection();
+            if (foundWords.length === lvl.words.length) setTimeout(lvlDone, 1200);
+        } else if (word.length >= 10) {
+            failFeedback();
+        }
+    }
+
+    function failFeedback() {
+        playSound(150, 'square', 0.3);
+        const pre = document.getElementById('word-preview');
+        pre.classList.add('shake');
+        setTimeout(() => { pre.classList.remove('shake'); clearSelection(); }, 500);
+    }
+
+    function clearSelection() {
+        selectedIdx = [];
+        document.querySelectorAll('.letter-node').forEach(n => n.classList.remove('selected'));
+        updatePreview();
+    }
+
+    function shuffleLetters() {
+        levels[currentLvl].letters.sort(() => Math.random() - 0.5);
+        renderWheel(levels[currentLvl].letters);
+        clearSelection();
+        playSound(300, 'sine', 0.1);
+    }
+
+    function useHint() {
+        if (score < 25) { notify("Ops!", "Skor tidak cukup (Min 25)"); return; }
+        const hidden = Array.from(document.querySelectorAll('.tile:not(.revealed)'));
+        if (hidden.length > 0) {
+            const t = hidden[Math.floor(Math.random() * hidden.length)];
+            t.classList.add('revealed');
+            score -= 25;
+            document.getElementById('score-text').innerText = score;
+            playSound(950, 'sine', 0.2);
+            const w = t.dataset.word;
+            if (Array.from(document.querySelectorAll(`.tile[data-word="${w}"]`)).every(c => c.classList.contains('revealed'))) {
+                if (!foundWords.includes(w)) {
+                    foundWords.push(w);
+                    updateProgress();
+                    if (foundWords.length === levels[currentLvl].words.length) setTimeout(lvlDone, 1200);
+                }
+            }
+        }
+    }
+
+    function updateProgress() {
+        const p = (foundWords.length / levels[currentLvl].words.length) * 100;
+        document.getElementById('progress-bar').style.width = `${p}%`;
+    }
+
+    function notify(title, body) {
+        const box = document.getElementById('notif-box');
+        document.getElementById('notif-title').innerText = title;
+        document.getElementById('notif-body').innerText = body;
+        box.classList.add('active');
+        setTimeout(() => box.classList.remove('active'), 1500);
+    }
+
+    function lvlDone() {
+        currentLvl++;
+        if (currentLvl < levels.length) { notify("Alhamdulillah!", "Level Selesai!"); setupLevel(); }
+        else { gameEnd(); }
+    }
+
+    function gameEnd() {
+        document.getElementById('puzzle-area').innerHTML = `
+            <div style="text-align:center; padding: 20px;">
+                <h1 style="color:var(--primary); font-size:2rem; font-weight:900;">BARAKALLAH!</h1>
+                <p style="margin:10px 0; color:#64748b;">Edukasi 15 Level Selesai!</p>
+                <div style="background:var(--secondary); color:white; padding:15px; border-radius:15px; font-size:1.5rem; font-weight:900;">
+                    Skor: ${score}
+                </div>
+                <button onclick="location.reload()" class="control-btn" style="background:var(--primary); margin-top:30px; padding:15px 30px; font-size:1.1rem; border-radius:15px;">Main Lagi</button>
+            </div>
+        `;
+    }
+
+    window.onload = setupLevel;
+    window.onresize = () => renderWheel(levels[currentLvl].letters);
+</script>
+</body>
+</html>

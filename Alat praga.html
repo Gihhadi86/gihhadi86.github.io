@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Belajar Mahram – Media Pembelajaran Interaktif Islam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="alat praga.css" />
+</head>
+<body>
+
+  <!-- ░░ LOADING SCREEN ░░ -->
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-circle"></div>
+      <div class="loader-arabic">بِسْمِ اللَّهِ</div>
+      <p>Memuat Pembelajaran...</p>
+    </div>
+  </div>
+
+  <!-- ░░ PROGRESS BAR SCROLL ░░ -->
+  <div id="scroll-progress"><div id="scroll-bar"></div></div>
+
+  <!-- ░░ NAVBAR ░░ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#home" class="nav-logo">
+        <span class="logo-icon">☪</span>
+        <span>Mahram<span class="logo-accent">Learn</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active">Beranda</a></li>
+        <li><a href="#materi" class="nav-link">Materi</a></li>
+        <li><a href="#peta" class="nav-link">Peta Mahram</a></li>
+        <li><a href="#simulasi" class="nav-link">Simulasi</a></li>
+        <li><a href="#quiz" class="nav-link">Quiz</a></li>
+        <li><a href="#hikmah" class="nav-link">Hikmah</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button id="themeToggle" class="theme-btn" title="Toggle Dark Mode">
+          <span class="theme-icon">🌙</span>
+        </button>
+        <button class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ░░ HERO SECTION ░░ -->
+  <section id="home" class="hero">
+    <div class="hero-bg">
+      <div class="geo-pattern"></div>
+      <div class="mosque-silhouette"></div>
+      <div class="hero-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+      </div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge animate-in">
+        <span>📖</span> Berdasarkan QS. An-Nisa: 23
+      </div>
+      <h1 class="hero-title animate-in delay-1">
+        Belajar <span class="gradient-text">Mahram</span><br/>
+        dalam Islam dengan<br/>
+        <span class="highlight-word">Mudah & Interaktif</span>
+      </h1>
+      <p class="hero-sub animate-in delay-2">
+        Pahami siapa saja wanita yang haram dinikahi berdasarkan Al-Qur'an secara visual, menyenangkan, dan tidak membosankan.
+      </p>
+
+      <!-- Counter -->
+      <div class="hero-stats animate-in delay-3">
+        <div class="stat-item">
+          <span class="stat-num" data-target="17">0</span>
+          <span class="stat-label">Golongan Mahram</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num" data-target="3">0</span>
+          <span class="stat-label">Kategori Utama</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num" data-target="10">0</span>
+          <span class="stat-label">Soal Latihan</span>
+        </div>
+      </div>
+
+      <div class="hero-btns animate-in delay-4">
+        <a href="#peta" class="btn btn-primary">
+          <span>🚀</span> Mulai Belajar
+        </a>
+        <a href="#materi" class="btn btn-outline">
+          <span>📚</span> Lihat Materi
+        </a>
+        <a href="#quiz" class="btn btn-ghost">
+          <span>🎯</span> Uji Pemahaman
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <div class="scroll-indicator">
+        <div class="scroll-dot"></div>
+      </div>
+      <span>Scroll untuk belajar</span>
+    </div>
+  </section>
+
+  <!-- ░░ MATERI UTAMA – AYAT ░░ -->
+  <section id="materi" class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">📖 Dalil Utama</div>
+        <h2 class="section-title">QS. An-Nisa Ayat 23</h2>
+        <p class="section-sub">Ayat ini menjadi landasan utama dalam menentukan wanita-wanita yang haram untuk dinikahi</p>
+      </div>
+
+      <!-- Ayat Card -->
+      <div class="ayat-card">
+        <div class="ayat-glow"></div>
+        <div class="ayat-header">
+          <span class="ayat-surah">سورة النساء</span>
+          <span class="ayat-num">٢٣</span>
+        </div>
+        <div class="ayat-arabic">
+          حُرِّمَتْ عَلَيْكُمْ أُمَّهَاتُكُمْ وَبَنَاتُكُمْ وَأَخَوَاتُكُمْ وَعَمَّاتُكُمْ وَخَالَاتُكُمْ وَبَنَاتُ الْأَخِ وَبَنَاتُ الْأُخْتِ وَأُمَّهَاتُكُمُ اللَّاتِي أَرْضَعْنَكُمْ وَأَخَوَاتُكُم مِّنَ الرَّضَاعَةِ وَأُمَّهَاتُ نِسَائِكُمْ وَرَبَائِبُكُمُ اللَّاتِي فِي حُجُورِكُم مِّن نِّسَائِكُمُ اللَّاتِي دَخَلْتُم بِهِنَّ فَإِن لَّمْ تَكُونُوا دَخَلْتُم بِهِنَّ فَلَا جُنَاحَ عَلَيْكُمْ وَحَلَائِلُ أَبْنَائِكُمُ الَّذِينَ مِنْ أَصْلَابِكُمْ وَأَن تَجْمَعُوا بَيْنَ الْأُخْتَيْنِ إِلَّا مَا قَدْ سَلَفَ ۗ إِنَّ اللَّهَ كَانَ غَفُورًا رَّحِيمًا
+        </div>
+        <div class="ayat-terjemahan">
+          <p>"Diharamkan atas kamu (menikahi) ibu-ibumu, anak-anak perempuanmu, saudara-saudara perempuanmu, saudara-saudara perempuan ayahmu, saudara-saudara perempuan ibumu, anak-anak perempuan dari saudara laki-lakimu, anak-anak perempuan dari saudara perempuanmu, ibu-ibumu yang menyusui kamu, saudara-saudara perempuanmu sesusuan, ibu-ibu istrimu (mertua), anak-anak perempuan dari istrimu (anak tiri) yang dalam pemeliharaanmu dari istri yang telah kamu campuri, tetapi jika kamu belum bercampur dengan istrimu itu (dan sudah kamu ceraikan), maka tidak berdosa kamu (menikahinya), (dan diharamkan bagimu) istri-istri anak kandungmu (menantu), dan (diharamkan) mengumpulkan (dalam pernikahan) dua perempuan yang bersaudara, kecuali yang telah terjadi pada masa lampau. Sungguh, Allah Maha Pengampun, Maha Penyayang."</p>
+          <span class="terjemahan-src">— QS. An-Nisa [4]: 23 —</span>
+        </div>
+        <div class="ayat-actions">
+          <button class="ayat-btn" id="playAyat">🔊 Dengarkan Ayat</button>
+          <button class="ayat-btn" id="showTafsir">📝 Lihat Tafsir Ringkas</button>
+          <a href="#peta" class="ayat-btn primary-btn">📚 Pelajari Sekarang</a>
+        </div>
+      </div>
+
+      <!-- Tafsir Ringkas (tersembunyi) -->
+      <div id="tafsirBox" class="tafsir-box hidden">
+        <div class="tafsir-inner">
+          <h3>📝 Tafsir Ringkas</h3>
+          <p>Allah SWT dalam ayat ini menjelaskan secara rinci wanita-wanita yang diharamkan untuk dinikahi. Pelarangan ini dibagi ke dalam tiga kelompok besar: <strong>1) Sebab Nasab (keturunan)</strong> — yaitu ibu, anak perempuan, saudari, bibi dari pihak ayah dan ibu, keponakan perempuan. <strong>2) Sebab Radha'ah (persusuan)</strong> — yaitu ibu susu dan saudari sesusuan. <strong>3) Sebab Mushaharah (pernikahan)</strong> — yaitu ibu mertua, anak tiri (yang ibunya sudah dicampuri), menantu perempuan, serta larangan mengumpulkan dua saudari dalam satu pernikahan.</p>
+          <p>Hikmah dari pengharaman ini adalah untuk menjaga kehormatan keluarga, mempererat tali silaturahmi, mencegah fitnah, dan membangun tatanan masyarakat yang bermartabat.</p>
+          <button class="close-tafsir" id="closeTafsir">✕ Tutup</button>
+        </div>
+      </div>
+
+      <!-- Infografik Pengertian Mahram -->
+      <div class="infografik-section">
+        <h3 class="infografik-title">Apa itu Mahram?</h3>
+        <div class="infografik-grid">
+          <div class="info-card" data-aos>
+            <div class="info-icon">🧬</div>
+            <h4>Definisi</h4>
+            <p>Mahram adalah orang yang haram untuk dinikahi karena hubungan nasab, persusuan, atau pernikahan secara permanen.</p>
+          </div>
+          <div class="info-card" data-aos>
+            <div class="info-icon">📜</div>
+            <h4>Dasar Hukum</h4>
+            <p>Bersumber dari QS. An-Nisa: 23 dan diperkuat oleh hadis-hadis Nabi Muhammad ﷺ yang sahih.</p>
+          </div>
+          <div class="info-card" data-aos>
+            <div class="info-icon">👨‍👩‍👧‍👦</div>
+            <h4>Fungsi Mahram</h4>
+            <p>Menjaga kehormatan, mengatur pergaulan yang halal, serta menjadi wali/pendamping perjalanan wanita muslimah.</p>
+          </div>
+          <div class="info-card" data-aos>
+            <div class="info-icon">⚖️</div>
+            <h4>Hukumnya</h4>
+            <p>Menikahi mahram adalah haram mutlak dan termasuk dosa besar. Pernikahan seperti ini batal demi hukum Islam.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ PETA MAHRAM INTERAKTIF ░░ -->
+  <section id="peta" class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">🗺️ Peta Interaktif</div>
+        <h2 class="section-title white">Peta Golongan Mahram</h2>
+        <p class="section-sub white">Klik setiap kategori untuk melihat detailnya</p>
+      </div>
+
+      <!-- Mind Map -->
+      <div class="mindmap">
+        <div class="mm-center">
+          <div class="mm-core">
+            <span class="mm-arabic">مَحْرَم</span>
+            <span class="mm-label">MAHRAM</span>
+          </div>
+          <div class="mm-branches">
+            <button class="mm-branch branch-nasab" data-cat="nasab">
+              <span class="branch-icon">🧬</span>
+              <span class="branch-title">Mahram Nasab</span>
+              <span class="branch-sub">Hubungan Darah</span>
+            </button>
+            <button class="mm-branch branch-radha" data-cat="radha">
+              <span class="branch-icon">🤱</span>
+              <span class="branch-title">Mahram Radha'ah</span>
+              <span class="branch-sub">Persusuan</span>
+            </button>
+            <button class="mm-branch branch-musha" data-cat="musha">
+              <span class="branch-icon">💍</span>
+              <span class="branch-title">Mahram Mushaharah</span>
+              <span class="branch-sub">Pernikahan</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Cards Container -->
+        <div class="mm-cards-wrap" id="mmCardsWrap">
+          <div class="mm-cards-header" id="mmCardsHeader"></div>
+          <div class="mm-cards" id="mmCards"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ SIMULASI INTERAKTIF ░░ -->
+  <section id="simulasi" class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">🎮 Simulasi</div>
+        <h2 class="section-title">Apakah Dia Mahram?</h2>
+        <p class="section-sub">Pilih hubungan keluarga dan cek apakah termasuk mahram atau bukan</p>
+      </div>
+
+      <div class="simulasi-wrap">
+        <div class="simulasi-left">
+          <h3 class="sim-title">Pilih Hubungan Keluarga</h3>
+          <div class="sim-grid" id="simGrid">
+            <!-- Diisi JS -->
+          </div>
+        </div>
+        <div class="simulasi-right">
+          <div class="sim-result" id="simResult">
+            <div class="sim-placeholder">
+              <span>👆</span>
+              <p>Pilih hubungan keluarga di sebelah kiri untuk melihat hasilnya</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ QUIZ INTERAKTIF ░░ -->
+  <section id="quiz" class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">🎯 Quiz</div>
+        <h2 class="section-title white">Uji Pemahaman Kamu</h2>
+        <p class="section-sub white">Jawab 10 pertanyaan untuk mengukur pemahamanmu tentang Mahram</p>
+      </div>
+
+      <div class="quiz-wrap" id="quizWrap">
+        <!-- Start Screen -->
+        <div class="quiz-start" id="quizStart">
+          <div class="quiz-start-icon">🎯</div>
+          <h3>Siap Mulai Quiz?</h3>
+          <p>Terdapat <strong>10 soal</strong> pilihan ganda tentang Mahram dalam Islam. Pilih jawaban yang paling tepat!</p>
+          <ul class="quiz-rules">
+            <li>✅ Setiap soal hanya bisa dijawab sekali</li>
+            <li>⚡ Jawaban langsung dinilai</li>
+            <li>🏆 Raih skor sempurna untuk mendapat badge!</li>
+          </ul>
+          <button class="btn btn-primary" id="startQuiz">🚀 Mulai Quiz Sekarang</button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div class="quiz-screen hidden" id="quizScreen">
+          <div class="quiz-progress-wrap">
+            <div class="quiz-progress-info">
+              <span id="qNum">Soal 1</span> / <span>10</span>
+            </div>
+            <div class="quiz-progress-bar">
+              <div class="quiz-progress-fill" id="qProgress"></div>
+            </div>
+            <div class="quiz-score-live">Skor: <span id="liveScore">0</span></div>
+          </div>
+          <div class="quiz-card" id="quizCard">
+            <div class="quiz-q" id="quizQ"></div>
+            <div class="quiz-options" id="quizOptions"></div>
+            <div class="quiz-feedback hidden" id="quizFeedback"></div>
+            <button class="btn btn-primary quiz-next hidden" id="quizNext">Soal Berikutnya →</button>
+          </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div class="quiz-result hidden" id="quizResult">
+          <div class="result-card">
+            <div class="result-confetti" id="confetti"></div>
+            <div class="result-badge" id="resultBadge"></div>
+            <h3 id="resultTitle"></h3>
+            <div class="result-score">
+              <span id="finalScore">0</span>
+              <span>/10</span>
+            </div>
+            <p id="resultMsg"></p>
+            <div class="result-detail" id="resultDetail"></div>
+            <button class="btn btn-primary" id="restartQuiz">🔄 Ulangi Quiz</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ HIKMAH ░░ -->
+  <section id="hikmah" class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">💡 Hikmah</div>
+        <h2 class="section-title">Hikmah Disyariatkannya Mahram</h2>
+        <p class="section-sub">Mengapa Allah SWT menetapkan aturan mahram? Berikut hikmah di baliknya</p>
+      </div>
+      <div class="hikmah-grid">
+        <div class="hikmah-card" data-aos>
+          <div class="hikmah-num">01</div>
+          <div class="hikmah-icon">👑</div>
+          <h4>Menjaga Kehormatan Keluarga</h4>
+          <p>Aturan mahram melindungi martabat keluarga dari hubungan yang tidak pantas dan menjaga kesucian garis keturunan.</p>
+          <div class="hikmah-bar"><div class="hikmah-fill"></div></div>
+        </div>
+        <div class="hikmah-card" data-aos>
+          <div class="hikmah-num">02</div>
+          <div class="hikmah-icon">🧬</div>
+          <h4>Menjaga Keturunan yang Sehat</h4>
+          <p>Pernikahan antar kerabat dekat berpotensi menimbulkan masalah genetik. Islam sudah jauh lebih dulu mengaturnya dengan bijak.</p>
+          <div class="hikmah-bar"><div class="hikmah-fill"></div></div>
+        </div>
+        <div class="hikmah-card" data-aos>
+          <div class="hikmah-num">03</div>
+          <div class="hikmah-icon">🤝</div>
+          <h4>Menjaga Adab Pergaulan</h4>
+          <p>Dengan mengetahui siapa mahram, umat Islam bisa menentukan batasan pergaulan yang benar antara laki-laki dan perempuan.</p>
+          <div class="hikmah-bar"><div class="hikmah-fill"></div></div>
+        </div>
+        <div class="hikmah-card" data-aos>
+          <div class="hikmah-num">04</div>
+          <div class="hikmah-icon">🏡</div>
+          <h4>Menjaga Stabilitas Sosial</h4>
+          <p>Hubungan antar anggota keluarga menjadi lebih murni dan bebas dari fitnah, memperkuat ikatan sosial yang sehat.</p>
+          <div class="hikmah-bar"><div class="hikmah-fill"></div></div>
+        </div>
+        <div class="hikmah-card" data-aos>
+          <div class="hikmah-num">05</div>
+          <div class="hikmah-icon">🛡️</div>
+          <h4>Perlindungan bagi Wanita</h4>
+          <p>Mahram juga berperan sebagai pelindung dan wali bagi wanita muslimah dalam berbagai urusan kehidupan.</p>
+          <div class="hikmah-bar"><div class="hikmah-fill"></div></div>
+        </div>
+        <div class="hikmah-card" data-aos>
+          <div class="hikmah-num">06</div>
+          <div class="hikmah-icon">❤️</div>
+          <h4>Memperluas Jaringan Pernikahan</h4>
+          <p>Dengan larangan ini, umat Islam didorong untuk menikah dengan keluarga lain, sehingga memperluas silaturahmi antar keluarga.</p>
+          <div class="hikmah-bar"><div class="hikmah-fill"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="logo-icon">☪</span>
+          <span>Mahram<span class="logo-accent">Learn</span></span>
+        </div>
+        <p class="footer-quote">
+          "Sesungguhnya Allah menyukai orang-orang yang bertaubat dan menyukai orang-orang yang mensucikan diri." — QS. Al-Baqarah: 222
+        </p>
+        <p class="footer-copy">© 2025 MahramLearn · Media Pembelajaran Interaktif Islam</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ░░ SCROLL TO TOP ░░ -->
+  <button id="scrollTop" class="scroll-top-btn" title="Kembali ke Atas">↑</button>
+
+  <!-- ░░ AUDIO ░░ -->
+  <audio id="correctSound" preload="auto">
+    <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFh2tWU2l8mKahnYd0ZmhzdYKMkYl9cG9vdX+JjoqCe3p7foSNjo2Ifn59f4OMjYuHeXh6fYSNjYqGe3p7foSNjYuFenp7fYWNjYqGe3l6fYWNjYmGe3h5fYaOjYmFenl5fYaOjIiEeni5fYaOi4iEe3l5fYeOi4eDent5fYeOi4eDent5fYeNi4eDent5fYiNi4aDe3t5fYiNi4aDfHt5fYiNioeDfHt5fYiMioeDfHx5fYiMioaCfHx5fYiMioaCfXx5foiMioaCfXx5foiMioaCfXx5foiMioaCfXx5" type="audio/wav" />
+  </audio>
+
+  <script src="alat praga.js"></script>
+</body>
+</html>

@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>🎮 Akademi Tajwid – Belajar Mad</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════
+   ROOT & RESET
+═══════════════════════════════════ */
+:root{
+  --sky:#0f1b3d;--sky2:#162252;--sky3:#1a2a6c;
+  --teal:#00c9b1;--teal2:#00e5cc;
+  --gold:#ffd700;--gold2:#ffec6e;
+  --rose:#ff6b9d;--orange:#ff9f43;
+  --green:#2ecc71;--red:#e74c3c;
+  --purple:#a29bfe;
+  --card:#1e2f5c;--card2:#243670;
+  --text:#e8f4fd;--muted:#8ba3c7;
+  --r:18px;--r2:28px;
+  --shadow:0 8px 32px rgba(0,0,0,.45);
+  --fn:'Nunito',sans-serif;
+  --fa:'Scheherazade New',serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--fn);background:var(--sky);color:var(--text);min-height:100vh;overflow-x:hidden}
+button{font-family:var(--fn);cursor:pointer;border:none;outline:none}
+input{font-family:var(--fn)}
+
+/* ═══════════════════════════════════
+   BACKGROUND STARS
+═══════════════════════════════════ */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1;display:none;min-height:100vh}
+.page.active{display:flex;flex-direction:column;align-items:center}
+
+/* ═══════════════════════════════════
+   TOP BAR
+═══════════════════════════════════ */
+.topbar{
+  width:100%;max-width:900px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;gap:10px;flex-wrap:wrap;
+}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.topbar-logo{font-size:1.3rem;font-weight:900;color:var(--gold);letter-spacing:.5px}
+.topbar-name{background:var(--card2);padding:5px 14px;border-radius:100px;font-size:.85rem;font-weight:700;color:var(--teal2)}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.score-badge{background:linear-gradient(135deg,var(--gold),var(--orange));color:#1a0a00;font-weight:900;padding:5px 16px;border-radius:100px;font-size:.9rem}
+.level-badge{background:var(--card2);padding:5px 14px;border-radius:100px;font-size:.85rem;color:var(--purple);font-weight:700}
+.sound-btn{background:var(--card2);border:1px solid rgba(255,255,255,.1);color:var(--text);width:36px;height:36px;border-radius:50%;font-size:1rem;transition:.2s}
+.sound-btn:hover{background:var(--card);transform:scale(1.1)}
+.home-btn{background:var(--card2);border:1px solid rgba(255,255,255,.1);color:var(--muted);width:36px;height:36px;border-radius:50%;font-size:1rem;transition:.2s}
+.home-btn:hover{color:var(--text);background:var(--card)}
+
+/* ═══════════════════════════════════
+   SECTION WRAPPER
+═══════════════════════════════════ */
+.wrap{width:100%;max-width:860px;padding:0 20px 40px;flex:1;display:flex;flex-direction:column;align-items:center;gap:20px}
+
+/* ═══════════════════════════════════
+   HOME PAGE
+═══════════════════════════════════ */
+.home-hero{text-align:center;padding:30px 20px 10px}
+.mascot{font-size:5rem;animation:float 3s ease-in-out infinite;display:block;margin-bottom:8px}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.home-title{font-size:clamp(2rem,7vw,3.5rem);font-weight:900;background:linear-gradient(135deg,var(--gold),var(--teal2),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin-bottom:6px}
+.home-sub{font-size:1.05rem;color:var(--muted);font-weight:600;margin-bottom:24px}
+
+/* Name input */
+.name-form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}
+.name-input{background:var(--card2);border:2px solid rgba(255,255,255,.12);color:var(--text);padding:12px 20px;border-radius:100px;font-size:1rem;font-weight:700;text-align:center;width:220px;transition:.2s}
+.name-input:focus{border-color:var(--teal);outline:none}
+.name-btn{background:linear-gradient(135deg,var(--teal),var(--teal2));color:#003;font-weight:800;padding:12px 22px;border-radius:100px;font-size:.95rem;transition:.2s;box-shadow:0 4px 16px rgba(0,201,177,.3)}
+.name-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,201,177,.4)}
+
+/* Menu buttons */
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:500px}
+.menu-btn{padding:18px 16px;border-radius:var(--r2);font-size:1rem;font-weight:800;transition:all .2s;border:2px solid transparent;display:flex;align-items:center;justify-content:center;gap:10px}
+.menu-btn:hover{transform:translateY(-4px)}
+.btn-play{background:linear-gradient(135deg,var(--gold),var(--orange));color:#1a0a00;box-shadow:0 6px 24px rgba(255,159,67,.4);grid-column:1/-1;font-size:1.15rem;padding:22px}
+.btn-play:hover{box-shadow:0 10px 32px rgba(255,159,67,.5)}
+.btn-guide{background:var(--card2);border-color:rgba(255,255,255,.1);color:var(--text)}
+.btn-level{background:var(--card2);border-color:rgba(255,255,255,.1);color:var(--text)}
+.btn-stats{background:var(--card2);border-color:rgba(255,255,255,.1);color:var(--text)}
+.btn-teacher{background:var(--card2);border-color:rgba(255,255,255,.1);color:var(--text)}
+
+/* Decorative stars */
+.deco{position:absolute;pointer-events:none;font-size:1.5rem;animation:twinkle 2s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:.3;transform:scale(.9)}50%{opacity:1;transform:scale(1.1)}}
+
+/* ═══════════════════════════════════
+   CARDS
+═══════════════════════════════════ */
+.card{background:var(--card);border-radius:var(--r2);padding:28px;width:100%;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.07)}
+.card-title{font-size:1.2rem;font-weight:900;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+
+/* ═══════════════════════════════════
+   ARABIC TEXT
+═══════════════════════════════════ */
+.arabic{font-family:var(--fa);font-size:clamp(2.5rem,10vw,5rem);font-weight:700;line-height:1.8;color:var(--gold2);text-align:center;direction:rtl;text-shadow:0 2px 20px rgba(255,215,0,.3)}
+.arabic-sm{font-family:var(--fa);font-size:clamp(1.8rem,6vw,3rem);line-height:1.8;color:var(--gold2);direction:rtl}
+.arabic-xs{font-family:var(--fa);font-size:clamp(1.3rem,4vw,2rem);line-height:1.8;color:var(--gold2);direction:rtl}
+
+/* ═══════════════════════════════════
+   BUTTONS
+═══════════════════════════════════ */
+.btn-mad{background:linear-gradient(135deg,#00c9b1,#00e5cc);color:#003;font-weight:900;padding:16px 40px;border-radius:100px;font-size:1.1rem;transition:all .2s;box-shadow:0 4px 20px rgba(0,201,177,.3)}
+.btn-mad:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,201,177,.4)}
+.btn-not{background:linear-gradient(135deg,#ff6b9d,#ff8e53);color:#fff;font-weight:900;padding:16px 40px;border-radius:100px;font-size:1.1rem;transition:all .2s;box-shadow:0 4px 20px rgba(255,107,157,.3)}
+.btn-not:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(255,107,157,.4)}
+.btn-choice{background:var(--card2);border:2px solid rgba(255,255,255,.1);color:var(--text);font-weight:700;padding:14px 22px;border-radius:var(--r);font-size:1rem;transition:all .2s;width:100%;text-align:left}
+.btn-choice:hover:not(:disabled){background:var(--card);border-color:var(--teal);color:var(--teal2)}
+.btn-choice.correct{background:rgba(46,204,113,.2);border-color:var(--green);color:var(--green)}
+.btn-choice.wrong{background:rgba(231,76,60,.2);border-color:var(--red);color:#ff6b6b}
+.btn-choice:disabled{cursor:default;opacity:.8}
+.btn-primary{background:linear-gradient(135deg,var(--purple),#6c5ce7);color:#fff;font-weight:800;padding:14px 32px;border-radius:100px;font-size:1rem;transition:all .2s;box-shadow:0 4px 18px rgba(108,92,231,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(108,92,231,.4)}
+.btn-next{background:linear-gradient(135deg,var(--gold),var(--orange));color:#1a0a00;font-weight:900;padding:14px 36px;border-radius:100px;font-size:1rem;transition:all .2s;display:none}
+.btn-next:hover{transform:translateY(-2px)}
+
+/* ═══════════════════════════════════
+   FEEDBACK
+═══════════════════════════════════ */
+.feedback{text-align:center;padding:14px 20px;border-radius:var(--r);font-weight:700;font-size:1rem;display:none;animation:fadeIn .3s ease}
+.feedback.correct{background:rgba(46,204,113,.15);border:1px solid var(--green);color:var(--green)}
+.feedback.wrong{background:rgba(231,76,60,.15);border:1px solid var(--red);color:#ff6b6b}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══════════════════════════════════
+   PROGRESS BAR
+═══════════════════════════════════ */
+.progress-bar{width:100%;height:10px;background:var(--card2);border-radius:100px;overflow:hidden}
+.progress-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--teal),var(--gold));transition:width .4s ease}
+
+/* TIMER */
+.timer-wrap{display:flex;align-items:center;gap:10px}
+.timer{font-size:1.6rem;font-weight:900;color:var(--orange);min-width:50px;text-align:center}
+.timer.urgent{color:var(--red);animation:pulse .5s ease infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+
+/* COMBO */
+.combo-badge{background:linear-gradient(135deg,var(--gold),var(--orange));color:#1a0a00;font-weight:900;padding:6px 20px;border-radius:100px;font-size:.9rem;display:none}
+.combo-badge.show{display:inline-block;animation:popIn .3s ease}
+@keyframes popIn{0%{transform:scale(0)}80%{transform:scale(1.1)}100%{transform:scale(1)}}
+
+/* ═══════════════════════════════════
+   LEVEL PICKER
+═══════════════════════════════════ */
+.level-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;width:100%}
+.level-card{background:var(--card2);border:2px solid rgba(255,255,255,.08);border-radius:var(--r2);padding:20px 16px;text-align:center;cursor:pointer;transition:all .25s}
+.level-card:hover{transform:translateY(-5px);border-color:var(--teal)}
+.level-card.locked{opacity:.45;cursor:not-allowed;filter:grayscale(1)}
+.level-card .lc-icon{font-size:2.4rem;margin-bottom:8px;display:block}
+.level-card .lc-num{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.level-card .lc-title{font-size:.95rem;font-weight:800;margin-top:4px}
+.level-card .lc-stars{color:var(--gold);font-size:1rem;margin-top:6px}
+
+/* ═══════════════════════════════════
+   DRAG & DROP (Level 4)
+═══════════════════════════════════ */
+.drag-zone{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;min-height:60px;padding:12px;background:var(--card2);border-radius:var(--r);border:2px dashed rgba(255,255,255,.15)}
+.drag-zone.target{border-color:var(--teal);background:rgba(0,201,177,.08)}
+.drag-piece{background:linear-gradient(135deg,var(--card),var(--card2));border:2px solid rgba(255,255,255,.12);border-radius:12px;padding:12px 20px;font-family:var(--fa);font-size:2rem;cursor:grab;transition:all .2s;user-select:none;color:var(--gold2);touch-action:none}
+.drag-piece:hover{border-color:var(--gold);transform:scale(1.05)}
+.drag-piece.dragging{opacity:.4}
+
+/* ═══════════════════════════════════
+   LEVEL 6 BADGES
+═══════════════════════════════════ */
+.tag-row{display:flex;gap:8px;flex-wrap:wrap}
+.tag{padding:5px 14px;border-radius:100px;font-size:.8rem;font-weight:700}
+.tag-mad{background:rgba(0,201,177,.2);color:var(--teal2);border:1px solid var(--teal)}
+.tag-tas{background:rgba(162,155,254,.2);color:var(--purple);border:1px solid var(--purple)}
+.tag-both{background:rgba(255,215,0,.2);color:var(--gold);border:1px solid var(--gold)}
+
+/* ═══════════════════════════════════
+   MULTIPLAYER
+═══════════════════════════════════ */
+.team-score{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%}
+.team-card{background:var(--card2);border-radius:var(--r2);padding:24px 20px;text-align:center;border:3px solid transparent;transition:.3s}
+.team-card.active{border-color:var(--teal);background:rgba(0,201,177,.1)}
+.team-card .t-name{font-size:1rem;font-weight:800;margin-bottom:4px}
+.team-card .t-score{font-size:3rem;font-weight:900;color:var(--gold)}
+.team-card .t-badge{font-size:1.5rem;margin-top:6px;display:block}
+
+/* ═══════════════════════════════════
+   BOSS LEVEL
+═══════════════════════════════════ */
+.boss-hp{height:16px;background:var(--card2);border-radius:100px;overflow:hidden;border:1px solid rgba(255,255,255,.1)}
+.boss-hp-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--orange),var(--gold));border-radius:100px;transition:width .5s ease}
+.boss-icon{font-size:5rem;text-align:center;animation:shake 0.3s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* ═══════════════════════════════════
+   RESULTS / CELEBRATION
+═══════════════════════════════════ */
+.result-card{background:linear-gradient(135deg,var(--card),var(--sky2));border-radius:var(--r2);padding:36px 28px;text-align:center;width:100%;border:1px solid rgba(255,215,0,.2)}
+.result-icon{font-size:5rem;display:block;margin-bottom:12px;animation:bounce .6s ease}
+@keyframes bounce{0%{transform:scale(0)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.result-title{font-size:1.8rem;font-weight:900;color:var(--gold);margin-bottom:8px}
+.result-score{font-size:3rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--teal2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.medal-row{display:flex;gap:10px;justify-content:center;margin:16px 0;flex-wrap:wrap}
+.medal{padding:8px 18px;border-radius:100px;font-size:.9rem;font-weight:700}
+.medal-gold{background:rgba(255,215,0,.2);border:1px solid var(--gold);color:var(--gold)}
+.medal-silver{background:rgba(192,192,192,.2);border:1px solid #c0c0c0;color:#c0c0c0}
+.medal-bronze{background:rgba(205,127,50,.2);border:1px solid #cd7f32;color:#cd7f32}
+
+/* CERTIFICATE */
+.cert{background:linear-gradient(135deg,#1a0a30,#0f2460);border:3px solid var(--gold);border-radius:var(--r2);padding:36px 28px;text-align:center;width:100%;position:relative;overflow:hidden}
+.cert::before,.cert::after{content:'✦';position:absolute;color:var(--gold);font-size:3rem;opacity:.15}
+.cert::before{top:12px;left:12px}
+.cert::after{bottom:12px;right:12px}
+.cert-title{font-size:.85rem;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.cert-name{font-size:2rem;font-weight:900;color:var(--teal2);margin-bottom:8px}
+.cert-text{color:var(--muted);font-size:.9rem}
+
+/* ═══════════════════════════════════
+   STATS PAGE
+═══════════════════════════════════ */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%}
+.stat-item{background:var(--card2);border-radius:var(--r);padding:20px 16px;text-align:center}
+.stat-num{font-size:2.2rem;font-weight:900;color:var(--teal2);display:block}
+.stat-label{font-size:.8rem;font-weight:700;color:var(--muted);margin-top:4px}
+
+/* ═══════════════════════════════════
+   TEACHER PAGE
+═══════════════════════════════════ */
+.teacher-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%}
+.teacher-btn{background:var(--card2);border:2px solid rgba(255,255,255,.08);border-radius:var(--r2);padding:20px;text-align:center;cursor:pointer;transition:all .2s;color:var(--text);font-family:var(--fn)}
+.teacher-btn:hover{border-color:var(--teal);transform:translateY(-3px)}
+.teacher-btn .tb-icon{font-size:2.5rem;display:block;margin-bottom:8px}
+.teacher-btn .tb-label{font-weight:800;font-size:.95rem}
+
+/* ═══════════════════════════════════
+   GUIDE
+═══════════════════════════════════ */
+.guide-block{background:var(--card2);border-radius:var(--r);padding:18px 20px;border-left:4px solid var(--teal)}
+.guide-block h3{font-size:1rem;font-weight:800;margin-bottom:8px;color:var(--teal2)}
+.guide-block p,.guide-block li{font-size:.9rem;color:var(--muted);line-height:1.7}
+.guide-block ul{padding-left:20px}
+
+/* ═══════════════════════════════════
+   PARTICLES
+═══════════════════════════════════ */
+.particle-overlay{position:fixed;inset:0;pointer-events:none;z-index:999;overflow:hidden}
+.particle{position:absolute;border-radius:50%;animation:particleFly linear forwards;pointer-events:none}
+@keyframes particleFly{0%{transform:translateY(100vh) rotate(0)}100%{transform:translateY(-100px) rotate(720deg);opacity:0}}
+
+/* ═══════════════════════════════════
+   HOTSPOT (Level 2)
+═══════════════════════════════════ */
+.arabic-hotspot{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;direction:rtl;font-family:var(--fa);font-size:clamp(2rem,8vw,4rem);line-height:2;color:var(--gold2)}
+.char-btn{background:transparent;border:2px solid transparent;border-radius:10px;padding:4px 10px;font-family:var(--fa);font-size:inherit;color:inherit;cursor:pointer;transition:all .2s;line-height:2}
+.char-btn:hover{border-color:var(--teal);background:rgba(0,201,177,.1)}
+.char-btn.selected{border-color:var(--gold);background:rgba(255,215,0,.15);animation:glow .6s ease infinite alternate}
+@keyframes glow{from{box-shadow:0 0 10px rgba(255,215,0,.3)}to{box-shadow:0 0 25px rgba(255,215,0,.7)}}
+.char-btn.correct{border-color:var(--green);background:rgba(46,204,113,.2);color:var(--green)}
+.char-btn.wrong{border-color:var(--red);background:rgba(231,76,60,.2);color:var(--red)}
+
+/* ═══════════════════════════════════
+   LEVEL 3 SPEED
+═══════════════════════════════════ */
+.speed-word{animation:wordPop .3s ease}
+@keyframes wordPop{0%{opacity:0;transform:scale(.7)}100%{opacity:1;transform:scale(1)}}
+.speed-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+
+/* ═══════════════════════════════════
+   LEVEL 5 READ OPTIONS
+═══════════════════════════════════ */
+.read-option{background:var(--card2);border:2px solid rgba(255,255,255,.1);border-radius:var(--r);padding:16px 20px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:14px;width:100%}
+.read-option:hover:not(:disabled){border-color:var(--teal);background:rgba(0,201,177,.08)}
+.read-option .ro-icon{font-size:1.8rem;flex-shrink:0}
+.read-option .ro-text{font-size:.95rem;font-weight:700}
+.read-option .ro-sub{font-size:.8rem;color:var(--muted);margin-top:2px}
+.read-option.correct{border-color:var(--green);background:rgba(46,204,113,.15)}
+.read-option.wrong{border-color:var(--red);background:rgba(231,76,60,.15)}
+
+/* ═══════════════════════════════════
+   UTIL
+═══════════════════════════════════ */
+.hidden{display:none!important}
+.text-center{text-align:center}
+.mt{margin-top:16px}
+.flex{display:flex;align-items:center;gap:10px}
+.justify-center{justify-content:center}
+.w-full{width:100%}
+.gap-lg{gap:20px}
+.label{font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.divider{width:100%;height:1px;background:rgba(255,255,255,.06);margin:4px 0}
+
+@media(max-width:600px){
+  .menu-grid{grid-template-columns:1fr}
+  .stats-grid,.teacher-grid,.team-score{grid-template-columns:1fr}
+  .level-grid{grid-template-columns:1fr 1fr}
+  .speed-btns .btn-mad,.speed-btns .btn-not{padding:14px 24px;font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Stars canvas -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- Particle overlay for celebrations -->
+<div class="particle-overlay" id="particles"></div>
+
+<!-- ════════════════════════════════════════════
+     HOME PAGE
+════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <div class="wrap" style="justify-content:center;min-height:100vh;gap:24px">
+    <div class="home-hero">
+      <span class="mascot">📖</span>
+      <h1 class="home-title">🎮 Akademi Tajwid</h1>
+      <p class="home-sub">Belajar Mad dengan Cara Seru & Menyenangkan</p>
+
+      <!-- Name form -->
+      <div class="name-form">
+        <input class="name-input" id="playerName" type="text" placeholder="Tulis namamu dulu..." maxlength="20"/>
+        <button class="name-btn" onclick="setName()">✅ Simpan</button>
+      </div>
+
+      <!-- Sound -->
+      <div style="margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:10px">
+        <span style="font-size:.85rem;color:var(--muted);font-weight:700">Suara:</span>
+        <button class="sound-btn" id="soundBtn" onclick="toggleSound()">🔊</button>
+      </div>
+    </div>
+
+    <!-- Menu -->
+    <div class="menu-grid">
+      <button class="menu-btn btn-play" onclick="goToLevelPicker()">🚀 Mulai Bermain</button>
+      <button class="menu-btn btn-guide" onclick="showPage('page-guide')">📖 Panduan</button>
+      <button class="menu-btn btn-level" onclick="showPage('page-levels')">🗂️ Pilih Level</button>
+      <button class="menu-btn btn-stats" onclick="showPage('page-stats')">📊 Statistik</button>
+      <button class="menu-btn btn-teacher" onclick="showPage('page-teacher')">👩‍🏫 Mode Guru</button>
+    </div>
+
+    <!-- Deco elements -->
+    <div style="position:fixed;top:15%;left:5%;pointer-events:none;font-size:2rem;opacity:.25;animation:twinkle 2.5s ease-in-out infinite">⭐</div>
+    <div style="position:fixed;top:25%;right:7%;pointer-events:none;font-size:1.5rem;opacity:.2;animation:twinkle 3.5s ease-in-out infinite">🌙</div>
+    <div style="position:fixed;bottom:20%;left:8%;pointer-events:none;font-size:1.8rem;opacity:.2;animation:twinkle 4s ease-in-out infinite">✨</div>
+    <div style="position:fixed;bottom:30%;right:5%;pointer-events:none;font-size:2rem;opacity:.25;animation:twinkle 2s ease-in-out infinite">🌟</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     LEVEL PICKER
+════════════════════════════════════════════ -->
+<div id="page-levels" class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="home-btn" onclick="showPage('page-home')">🏠</button>
+      <span class="topbar-logo">🗂️ Pilih Level</span>
+    </div>
+    <div class="topbar-right">
+      <span class="score-badge" id="lvl-score">⭐ 0</span>
+    </div>
+  </div>
+  <div class="wrap">
+    <p style="color:var(--muted);font-size:.9rem;text-align:center">Pilih level yang ingin kamu mainkan!</p>
+    <div class="level-grid" id="levelGrid"><!-- filled by JS --></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     GUIDE
+════════════════════════════════════════════ -->
+<div id="page-guide" class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="home-btn" onclick="showPage('page-home')">🏠</button>
+      <span class="topbar-logo">📖 Panduan</span>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="guide-block">
+      <h3>🎯 Apa itu Mad?</h3>
+      <p>Mad (مَدّ) artinya "panjang". Dalam ilmu tajwid, Mad adalah memanjangkan bacaan pada huruf tertentu. Mad dasar (Mad Asli/Thabi'i) dibaca 2 harakat. Huruf Mad ada 3: <span style="font-family:var(--fa);font-size:1.3rem;color:var(--gold)">ا ، و ، ي</span></p>
+    </div>
+    <div class="guide-block">
+      <h3>📚 Cara Bermain</h3>
+      <ul>
+        <li>Pilih level dari menu utama atau "Pilih Level"</li>
+        <li>Jawaban benar = +10 poin, salah = -5 poin</li>
+        <li>Combo beruntun = bonus poin ekstra</li>
+        <li>Selesaikan semua level untuk jadi Juara!</li>
+      </ul>
+    </div>
+    <div class="guide-block">
+      <h3>🏆 Sistem Medali</h3>
+      <ul>
+        <li>🥇 Emas — Skor 80%+ dan jawaban akurat</li>
+        <li>🥈 Perak — Skor 60–79%</li>
+        <li>🥉 Perunggu — Skor di bawah 60%</li>
+      </ul>
+    </div>
+    <div class="guide-block">
+      <h3>💡 Tips Belajar</h3>
+      <ul>
+        <li>Perhatikan huruf <span style="font-family:var(--fa);color:var(--gold)">ا ، و ، ي</span> setelah harakat panjang</li>
+        <li>Mad selalu ada setelah fathah+alif, kasroh+ya, atau dammah+wawu</li>
+        <li>Berlatihlah berulang kali agar terbiasa!</li>
+      </ul>
+    </div>
+    <button class="btn-primary" onclick="showPage('page-home')">🏠 Kembali ke Menu</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     STATS
+════════════════════════════════════════════ -->
+<div id="page-stats" class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="home-btn" onclick="showPage('page-home')">🏠</button>
+      <span class="topbar-logo">📊 Statistikku</span>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="card">
+      <p class="card-title">👤 <span id="stat-name">Santri</span></p>
+      <div class="stats-grid">
+        <div class="stat-item"><span class="stat-num" id="st-total">0</span><span class="stat-label">Total Skor</span></div>
+        <div class="stat-item"><span class="stat-num" id="st-level">0</span><span class="stat-label">Level Tertinggi</span></div>
+        <div class="stat-item"><span class="stat-num" id="st-correct">0</span><span class="stat-label">Jawaban Benar</span></div>
+        <div class="stat-item"><span class="stat-num" id="st-accuracy">0%</span><span class="stat-label">Akurasi</span></div>
+        <div class="stat-item"><span class="stat-num" id="st-combo">0</span><span class="stat-label">Combo Terbaik</span></div>
+        <div class="stat-item"><span class="stat-num" id="st-time">0m</span><span class="stat-label">Waktu Bermain</span></div>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:2.5rem" id="stat-medals"></div>
+    <button class="btn-primary" onclick="resetStats()">🗑️ Reset Statistik</button>
+    <button class="btn-primary" style="background:linear-gradient(135deg,var(--teal),#00b09b)" onclick="showPage('page-home')">🏠 Kembali</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     TEACHER PAGE
+════════════════════════════════════════════ -->
+<div id="page-teacher" class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="home-btn" onclick="showPage('page-home')">🏠</button>
+      <span class="topbar-logo">👩‍🏫 Mode Guru</span>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="card">
+      <p class="card-title">⚙️ Panel Guru / Admin</p>
+      <div class="teacher-grid">
+        <button class="teacher-btn" onclick="startLevel(7)">
+          <span class="tb-icon">👥</span>
+          <span class="tb-label">Mode Kelas (Tim)</span>
+        </button>
+        <button class="teacher-btn" onclick="toggleFullscreen()">
+          <span class="tb-icon">📺</span>
+          <span class="tb-label">Fullscreen Proyektor</span>
+        </button>
+        <button class="teacher-btn" onclick="resetStats()">
+          <span class="tb-icon">🔄</span>
+          <span class="tb-label">Reset Semua Skor</span>
+        </button>
+        <button class="teacher-btn" onclick="goToLevelPicker()">
+          <span class="tb-icon">🎲</span>
+          <span class="tb-label">Mulai Level Acak</span>
+        </button>
+        <button class="teacher-btn" onclick="startLevel(8)">
+          <span class="tb-icon">🏆</span>
+          <span class="tb-label">Bos Akhir Akademi</span>
+        </button>
+        <button class="teacher-btn" onclick="startLevel(0)">
+          <span class="tb-icon">📖</span>
+          <span class="tb-label">Materi Level 1</span>
+        </button>
+      </div>
+    </div>
+    <div class="guide-block">
+      <h3>💡 Tips untuk Guru</h3>
+      <p>Gunakan Mode Kelas untuk pertandingan dua tim. Tampilkan di proyektor dengan tombol Fullscreen. Reset skor setelah setiap sesi kelas.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     GAME AREA (all levels rendered here)
+════════════════════════════════════════════ -->
+<div id="page-game" class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="home-btn" onclick="exitGame()">🏠</button>
+      <span class="topbar-logo" id="g-title">Level</span>
+    </div>
+    <div class="topbar-right">
+      <span class="score-badge" id="g-score">⭐ 0</span>
+      <span class="level-badge" id="g-level">Lv.1</span>
+      <button class="sound-btn" id="g-sound" onclick="toggleSound()">🔊</button>
+    </div>
+  </div>
+  <div class="wrap" id="game-content"><!-- filled by JS --></div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     RESULT PAGE
+════════════════════════════════════════════ -->
+<div id="page-result" class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-logo">🏆 Hasil</span>
+    </div>
+  </div>
+  <div class="wrap" id="result-content" style="justify-content:center"><!-- filled by JS --></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════════════════════ */
+const MAD_WORDS = [
+  {word:'مَاد',hasMad:true,madChar:'ا',meaning:'Mad (panjang)'},
+  {word:'فَار',hasMad:true,madChar:'ا',meaning:'Tikus'},
+  {word:'شَاق',hasMad:true,madChar:'ا',meaning:'Sulit/Berat'},
+  {word:'ضَال',hasMad:true,madChar:'ا',meaning:'Sesat'},
+  {word:'جَاد',hasMad:true,madChar:'ا',meaning:'Serius'},
+  {word:'خَاج',hasMad:false,madChar:null,meaning:'Bukan Mad'},
+  {word:'فِي',hasMad:true,madChar:'ي',meaning:'Di dalam'},
+  {word:'قُول',hasMad:true,madChar:'و',meaning:'Katakan'},
+  {word:'نُور',hasMad:true,madChar:'و',meaning:'Cahaya'},
+  {word:'بِير',hasMad:true,madChar:'ي',meaning:'Sumur'},
+  {word:'كِتَاب',hasMad:true,madChar:'ا',meaning:'Kitab'},
+  {word:'سَمَاء',hasMad:true,madChar:'ا',meaning:'Langit'},
+  {word:'قَلَم',hasMad:false,madChar:null,meaning:'Pena'},
+  {word:'وَلَد',hasMad:false,madChar:null,meaning:'Anak'},
+  {word:'كَتَب',hasMad:false,madChar:null,meaning:'Menulis'},
+  {word:'حَمَل',hasMad:false,madChar:null,meaning:'Membawa'},
+  {word:'ذَهَب',hasMad:false,madChar:null,meaning:'Pergi'},
+];
+
+const ADV_WORDS = [
+  {word:'ضَالًّا',hasMad:true,hasTasydid:true},
+  {word:'كَافَّة',hasMad:true,hasTasydid:true},
+  {word:'الصَّاخَّة',hasMad:false,hasTasydid:true},
+  {word:'يُحَاجُّونَ',hasMad:true,hasTasydid:true},
+  {word:'وَلَا الضَّالِّينَ',hasMad:true,hasTasydid:true},
+  {word:'حَاجَّ إِبْرَاهِيمُ',hasMad:true,hasTasydid:true},
+  {word:'يَتَمَاسَا',hasMad:true,hasTasydid:false},
+  {word:'مُدْهَامَّتَانِ',hasMad:true,hasTasydid:true},
+  {word:'أَتُحَاجُّونِّي',hasMad:true,hasTasydid:true},
+  {word:'صَوَافَّ',hasMad:false,hasTasydid:true},
+  {word:'لَضَالُّونَ',hasMad:true,hasTasydid:true},
+  {word:'حَادَّ اللَّهَ',hasMad:true,hasTasydid:true},
+  {word:'حَافِين',hasMad:true,hasTasydid:false},
+  {word:'تَحَاضُّونَ',hasMad:true,hasTasydid:true},
+];
+
+const ARRANGE_WORDS = [
+  {target:'مَاد',pieces:['مَا','دَ','بِ']},
+  {target:'جَاد',pieces:['جَا','دٌ','مِ']},
+  {target:'ضَال',pieces:['ضَا','لٌ','كِ']},
+  {target:'فَار',pieces:['فَا','رٌ','شِ']},
+  {target:'نُور',pieces:['نُو','رٌ','تِ']},
+];
+
+/* ═══════════════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════════════ */
+let state = {
+  name: localStorage.getItem('taj_name') || '',
+  score: parseInt(localStorage.getItem('taj_score')) || 0,
+  highLevel: parseInt(localStorage.getItem('taj_highlevel')) || 1,
+  correct: parseInt(localStorage.getItem('taj_correct')) || 0,
+  wrong: parseInt(localStorage.getItem('taj_wrong')) || 0,
+  combo: 0,
+  bestCombo: parseInt(localStorage.getItem('taj_combo')) || 0,
+  time: parseInt(localStorage.getItem('taj_time')) || 0,
+  medals: JSON.parse(localStorage.getItem('taj_medals') || '[]'),
+  soundOn: localStorage.getItem('taj_sound') !== 'false',
+  currentLevel: 1,
+};
+
+let gameTimer = null;
+let sessionStart = Date.now();
+
+/* ═══════════════════════════════════════════════════════════════
+   LEVEL DEFINITIONS
+═══════════════════════════════════════════════════════════════ */
+const LEVELS = [
+  {num:1,icon:'📚',title:'Kenalan dengan Mad',sub:'Apa itu Mad?'},
+  {num:2,icon:'🔍',title:'Temukan Huruf Mad',sub:'Klik huruf Mad-nya!'},
+  {num:3,icon:'⚡',title:'Bacaan Cepat',sub:'Tebak secepat kilat!'},
+  {num:4,icon:'🧩',title:'Susun Bacaan',sub:'Susun huruf-hurufnya!'},
+  {num:5,icon:'🎙️',title:'Pilih Cara Baca',sub:'Mana yang benar?'},
+  {num:6,icon:'🎓',title:'Tajwid Campuran',sub:'Mad & Tasydid!'},
+  {num:7,icon:'👥',title:'Mode Kelas / Tim',sub:'Dua tim berlomba!'},
+  {num:8,icon:'🐉',title:'Bos Akhir Akademi',sub:'Tantangan terbesar!'},
+];
+
+/* ═══════════════════════════════════════════════════════════════
+   UTILITY
+═══════════════════════════════════════════════════════════════ */
+function saveState(){
+  localStorage.setItem('taj_name',state.name);
+  localStorage.setItem('taj_score',state.score);
+  localStorage.setItem('taj_highlevel',state.highLevel);
+  localStorage.setItem('taj_correct',state.correct);
+  localStorage.setItem('taj_wrong',state.wrong);
+  localStorage.setItem('taj_combo',state.bestCombo);
+  localStorage.setItem('taj_time',state.time + Math.floor((Date.now()-sessionStart)/60000));
+  localStorage.setItem('taj_medals',JSON.stringify(state.medals));
+  localStorage.setItem('taj_sound',state.soundOn);
+}
+
+function shuffle(arr){return [...arr].sort(()=>Math.random()-.5)}
+
+function playSound(type){
+  if(!state.soundOn) return;
+  const ctx = new (window.AudioContext||window.webkitAudioContext)();
+  const o = ctx.createOscillator();
+  const g = ctx.createGain();
+  o.connect(g); g.connect(ctx.destination);
+  if(type==='correct'){o.frequency.value=523;g.gain.setValueAtTime(.3,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.4)}
+  else if(type==='wrong'){o.type='sawtooth';o.frequency.value=200;g.gain.setValueAtTime(.2,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.3)}
+  else if(type==='win'){o.frequency.setValueCurveAtTime([523,659,784,1047],ctx.currentTime,.6);g.gain.setValueAtTime(.3,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.8)}
+  else if(type==='combo'){o.frequency.value=880;g.gain.setValueAtTime(.25,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.3)}
+  o.start(); o.stop(ctx.currentTime+1);
+}
+
+function addScore(pts){
+  state.score = Math.max(0, state.score + pts);
+  updateTopBar();
+  saveState();
+}
+
+function updateTopBar(){
+  const gs = document.getElementById('g-score');
+  const lvs = document.getElementById('lvl-score');
+  if(gs) gs.textContent = `⭐ ${state.score}`;
+  if(lvs) lvs.textContent = `⭐ ${state.score}`;
+}
+
+function toggleSound(){
+  state.soundOn = !state.soundOn;
+  const icons = document.querySelectorAll('#soundBtn,#g-sound');
+  icons.forEach(b=>b.textContent = state.soundOn ? '🔊' : '🔇');
+  saveState();
+}
+
+function setName(){
+  const val = document.getElementById('playerName').value.trim();
+  if(val){ state.name = val; saveState(); showToast(`👋 Ahlan, ${val}!`); }
+}
+
+function showToast(msg,dur=2000){
+  let t = document.createElement('div');
+  t.style.cssText = `position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#1e2f5c;color:#e8f4fd;padding:12px 24px;border-radius:100px;font-weight:700;font-size:.9rem;z-index:9999;animation:fadeIn .3s ease;border:1px solid rgba(255,255,255,.1)`;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),dur);
+}
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(id==='page-stats') updateStatsPage();
+  if(id==='page-levels') renderLevelGrid();
+}
+
+function goToLevelPicker(){
+  if(!state.name){showToast('✏️ Tulis namamu dulu!');return;}
+  showPage('page-levels');
+}
+
+function exitGame(){
+  clearInterval(gameTimer);
+  showPage('page-home');
+}
+
+function toggleFullscreen(){
+  if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+}
+
+function resetStats(){
+  if(!confirm('Reset semua skor dan statistik?')) return;
+  state.score=0;state.highLevel=1;state.correct=0;state.wrong=0;state.bestCombo=0;state.medals=[];
+  saveState();
+  updateStatsPage();
+  showToast('✅ Statistik direset!');
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STARS BACKGROUND
+═══════════════════════════════════════════════════════════════ */
+(function(){
+  const cv=document.getElementById('bg-canvas');
+  const ctx=cv.getContext('2d');
+  let stars=[];
+  function resize(){cv.width=innerWidth;cv.height=innerHeight}
+  function init(){stars=[];for(let i=0;i<120;i++)stars.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*1.5+.5,a:Math.random(),da:.002+Math.random()*.004})}
+  function draw(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    const g=ctx.createLinearGradient(0,0,0,cv.height);
+    g.addColorStop(0,'#0f1b3d');g.addColorStop(1,'#162252');
+    ctx.fillStyle=g;ctx.fillRect(0,0,cv.width,cv.height);
+    stars.forEach(s=>{
+      s.a+=s.da;if(s.a>1||s.a<0)s.da*=-1;
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,200,${s.a*.8})`;ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',()=>{resize();init()});
+  resize();init();draw();
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   PARTICLES CELEBRATION
+═══════════════════════════════════════════════════════════════ */
+function celebrate(){
+  playSound('win');
+  const overlay = document.getElementById('particles');
+  overlay.innerHTML='';
+  const colors=['#ffd700','#00e5cc','#ff6b9d','#a29bfe','#ff9f43','#2ecc71'];
+  for(let i=0;i<50;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const size=8+Math.random()*12;
+    p.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;bottom:0;background:${colors[~~(Math.random()*colors.length)]};animation-duration:${2+Math.random()*2}s;animation-delay:${Math.random()*1}s;opacity:${.7+Math.random()*.3}`;
+    overlay.appendChild(p);
+  }
+  setTimeout(()=>overlay.innerHTML='',4000);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LEVEL GRID
+═══════════════════════════════════════════════════════════════ */
+function renderLevelGrid(){
+  const grid=document.getElementById('levelGrid');
+  grid.innerHTML='';
+  LEVELS.forEach(lv=>{
+    const unlocked = lv.num <= state.highLevel;
+    const div=document.createElement('div');
+    div.className='level-card'+(unlocked?'':' locked');
+    const stars = state.medals.filter(m=>m.level===lv.num);
+    const starStr = stars.length?'⭐'.repeat(Math.min(stars.length,3)):'';
+    div.innerHTML=`
+      <span class="lc-icon">${lv.icon}</span>
+      <span class="lc-num">Level ${lv.num}</span>
+      <div class="lc-title">${lv.title}</div>
+      <div class="lc-stars">${starStr}</div>
+    `;
+    if(unlocked) div.onclick=()=>startLevel(lv.num);
+    grid.appendChild(div);
+  });
+}
+
+function updateStatsPage(){
+  const total = state.correct + state.wrong;
+  const acc = total ? Math.round(state.correct/total*100) : 0;
+  const savedTime = parseInt(localStorage.getItem('taj_time')||'0') + Math.floor((Date.now()-sessionStart)/60000);
+  document.getElementById('stat-name').textContent = state.name || 'Santri';
+  document.getElementById('st-total').textContent = state.score;
+  document.getElementById('st-level').textContent = state.highLevel;
+  document.getElementById('st-correct').textContent = state.correct;
+  document.getElementById('st-accuracy').textContent = acc + '%';
+  document.getElementById('st-combo').textContent = state.bestCombo;
+  document.getElementById('st-time').textContent = savedTime + 'm';
+  document.getElementById('stat-medals').textContent = state.medals.map(m=>m.medal).join(' ');
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   START LEVEL DISPATCHER
+═══════════════════════════════════════════════════════════════ */
+function startLevel(n){
+  if(!state.name){showToast('✏️ Tulis namamu dulu!');showPage('page-home');return;}
+  clearInterval(gameTimer);
+  state.currentLevel = n;
+  state.combo = 0;
+  showPage('page-game');
+  const gc = document.getElementById('game-content');
+  document.getElementById('g-title').textContent = LEVELS[n-1]?.title || 'Level';
+  document.getElementById('g-level').textContent = `Lv.${n}`;
+  document.getElementById('g-score').textContent = `⭐ ${state.score}`;
+  document.getElementById('topbar-name',document.getElementById('page-game'))?.remove();
+
+  const dispatchers = [null,buildL1,buildL2,buildL3,buildL4,buildL5,buildL6,buildL7,buildL8];
+  if(dispatchers[n]) dispatchers[n](gc);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SHARED QUIZ LOGIC
+═══════════════════════════════════════════════════════════════ */
+function handleAnswer(correct, feedbackEl, nextFn, pts=10){
+  if(correct){
+    state.combo++;
+    if(state.combo > state.bestCombo) state.bestCombo = state.combo;
+    const bonus = Math.floor(state.combo/5)*5;
+    addScore(pts + bonus);
+    state.correct++;
+    playSound('correct');
+    feedbackEl.className='feedback correct';
+    feedbackEl.innerHTML = `✅ <strong>MasyaAllah, Benar!</strong>${state.combo>=5?` 🔥 Combo ${state.combo}x! +${bonus} bonus`:''}`;
+    if(state.combo===5||state.combo===10||state.combo===15){ playSound('combo'); showToast(`🔥 Combo ${state.combo}x!`); }
+  } else {
+    state.combo=0;
+    addScore(-5);
+    state.wrong++;
+    playSound('wrong');
+    feedbackEl.className='feedback wrong';
+    feedbackEl.innerHTML = `❌ <strong>Kurang tepat.</strong> Coba perhatikan huruf Mad: <span style="font-family:var(--fa);font-size:1.2rem;color:var(--gold)">ا ، و ، ي</span>`;
+  }
+  feedbackEl.style.display='block';
+  saveState();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LEVEL 1 – Kenalan dengan Mad
+═══════════════════════════════════════════════════════════════ */
+function buildL1(gc){
+  const words = shuffle(MAD_WORDS).slice(0,8);
+  let qi=0, score=0, correct=0;
+  
+  function render(){
+    if(qi>=words.length){ endLevel(gc,score,correct,words.length); return; }
+    const w=words[qi];
+    gc.innerHTML=`
+      <div class="card" style="text-align:center">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <span class="label">Soal ${qi+1}/${words.length}</span>
+          <div class="combo-badge ${state.combo>=3?'show':''}" id="combo-b">🔥 Combo ${state.combo}x</div>
+        </div>
+        <div class="progress-bar mt" style="margin-bottom:24px"><div class="progress-fill" style="width:${(qi/words.length)*100}%"></div></div>
+        <p style="color:var(--muted);margin-bottom:8px;font-size:.9rem">Apakah kata ini mengandung <strong style="color:var(--teal2)">Mad</strong>?</p>
+        <div class="arabic" id="w-display">${w.word}</div>
+        <div class="feedback" id="fb"></div>
+        <div class="flex justify-center" style="gap:16px;margin-top:24px;flex-wrap:wrap">
+          <button class="btn-mad" id="yes-btn">✅ Mad</button>
+          <button class="btn-not" id="no-btn">❌ Bukan Mad</button>
+        </div>
+        <button class="btn-next" id="next-btn">Lanjut ➡️</button>
+      </div>
+      <div class="card" style="padding:16px 20px">
+        <p class="label" style="margin-bottom:8px">💡 Ingat! Huruf Mad:</p>
+        <div style="font-family:var(--fa);font-size:1.8rem;color:var(--gold2);text-align:center;direction:rtl">ا — و — ي</div>
+      </div>
+    `;
+    const fb=document.getElementById('fb');
+    const nb=document.getElementById('next-btn');
+    function answer(isMad){
+      document.getElementById('yes-btn').disabled=true;
+      document.getElementById('no-btn').disabled=true;
+      const correct2 = (isMad === w.hasMad);
+      handleAnswer(correct2, fb, null);
+      if(correct2){ score+=10; correct++; }
+      nb.style.display='inline-block';
+      nb.onclick=()=>{qi++;render()};
+    }
+    document.getElementById('yes-btn').onclick=()=>answer(true);
+    document.getElementById('no-btn').onclick=()=>answer(false);
+  }
+  render();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LEVEL 2 – Temukan Huruf Mad
+═══════════════════════════════════════════════════════════════ */
+function buildL2(gc){
+  const words = shuffle(MAD_WORDS.filter(w=>w.hasMad)).slice(0,7);
+  let qi=0, score=0, correct=0;
+
+  function render(){
+    if(qi>=words.length){endLevel(gc,score,correct,words.length);return;}
+    const w=words[qi];
+    const chars=[...w.word];
+    gc.innerHTML=`
+      <div class="card" style="text-align:center">
+        <div class="progress-bar"><div class="progress-fill" style="width:${(qi/words.length)*100}%"></div></div>
+        <p style="color:var(--muted);margin:16px 0 8px;font-size:.9rem">Klik huruf yang menyebabkan <strong style="color:var(--teal2)">Mad</strong>!</p>
+        <div class="arabic-hotspot" id="hotspot" style="justify-content:center;margin:16px 0;font-size:clamp(3rem,10vw,5.5rem)">
+          ${chars.map((c,i)=>`<button class="char-btn" data-i="${i}" data-c="${c}">${c}</button>`).join('')}
+        </div>
+        <div class="feedback" id="fb"></div>
+        <button class="btn-next" id="next-btn">Lanjut ➡️</button>
+      </div>
+    `;
+    const fb=document.getElementById('fb');
+    const nb=document.getElementById('next-btn');
+    document.querySelectorAll('.char-btn').forEach(btn=>{
+      btn.onclick=()=>{
+        document.querySelectorAll('.char-btn').forEach(b=>b.disabled=true);
+        const clicked=btn.dataset.c;
+        const isMadChar = clicked===w.madChar || (w.madChar==='ي' && clicked.includes('ي')) || (w.madChar==='و' && clicked.includes('و')) || (w.madChar==='ا' && clicked.includes('ا'));
+        if(isMadChar){
+          btn.classList.add('correct');
+          handleAnswer(true,fb,null);
+          score+=10;correct++;
+        } else {
+          btn.classList.add('wrong');
+          // highlight correct
+          document.querySelectorAll('.char-btn').forEach(b=>{
+            if(b.dataset.c===w.madChar) b.classList.add('correct');
+          });
+          handleAnswer(false,fb,null);
+        }
+        nb.style.display='inline-block';
+        nb.onclick=()=>{qi++;render()};
+      };
+    });
+  }
+  render();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LEVEL 3 – Bacaan Cepat
+═══════════════════════════════════════════════════════════════ */
+function buildL3(gc){
+  const totalTime=30;
+  let timeLeft=totalTime;
+  let wordList=shuffle([...MAD_WORDS]);
+  let wi=0, score=0, correct=0, total=0;
+  let answered=false;
+
+  function render(){
+    if(wi>=wordList.length) wordList=shuffle([...MAD_WORDS]);
+    const w=wordList[wi%wordList.length];
+    gc.innerHTML=`
+      <div class="card" style="text-align:center">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <div class="timer-wrap">
+            <span>⏱️</span>
+            <span class="timer ${timeLeft<=10?'urgent':''}" id="timer">${timeLeft}</span>
+          </div>
+          <div class="combo-badge ${state.combo>=3?'show':''}" id="combo-b">🔥 Combo ${state.combo}x</div>
+          <div style="text-align:right"><span style="font-size:.8rem;color:var(--muted)">Benar</span><br/><span style="font-weight:900;color:var(--teal2)">${correct}/${total}</span></div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="timebar" style="width:${(timeLeft/totalTime)*100}%"></div></div>
+        <div class="arabic speed-word" id="w-display" style="margin:24px 0">${w.word}</div>
+        <div class="feedback" id="fb"></div>
+        <div class="speed-btns mt">
+          <button class="btn-mad" id="yes-btn">✅ Mad</button>
+          <button class="btn-not" id="no-btn">❌ Bukan Mad</button>
+        </div>
+      </div>
+      <div class="card" style="text-align:center;padding:14px 20px">
+        <p style="font-size:.85rem;color:var(--muted)">Tekan secepat mungkin! Combo 5x = bonus poin 🔥</p>
+      </div>
+    `;
+
+    const fb=document.getElementById('fb');
+    answered=false;
+
+    function answer(isMad){
+      if(answered) return;
+      answered=true;
+      total++;
+      const ok=(isMad===w.hasMad);
+      handleAnswer(ok,fb,null);
+      if(ok) {score+=10;correct++;}
+      setTimeout(()=>{wi++;render();},600);
+    }
+
+    document.getElementById('yes-btn').onclick=()=>answer(true);
+    document.getElementById('no-btn').onclick=()=>answer(false);
+    document.onkeydown=e=>{if(e.key==='ArrowLeft')answer(true);if(e.key==='ArrowRight')answer(false);}
+  }
+
+  gameTimer=setInterval(()=>{
+    timeLeft--;
+    const td=document.getElementById('timer');
+    const tb=document.getElementById('timebar');
+    if(td){td.textContent=timeLeft;if(timeLeft<=10)td.classList.add('urgent');}
+    if(tb) tb.style.width=(timeLeft/totalTime)*100+'%';
+    if(timeLeft<=0){
+      clearInterval(gameTimer);
+      document.onkeydown=null;
+      endLevel(gc,score,correct,total||1);
+    }
+  },1000);
+
+  render();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LEVEL 4 – Susun Bacaan (Drag & Drop)
+═══════════════════════════════════════════════════════════════ */
+function buildL4(gc){
+  const list=shuffle([...ARRANGE_WORDS]).slice(0,4);
+  let qi=0, score=0, correct=0;
+
+  function render(){
+    if(qi>=list.length){endLevel(gc,score,correct,list.length);return;}
+    const item=list[qi];
+    const pieces=shuffle([...item.pieces]);
+    let arranged=[];
+
+    gc.innerHTML=`
+      <div class="card">
+        <div class="progress-bar"><div class="progress-fill" style="width:${(qi/list.length)*100}%"></div></div>
+        <p style="color:var(--muted);text-align:center;margin:16px 0 8px;font-size:.9rem">Susun potongan menjadi kata yang benar!</p>
+        <p style="text-align:center;color:var(--gold);font-family:var(--fa);font-size:2.5rem;margin-bottom:20px;direction:rtl">
+          Target: <span style="border-bottom:2px solid var(--gold);padding-bottom:4px">${item.target}</span>
+        </p>
+        <p class="label" style="margin-bottom:8px">Klik untuk susun:</p>
+        <div class="drag-zone" id="pieces-zone">
+          ${pieces.map((p,i)=>`<button class="drag-piece" data-p="${p}" id="piece-${i}">${p}</button>`).join('')}
+        </div>
+        <p class="label" style="margin:16px 0 8px">Susunanmu:</p>
+        <div class="drag-zone target" id="answer-zone" style="min-height:70px;font-size:2rem;font-family:var(--fa);direction:rtl;color:var(--gold2)">
+          <span id="arranged-text" style="font-family:var(--fa)"></span>
+        </div>
+        <div class="feedback" id="fb"></div>
+        <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+          <button class="btn-primary" id="check-btn">✅ Cek Jawaban</button>
+          <button class="btn-primary" style="background:var(--card2);color:var(--muted)" id="reset-btn">🔄 Reset</button>
+        </div>
+        <button class="btn-next" id="next-btn">Lanjut ➡️</button>
+      </div>
+    `;
+
+    document.querySelectorAll('.drag-piece').forEach(btn=>{
+      btn.onclick=()=>{
+        const p=btn.dataset.p;
+        arranged.push(p);
+        btn.disabled=true;btn.style.opacity='.3';
+        document.getElementById('arranged-text').textContent=arranged.join('');
+      };
+    });
+
+    document.getElementById('reset-btn').onclick=()=>{
+      arranged=[];
+      document.querySelectorAll('.drag-piece').forEach(b=>{b.disabled=false;b.style.opacity='1';});
+      document.getElementById('arranged-text').textContent='';
+      document.getElementById('fb').style.display='none';
+    };
+
+    const nb=document.getElementById('next-btn');
+    document.getElementById('check-btn').onclick=()=>{
+      const ans=arranged.join('');
+      const ok=(ans===item.target);
+      const fb=document.getElementById('fb');
+      if(ok){fb.innerHTML=`✅ Benar! Kata ini punya Mad 📖`;fb.className='feedback correct';score+=10;correct++;handleAnswer(true,{className:'',innerHTML:'',style:{display:'none'}},null)}
+      else{fb.innerHTML=`❌ Belum tepat. Jawaban: <span style="font-family:var(--fa);color:var(--gold)">${item.target}</span>`;fb.className='feedback wrong';handleAnswer(false,{className:'',innerHTML:'',style:{display:'none'}},null);}
+      fb.style.display='block';
+      nb.style.display='inline-block';
+      nb.onclick=()=>{qi++;render();};
+    };
+  }
+  render();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LEVEL 5 – Pilih Cara Baca
+═══════════════════════════════════════════════════════════════ */
+function buildL5(gc){
+  const questions=[
+    {word:'مَاد',correct:1,options:[
+      {icon:'📏',text:'Pendek (1 harakat)',sub:'Ma-d (cepat)'},
+      {icon:'📏📏',text:'Panjang 2 harakat',sub:'Maaad (2 ketukan) ✅'},
+      {icon:'📏📏📏📏',text:'Sangat Panjang (6 harakat)',sub:'Maaaaad (berlebihan)'}
+    ]},
+    {word:'فِي',correct:1,options:[
+      {icon:'⚡',text:'Fi (pendek)',sub:'Tanpa mad'},
+      {icon:'📏📏',text:'Fii (2 harakat)',sub:'Benar! Mad karena ya\' ✅'},
+      {icon:'🔊',text:'Fiiiiiii',sub:'Terlalu panjang'}
+    ]},
+    {word:'قُول',correct:1,options:[
+      {icon:'📏',text:'Qul (pendek)',sub:'Tanpa mad'},
+      {icon:'📏📏',text:'Quul (2 harakat)',sub:'Benar! Mad karena wawu ✅'},
+      {icon:'❌',text:'Quuuul',sub:'Berlebihan, tidak sesuai'}
+    ]},
+    {word:'ضَال',correct:1,options:[
+      {icon:'⚡',text:'Dhal (pendek)',sub:'Tidak ada mad'},
+      {icon:'📏📏',text:'Dhaal (2 harakat)',sub:'Benar! Mad Thabi\'i ✅'},
+      {icon:'📏📏📏📏📏',text:'Dhaaaal (5-6 harakat)',sub:'Berlebihan tanpa sebab'}
+    ]},
+  ];
+  
+  const list=shuffle(questions);
+  let qi=0, score=0, correct=0;
+
+  function render(){
+    if(qi>=list.length){endLevel(gc,score,correct,list.length);return;}
+    const q=list[qi];
+    gc.innerHTML=`
+      <div class="card" style="text-align:center">
+        <div class="progress-bar"><div class="progress-fill" style="width:${(qi/list.length)*100}%"></div></div>
+        <p style="color:var(--muted);margin:16px 0 8px;font-size:.9rem">Bagaimana cara baca yang <strong style="color:var(--teal2)">benar</strong>?</p>
+        <div class="arabic" style="margin:12px 0 24px">${q.word}</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          ${q.options.map((o,i)=>`
+            <button class="read-option" id="opt-${i}" onclick="answerL5(${i},${q.correct})">
+              <span class="ro-icon">${o.icon}</span>
+              <div>
+                <div class="ro-text">${o.text}</div>
+                <div class="ro-sub">${o.sub}</div>
+              </div>
+            </button>
+          `).join('')}
+        </div>
+        <div class="feedback" id="fb"></div>
+        <button class="btn-next" id="next-btn">Lanjut ➡️</button>
+      </div>
+    `;
+    window._l5q=q;window._l5qi=qi;window._l5list=list;
+    window._l5done=()=>{qi++;render();};
+    window._l5sc=()=>{score+=10;correct++;};
+  }
+
+  window.answerL5=(chosen,correct2)=>{
+    document.querySelectorAll('.read-option').forEach(b=>b.disabled=true);
+    const fb=document.getElementById('fb');
+    if(chosen===correct2){
+      document.getElementById('opt-'+chosen).classList.add('correct');
+      handleAnswer(true,fb,null);
+      window._l5sc();
+    } else {
+      document.getElementById('opt-'+chosen).classList.add('wrong');
+      document.getElementById('opt-'+correct2).classList.add('correct');
+      handleAnswer(false,fb,null);
+    }
+    const nb=document.getElementById('next-btn');
+    nb.style.display='inline-block';
+    nb.onclick=window._l5done;
+  };
+  render();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LEVEL 6 – Tajwid Campuran
+═══════════════════════════════════════════════════════════════ */
+function buildL6(gc){
+  const items=shuffle([...ADV_WORDS]).slice(0,8);
+  let qi=0, score=0, correct=0;
+
+  function render(){
+    if(qi>=items.length){endLevel(gc,score,correct,items.length);return;}
+    const w=items[qi];
+    gc.innerHTML=`
+      <div class="card" style="text-align:center">
+        <div class="progress-bar"><div class="progress-fill" style="width:${(qi/items.length)*100}%"></div></div>
+        <p style="color:var(--muted);margin:16px 0 8px;font-size:.9rem">Di dalam kata ini ada apa saja?</p>
+        <div class="arabic" style="font-size:clamp(2rem,7vw,3.5rem);margin:16px 0">${w.word}</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px">
+          <button class="btn-choice" id="ans-mad" onclick="checkL6('mad')">📏 Ada Mad saja</button>
+          <button class="btn-choice" id="ans-tas" onclick="checkL6('tas')">🔤 Ada Tasydid saja</button>
+          <button class="btn-choice" id="ans-both" onclick="checkL6('both')" style="grid-column:1/-1">⭐ Ada Mad & Tasydid</button>
+        </div>
+        <div class="feedback" id="fb"></div>
+        <button class="btn-next" id="next-btn">Lanjut ➡️</button>
+      </div>
+    `;
+    window._l6w=w;
+    window._l6done=()=>{qi++;render();};
+    window._l6sc=()=>{score+=10;correct++;};
+    window.checkL6=(ans)=>{
+      document.querySelectorAll('#ans-mad,#ans-tas,#ans-both').forEach(b=>b.disabled=true);
+      const w2=window._l6w;
+      let correctAns='';
+      if(w2.hasMad && w2.hasTasydid) correctAns='both';
+      else if(w2.hasMad) correctAns='mad';
+      else correctAns='tas';
+      const ok=(ans===correctAns);
+      const fb=document.getElementById('fb');
+      if(ok){document.getElementById('ans-'+ans).classList.add('correct');handleAnswer(true,fb,null);window._l6sc();}
+      else{document.getElementById('ans-'+ans).classList.add('wrong');document.getElementById('ans-'+correctAns).classList.add('correct');handleAnswer(false,fb,null);}
+      const nb=document.getElementById('next-btn');
+      nb.style.display='inline-block';
+      nb.onclick=window._l6done;
+    };
+  }
+  render();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LEVEL 7 – Mode Kelas / Multiplayer
+═══════════════════════════════════════════════════════════════ */
+function buildL7(gc){
+  let teams=[
+    {name:'Tim 🟢 Hijau',score:0,badge:'🏆'},
+    {name:'Tim 🔵 Biru',score:0,badge:'⚔️'}
+  ];
+  let currentTeam=0;
+  const words=shuffle([...MAD_WORDS,...MAD_WORDS.slice(0,5)]);
+  let wi=0;
+
+  function render(){
+    if(wi>=words.length){endMultiplayer();return;}
+    const w=words[wi];
+    gc.innerHTML=`
+      <div class="team-score">
+        ${teams.map((t,i)=>`
+          <div class="team-card ${i===currentTeam?'active':''}">
+            <div class="t-name">${t.name}</div>
+            <div class="t-score">${t.score}</div>
+            <span class="t-badge">${t.badge}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="card" style="text-align:center">
+        <div class="label" style="margin-bottom:12px">Giliran: <strong style="color:var(--teal2)">${teams[currentTeam].name}</strong></div>
+        <p style="color:var(--muted);font-size:.9rem;margin-bottom:8px">Kata ini Mad atau Bukan?</p>
+        <div class="arabic" style="margin:16px 0">${w.word}</div>
+        <div class="feedback" id="fb"></div>
+        <div class="flex justify-center" style="gap:14px;margin-top:20px;flex-wrap:wrap">
+          <button class="btn-mad" id="yes-btn">✅ Mad</button>
+          <button class="btn-not" id="no-btn">❌ Bukan Mad</button>
+        </div>
+      </div>
+      <button class="btn-primary" style="background:var(--card2);color:var(--muted)" onclick="endMultiplayer()">🏁 Selesai</button>
+    `;
+    
+    function answer(isMad){
+      document.getElementById('yes-btn').disabled=true;
+      document.getElementById('no-btn').disabled=true;
+      const ok=(isMad===w.hasMad);
+      const fb=document.getElementById('fb');
+      if(ok){
+        teams[currentTeam].score+=10;
+        fb.className='feedback correct';fb.innerHTML='✅ Benar! +10 poin';fb.style.display='block';
+        playSound('correct');
+      } else {
+        fb.className='feedback wrong';fb.innerHTML='❌ Salah! Giliran tim lain';fb.style.display='block';
+        playSound('wrong');
+      }
+      setTimeout(()=>{
+        currentTeam=(currentTeam+1)%2;
+        wi++;
+        render();
+      },1200);
+    }
+    document.getElementById('yes-btn').onclick=()=>answer(true);
+    document.getElementById('no-btn').onclick=()=>answer(false);
+  }
+
+  function endMultiplayer(){
+    const winner = teams[0].score>teams[1].score?teams[0]:teams[1].score>teams[0].score?teams[1]:null;
+    gc.innerHTML=`
+      <div class="result-card" style="text-align:center">
+        <span class="result-icon">${winner?'🏆':'🤝'}</span>
+        <h2 class="result-title">${winner?winner.name+' Menang!':'Seri!'}</h2>
+        <div class="team-score" style="margin:20px 0">
+          ${teams.map(t=>`
+            <div class="team-card">
+              <div class="t-name">${t.name}</div>
+              <div class="t-score">${t.score}</div>
+            </div>
+          `).join('')}
+        </div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px">
+          <button class="btn-primary" onclick="buildL7(document.getElementById('game-content'))">🔄 Main Lagi</button>
+          <button class="btn-primary" style="background:var(--card2);color:var(--muted)" onclick="showPage('page-home')">🏠 Menu</button>
+        </div>
+      </div>
+    `;
+    if(winner) celebrate();
+  }
+  window.endMultiplayer=endMultiplayer;
+  render();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LEVEL 8 – Bos Akhir
+═══════════════════════════════════════════════════════════════ */
+function buildL8(gc){
+  const allW=shuffle([...MAD_WORDS,...ADV_WORDS.map(w=>({...w,hasMad:w.hasMad}))]).slice(0,10);
+  let qi=0, score=0, correct=0;
+  let timeLeft=60;
+  let bossHp=10;
+
+  function render(){
+    if(qi>=allW.length||bossHp<=0){
+      clearInterval(gameTimer);
+      endBoss(gc,score,correct);return;
+    }
+    const w=allW[qi];
+    gc.innerHTML=`
+      <div class="card">
+        <p class="label" style="text-align:center;margin-bottom:10px">🐉 Bos Akademi Tajwid</p>
+        <div class="boss-icon" id="boss-face">🐉</div>
+        <div style="margin:12px 0">
+          <div style="display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin-bottom:4px">
+            <span>HP Bos</span><span>${bossHp}/10</span>
+          </div>
+          <div class="boss-hp"><div class="boss-hp-fill" style="width:${bossHp*10}%"></div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <span class="label">Soal ${qi+1}/10</span>
+          <div class="timer-wrap">⏱️<span class="timer ${timeLeft<=15?'urgent':''}" id="boss-timer">${timeLeft}</span></div>
+        </div>
+      </div>
+      <div class="card" style="text-align:center">
+        <p style="color:var(--muted);margin-bottom:12px;font-size:.9rem">Apa kata ini punya <strong style="color:var(--teal2)">Mad</strong>?</p>
+        <div class="arabic">${w.word}</div>
+        <div class="feedback" id="fb"></div>
+        <div class="flex justify-center" style="gap:14px;margin-top:20px;flex-wrap:wrap">
+          <button class="btn-mad" id="yes-btn">✅ Mad</button>
+          <button class="btn-not" id="no-btn">❌ Bukan Mad</button>
+        </div>
+      </div>
+    `;
+    const fb=document.getElementById('fb');
+    function answer(isMad){
+      clearInterval(gameTimer);
+      document.getElementById('yes-btn').disabled=true;
+      document.getElementById('no-btn').disabled=true;
+      const ok=(isMad===w.hasMad);
+      handleAnswer(ok,fb,null);
+      if(ok){score+=10;correct++;bossHp--;playSound('correct');}
+      else{playSound('wrong');}
+      setTimeout(()=>{qi++;startBossTimer();render();},900);
+    }
+    document.getElementById('yes-btn').onclick=()=>answer(true);
+    document.getElementById('no-btn').onclick=()=>answer(false);
+  }
+
+  function startBossTimer(){
+    clearInterval(gameTimer);
+    gameTimer=setInterval(()=>{
+      timeLeft--;
+      const td=document.getElementById('boss-timer');
+      if(td)td.textContent=timeLeft;
+      if(timeLeft<=0){clearInterval(gameTimer);endBoss(gc,score,correct);}
+    },1000);
+  }
+
+  function endBoss(gc2,sc,cr){
+    const win=(bossHp<=0||cr>=7);
+    gc2.innerHTML=`
+      <div class="result-card">
+        <span class="result-icon">${win?'🏆':'💪'}</span>
+        <h2 class="result-title">${win?'Bos Dikalahkan!':'Terus Semangat!'}</h2>
+        <div class="result-score">${cr}/10</div>
+        <p style="color:var(--muted);margin:12px 0">${win?'MasyaAllah! Kamu adalah Juara Mad Hari Ini! 🎉':'Kamu sudah berani! Coba lagi untuk kalahkan bos!'}</p>
+        ${win?`<div class="cert" style="margin:16px 0">
+          <div class="cert-title">🏆 SERTIFIKAT JUARA 🏆</div>
+          <div class="cert-name">${state.name||'Santri'}</div>
+          <div class="cert-text">Telah menyelesaikan Akademi Tajwid Level Bos<br/>dan dinobatkan sebagai <strong>Juara Mad Hari Ini</strong></div>
+          <div style="margin-top:12px;font-size:2rem">⭐⭐⭐</div>
+        </div>`:''}
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+          <button class="btn-primary" onclick="startLevel(8)">🔄 Coba Lagi</button>
+          <button class="btn-primary" style="background:var(--card2);color:var(--muted)" onclick="showPage('page-home')">🏠 Menu</button>
+        </div>
+      </div>
+    `;
+    if(win) celebrate();
+    state.score+=sc;saveState();
+  }
+
+  startBossTimer();
+  render();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   END LEVEL – show results
+═══════════════════════════════════════════════════════════════ */
+function endLevel(gc, score, correct, total){
+  clearInterval(gameTimer);
+  const pct = total>0?Math.round(correct/total*100):0;
+  let medal='🥉';let mtype='bronze';
+  if(pct>=80){medal='🥇';mtype='gold';}
+  else if(pct>=60){medal='🥈';mtype='silver';}
+  
+  state.medals.push({level:state.currentLevel,medal,time:Date.now()});
+  addScore(score);
+  if(state.currentLevel >= state.highLevel) state.highLevel = Math.min(state.currentLevel+1, 8);
+  saveState();
+
+  if(pct>=80) celebrate();
+
+  gc.innerHTML=`
+    <div class="result-card">
+      <span class="result-icon">${medal}</span>
+      <h2 class="result-title">${pct>=80?'Luar Biasa!':pct>=60?'Bagus!':'Terus Berlatih!'}</h2>
+      <div class="result-score">${correct}/${total}</div>
+      <p style="color:var(--muted);margin:8px 0;font-size:.9rem">Akurasi: ${pct}% • +${score} poin diperoleh</p>
+      <div class="medal-row">
+        <span class="medal medal-${mtype}">${medal} ${mtype==='gold'?'Emas':mtype==='silver'?'Perak':'Perunggu'}</span>
+        ${state.combo>0?`<span class="medal" style="background:rgba(255,107,157,.2);border:1px solid var(--rose);color:var(--rose)">🔥 Combo ${state.bestCombo}x</span>`:''}
+      </div>
+      ${state.currentLevel===8||pct>=80?`
+        <div class="cert" style="margin:16px 0">
+          <div class="cert-title">📜 SERTIFIKAT SELESAI</div>
+          <div class="cert-name">${state.name||'Santri'}</div>
+          <div class="cert-text">Telah menyelesaikan Level ${state.currentLevel} – ${LEVELS[state.currentLevel-1]?.title}</div>
+          <div style="margin-top:8px;color:var(--gold)">⭐⭐⭐ Total Skor: ${state.score}</div>
+        </div>
+      `:''}
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px">
+        <button class="btn-primary" onclick="startLevel(${state.currentLevel})">🔄 Ulangi</button>
+        ${state.currentLevel<8?`<button class="btn-primary" style="background:linear-gradient(135deg,var(--teal),#00b09b)" onclick="startLevel(${state.currentLevel+1})">▶️ Level Berikutnya</button>`:''}
+        <button class="btn-primary" style="background:var(--card2);color:var(--muted)" onclick="showPage('page-home')">🏠 Menu</button>
+      </div>
+    </div>
+  `;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════════════ */
+(function init(){
+  if(state.name) document.getElementById('playerName').value=state.name;
+  if(!state.soundOn){
+    document.getElementById('soundBtn').textContent='🔇';
+    document.getElementById('g-sound').textContent='🔇';
+  }
+  updateTopBar();
+  // Track session time
+  setInterval(()=>{
+    state.time++;
+    saveState();
+  },60000);
+})();
+</script>
+</body>
+</html>

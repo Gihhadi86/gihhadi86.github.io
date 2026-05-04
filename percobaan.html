@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penjaga Cahaya: Pertempuran Hati</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #38bdf8;
+            --danger: #ef4444;
+            --bg: #020617;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, #020617 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title-font { font-family: 'Bungee', cursive; }
+
+        .game-canvas {
+            width: 100%;
+            max-width: 600px;
+            height: 90vh;
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Character Styles */
+        .arena {
+            height: 40%;
+            position: relative;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: linear-gradient(to bottom, transparent, rgba(56, 189, 248, 0.1));
+        }
+
+        .char-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .hero { font-size: 100px; filter: drop-shadow(0 0 20px var(--primary)); animation: float 3s ease-in-out infinite; }
+        .boss { font-size: 100px; filter: drop-shadow(0 0 20px var(--danger)); animation: float-reverse 4s ease-in-out infinite; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(15px); }
+        }
+
+        /* Combat Animations */
+        .attack-right { animation: attack-right-anim 0.6s ease-in-out; }
+        .attack-left { animation: attack-left-anim 0.6s ease-in-out; }
+        .take-damage { animation: shake 0.4s ease-in-out; filter: brightness(2) saturate(2) hue-rotate(90deg); }
+
+        @keyframes attack-right-anim {
+            0% { transform: translateX(0) scale(1); }
+            50% { transform: translateX(100px) scale(1.2) rotate(10deg); }
+            100% { transform: translateX(0) scale(1); }
+        }
+
+        @keyframes attack-left-anim {
+            0% { transform: translateX(0) scale(1); }
+            50% { transform: translateX(-100px) scale(1.2) rotate(-10deg); }
+            100% { transform: translateX(0) scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-15px); }
+            40%, 80% { transform: translateX(15px); }
+        }
+
+        /* Health & UI */
+        .hp-bar {
+            height: 10px;
+            width: 120px;
+            background: #334155;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .hp-fill { height: 100%; transition: width 0.5s ease; }
+        .hp-hero { background: var(--primary); box-shadow: 0 0 10px var(--primary); }
+        .hp-boss { background: var(--danger); box-shadow: 0 0 10px var(--danger); }
+
+        .btn-answer {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .btn-answer:hover {
+            background: var(--primary);
+            color: black;
+            transform: scale(1.02);
+            font-weight: bold;
+        }
+
+        .slash-fx {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .animate-slash { animation: slash-anim 0.5s ease-out; }
+        @keyframes slash-anim {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5) rotate(-45deg); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.5) rotate(0deg); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(2) rotate(45deg); }
+        }
+
+        .hidden-screen { display: none !important; }
+
+        /* Sound Control Button */
+        .sound-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255,255,255,0.1);
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-canvas">
+        <button id="mute-btn" class="sound-toggle" onclick="toggleMute()">
+            <span id="mute-icon">🔊</span>
+        </button>
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center">
+            <div class="hero text-9xl mb-4">✨</div>
+            <h1 class="title-font text-4xl mb-4 tracking-tighter text-sky-400">PENJAGA CAHAYA</h1>
+            <p class="text-slate-400 mb-8 max-w-xs">Jin kegelapan datang mengganggu ketenangan hati. Gunakan ilmu Al-Qur'an-mu untuk melawannya!</p>
+            <button onclick="initGame()" class="title-font bg-sky-500 hover:bg-sky-400 text-white px-12 py-4 rounded-full text-xl shadow-[0_0_20px_rgba(56,189,248,0.5)] transition-all">
+                MULAI PERANG
+            </button>
+        </div>
+
+        <!-- Battle Screen -->
+        <div id="battle-screen" class="hidden-screen flex-1 flex flex-col">
+            <!-- Header Stats -->
+            <div class="p-6 flex justify-between items-start">
+                <div class="flex flex-col items-center">
+                    <div id="hero-hp-text" class="text-xs font-bold mb-1">NYAWA: 3</div>
+                    <div class="flex gap-1" id="heart-container">
+                        <span class="text-red-500 text-xl">❤️</span>
+                        <span class="text-red-500 text-xl">❤️</span>
+                        <span class="text-red-500 text-xl">❤️</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div id="level-indicator" class="title-font text-sky-400">SOAL 1</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="text-xs font-bold mb-1 text-red-400">JIN JAHAT</div>
+                    <div class="hp-bar">
+                        <div id="boss-hp-fill" class="hp-fill hp-boss" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arena -->
+            <div class="arena">
+                <div id="slash-fx" class="slash-fx">⚡</div>
+                <div id="hero-wrapper" class="char-wrapper">
+                    <div class="hero">🧙‍♂️</div>
+                </div>
+                <div id="boss-wrapper" class="char-wrapper">
+                    <div class="boss">👹</div>
+                </div>
+            </div>
+
+            <!-- Quiz Box -->
+            <div class="flex-1 bg-slate-900/80 m-4 rounded-3xl p-6 border border-white/10">
+                <h3 id="question-box" class="text-center text-xl font-bold mb-6 leading-relaxed">
+                    Sedang memanggil soal...
+                </h3>
+                <div id="options-grid" class="grid grid-cols-1 gap-3">
+                    <!-- Buttons here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- End Screen -->
+        <div id="end-screen" class="hidden-screen flex-1 flex flex-col items-center justify-center p-8 text-center">
+            <div id="end-icon" class="text-9xl mb-4">🏆</div>
+            <h1 id="end-title" class="title-font text-4xl mb-2">MISI BERHASIL</h1>
+            <p id="end-desc" class="text-slate-400 mb-8">Hati kamu kini bercahaya terang!</p>
+            <button onclick="location.reload()" class="title-font bg-white text-slate-900 px-10 py-3 rounded-full hover:bg-sky-400 transition-all">
+                MAIN LAGI
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Audio Configuration
+        const sounds = {
+            bgm: new Audio('https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=clover-3-game-level-8313.mp3'),
+            slash: new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_12b0c7443c.mp3?filename=sword-slash-and-swing-185432.mp3'),
+            fire: new Audio('https://cdn.pixabay.com/download/audio/2022/03/10/audio_c3523530c3.mp3?filename=fireball-magic-attack-105711.mp3'),
+            correct: new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3?filename=success-1-6297.mp3'),
+            wrong: new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_bbdec38227.mp3?filename=error-2-126514.mp3'),
+            victory: new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_c3409890f5.mp3?filename=victory-96688.mp3'),
+            fail: new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_32321287e0.mp3?filename=game-over-38511.mp3')
+        };
+
+        sounds.bgm.loop = true;
+        sounds.bgm.volume = 0.4;
+        let isMuted = false;
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            document.getElementById('mute-icon').innerText = isMuted ? '🔇' : '🔊';
+            sounds.bgm.muted = isMuted;
+            Object.values(sounds).forEach(s => s.muted = isMuted);
+        }
+
+        function playSound(name) {
+            if (isMuted) return;
+            const s = sounds[name];
+            if (s) {
+                s.currentTime = 0;
+                s.play().catch(e => console.log("Sound play error:", e));
+            }
+        }
+
+        const questionData = [
+            { 
+                q: "Al-Qur'an diturunkan pada bulan apa?", 
+                a: "Ramadan", 
+                o: ["Syawal", "Ramadan", "Rajab", "Muharram"] 
+            },
+            { 
+                q: "Malam Lailatul Qadr terjadi di bulan apa?", 
+                a: "Ramadan", 
+                o: ["Ramadan", "Dzulhijjah", "Sya'ban", "Rabiul Awwal"] 
+            },
+            { 
+                q: "Dimana Nabi Muhammad SAW menerima wahyu pertama kali?", 
+                a: "Gua Hira", 
+                o: ["Gua Tsur", "Gua Hira", "Masjidil Haram", "Padang Arafah"] 
+            },
+            { 
+                q: "Surat apa yang pertama kali diturunkan kepada Nabi Muhammad?", 
+                a: "Al-Alaq", 
+                o: ["Al-Fatihah", "Al-Alaq", "Al-Ikhlas", "Al-Baqarah"] 
+            },
+            { 
+                q: "Siapakah nama Malaikat pembawa wahyu?", 
+                a: "Malaikat Jibril", 
+                o: ["Malaikat Mikail", "Malaikat Jibril", "Malaikat Israfil", "Malaikat Ridwan"] 
+            },
+            { 
+                q: "Membaca surat Al-Ikhlas pahalanya sama dengan membaca...", 
+                a: "1/3 Al-Qur'an", 
+                o: ["Seluruh Al-Qur'an", "1/2 Al-Qur'an", "1/3 Al-Qur'an", "10 Juz"] 
+            },
+            { 
+                q: "Apa arti dari hukum tajwid Qolqolah?", 
+                a: "Memantul", 
+                o: ["Dengung", "Jelas", "Memantul", "Samar-samar"] 
+            },
+            { 
+                q: "Ayat berapa saja yang pertama kali diturunkan di Gua Hira?", 
+                a: "Ayat 1 - 5", 
+                o: ["Ayat 1 - 10", "Hanya Ayat 1", "Ayat 1 - 5", "Seluruh Surat"] 
+            }
+        ];
+
+        let currentIdx = 0;
+        let lives = 3;
+        let bossHp = 100;
+        let isAttacking = false;
+
+        function initGame() {
+            document.getElementById('start-screen').classList.add('hidden-screen');
+            document.getElementById('battle-screen').classList.remove('hidden-screen');
+            sounds.bgm.play().catch(e => console.log("BGM start blocked"));
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentIdx >= questionData.length) {
+                victory();
+                return;
+            }
+
+            const data = questionData[currentIdx];
+            document.getElementById('level-indicator').innerText = `SOAL ${currentIdx + 1}`;
+            document.getElementById('question-box').innerText = data.q;
+            
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            
+            data.o.forEach(option => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-answer p-4 rounded-2xl text-sm font-bold text-left';
+                btn.innerText = option;
+                btn.onclick = () => handleAnswer(option, data.a);
+                grid.appendChild(btn);
+            });
+        }
+
+        async function handleAnswer(selected, correct) {
+            if (isAttacking) return;
+            isAttacking = true;
+
+            const hero = document.getElementById('hero-wrapper');
+            const boss = document.getElementById('boss-wrapper');
+            const fx = document.getElementById('slash-fx');
+
+            if (selected === correct) {
+                playSound('correct');
+                // Hero Attacks
+                hero.classList.add('attack-right');
+                setTimeout(() => {
+                    playSound('slash');
+                    fx.innerText = "⚔️";
+                    fx.classList.add('animate-slash');
+                    boss.classList.add('take-damage');
+                    bossHp -= (100 / questionData.length);
+                    document.getElementById('boss-hp-fill').style.width = `${Math.max(0, bossHp)}%`;
+                }, 300);
+
+                setTimeout(() => {
+                    hero.classList.remove('attack-right');
+                    boss.classList.remove('take-damage');
+                    fx.classList.remove('animate-slash');
+                    currentIdx++;
+                    isAttacking = false;
+                    loadQuestion();
+                }, 1000);
+            } else {
+                playSound('wrong');
+                // Boss Attacks
+                boss.classList.add('attack-left');
+                setTimeout(() => {
+                    playSound('fire');
+                    fx.innerText = "🔥";
+                    fx.classList.add('animate-slash');
+                    hero.classList.add('take-damage');
+                    lives--;
+                    updateHearts();
+                }, 300);
+
+                setTimeout(() => {
+                    boss.classList.remove('attack-left');
+                    hero.classList.remove('take-damage');
+                    fx.classList.remove('animate-slash');
+                    isAttacking = false;
+                    if (lives <= 0) gameOver();
+                    else loadQuestion();
+                }, 1000);
+            }
+        }
+
+        function updateHearts() {
+            const container = document.getElementById('heart-container');
+            const hearts = container.querySelectorAll('span');
+            document.getElementById('hero-hp-text').innerText = `NYAWA: ${lives}`;
+            if (lives < 3 && hearts[lives]) hearts[lives].style.opacity = '0.2';
+        }
+
+        function victory() {
+            sounds.bgm.pause();
+            playSound('victory');
+            showEndScreen('🏆', 'MISI BERHASIL', 'Pedang Cahaya kamu mengalahkan kegelapan!', 'text-sky-400');
+        }
+
+        function gameOver() {
+            sounds.bgm.pause();
+            playSound('fail');
+            showEndScreen('💀', 'MISI GAGAL', 'Ayo asah lagi hafalanmu!', 'text-red-500');
+        }
+
+        function showEndScreen(icon, title, desc, titleColor) {
+            document.getElementById('battle-screen').classList.add('hidden-screen');
+            document.getElementById('end-screen').classList.remove('hidden-screen');
+            document.getElementById('end-icon').innerText = icon;
+            document.getElementById('end-title').innerText = title;
+            document.getElementById('end-title').className = `title-font text-4xl mb-2 ${titleColor}`;
+            document.getElementById('end-desc').innerText = desc;
+        }
+    </script>
+</body>
+</html>

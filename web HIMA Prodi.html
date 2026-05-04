@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIMA PAI STITMA Yogyakarta 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="HIMA PAI.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar fixed top-0 w-full z-50 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <img src="GAMBAR/Logo Hima.PNG" alt="Logo" class="h-12 w-auto" onerror="this.src='https://via.placeholder.com/50?text=H'">
+            <div class="hidden sm:block">
+                <p class="text-white font-extrabold text-sm tracking-tighter leading-none">HIMA PRODI PAI</p>
+                <p class="text-white/70 text-[10px] uppercase font-medium">STITMA YOGYAKARTA</p>
+            </div>
+        </div>
+
+        <div class="hidden lg:flex items-center gap-10">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">Profil</a>
+            <a href="#" class="nav-link">Sambutan</a>
+            <a href="#" class="nav-link">Proker</a>
+            <a href="#" class="nav-link">Berita</a>
+            <a href="#" class="nav-link">Prestasi</a>
+        </div>
+
+        <div class="flex items-center gap-6 text-white">
+            <div class="p-2 hover:bg-white/10 rounded-full transition cursor-pointer">
+                <i data-lucide="search" class="w-5 h-5"></i>
+            </div>
+            <i data-lucide="menu" class="w-6 h-6 lg:hidden cursor-pointer"></i>
+        </div>
+    </nav>
+
+      <!-- HERO SECTION (ESTETIK DENGAN FOTO) -->
+    <section class="hero-section bg-slate-50 pt-32 pb-24 lg:pt-48 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-10">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Sisi Teks -->
+                <div class="lg:w-1/2 text-center lg:text-left">
+                    <h1 class="text-4xl md:text-6xl font-black text-[#064e3b] leading-tight mb-4">HIMA PRODI PENDIDIKAN AGAMA ISLAM</h1>
+                    <h2 class="text-2xl md:text-3xl font-bold text-amber-500 uppercase tracking-widest mb-8">STITMA Yogyakarta 2026</h2>
+                    
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+                        <a href="#" class="hero-btn"><i data-lucide="home"></i> Home</a>
+                        <a href="#" class="hero-btn"><i data-lucide="user"></i> Profil</a>
+                        <a href="#" class="hero-btn"><i data-lucide="calendar"></i> Proker</a>
+                        <a href="#" class="hero-btn"><i data-lucide="newspaper"></i> Berita</a>
+                        <a href="#" class="hero-btn"><i data-lucide="newspaper"></i> prestasi</a>
+                        <a href="index.html" class="hero-btn"><i data-lucide="newspaper"></i> Galery</a>
+
+                    </div>
+                </div>
+
+                <!-- Sisi Foto Collage (Estetik) -->
+                <div class="lg:w-1/2 relative">
+                    <div class="hero-collage">
+                        <!-- Foto Utama -->
+                        <div class="collage-main">
+                            <img src="GAMBAR/hima pai.JPG" alt="HIMA PAI" class="img-collage-main" onerror="this.src='https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800'">
+                        </div>
+                        <!-- Foto Melayang 1 -->
+                        <div class="collage-sub sub-1">
+                            <img src="GAMBAR/hima pai.JPG" alt="Kegiatan" class="img-collage-sub" onerror="this.src='https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=400'">
+                        </div>
+                        <!-- Foto Melayang 2 -->
+                        <div class="collage-sub sub-2">
+                            <img src="GAMBAR/hima pai.JPG" alt="Kegiatan" class="img-collage-sub" onerror="this.src='https://images.unsplash.com/photo-1524178232363-1fb28f74b583?w=400'">
+                        </div>
+                        <!-- Dekorasi Aksen -->
+                        <div class="collage-dot-pattern"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- VIDEO WAVE SECTION -->
+    <div class="video-container" id="video-wrapper">
+        <video id="hima-video" loop playsinline>
+            <source src="GAMBAR/vidio stitma.mp4" type="video/mp4">
+        </video>
+        
+        <!-- Overlay Tombol Play -->
+        <div class="video-overlay" id="video-ui">
+            <button class="play-trigger" aria-label="Putar Video">
+                <i data-lucide="play"></i>
+            </button>
+            <p class="play-text">Klik here</p>
+        </div>
+    </div>
+
+
+     <!-- PROFILE SECTION -->
+    <section class="py-24 px-10 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-20">
+            <div class="lg:w-2/5 flex justify-center reveal-3d">
+                <!-- LOGO DENGAN ANIMASI 3D ELASTIC POP-IN -->
+                <div class="logo-pop-container">
+                    <img src="GAMBAR/Logo Hima.PNG" alt="Logo Hima" class="logo-3d-elastic" onerror="this.src='https://via.placeholder.com/300?text=HIMA+PAI'">
+                    <div class="logo-shadow"></div>
+                </div>
+            </div>
+            <div class="lg:w-3/5 reveal">
+                <h3 class="text-4xl font-black text-[#064e3b] mb-4 uppercase">Profil HIMA PAI</h3>
+                <p class="text-emerald-600 font-bold text-xl mb-8 italic">"Membangun Peradaban dengan Pendidikan yang Berlandaskan Nilai Islami"</p>
+                <div class="text-gray-600 space-y-6 text-lg leading-relaxed text-justify">
+                    <p>HIMA PAI STITMA Yogyakarta merupakan wadah kolaborasi untuk menciptakan ekosistem yang mendukung pertumbuhan karakter mandiri, kreatif, dan berakhlakul karimah.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SAMBUTAN SECTION (RINGKAS) -->
+    <section class="bg-emerald-800 text-white py-24 px-10" style="clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <h4 class="text-5xl font-black mb-10 opacity-90">KATA SAMBUTAN</h4>
+                <div class="space-y-6 text-xl leading-relaxed opacity-90">
+                    <p class="font-bold">Assalamu’alaikum Warahmatullahi Wabarakatuh.</p>
+                    <p>
+                        Puji syukur kehadirat Allah SWT. Selamat datang di portal resmi HIMA PAI STITMA Yogyakarta. Kami hadir sebagai jembatan aspirasi dan wadah pengembangan diri bagi seluruh mahasiswa PAI.
+                    </p>
+                    <p>
+                        Di era transformasi digital ini, kami berkomitmen untuk terus berinovasi tanpa meninggalkan nilai-nilai luhur keislaman. Mari kita bersinergi demi mewujudkan generasi pendidik yang unggul dan bermartabat.
+                    </p>
+                    <div class="pt-8">
+                        <p class="text-3xl font-black text-amber-400">Hadi Aulia</p>
+                        <p class="text-white/60 font-medium tracking-widest text-sm mt-1 uppercase">Ketua Umum HIMA PAI 2026</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <div class="max-w-sm rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20">
+                    <img src="GAMBAR/Hadi Auliya.jpeg" alt="Ketua" class="w-full h-auto" onerror="this.src='https://via.placeholder.com/400x500?text=KETUA'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISI & MISI (SESUAI GAMBAR) -->
+    <section class="py-24 px-10 bg-slate-50">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-center text-4xl font-black text-[#064e3b] mb-12">VISI</h3>
+            <div class="visi-card">
+                <p class="text-2xl italic font-semibold text-gray-700 leading-relaxed">
+                    "Terwujudnya HIMA PAI STITMA YOGYAKARTA sebagai wadah gerakan mahasiswa yang transformasional, sinergis, inklusif, dan proaktif, guna mewujudkan lingkungan akademik yang islami dan berdaya saing global."
+                </p>
+            </div>
+
+            <h3 class="text-center text-4xl font-black text-[#064e3b] mb-12 mt-20">MISI</h3>
+            <div class="misi-grid">
+                <div class="misi-card">
+                    <i data-lucide="users" class="w-10 h-10 text-emerald-700 mb-4"></i>
+                    <h5 class="font-bold text-xl mb-3">High-Impact Collaboration</h5>
+                    <p class="text-gray-600">Membangun jaringan inklusif dan kolaboratif dengan berbagai pihak demi kemajuan ukhuwah.</p>
+                </div>
+                <div class="misi-card">
+                    <i data-lucide="trending-up" class="w-10 h-10 text-emerald-700 mb-4"></i>
+                    <h5 class="font-bold text-xl mb-3">Student Development</h5>
+                    <p class="text-gray-600">Mengembangkan potensi mahasiswa melalui program akademik dan spiritual yang inovatif.</p>
+                </div>
+                <div class="misi-card">
+                    <i data-lucide="zap" class="w-10 h-10 text-emerald-700 mb-4"></i>
+                    <h5 class="font-bold text-xl mb-3">Breakthrough Movement</h5>
+                    <p class="text-gray-600">Menciptakan gerakan mahasiswa yang terstruktur, masif, dan berani untuk kebenaran.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+   <!-- SECTION BPH (REVISI FINAL: PROFESIONAL & NEAT) -->
+    <section class="py-32 bg-slate-50 px-10">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="section-title-wrapper mb-24 reveal">
+                <div class="section-title-btn">Badan Pengurus Harian</div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- Ketua -->
+                <div class="bph-card-wrapper reveal-stagger">
+                    <div class="bph-photo-outer">
+                        <div class="bph-photo-inner">
+                            <img src="GAMBAR/Hadi Auliya.jpeg" alt="Ketua">
+                        </div>
+                    </div>
+                    <h4 class="bph-name">Hadi Auliya</h4>
+                    <p class="bph-role">Ketua Umum</p>
+                    <div class="bph-socials">
+                        <a href="#" class="bph-social-link"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                        <a href="#" class="bph-social-link"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+
+                <!-- Wakil -->
+                <div class="bph-card-wrapper reveal-stagger">
+                    <div class="bph-photo-outer">
+                        <div class="bph-photo-inner">
+                            <img src="https://via.placeholder.com/200?text=Wakil" alt="Wakil">
+                        </div>
+                    </div>
+                    <h4 class="bph-name">Syauqi Amali</h4>
+                    <p class="bph-role">Wakil Ketua</p>
+                    <div class="bph-socials">
+                        <a href="#" class="bph-social-link"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+
+                <!-- Sekretaris -->
+                <div class="bph-card-wrapper reveal-stagger">
+                    <div class="bph-photo-outer">
+                        <div class="bph-photo-inner">
+                            <img src="https://via.placeholder.com/200?text=Sekre" alt="Sekretaris">
+                        </div>
+                    </div>
+                    <h4 class="bph-name">Saidul Mukhtar</h4>
+                    <p class="bph-role">Sekretaris Umum</p>
+                    <div class="bph-socials">
+                        <a href="#" class="bph-social-link"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+
+                <!-- Bendahara -->
+                <div class="bph-card-wrapper reveal-stagger">
+                    <div class="bph-photo-outer">
+                        <div class="bph-photo-inner">
+                            <img src="Gambar/Thabriani.png" alt="Bendahara">
+                        </div>
+                    </div>
+                    <h4 class="bph-name">Thabriani</h4>
+                    <p class="bph-role">Bendahara Umum</p>
+                    <div class="bph-socials">
+                        <a href="#" class="bph-social-link"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEPARTEMEN ORGANISASI (REVISI SESUAI GAMBAR REFERENSI) -->
+    <section class="py-24 dept-section-bg px-10 overflow-hidden">
+             <div class="max-w-7xl mx-auto text-center">
+            <div class="section-title-wrapper mb-20 reveal">
+                <div class="section-title-btn">Departemen Organisasi</div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Dept 1 -->
+                <div class="dept-card-new reveal" onclick="window.location.href='dept-pendidikan.html'">
+                    <div class="dept-img-box">
+                        <img src="Gambar/Diklitera.png" alt="Pendidikan" class="dept-logo-inner">
+                    </div>
+                    <div class="dept-content">
+                        <h5 class="dept-title">Departemen Pendidikan & Literasi</h5>
+                        <p class="dept-desc">Berfokus pada pengembangan intelektual mahasiswa melalui program bedah buku, diskusi ilmiah, dan penguatan literasi islami.</p>
+                    </div>
+                </div>
+
+                <!-- Dept 2 -->
+                <div class="dept-card-new reveal" onclick="window.location.href='dept-humas.html'">
+                    <div class="dept-img-box">
+                        <img src="Gambar/Humas.png" alt="Humas" class="dept-logo-inner">
+                    </div>
+                    <div class="dept-content">
+                        <h5 class="dept-title">Departemen Hubungan Masyarakat</h5>
+                        <p class="dept-desc">Membangun sinergi antar civitas akademika dan menjalin kerjasama strategis dengan organisasi eksternal kampus.</p>
+                    </div>
+                </div>
+
+                <!-- Dept 3 -->
+                <div class="dept-card-new reveal" onclick="window.location.href='dept-kewirausahaan.html'">
+                    <div class="dept-img-box">
+                        <img src="Gambar/Kewiraushaan.png" alt="Usaha" class="dept-logo-inner">
+                    </div>
+                    <div class="dept-content">
+                        <h5 class="dept-title">Departemen Kewirausahaan</h5>
+                        <p class="dept-desc">Wadah inkubasi kreativitas ekonomi mahasiswa demi kemandirian organisasi dan pengembangan jiwa entrepreneurship.</p>
+                    </div>
+                </div>
+
+                <!-- Dept 4 -->
+                <div class="dept-card-new reveal" onclick="window.location.href='dept-kominfo.html'">
+                    <div class="dept-img-box">
+                        <img src="Gambar/Kominfo.jpg" alt="Kominfo" class="dept-logo-inner">
+                    </div>
+                    <div class="dept-content">
+                        <h5 class="dept-title">Departemen Kominfo</h5>
+                        <p class="dept-desc">Pusat informasi dan dokumentasi seluruh kegiatan HIMA PAI melalui media digital yang inovatif dan edukatif.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROKER SECTION (REVISI FINAL: PROFESIONAL HIJAU) -->
+    <section class="py-32 proker-ultimate-bg px-10 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10 text-center">
+            <div class="proker-header-refined reveal-scale">
+                <div class="proker-bg-text">Outstanding</div>
+                <span class="proker-luxury-label">Program Unggulan HIMA PAI</span>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Proker 1 -->
+                <div class="proker-premium-card reveal-stagger">
+                    <div class="p-card-header"><img src="Gambar/coming soon.png" class="p-card-img" alt="Social"></div>
+                    <div class="p-card-body text-left">
+                        <span class="p-card-category">Social Impact</span>
+                        <h5 class="p-card-title">PAI Humanity Action</h5>
+                        <p class="p-card-desc">Gerakan filantropi dan pengabdian masyarakat berkelanjutan.</p>
+                        <button class="p-card-btn-minimal"><i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+                <!-- Proker 2 -->
+                <div class="proker-premium-card reveal-stagger">
+                    <div class="p-card-header"><img src="Gambar/coming soon.png" class="p-card-img" alt="Fest"></div>
+                    <div class="p-card-body text-left">
+                        <span class="p-card-category">Achievement</span>
+                        <h5 class="p-card-title">National Islamic Fest</h5>
+                        <p class="p-card-desc">Kompetisi bakat dan seni islami tingkat nasional.</p>
+                        <button class="p-card-btn-minimal"><i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+                <!-- Proker 3 -->
+                <div class="proker-premium-card reveal-stagger">
+                    <div class="p-card-header"><img src="Gambar/coming soon.png" class="p-card-img" alt="Talk"></div>
+                    <div class="p-card-body text-left">
+                        <span class="p-card-category">Literacy</span>
+                        <h5 class="p-card-title">LITERA-Z Dialogue</h5>
+                        <p class="p-card-desc">Bedah buku eksklusif bersama publik figur.</p>
+                        <button class="p-card-btn-minimal"><i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+                <!-- Proker 4 -->
+                <div class="proker-premium-card reveal-stagger">
+                    <div class="p-card-header"><img src="Gambar/coming soon.png" class="p-card-img" alt="Research"></div>
+                    <div class="p-card-body text-left">
+                        <span class="p-card-category">Academic</span>
+                        <h5 class="p-card-title">PAI Research Summit</h5>
+                        <p class="p-card-desc">Simposium nasional penelitian mahasiswa PAI.</p>
+                        <button class="p-card-btn-minimal"><i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+                <!-- Proker 5 -->
+                <div class="proker-premium-card reveal-stagger">
+                    <div class="p-card-header"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600" class="p-card-img" alt="Teaching"></div>
+                    <div class="p-card-body text-left">
+                        <span class="p-card-category">Service</span>
+                        <h5 class="p-card-title">HIMA Teaching</h5>
+                        <p class="p-card-desc">Program mahasiswa mengajar di sekolah pelosok.</p>
+                        <button class="p-card-btn-minimal"><i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+                <!-- Proker 6 -->
+                <div class="proker-premium-card reveal-stagger">
+                    <div class="p-card-header"><img src="https://images.unsplash.com/photo-1519817650390-64a93db51149?w=600" class="p-card-img" alt="Spirit"></div>
+                    <div class="p-card-body text-left">
+                        <span class="p-card-category">Character</span>
+                        <h5 class="p-card-title">Spiritual Glow Up</h5>
+                        <p class="p-card-desc">Kajian spiritual dengan gaya hidup islami.</p>
+                        <button class="p-card-btn-minimal"><i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- BERITA TERBARU (VANILLA MAGAZINE) -->
+    <section class="py-32 news-section-vanilla px-10 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="news-header-magazine reveal">
+                <span class="news-brand-label">Official Bulletins</span>
+                <h2 class="news-main-title">Berita & Informasi <span>HIMA PAI</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                <!-- Card 1 -->
+                <div class="news-card-magazine reveal">
+                    <div class="n-img-container-full"><img src="Gambar/sapa.jpeg" class="n-img-full" alt="SAPA"></div>
+                    <div class="n-content-magazine">
+                        <div class="n-date-top">08 FEBRUARI 2026 • LITERASI</div>
+                        <h4 class="n-title-magazine">SAPA: Sarasehan Pembaca Aktif Pertemuan Perdana</h4>
+                        <p class="n-desc-magazine">Pertemuan perdana sarasehan yang memupuk gagasan intelektual kolektif bagi mahasiswa PAI STITMA.</p>
+                        <a href="#" class="n-link-btn">Lihat Selengkapnya <i data-lucide="chevron-right" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="news-card-magazine reveal">
+                    <div class="n-img-container-full"><img src="Gambar/gigih.jpeg" class="n-img-full" alt="Gigih"></div>
+                    <div class="n-content-magazine">
+                        <div class="n-date-top">31 JANUARI 2026 • PRESTASI</div>
+                        <h4 class="n-title-magazine">HIMA PAI Sabet Juara 3 Lomba Fiqih Nasional</h4>
+                        <p class="n-desc-magazine">Capaian membanggakan oleh Gigih Hadi Nugroho Sa’id di ajang Cendekia Islamic Competition 2026.</p>
+                        <a href="#" class="n-link-btn">Lihat Selengkapnya <i data-lucide="chevron-right" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="news-card-magazine reveal">
+                    <div class="n-img-container-full"><img src="Gambar/Pelantikan.png" class="n-img-full" alt="Pelantikan"></div>
+                    <div class="n-content-magazine">
+                        <div class="n-date-top">24 JANUARI 2026 • ORGANISASI</div>
+                        <h4 class="n-title-magazine">Resmi! Pelantikan Pengurus Periode 2025/2026</h4>
+                        <p class="n-desc-magazine">Kepengurusan baru siap mengemban amanah demi membawa transformasi positif bagi kampus STITMA.</p>
+                        <a href="#" class="n-link-btn">Lihat Selengkapnya <i data-lucide="chevron-right" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-24">
+                <button class="news-load-btn-dark reveal shadow-2xl">Arsip Berita Terbaru</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER PREMIUM -->
+    <footer>
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            <div class="col-span-1 md:col-span-1">
+                <img src="GAMBAR/Logo Hima.PNG" alt="Logo" class="h-20 mb-6 brightness-0 invert opacity-80">
+                <h5 class="text-2xl font-black mb-2">HIMA PAI STITMA</h5>
+                <p class="text-white/50 text-sm leading-relaxed">Wadah gerakan mahasiswa Pendidikan Agama Islam yang transformasional dan berdaya saing global.</p>
+            </div>
+            
+            <div>
+                <h6 class="font-bold text-amber-400 mb-6 uppercase tracking-widest text-sm">Navigasi Cepat</h6>
+                <ul class="space-y-3 text-white/70">
+                    <li><a href="#" class="hover:text-white transition">Tentang Kami</a></li>
+                    <li><a href="#" class="hover:text-white transition">Program Kerja</a></li>
+                    <li><a href="#" class="hover:text-white transition">Departemen</a></li>
+                    <li><a href="#" class="hover:text-white transition">Prestasi</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h6 class="font-bold text-amber-400 mb-6 uppercase tracking-widest text-sm">Hubungi Kami</h6>
+                <ul class="space-y-4 text-white/70">
+                    <li class="flex items-start gap-3"><i data-lucide="map-pin" class="w-5 h-5 text-emerald-400"></i> Yogyakarta, Indonesia</li>
+                    <li class="flex items-center gap-3"><i data-lucide="mail" class="w-5 h-5 text-emerald-400"></i> himapai@stitma.ac.id</li>
+                    <li class="flex items-center gap-3"><i data-lucide="phone" class="w-5 h-5 text-emerald-400"></i> +62 812 3456 7890</li>
+                </ul>
+            </div>
+
+            <div>
+                <h6 class="font-bold text-amber-400 mb-6 uppercase tracking-widest text-sm">Ikuti Media Sosial</h6>
+                <div class="flex gap-4">
+                    <a href="#" class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center hover:bg-emerald-500 hover:text-white transition"><i data-lucide="instagram"></i></a>
+                    <a href="#" class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center hover:bg-emerald-500 hover:text-white transition"><i data-lucide="youtube"></i></a>
+                    <a href="#" class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center hover:bg-emerald-500 hover:text-white transition"><i data-lucide="facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-white/10 pt-8 text-center text-white/30 text-xs">
+            &copy; 2026 HIMA PAI STITMA YOGYAKARTA. Seluruh Hak Cipta Dilindungi.
+        </div>
+    </footer>
+
+  <script src="HIMA Prodi.js"></script>
+</body>
+</html>
